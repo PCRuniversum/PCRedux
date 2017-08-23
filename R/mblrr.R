@@ -11,7 +11,7 @@
 #' @keywords segmented regression
 #' @examples
 #' 
-#' # Perfrom an mblrr analysis on noise (negative) amplification data of
+#' # Perfrom an mblrr analysis on noise (negative) amplification data of qPCR data
 #' # with 35 cycles.
 #'
 #' mblrr(x=1:35, y=rnorm(35))
