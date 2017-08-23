@@ -1,0 +1,21 @@
+---
+title: "PCRedux package - an overview"
+author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz" 
+date: "2017-09-15"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+bibliography: "PCRedux.bib"
+vignette: >
+  %\VignetteIndexEntry{PCRedux package - an overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+**PCRedux** is an R package designed to perform analysis of quantitative PCR (qPCR) experiments. This vignette covers important features of the package and should be used as an addendum to the manual.
+
+The `PCRedux` package contains function and data sets for machine learning on 
+quantitative PCR data in R. There are numerous software packages for R which can 
+be used for the analysis of quantitative PCR (qPCR) data [@rodiger_r_2015, @pabinger_survey_2014].
+  
+# References
