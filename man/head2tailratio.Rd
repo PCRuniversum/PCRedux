@@ -2,7 +2,7 @@
 % Please edit documentation in R/head2tailratio.R
 \name{head2tailratio}
 \alias{head2tailratio}
-\title{A function to calculate to head to tail ratio of amplific curve data 
+\title{A function to calculate to head to tail ratio of amplification curve data 
 from a quantitative PCR experiment}
 \usage{
 head2tailratio(y)

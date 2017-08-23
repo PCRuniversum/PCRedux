@@ -1,4 +1,4 @@
-#' A function to calculate to head to tail ratio of amplific curve data 
+#' A function to calculate to head to tail ratio of amplification curve data 
 #' from a quantitative PCR experiment
 #' 
 #' \code{head2tailratio} is a function to calculate the ratio of the head and the

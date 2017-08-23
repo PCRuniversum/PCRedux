@@ -1,8 +1,8 @@
-#' A function to calculate the slope and intercept of an amplific curve data 
+#' A function to calculate the slope and intercept of an amplification curve data 
 #' from a quantitative PCR experiment.
 #' 
 #' \code{earlyreg} is a function to calculate the slope and intercept of an 
-#' amplific curve data from a quantitative PCR experiment.
+#' amplification curve data from a quantitative PCR experiment.
 #' 
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @author Stefan Roediger, Michal Burdukiewcz

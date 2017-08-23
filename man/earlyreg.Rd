@@ -2,7 +2,7 @@
 % Please edit documentation in R/earlyreg.R
 \name{earlyreg}
 \alias{earlyreg}
-\title{A function to calculate the slope and intercept of an amplific curve data 
+\title{A function to calculate the slope and intercept of an amplification curve data 
 from a quantitative PCR experiment.}
 \usage{
 earlyreg(x, y, range = 10)
@@ -12,7 +12,7 @@ earlyreg(x, y, range = 10)
 }
 \description{
 \code{earlyreg} is a function to calculate the slope and intercept of an 
-amplific curve data from a quantitative PCR experiment.
+amplification curve data from a quantitative PCR experiment.
 }
 \examples{
 

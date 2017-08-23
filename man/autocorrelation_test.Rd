@@ -2,7 +2,7 @@
 % Please edit documentation in R/autocorrelation_test.R
 \name{autocorrelation_test}
 \alias{autocorrelation_test}
-\title{A function to the autocorrelation of amplific curve data 
+\title{A function to the autocorrelation of amplification curve data 
 from a quantitative PCR experiment}
 \usage{
 autocorrelation_test(y, n = 3, sig.level = 0.01)

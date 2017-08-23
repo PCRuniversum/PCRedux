@@ -1,4 +1,4 @@
-#' A function to the autocorrelation of amplific curve data 
+#' A function to the autocorrelation of amplification curve data 
 #' from a quantitative PCR experiment
 #' 
 #' \code{autocorrelation_test} is a function an autocorrelation analysis
