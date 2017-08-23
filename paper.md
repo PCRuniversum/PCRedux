@@ -14,7 +14,7 @@ authors:
 affiliations:
  - name: Brandenburg University of Technology Cottbus-Senftenberg; Senftenberg, Brandenburg, Germany
  index: 1
- - name: 	Uniwersytet Wrocławski: Wrocław, Poland
+ - name: Uniwersytet Wrocławski: Wrocław, Poland
    index: 2
 date: 10 September 2017
 bibliography: paper.bib
