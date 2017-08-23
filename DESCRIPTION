@@ -1,0 +1,10 @@
+Package: PCRedux
+Type: Package
+Title: quantitative PCR machine learning helper tool
+Version: 0.0.1
+Date: 2017-08-23
+Author: Stefan Roediger
+Maintainer: Stefan Roediger <yourfault@somewhere.net>
+Description: quantitative PCR machine learning helper tool
+License: GPL-3
+RoxygenNote: 6.0.1
