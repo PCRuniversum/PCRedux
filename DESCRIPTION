@@ -2,27 +2,27 @@ Package: PCRedux
 Type: Package
 Title: quantitative PCR machine learning helper tool
 Version: 0.0.1
-LazyData: true
 Date: 2017-08-23
 Authors@R: c(person("Stefan", "Roediger", email = "stefan.roedigier@b-tu.de", role = c("cre", "aut")),
              person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("aut")))
-Description: quantitative PCR machine learning helper tool
-License: GPL-3
+Description: quantitative PCR machine learning helper tool. This package extracts feautures from amplification curve data for machine learning purposes.
+License: GPL (>= 2) | BSD_3_clause + file LICENSE
 URL: https://github.com/devSJR/PCRedux
 BugReports: https://github.com/devSJR/PCRedux/issues
 Depends:
     R (>= 3.4.0),
-    methods
+    doParallel
 Imports:
-    bcp, 
-    changepoint, 
-    chipPCR, 
-    doParallel,
-    ecp, 
+    bcp,
+    changepoint,
+    chipPCR,
+    ecp,
     magrittr,
-    pracma, 
+    pracma,
     qpcR,
     robustbase,
+    stats,
+    utils,
     zoo
 NeedsCompilation: no
 RoxygenNote: 6.0.1

@@ -4,7 +4,7 @@
 #' \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr) 
 #' from a quantitative PCR experiment.
 #' 
-#' @param x is the cycles.
+#' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param sig.level is the significance level for the correlation test.
 #' @author Stefan Roediger, Michal Burdukiewcz
@@ -23,8 +23,8 @@ function(x, y, sig.level=0.01) {
             res_more_than_median <- y > median(y)
             
             if(class(res_less_than_median) == "logical" && class(res_less_than_median) == "logical") {
-                res_less_than_median_lm <- try(robustbase::lmrob(y[res_less_than_median] ~ x[res_less_than_median]), silent=TRUE)
-                res_more_than_median_lm <- try(robustbase::lmrob(y[res_more_than_median] ~ x[res_more_than_median]), silent=TRUE)
+                res_less_than_median_lm <- try(lmrob(y[res_less_than_median] ~ x[res_less_than_median]), silent=TRUE)
+                res_more_than_median_lm <- try(lmrob(y[res_more_than_median] ~ x[res_more_than_median]), silent=TRUE)
                 
                 if(class(res_less_than_median_lm) != "try-error" & class(res_more_than_median_lm) != "try-error"){
                     res_less_than_median_cor.test <- try(cor.test(x[res_less_than_median], y[res_less_than_median]), silent=TRUE)

@@ -8,7 +8,7 @@ from a quantitative PCR experiment}
 mblrr(x, y, sig.level = 0.01)
 }
 \arguments{
-\item{x}{is the cycles.}
+\item{x}{is the cycle numbers (x-axis).}
 
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 

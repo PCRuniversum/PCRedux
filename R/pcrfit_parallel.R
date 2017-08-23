@@ -6,7 +6,7 @@
 #' to make use of multi-core architectures.
 #' 
 #' @param data is the data set containing the cycles and fluorescence amplitudes.
-#' @param defines the numbers of cores that should be left unused by this function. By default is pcrfit_parallel using all cores.
+#' @param less_cores defines the numbers of cores that should be left unused by this function. By default is pcrfit_parallel using all cores.
 #' @param detection_chemistry contains additional meta information about the detection chemistry (e.g., probes, intercalating dye) that was used.
 #' @param device contains additional meta information about the qPCR system that was used.
 #' @author Stefan Roediger, Michal Burdukiewcz
@@ -16,7 +16,7 @@
 #' # Calculate curve features of an amplification curve data set by using all 
 #' # available CPU cores.
 #'
-#' pcrfit_parallel(1:35, y=rnorm(35), range=3:11)
+#' # T.B.D.
 #' 
 #' @export pcrfit_parallel
 
@@ -27,7 +27,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
     registerDoParallel(n_cores)
     
     # Prepare the data for further processing
-    # Normalize RFU values to the alpha quantile 0.999
+    # Normalize RFU values to the alpha quantiles (0.999)
     cycles <- data.frame(cycles=data[, 1])
     data_RFU <- data.frame(data[, -1])
     data_RFU_colnames <- colnames(data_RFU)
@@ -86,7 +86,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
     res_tmp <- foreach(block=unique(cuts), 
                        .packages=c("bcp", "changepoint", "chipPCR", "ecp", 
                                    "pracma", "qpcR", "robustbase", "zoo"), 
-                       .combine=cbind) %dopar% {
+                       .combine=cbind, .export=c("simple_fn")) %dopar% {
         
         # Combine the cycle values and a specific data block that was previously 
         # cutted from the input data

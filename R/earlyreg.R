@@ -4,7 +4,9 @@
 #' \code{earlyreg} is a function to calculate the slope and intercept of an 
 #' amplification curve data from a quantitative PCR experiment.
 #' 
+#' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
+#' @param range is the number of cycles to be used for the regression.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords slope intercept
 #' @examples
@@ -12,7 +14,7 @@
 #' # Calculate slope and intercept on noise (negative) amplification curve data
 #' # for the cycles 2 to 10.
 #'
-#' earlyreg(1:35, y=rnorm(35), range=3:11)
+#' earlyreg(x=1:35, y=rnorm(35), range=10)
 #' 
 #' @export earlyreg
 
