@@ -17,12 +17,14 @@ affiliations:
  - name: Uniwersytet Wrocławski: Wrocław, Poland
    index: 2
 date: 10 September 2017
-bibliography: paper.bib
+bibliography: vignettes/PCRedux.bib
 ---
 
 # Summary
 
-The `PCRedux` package contains function and data sets for machine learning on quantitative PCR data in R.
+The `PCRedux` package contains function and data sets for machine learning on 
+quantitative PCR data in R. There are numerous software packages for R which can 
+be used for the analysis of quantitative PCR (qPCR) data [@rodiger_r_2015, @pabinger_survey_2014].
 
 - A summary describing the high-level functionality and purpose of the software
 for a diverse, non-specialist audience
