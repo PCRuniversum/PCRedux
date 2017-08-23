@@ -79,8 +79,13 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                   "amp.stop_normalized",
                   "autocorellation",
                   "detection_chemistry",
-                  "device"
-    )
+                  "device",
+                  "mblrr_intercept_less",
+                  "mblrr_slope_less",
+                  "mblrr_cor_less",
+                  "mblrr_intercept_more",
+                  "mblrr_slope_more",
+                  "mblrr_cor_more")
     
     # Do the parallel analysis
     res_tmp <- foreach(block=unique(cuts), 
@@ -110,7 +115,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
             res_head_tail_ratio <- head2tailratio(dat[, bc])
             
             # Determine the slope from the cycles 2 to 11
-            res_lm_fit <- pcrfit_parallel(x= dat[, 1], dat[, bc])
+            res_lm_fit <- earlyreg(x= dat[, 1], dat[, bc])
             
             # Calculates the area of the amplification curve
             res_polyarea <- try(polyarea(dat[, 1], dat[, bc]), silent=TRUE)

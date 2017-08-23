@@ -22,7 +22,7 @@ autocorrelation_test <- function(y, n=3, sig.level=0.01) {
             if(class(cycle_RFU) != "try-error") {
                 cycle_RFU_n <- lag(cycle_RFU, k=-n, na.pad=TRUE)
                 res_autocorrelation <- cor.test(cycle_RFU[!is.na(cycle_RFU_n)], cycle_RFU_n[!is.na(cycle_RFU_n)])
-                if(res_autocorrelation$p.value <= 0.01) {
+                if(res_autocorrelation$p.value <= sig.level) {
                     res_autocorrelation <- res_autocorrelation$estimate
                 } else {
                     res_autocorrelation <- "n.s."
