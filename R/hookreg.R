@@ -37,13 +37,11 @@ hookreg <- function(x, y) {
     # Regression for putative hook range   
     res_lm_fit <- try(coefficients(lmrob(y[range] ~ x[range])), silent=TRUE)
     
-    if(class(res_lm_fit) == "try-error") {
-        res_lm_fit <- c(NA, NA)
-        }
+    if(class(res_lm_fit) == "try-error") {res_lm_fit <- c(0, 0)}
     names(res_lm_fit) <- c("intercept", "slope")
     res_lm_fit
     } else {
-        res_lm_fit <- c(NA, NA)
+        res_lm_fit <- c(0, 0)
         names(res_lm_fit) <- c("intercept", "slope")
         res_lm_fit
     }

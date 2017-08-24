@@ -85,13 +85,16 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                   "mblrr_cor_less",
                   "mblrr_intercept_more",
                   "mblrr_slope_more",
-                  "mblrr_cor_more")
+                  "mblrr_cor_more",
+                  "hookreg_slope",
+                  "hookreg_intercept")
     
     # Do the parallel analysis
     res_tmp <- foreach(block=unique(cuts), 
                        .packages=c("bcp", "changepoint", "chipPCR", "ecp", 
-                                   "pracma", "qpcR", "robustbase", "zoo"), 
-                       .combine=cbind, .export=c("simple_fn")) %dopar% {
+                                   "PCRedux", "pracma", "qpcR", "robustbase", 
+                                   "zoo"), .combine=cbind, 
+                                   .export=c("simple_fn")) %dopar% {
         
         # Combine the cycle values and a specific data block that was previously 
         # cutted from the input data
@@ -100,7 +103,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
         column_names <- colnames(dat)
         
         res_block <- sapply(2L:ncol(dat), function(bc) {
-            
+
             # Determine highest and lowest amplification curve values
             fluo_range <- quantile(dat[, bc], c(0.01, 0.99))
             
@@ -117,23 +120,30 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
             # Determine the slope from the cycles 2 to 11
             res_lm_fit <- earlyreg(x= dat[, 1], dat[, bc])
             
+            # Try to estimate the slope and the intercept of the tail region,
+            # which might be indicative of a hook effect (strong negative slope)
+            res_hookreg <- hookreg(x= dat[, 1], dat[, bc])
+            
             # Calculates the area of the amplification curve
             res_polyarea <- try(polyarea(dat[, 1], dat[, bc]), silent=TRUE)
             if(class(res_polyarea) == "try-error") {res_polyarea <- NA}
             
             # Calculate change points
             # Agglomerative hierarchical estimation algorithm for multiple change point analysis
-            res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates)/length_cycle, silent=TRUE)
+#             res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates)/length_cycle, silent=TRUE)
+            res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates), silent=TRUE)
             if(class(res_changepoint_e.agglo) == "try-error") {res_changepoint_e.agglo <- NA}
             
             # Binary Segmentation
-            res_changepoint_cpt.mean <- try(length(cpt.meanvar(as.matrix(dat[, bc]), penalty="CROPS",method="PELT")@param.est)/length_cycle, silent=TRUE)
+#             res_changepoint_cpt.mean <- try(length(cpt.meanvar(as.matrix(dat[, bc]), penalty="CROPS",method="PELT")@param.est)/length_cycle, silent=TRUE)
+            res_changepoint_cpt.mean <- try(length(cpt.meanvar(as.matrix(dat[, bc]), penalty="CROPS",method="PELT")@param.est), silent=TRUE)
             if(class(res_changepoint_cpt.mean) == "try-error") {res_changepoint_cpt.mean <- NA}
             
             # Bayesian analysis of change points
             res_bcp_tmp <- bcp(dat[, bc])            
             res_bcp_tmp <- res_bcp_tmp$posterior.prob > 0.45
-            res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length)/length_cycle)
+#             res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length)/length_cycle)
+            res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length))
             if(class(res_bcp) == "try-error") {res_bcp <- NA}
             
             # Median based local robust regression (mblrr)
@@ -165,13 +175,12 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                 # Calculation of qPCR efficiency by the 'linear regression of 
                 # efficiency' method
                 
-                res_LRE <- try(LRE(res_fit, wsize=5, border=c(0,3), base=0, 
-                                   plot=FALSE, verbose=FALSE)$eff, silent=TRUE)
+                res_LRE <- try(LRE(res_fit, plot=FALSE, verbose=FALSE)$eff, silent=TRUE)
                 if(class(res_LRE) == "try-error") {res_LRE <- NA}
                 
                 # sliwin qPCR efficiency
                 # Calculation of the qPCR efficiency by the 'window-of-linearity' method
-                res_sliwin <- try(sliwin(res_fit, wsize=5, plot=FALSE, verbose=FALSE)$eff, 
+                res_sliwin <- try(sliwin(res_fit, plot=FALSE, verbose=FALSE)$eff, 
                                   silent=TRUE)
                 if(class(res_sliwin) == "try-error") {res_sliwin <- NA}
                 
@@ -183,8 +192,12 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                                                       "fluo",
                                                       "init1", "init2")], 
                                           silent=TRUE)
-                res_cpDdiff <- try(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
-                
+                if(class(res_efficiency_tmp) != "try-error") {                        
+                    res_cpDdiff <- try(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
+                } else {
+                    res_efficiency_tmp <- list(NA, NA, NA, NA, NA, NA)
+                    res_cpDdiff <- NA
+                }
             } else {
                 res_efficiency_tmp <- list(NA, NA, NA, NA, NA, NA)
                 res_takeoff <- list(NA, NA)
@@ -234,7 +247,9 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                     mblrr_cor_less=res_mblrr[3],
                     mblrr_intercept_more=res_mblrr[4],
                     mblrr_slope_more=res_mblrr[5],
-                    mblrr_cor_more=res_mblrr[6]                    
+                    mblrr_cor_more=res_mblrr[6],
+                    hookreg_slope=res_hookreg[["slope"]],
+                    hookreg_intercept=res_hookreg[["intercept"]]
                 )
         })
     }
