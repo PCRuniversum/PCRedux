@@ -11,6 +11,9 @@ authors:
  - name: Michał Burdukiewicz
    orcid: 0000-0001-8926-582X
    affiliation: 2
+ - name: Roy-Arne Senkel
+   orcid: 0000-0001-6139-9471
+   affiliation: 1
 affiliations:
  - name: Brandenburg University of Technology Cottbus-Senftenberg; Senftenberg, Brandenburg, Germany
  index: 1
