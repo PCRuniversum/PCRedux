@@ -24,5 +24,7 @@ Imports:
     stats,
     utils,
     zoo
+Suggests:
+    data.table
 NeedsCompilation: no
 RoxygenNote: 6.0.1
