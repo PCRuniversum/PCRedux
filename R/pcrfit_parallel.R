@@ -15,9 +15,10 @@
 #' 
 #' # Calculate curve features of an amplification curve data set by using all 
 #' # available CPU cores.
-#'
-#' # T.B.D.
-#' 
+#' library(qpcR)
+#' res_pcrfit_parallel <- pcrfit_parallel(boggy[, 1:7])
+#' res_pcrfit_parallel
+#'  
 #' @export pcrfit_parallel
 
 pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=NA) {
@@ -32,7 +33,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
     data_RFU <- data.frame(data[, -1])
     data_RFU_colnames <- colnames(data_RFU)
     data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
-    data_RFU[, i] / quantile(data_RFU[, i], 0.999)
+        data_RFU[, i] / quantile(data_RFU[, i], 0.999)
     })
     colnames(data_RFU) <- data_RFU_colnames
     
@@ -61,7 +62,6 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                   "intercept_background",
                   "polyarea",
                   "changepoint.e.agglo",
-                  "changepoint.cpt.mean",
                   "changepoint.bcp",
                   "qPCRmodel",
                   "amptester_shap.noisy",
@@ -133,12 +133,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
 #             res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates)/length_cycle, silent=TRUE)
             res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates), silent=TRUE)
             if(class(res_changepoint_e.agglo) == "try-error") {res_changepoint_e.agglo <- NA}
-            
-            # Binary Segmentation
-#             res_changepoint_cpt.mean <- try(length(cpt.meanvar(as.matrix(dat[, bc]), penalty="CROPS",method="PELT")@param.est)/length_cycle, silent=TRUE)
-            res_changepoint_cpt.mean <- try(length(cpt.meanvar(as.matrix(dat[, bc]), penalty="CROPS",method="PELT")@param.est), silent=TRUE)
-            if(class(res_changepoint_cpt.mean) == "try-error") {res_changepoint_cpt.mean <- NA}
-            
+                       
             # Bayesian analysis of change points
             res_bcp_tmp <- bcp(dat[, bc])            
             res_bcp_tmp <- res_bcp_tmp$posterior.prob > 0.45
@@ -223,7 +218,6 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                     intercept_background=res_lm_fit[["intercept"]],
                     polyarea=res_polyarea,
                     changepoint.e.agglo=res_changepoint_e.agglo,
-                    changepoint.cpt.mean=res_changepoint_cpt.mean,
                     changepoint.bcp=res_bcp,
                     qPCRmodel=res_fit_model[[1]],
                     amptester_shap.noisy=res_amptester@decisions["shap.noisy"][[1]],

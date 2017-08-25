@@ -26,9 +26,10 @@ to make use of multi-core architectures.
 
 # Calculate curve features of an amplification curve data set by using all 
 # available CPU cores.
-
-# T.B.D.
-
+library(qpcR)
+res_pcrfit_parallel <- pcrfit_parallel(boggy[, 1:7])
+res_pcrfit_parallel
+ 
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz
