@@ -17,6 +17,7 @@ Imports:
     changepoint,
     chipPCR,
     ecp,
+    fda.usc,
     magrittr,
     pracma,
     qpcR,

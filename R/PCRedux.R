@@ -9,6 +9,7 @@
 #' @importFrom changepoint cpt.meanvar
 #' @importFrom chipPCR amptester bg.max
 #' @importFrom ecp e.agglo
+#' @importFrom fda.usc fdata
 #' @importFrom graphics matplot par
 #' @importFrom grDevices rainbow
 #' @importFrom stats coefficients cor.test lag lm median quantile
