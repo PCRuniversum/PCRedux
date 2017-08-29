@@ -7,7 +7,7 @@
 #' 
 #' @importFrom bcp bcp
 #' @importFrom changepoint cpt.meanvar
-#' @importFrom chipPCR amptester bg.max
+#' @importFrom chipPCR amptester bg.max CPP
 #' @importFrom ecp e.agglo
 #' @importFrom fda.usc fdata
 #' @importFrom graphics matplot par
@@ -24,7 +24,7 @@
 #' @name PCRedux-package
 #' @aliases PCRedux
 #' @examples
-#' # use data set from package
-#' plot(rnorm(35))
+#' # Use the mblrr functopm to analyse 
+#' mblrr(x=1:35, y=rnorm(35))
 
 NULL

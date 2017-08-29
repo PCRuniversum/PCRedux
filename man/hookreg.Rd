@@ -49,7 +49,7 @@ plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
 }
 \references{
 K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
-Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571–1572. 
+Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
 doi:10.1128/JCM.40.4.1571-1572.2002.
 }
 \author{

@@ -10,7 +10,7 @@
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @references K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
-#' Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571–1572. 
+#' Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
 #' doi:10.1128/JCM.40.4.1571-1572.2002.
 #' @keywords slope intercept hook
 #' @examples

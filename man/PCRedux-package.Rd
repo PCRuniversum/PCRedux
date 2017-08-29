@@ -14,8 +14,8 @@ T.B.D.
 }
 
 \examples{
-# use data set from package
-plot(rnorm(35))
+# Use the mblrr functopm to analyse 
+mblrr(x=1:35, y=rnorm(35))
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz
