@@ -36,7 +36,7 @@
 #'          col=data_colors, bty="n")
 #'
 #' plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
-#'  xlab="intercept", ylab="Solpe", main="Hook clusters of boggy data set")
+#'  xlab="intercept", ylab="Solpe", main="Clusters of Amplification Curves with an Hook Effect\nboggy data set")
 #'  points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
 #'  legend("topright", c("Hook", "No Hook"), pch=c(1,2), col=c(1,2), bty="n")
 #'  text(res_hook$intercept, res_hook$slope, res_hook$sample)
