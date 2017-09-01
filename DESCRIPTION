@@ -19,6 +19,7 @@ Imports:
     ecp,
     fda.usc,
     magrittr,
+    MBmca,
     pracma,
     qpcR,
     robustbase,

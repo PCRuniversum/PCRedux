@@ -87,11 +87,13 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                   "mblrr_slope_more",
                   "mblrr_cor_more",
                   "hookreg_slope",
-                  "hookreg_intercept")
+                  "hookreg_intercept",
+                  "mcaPeaks_minima_maxima_ratio"
+                  )
     
     # Do the parallel analysis
     res_tmp <- foreach(block=unique(cuts), 
-                       .packages=c("bcp", "changepoint", "chipPCR", "ecp", 
+                       .packages=c("bcp", "changepoint", "chipPCR", "ecp", "MBmca",
                                    "PCRedux", "pracma", "qpcR", "robustbase", 
                                    "zoo"), .combine=cbind, 
                                    .export=c("simple_fn")) %dopar% {
@@ -146,6 +148,11 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
 
             # Calculate amptester results
             res_amptester <- try(amptester(dat[, bc]))
+            
+            # Estimate the spread of the approximate local minima and maxima of the curve data
+            res_diffQ <- diffQ(cbind(dat[, 1], dat[, bc]), verbose = TRUE)$xy
+            res_mcaPeaks <- mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
+            mcaPeaks_minima_maxima_ratio <- diff(range(res_mcaPeaks$p.max[, 2])) / diff(range(res_mcaPeaks$p.min[, 2]))
             
             # Perform an autocorrelation analysis           
             res_autocorrelation <- autocorrelation_test(y=dat[, bc])
@@ -243,7 +250,8 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                     mblrr_slope_more=res_mblrr[5],
                     mblrr_cor_more=res_mblrr[6],
                     hookreg_slope=res_hookreg[["slope"]],
-                    hookreg_intercept=res_hookreg[["intercept"]]
+                    hookreg_intercept=res_hookreg[["intercept"]],
+                    mcaPeaks_minima_maxima_ratio=mcaPeaks_minima_maxima_ratio
                 )
         })
     }

@@ -15,6 +15,7 @@
 #' @importFrom stats coefficients cor.test lag lm median quantile
 #' @importFrom utils head tail
 #' @importFrom magrittr %>%
+#' @importFrom MBmca diffQ mcaPeaks
 #' @importFrom pracma polyarea
 #' @importFrom qpcR efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
