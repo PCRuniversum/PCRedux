@@ -89,7 +89,8 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                   "hookreg_slope",
                   "hookreg_intercept",
                   "mcaPeaks_minima_maxima_ratio",
-                  "diffQ2_slope"
+                  "diffQ2_slope",
+                  "diffQ2_Cq_range"
                   )
     
     # Do the parallel analysis
@@ -158,6 +159,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
             # Estimate the slope between the minimum and the maximum of the second derivative
             res_diffQ2 <- diffQ2(cbind(dat[, 1], dat[, bc]), verbose=FALSE, fct=min)
             range_Cq <- diff(res_diffQ2[[3]])
+            if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {range_Cq} else {range_Cq <- NA}
             if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && range_Cq > 1 && range_Cq < 9) {
                 res_diffQ2_slope <- coefficients(lm(unlist(c(res_diffQ2[[4]])) ~ unlist(c(res_diffQ2[[3]]))))[2]
             } else {res_diffQ2_slope <- NA}
@@ -260,7 +262,8 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                     hookreg_slope=res_hookreg[["slope"]],
                     hookreg_intercept=res_hookreg[["intercept"]],
                     mcaPeaks_minima_maxima_ratio=mcaPeaks_minima_maxima_ratio,
-                    diffQ2_slope=res_diffQ2_slope
+                    diffQ2_slope=res_diffQ2_slope,
+                    diffQ2_Cq_range=range_Cq
                 )
         })
     }
