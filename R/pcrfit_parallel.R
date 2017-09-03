@@ -46,8 +46,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
     }
     
     # Define names of feature labels used for the ML analysis
-    features <- c("sample",
-                  "eff",
+    features <- c("eff",
                   "cpD1",
                   "cpD2",
                   "fluo",
@@ -106,7 +105,7 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
         dat <- data.frame(cycles, data_RFU[, which(cuts == block)])
         column_names <- colnames(dat)
         
-        res_block <- sapply(2L:ncol(dat), function(bc) {
+        res_block <- sapply(2L:ncol(dat), simplify="array", function(bc) {
 
             # Determine highest and lowest amplification curve values
             fluo_range <- quantile(dat[, bc], c(0.01, 0.99))
@@ -134,14 +133,12 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
             
             # Calculate change points
             # Agglomerative hierarchical estimation algorithm for multiple change point analysis
-#             res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates)/length_cycle, silent=TRUE)
             res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(dat[, bc]))$estimates), silent=TRUE)
             if(class(res_changepoint_e.agglo) == "try-error") {res_changepoint_e.agglo <- NA}
                        
             # Bayesian analysis of change points
             res_bcp_tmp <- bcp(dat[, bc])            
             res_bcp_tmp <- res_bcp_tmp$posterior.prob > 0.45
-#             res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length)/length_cycle)
             res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length))
             if(class(res_bcp) == "try-error") {res_bcp <- NA}
             
@@ -152,17 +149,19 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
             res_amptester <- try(amptester(dat[, bc]))
             
             # Estimate the spread of the approximate local minima and maxima of the curve data
-            res_diffQ <- diffQ(cbind(dat[, 1], dat[, bc]), verbose = TRUE)$xy
+            dat_smoothed <- smoother(dat[, 1], dat[, bc])
+            
+            res_diffQ <- diffQ(cbind(dat[, 1], dat_smoothed), verbose = TRUE)$xy
             res_mcaPeaks <- mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
             mcaPeaks_minima_maxima_ratio <- diff(range(res_mcaPeaks$p.max[, 2])) / diff(range(res_mcaPeaks$p.min[, 2]))
             
             # Estimate the slope between the minimum and the maximum of the second derivative
-            res_diffQ2 <- diffQ2(cbind(dat[, 1], dat[, bc]), verbose=FALSE, fct=min)
+            res_diffQ2 <- diffQ2(cbind(dat[, 1], dat_smoothed), verbose=FALSE, fct=min)
             range_Cq <- diff(res_diffQ2[[3]])
-            if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {range_Cq} else {range_Cq <- NA}
+            if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {range_Cq} else {range_Cq <- 0}
             if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && range_Cq > 1 && range_Cq < 9) {
                 res_diffQ2_slope <- coefficients(lm(unlist(c(res_diffQ2[[4]])) ~ unlist(c(res_diffQ2[[3]]))))[2]
-            } else {res_diffQ2_slope <- NA}
+            } else {res_diffQ2_slope <- 0}
             
             # Perform an autocorrelation analysis           
             res_autocorrelation <- autocorrelation_test(y=dat[, bc])
@@ -219,7 +218,6 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
             }
   
             res_efficiency <- list(
-                    sample=column_names[bc],
                     eff=res_efficiency_tmp[["eff"]],
                     cpD1=res_efficiency_tmp[["cpD1"]],
                     cpD2=res_efficiency_tmp[["cpD2"]],
@@ -267,4 +265,5 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                 )
         })
     }
+#     dimnames(res_tmp)[[2]] <- colnames(data[-1])
 }
