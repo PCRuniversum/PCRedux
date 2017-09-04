@@ -4,4 +4,4 @@
 ^README-.*\.png$
 ^.travis.yml$
 ^install_rdevel.sh
-paper.md
+paper
