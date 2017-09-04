@@ -10,12 +10,12 @@ License: GPL (>= 2) | BSD_3_clause + file LICENSE
 URL: https://github.com/devSJR/PCRedux
 BugReports: https://github.com/devSJR/PCRedux/issues
 Depends:
-    R (>= 3.4.0),
-    doParallel
+    R (>= 3.4.0)
 Imports:
     bcp,
     changepoint,
     chipPCR,
+    doParallel,
     ecp,
     fda.usc,
     magrittr,
@@ -29,4 +29,5 @@ Imports:
 Suggests:
     data.table
 NeedsCompilation: no
+VignetteBuilder: knitr
 RoxygenNote: 6.0.1

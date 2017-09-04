@@ -11,6 +11,9 @@
 #' @param device contains additional meta information about the qPCR system that was used.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords slope intercept
+#' @importFrom parallel detectCores
+#' @importFrom doParallel registerDoParallel
+#' @importFrom foreach %dopar% foreach
 #' @examples
 #' 
 #' # Calculate curve features of an amplification curve data set by using all 
