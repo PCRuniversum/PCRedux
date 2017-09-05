@@ -18,6 +18,7 @@ Imports:
     doParallel,
     ecp,
     fda.usc,
+    foreach,
     magrittr,
     MBmca,
     pracma,

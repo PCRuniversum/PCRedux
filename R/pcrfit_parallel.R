@@ -6,9 +6,13 @@
 #' to make use of multi-core architectures.
 #' 
 #' @param data is the data set containing the cycles and fluorescence amplitudes.
-#' @param less_cores defines the numbers of cores that should be left unused by this function. By default is pcrfit_parallel using all cores.
-#' @param detection_chemistry contains additional meta information about the detection chemistry (e.g., probes, intercalating dye) that was used.
-#' @param device contains additional meta information about the qPCR system that was used.
+#' @param n_cores defines the numbers of cores that should be left unused by this 
+#' function. By default \code{pcrfit_parallel} is using only two cores. Use
+#' \code{"all"} to use all available cores.
+#' @param detection_chemistry contains additional meta information about the 
+#' detection chemistry (e.g., probes, intercalating dye) that was used.
+#' @param device contains additional meta information about the qPCR system that 
+#' was used.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords slope intercept
 #' @importFrom parallel detectCores
@@ -24,10 +28,11 @@
 #'  
 #' @export pcrfit_parallel
 
-pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=NA) {
+pcrfit_parallel <- function(data, n_cores = 2, detection_chemistry=NA, device=NA) {
     # Determine the number of available cores and registrate them    
-    n_cores <- detectCores() - less_cores
-    if(n_cores < 2) {n_cores <- 2} 
+    if(n_cores == "all")
+      n_cores <- detectCores() 
+    
     registerDoParallel(n_cores)
     
     # Prepare the data for further processing
@@ -96,7 +101,8 @@ pcrfit_parallel <- function(data, less_cores=0, detection_chemistry=NA, device=N
                   )
     
     # Do the parallel analysis
-    res_tmp <- foreach(block=unique(cuts), 
+    block <- unique(cuts)
+    res_tmp <- foreach(block, 
                        .packages=c("bcp", "changepoint", "chipPCR", "ecp", "MBmca",
                                    "PCRedux", "pracma", "qpcR", "robustbase", 
                                    "zoo"), .combine=cbind, 

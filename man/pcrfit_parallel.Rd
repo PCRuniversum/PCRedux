@@ -5,17 +5,20 @@
 \title{A function to calculate numerous features from amplification curve data 
 from a quantitative PCR experiment.}
 \usage{
-pcrfit_parallel(data, less_cores = 0, detection_chemistry = NA,
-  device = NA)
+pcrfit_parallel(data, n_cores = 2, detection_chemistry = NA, device = NA)
 }
 \arguments{
 \item{data}{is the data set containing the cycles and fluorescence amplitudes.}
 
-\item{less_cores}{defines the numbers of cores that should be left unused by this function. By default is pcrfit_parallel using all cores.}
+\item{n_cores}{defines the numbers of cores that should be left unused by this 
+function. By default \code{pcrfit_parallel} is using only two cores. Use
+\code{"all"} to use all available cores.}
 
-\item{detection_chemistry}{contains additional meta information about the detection chemistry (e.g., probes, intercalating dye) that was used.}
+\item{detection_chemistry}{contains additional meta information about the 
+detection chemistry (e.g., probes, intercalating dye) that was used.}
 
-\item{device}{contains additional meta information about the qPCR system that was used.}
+\item{device}{contains additional meta information about the qPCR system that 
+was used.}
 }
 \description{
 \code{pcrfit_parallel} is a function to calculate numerous features of a large 

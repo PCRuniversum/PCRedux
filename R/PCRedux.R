@@ -7,7 +7,7 @@
 #' 
 #' @importFrom bcp bcp
 #' @importFrom changepoint cpt.meanvar
-#' @importFrom chipPCR amptester bg.max CPP
+#' @importFrom chipPCR amptester bg.max CPP smoother
 #' @importFrom ecp e.agglo
 #' @importFrom fda.usc fdata
 #' @importFrom graphics matplot par
