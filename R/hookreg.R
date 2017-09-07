@@ -8,6 +8,9 @@
 #'
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
+#' @param normalize is a logical parameter indicating if the data should be 
+#' normalized to the 0.999 quantile
+#' @param sig.level defines the significance level to test for a significant regression
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @references K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
 #' Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
@@ -44,27 +47,43 @@
 #'  
 #' @export hookreg
 
-hookreg <- function(x, y) {
+hookreg <- function(x, y, normalize=TRUE, sig.level=0.005) {
+    # Quantile Normaliation of amplification data
+    if(normalize) {y <- y / quantile(y, 0.999)}
+
     # narrow the range of the potential hook region by a 75% quantile 
     # filter
     hook_quantile_range <- which(y >= quantile(y, c(0.75)))[1]:length(y)
-    
+
     # narrow the range of the potential hook region by a 75% quantile 
     # filter
     hook_max_range <- which(y == max(y[hook_quantile_range]))
-    
-    if(hook_max_range < length(x) && length(hook_max_range:length(x) >= 4)) {
+
     # Determine putative hook range
-    range <- hook_max_range:length(x)         
-    # Regression for putative hook range   
-    res_lm_fit <- try(coefficients(lmrob(y[range] ~ x[range])), silent=TRUE)
-    
-    if(class(res_lm_fit) == "try-error") {res_lm_fit <- c(NA, NA)}
-    names(res_lm_fit) <- c("intercept", "slope")
-    res_lm_fit
+    range <- hook_max_range:length(x)
+
+    if(hook_max_range < length(x) && length(hook_max_range:length(x)) >= 8) {
+            # Regression for putative hook range
+            res_lm_fit <- try(lmrob(y[range] ~ x[range]), silent=TRUE)
+
+            # Statistics for regression
+            res_lm_fit_summary <- try(summary(res_lm_fit))$coefficients[2, 4]
+
+            if(res_lm_fit_summary <= sig.level) {
+                res_lm_fit_coefficients <- coefficients(res_lm_fit)
+                res_hookreg <- c(res_lm_fit_coefficients[[1]],
+                                res_lm_fit_coefficients[[2]], 
+                                res_lm_fit_summary,
+                                TRUE)
+            } else {
+                res_hookreg <- c(res_lm_fit_coefficients[[1]],
+                                res_lm_fit_coefficients[[2]], 
+                                res_lm_fit_summary,
+                                FALSE)
+            }
     } else {
-        res_lm_fit <- c(NA, NA)
-        names(res_lm_fit) <- c("intercept", "slope")
-        res_lm_fit
-    }
+            res_hookreg <- c(NA, NA, NA, NA)
+            }
+    names(res_hookreg) <- c("intercept", "slope", "p.value", "hook")
+    res_hookreg
 }
