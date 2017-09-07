@@ -68,9 +68,9 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005) {
 
             # Statistics for regression
             res_lm_fit_summary <- try(summary(res_lm_fit))$coefficients[2, 4]
+            res_lm_fit_coefficients <- coefficients(res_lm_fit)
 
             if(res_lm_fit_summary <= sig.level) {
-                res_lm_fit_coefficients <- coefficients(res_lm_fit)
                 res_hookreg <- c(res_lm_fit_coefficients[[1]],
                                 res_lm_fit_coefficients[[2]], 
                                 res_lm_fit_summary,
