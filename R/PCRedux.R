@@ -12,7 +12,7 @@
 #' @importFrom fda.usc fdata
 #' @importFrom graphics matplot par
 #' @importFrom grDevices rainbow
-#' @importFrom stats coefficients cor.test lag lm median quantile
+#' @importFrom stats coefficients confint cor.test lag lm median quantile
 #' @importFrom utils head tail
 #' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks

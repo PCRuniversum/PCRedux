@@ -93,8 +93,7 @@ pcrfit_parallel <- function(data, n_cores = 2, detection_chemistry=NA, device=NA
                   "mblrr_intercept_more",
                   "mblrr_slope_more",
                   "mblrr_cor_more",
-                  "hookreg_slope",
-                  "hookreg_intercept",
+                  "hookreg_hook",
                   "mcaPeaks_minima_maxima_ratio",
                   "diffQ2_slope",
                   "diffQ2_Cq_range"
@@ -266,8 +265,7 @@ pcrfit_parallel <- function(data, n_cores = 2, detection_chemistry=NA, device=NA
                     mblrr_intercept_more=res_mblrr[4],
                     mblrr_slope_more=res_mblrr[5],
                     mblrr_cor_more=res_mblrr[6],
-                    hookreg_slope=res_hookreg[["slope"]],
-                    hookreg_intercept=res_hookreg[["intercept"]],
+                    hookreg_hook=res_hookreg[["hook"]],
                     mcaPeaks_minima_maxima_ratio=mcaPeaks_minima_maxima_ratio,
                     diffQ2_slope=res_diffQ2_slope,
                     diffQ2_Cq_range=range_Cq

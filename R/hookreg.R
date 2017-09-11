@@ -69,21 +69,26 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005) {
             # Statistics for regression
             res_lm_fit_summary <- try(summary(res_lm_fit))$coefficients[2, 4]
             res_lm_fit_coefficients <- coefficients(res_lm_fit)
+            res_lm_fit_confint <- confint(res_lm_fit, level=0.99)
 
             if(res_lm_fit_summary <= sig.level) {
                 res_hookreg <- c(res_lm_fit_coefficients[[1]],
                                 res_lm_fit_coefficients[[2]], 
                                 res_lm_fit_summary,
+                                res_lm_fit_confint[1, 2],
+                                res_lm_fit_confint[2, 2],
                                 TRUE)
             } else {
                 res_hookreg <- c(res_lm_fit_coefficients[[1]],
                                 res_lm_fit_coefficients[[2]], 
                                 res_lm_fit_summary,
+                                res_lm_fit_confint[1, 2],
+                                res_lm_fit_confint[2, 2],
                                 FALSE)
             }
     } else {
-            res_hookreg <- c(NA, NA, NA, NA)
+            res_hookreg <- c(NA, NA, NA, NA, NA, NA)
             }
-    names(res_hookreg) <- c("intercept", "slope", "p.value", "hook")
+    names(res_hookreg) <- c("intercept", "slope", "p.value", "CI.low", "CI.up", "hook")
     res_hookreg
 }
