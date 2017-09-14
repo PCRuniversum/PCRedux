@@ -5,7 +5,7 @@
 \title{A function to calculate numerous features from amplification curve data 
 from a quantitative PCR experiment.}
 \usage{
-pcrfit_parallel(data, n_cores = 2, detection_chemistry = NA, device = NA)
+pcrfit_parallel(data, n_cores = 1, detection_chemistry = NA, device = NA)
 }
 \arguments{
 \item{data}{is the data set containing the cycles and fluorescence amplitudes.}
