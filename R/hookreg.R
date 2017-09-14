@@ -10,8 +10,11 @@
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param normalize is a logical parameter indicating if the data should be 
 #' normalized to the 0.999 quantile
-#' @param sig.level defines the significance level to test for a significant regression
-#' @param robust is  a logical parameter indicating if the data should be analyzed be a robust linear regression (\code{lmrob}).
+#' @param sig.level defines the significance level to test for a significant 
+#' regression
+#' @param confidence level required for the slope
+#' @param robust is  a logical parameter indicating if the data should be 
+#' analyzed be a robust linear regression (\code{lmrob}).
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @references K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
 #' Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
@@ -48,7 +51,7 @@
 #'  
 #' @export hookreg
 
-hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, robust=FALSE) {
+hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust=FALSE) {
     # Quantile Normaliation of amplification data
     if(normalize) {y <- y / quantile(y, 0.999)}
 
@@ -74,7 +77,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, robust=FALSE) {
             # Statistics for regression
             res_lm_fit_summary <- try(summary(res_lm_fit))$coefficients[2, 4]
             res_lm_fit_coefficients <- coefficients(res_lm_fit)
-            res_lm_fit_confint <- confint(res_lm_fit, level=0.99)
+            res_lm_fit_confint <- confint(res_lm_fit, level=CI.level)
 
             if(res_lm_fit_summary <= sig.level) {
                 res_hookreg <- c(res_lm_fit_coefficients[[1]],

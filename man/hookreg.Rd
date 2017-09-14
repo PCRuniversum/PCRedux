@@ -5,7 +5,8 @@
 \title{A function to calculate the slope and intercept of an amplification curve data 
 from a quantitative PCR experiment at the end of the data stream.}
 \usage{
-hookreg(x, y, normalize = TRUE, sig.level = 0.005, robust = FALSE)
+hookreg(x, y, normalize = TRUE, sig.level = 0.005, CI.level = 0.99,
+  robust = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -15,9 +16,13 @@ hookreg(x, y, normalize = TRUE, sig.level = 0.005, robust = FALSE)
 \item{normalize}{is a logical parameter indicating if the data should be 
 normalized to the 0.999 quantile}
 
-\item{sig.level}{defines the significance level to test for a significant regression}
+\item{sig.level}{defines the significance level to test for a significant 
+regression}
 
-\item{robust}{is  a logical parameter indicating if the data should be analyzed be a robust linear regression (\code{lmrob}).}
+\item{robust}{is  a logical parameter indicating if the data should be 
+analyzed be a robust linear regression (\code{lmrob}).}
+
+\item{confidence}{level required for the slope}
 }
 \description{
 \code{hookreg} is a function to calculate the slope and intercept of an 
