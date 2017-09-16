@@ -54,8 +54,8 @@ pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry=NA, device=NA
             .combine = rbind) %dopar% {
                           prcfit_single(data_RFU[, ith_cycle])
                         }
-    
-    res <- cbind(runs = colnames(data_RFU), do.call(rbind, run_res))
+
+    res <- cbind(runs = colnames(data_RFU), run_res)
     
     res
     
