@@ -66,7 +66,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
     # Determine putative hook range
     range <- hook_max_range:length(x)
 
-    if(hook_max_range < length(x) && length(hook_max_range:length(x)) >= 8) {
+    if(hook_max_range < length(x) && length(hook_max_range:length(x)) >= 5) {
             # Regression for putative hook range
             if(robust) {
                         res_lm_fit <- try(lmrob(y[range] ~ x[range]), silent=TRUE)
@@ -97,7 +97,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
                                 FALSE)
             }
     } else {
-            res_hookreg <- c(NA, NA, NA, NA, NA, NA, NA)
+            res_hookreg <- c(NA, NA, NA, NA, NA, NA, FALSE)
             }
     names(res_hookreg) <- c("intercept", "slope", "hook.start", "p.value", "CI.low", "CI.up", "hook")
     res_hookreg
