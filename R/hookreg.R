@@ -51,7 +51,7 @@
 #'  
 #' @export hookreg
 
-hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust=FALSE) {
+hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robust=FALSE) {
     # Quantile Normaliation of amplification data
     if(normalize) {y <- y / quantile(y, 0.999)}
 
@@ -78,30 +78,17 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
             res_lm_fit_summary <- try(summary(res_lm_fit))$coefficients[2, 4]
             res_lm_fit_coefficients <- coefficients(res_lm_fit)
             res_lm_fit_confint <- confint(res_lm_fit, level=CI.level)
-            res_lm_fit_confint_decission <- factor(
-                                                   ifelse(res_lm_fit_confint[1, 2] < 0 && res_lm_fit_confint[2, 2] < 0, 1, 0), 
-                                                   levels=c(0,1), labels=c(TRUE, FALSE)
-                                                   )
-
-            if(res_lm_fit_summary <= sig.level) {
-                res_hookreg <- c(res_lm_fit_coefficients[[1]],
-                                res_lm_fit_coefficients[[2]],
-                                hook_max_range,
-                                res_lm_fit_summary,
-                                res_lm_fit_confint[1, 2],
-                                res_lm_fit_confint[2, 2],
-                                TRUE,
-                                res_lm_fit_confint_decission)
-            } else {
-                res_hookreg <- c(res_lm_fit_coefficients[[1]],
-                                res_lm_fit_coefficients[[2]],
-                                hook_max_range,
-                                res_lm_fit_summary,
-                                res_lm_fit_confint[1, 2],
-                                res_lm_fit_confint[2, 2],
-                                FALSE,
-                                res_lm_fit_confint_decission)
-            }
+            res_hook_significance <- ifelse(res_lm_fit_summary < sig.level, TRUE, FALSE)
+            res_lm_fit_confint_decission <- ifelse(res_lm_fit_confint[2, 1] < 0 && res_lm_fit_confint[2, 2] < 0, TRUE, FALSE)
+            
+            res_hookreg <- c(res_lm_fit_coefficients[[1]],
+                            res_lm_fit_coefficients[[2]],
+                            hook_max_range,
+                            res_lm_fit_summary,
+                            res_lm_fit_confint[1, 2],
+                            res_lm_fit_confint[2, 2],
+                            res_hook_significance,
+                            res_lm_fit_confint_decission)
     } else {
             res_hookreg <- c(NA, NA, NA, NA, NA, NA, FALSE, FALSE)
             }

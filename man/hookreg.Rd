@@ -5,7 +5,7 @@
 \title{A function to calculate the slope and intercept of an amplification curve data 
 from a quantitative PCR experiment at the end of the data stream.}
 \usage{
-hookreg(x, y, normalize = TRUE, sig.level = 0.005, CI.level = 0.99,
+hookreg(x, y, normalize = TRUE, sig.level = 0.001, CI.level = 0.999,
   robust = FALSE)
 }
 \arguments{
