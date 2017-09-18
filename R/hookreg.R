@@ -43,7 +43,7 @@
 #'          col=data_colors, bty="n")
 #'
 #' plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
-#'  xlab="intercept", ylab="Solpe", 
+#'  xlab="intercept", ylab="Slope", 
 #'  main="Clusters of Amplification Curves with an Hook Effect-like Curvature\nboggy Data Set")
 #'  points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
 #'  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
