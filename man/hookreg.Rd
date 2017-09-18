@@ -19,10 +19,10 @@ normalized to the 0.999 quantile}
 \item{sig.level}{defines the significance level to test for a significant 
 regression}
 
+\item{CI.level}{confidence level required for the slope}
+
 \item{robust}{is  a logical parameter indicating if the data should be 
 analyzed be a robust linear regression (\code{lmrob}).}
-
-\item{confidence}{level required for the slope}
 }
 \description{
 \code{hookreg} is a function to calculate the slope and intercept of an 

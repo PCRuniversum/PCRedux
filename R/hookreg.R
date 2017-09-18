@@ -12,7 +12,7 @@
 #' normalized to the 0.999 quantile
 #' @param sig.level defines the significance level to test for a significant 
 #' regression
-#' @param confidence level required for the slope
+#' @param CI.level confidence level required for the slope
 #' @param robust is  a logical parameter indicating if the data should be 
 #' analyzed be a robust linear regression (\code{lmrob}).
 #' @author Stefan Roediger, Michal Burdukiewcz
@@ -78,6 +78,10 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
             res_lm_fit_summary <- try(summary(res_lm_fit))$coefficients[2, 4]
             res_lm_fit_coefficients <- coefficients(res_lm_fit)
             res_lm_fit_confint <- confint(res_lm_fit, level=CI.level)
+            res_lm_fit_confint_decission <- factor(
+                                                   ifelse(res_lm_fit_confint[1, 2] < 0 && res_lm_fit_confint[2, 2] < 0, 1, 0), 
+                                                   levels=c(0,1), labels=c(TRUE, FALSE)
+                                                   )
 
             if(res_lm_fit_summary <= sig.level) {
                 res_hookreg <- c(res_lm_fit_coefficients[[1]],
@@ -86,7 +90,8 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
                                 res_lm_fit_summary,
                                 res_lm_fit_confint[1, 2],
                                 res_lm_fit_confint[2, 2],
-                                TRUE)
+                                TRUE,
+                                res_lm_fit_confint_decission)
             } else {
                 res_hookreg <- c(res_lm_fit_coefficients[[1]],
                                 res_lm_fit_coefficients[[2]],
@@ -94,11 +99,12 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
                                 res_lm_fit_summary,
                                 res_lm_fit_confint[1, 2],
                                 res_lm_fit_confint[2, 2],
-                                FALSE)
+                                FALSE,
+                                res_lm_fit_confint_decission)
             }
     } else {
-            res_hookreg <- c(NA, NA, NA, NA, NA, NA, FALSE)
+            res_hookreg <- c(NA, NA, NA, NA, NA, NA, FALSE, FALSE)
             }
-    names(res_hookreg) <- c("intercept", "slope", "hook.start", "p.value", "CI.low", "CI.up", "hook")
+    names(res_hookreg) <- c("intercept", "slope", "hook.start", "p.value", "CI.low", "CI.up", "hook", "hook.CI")
     res_hookreg
 }

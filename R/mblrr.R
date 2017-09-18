@@ -25,7 +25,7 @@
 #' 
 #' # Perform an mblrr analysis on noise (negative) amplification data of qPCR data
 #' # with 35 cycles.
-#'
+#' 
 #' mblrr(x=1:35, y=rnorm(35))
 #' 
 #' @export mblrr
@@ -66,10 +66,10 @@ function(x, y, sig.level=0.01) {
             } 
             
             names(res_mblrr) <- c("mblrr_intercept_less",
-                                      "mblrr_slope_less",
-                                      "mblrr_cor_less",
-                                      "mblrr_intercept_more",
-                                      "mblrr_slope_more",
-                                      "mblrr_cor_more")
+                                  "mblrr_slope_less",
+                                  "mblrr_cor_less",
+                                  "mblrr_intercept_more",
+                                  "mblrr_slope_more",
+                                  "mblrr_cor_more")
             res_mblrr                          
 }
