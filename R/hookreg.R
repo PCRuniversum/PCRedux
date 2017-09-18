@@ -61,7 +61,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.99, robust
 
     # narrow the range of the potential hook region by a 75% quantile 
     # filter
-    hook_max_range <- which(y == max(y[hook_quantile_range]))
+    hook_max_range <- which(y == max(y[hook_quantile_range]))[1]
 
     # Determine putative hook range
     range <- hook_max_range:length(x)
