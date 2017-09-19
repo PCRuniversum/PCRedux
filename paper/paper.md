@@ -63,7 +63,7 @@ exhibit hook effect [@barratt_improving_2002]. Besides previously proposed
 approaches offers package the `hookreg` function was introduced to determine if 
 an amplification curve exhibits this characteristics. 
 
-![](hookreg.png)<!-- -->
+![](fig1.png)<!-- -->
 
 # Acknowlegements
 This work was funded by the Federal Ministry of Education and Research
