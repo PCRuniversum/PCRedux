@@ -35,8 +35,8 @@ output:
 
 # Summary
 
-Data having a characteristic sigmoid ('S'-shaped) curves are commonly found in 
-experimental data. An example are amplification curve data from quantitative 
+Data having a characteristic sigmoid ('S'-shaped) curves are found in many
+experiments. An example are amplification curve data from quantitative 
 Polyerase Chain Reaction (qPCR) experiments. There are numerous software 
 packages for R for the analysis of qPCR data 
 [@pabinger_survey_2014, @rodiger_r_2015]. so far, there was no R package, which 
@@ -52,15 +52,15 @@ of all data sets from the `qpcR` package [@ritz_qpcr:_2008] are part of the
 Amplification curve characteristics such a the hook effect are challenging 
 during the amplification curve classification. Features from amplification 
 curves can be extract by the `pcrfit_parallel` function. `pcrfit_parallel` 
-perfroms in parallel multiple analyis on the curve data such as changepoint 
-analysis, regression analyis, model fitting to qPCR data. They are intended for 
+performs in parallel multiple analysis on the curve data such as changepoint 
+analysis, regression analysis, model fitting to qPCR data. They are intended for 
 the creation of models that predict a class (positive, ambigous, negative qPCR 
 reaction) from input features (slope, hook effect, background level, 
 changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
 @ritz_qpcr:_2008, @Febrero_Bande_2012, @james_ecp:_2013) and us (e.g., 
 @roediger_RJ_2013, @rodiger_chippcr:_2015). qPCR amplification curves my 
 exhibit hook effect [@barratt_improving_2002]. Besides previously proposed 
-approaches offerst package the `hookreg` function was introduced to determine if 
+approaches offers package the `hookreg` function was introduced to determine if 
 an amplification curve exhibits this characteristics. 
 
 ![](hookreg.png)<!-- -->
