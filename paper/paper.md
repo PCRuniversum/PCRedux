@@ -16,11 +16,16 @@ authors:
   - name: "Roy-Arne Senkel"
     orcid: 0000-0001-6139-9471
     affiliation: 1
+  - name: "Andrej-Nikolai Spiess"
+    orcid: 0000-0002-9630-4724
+    affiliation: 3
 affiliations:
   - name: "Brandenburg University of Technology Cottbus-Senftenberg, Germany"
     index: 1
   - name: "Uniwersytet Wrocławski: Wrocław, Poland"
     index: 2
+  - name: "University  Medical  Center  Hamburg-Eppendorf,  Hamburg, Germany"
+    index: 3
 date: "19 Septemer 2017"
 bibliography: paper.bib
 output:
