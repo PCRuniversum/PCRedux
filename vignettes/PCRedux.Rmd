@@ -1,6 +1,6 @@
 ---
 title: "PCRedux package - an overview"
-author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz"
+author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Andrej-Nikolai Spiess"
 date: "2017-09-15"
 output: 
   rmarkdown::html_vignette:
@@ -12,11 +12,111 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-**PCRedux** is an R package designed to perform analysis of quantitative PCR (qPCR) experiments. This vignette covers important features of the package and should be used as an addendum to the manual.
+# Introduction to the analysis of simgmoid shaped curves – or the analysis of amplification curve data from quantitative real-time PCR experiments
+
+**PCRedux** is an R package designed to perform analysis of sigmoid curves. This 
+kind of curve is common in many biological assays such as quantitative real-time 
+PCR (qPCR) experiments. qPCRs are performed in thermo-cyclers. There are many 
+manufactures of such systems, which offer such technologies as commercial 
+products. Moreover, thermo-cyclers are produced in house as part of scientific 
+projects. An example is the VideoScan-technology [@rodiger_highly_2013].
+
+A challenge for the user is, to make sense from the data produced by these 
+devices. This is a manageable task if the volume of data is low, or dedicated 
+software is available for the analysis thereof. An example for a low number of 
+amplification curves is shown in Figure \ref{samples_of_qPCRs}A. All 96 curves 
+exhibit a sigmoid curve shape. In contrast, the example in Figure 
+\ref{samples_of_qPCRs}B is no longer manageable by simple visual inspection. 
+Dedicated software is needed.
+
+
+```{r, echo=FALSE, fig.cap="Sample data from A) the **C127EGHP** data set (*chipPCR* package, [@rodiger_chippcr:_2015]) and B) from the **htPCR** data set (*qpcR* package, [@ritz_qpcr:_2008]). \\label{samples_of_qPCRs}", fig.height=8, fig.width=8}
+    
+library(chipPCR)
+suppressMessages(library(qpcR))
+
+
+par(mfrow=c(1,2), las=0, bty="n", oma=c(1,1,1,1))
+matplot(C127EGHP[, 2], C127EGHP[, c(-1, -2)], xlab="Cycle", ylab="RFU", 
+        main="C127EGHP dataset", type="l", lty=1, lwd=2)
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+matplot(htPCR[, 1], htPCR[, c(-1)], xlab="Cycle", ylab="RFU", 
+        main="htPCR dataset", type="l", lty=1, lwd=2)
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+```
+
+There are several open source and closed source software tools, which can be used 
+for the analysis of qPCR data. The software packages deal for example with
+    
+    * missing values, 
+    * noise,
+    * inter run calibration, 
+    * normalization, 
+    * quantification cycle estimation, 
+    * amplification efficiency estimation, 
+    * data import, 
+    * datat export, 
+    * data exchange, 
+    * realative gene expression analysis,
+    
+and other tasks [@pabinger_survey_2014, @rodiger_chippcr:_2015, 
+@ritz_qpcr:_2008, @rodiger_r_2015, @lefever_rdml:_2009, 
+@ruijter_rdml-ninja_2015, @rodiger_enabling_2017, @perkins_readqpcr_2012, 
+@pabinger_qpcr:_2009, @neve_unifiedwmwqpcr:_2014, @feuer_lemming:_2015, 
+@mccall_non-detects_2014, @ruijter_evaluation_2013, @ruijter_removal_2015, 
+@dvinge_htqpcr:_2009, @ronde_practical_2017, @mallona_pcrefficiency:_2011, 
+@mallona_chainy:_nodate]. Many of the are implemented in the R statistical 
+computing language. It should be mentioned that this list is far from 
+completeness. Dedicated literature is available from peer-reviewed publications 
+and textbooks.
+
+Others and we have shown that amplification curve analysis is not a simple 
+task. For example selected qPCR systems (device and/or detection chemistry) 
+cause a periodicity in the amplification curve data 
+[@spiess_system-specific_2016]. Or the commonly employed smoothing of data might 
+case alterations to the raw data that affects both the estimation of the 
+template material (Cq value) and the amplification efficiency 
+[@spiess_impact_2015].
+
+At this level all software assumes that the amplification resemble a sigmoid 
+curve shape (ideal positive amplification reaction) or a flat low line (ideal 
+negative amplification reaction). For example, @ritz_qpcr:_2008 published an R 
+package that contains functions to fit several multi-parameter models. This includes the 5-parameter Richardson function, which is often used for the analysis of qPCR data.
+
+In general, the software packages do not take into account if an amplification 
+curve fulfills a certain criterion (e.g., positive or negative, good quality or 
+bad quality). This is a needed imformation for some algorithms. For example, the 
+*linreg* method by @ruijter_amplification_2009 requires a decision, if an 
+amplification curve is positive or negative. 
+
+In summary, during our past research we noticed that a many challenges are well 
+addressed. In particular, algorithms for the processing of the positive 
+amplification curves are widely available. One bottleneck in qPCR data 
+analysis is the lack of amplification curve data classifier. Classifier herein 
+refer to a vector of features that can be used to distinguish the amplification 
+curves by their shape only. One reason for this is the lack of features that 
+are known for amplification curve data. Only few features for amplification curves 
+are described in the literature. For example, tools described by us are the 
+``amptester`` and the ``amptester.gui`` functions, which are part of the **chipPCR** 
+package ([@rodiger_chippcr:_2015]). The **qpcR** package ([@ritz_qpcr:_2008]) 
+contains an amplification curve test via the ``modlist`` function. The parameter 
+check = "uni2" offers an analytical approach, as part of a method for the 
+kinetic outlier detection. It checks for a sigmoid structure of the 
+amplification curve. Then it tests for the location of the first derivative 
+maximum and the second derivative maximum. However, multi-parameter functions, 
+like sigmoid models, fit "successful" in most cases including noise and give 
+false positive results. 
+
+# Aim of the `PCRedux` package
 
 The `PCRedux` package contains function and data sets for machine learning on 
 quantitative PCR data in R. There are numerous software packages for R which can 
-be used for the analysis of quantitative PCR (qPCR) data [@rodiger_r_2015, @pabinger_survey_2014].
+be used for the analysis of quantitative PCR (qPCR) data [@rodiger_r_2015, 
+@pabinger_survey_2014].
+
+This vignette covers important features of the package and should be used as an 
+addendum to the manual.
 
 \newpage
 
