@@ -32,7 +32,7 @@
 #' colors <- rainbow(ncol(testdat)-1, alpha=0.3)
 #' # Names of samples
 #' samples <- colnames(testdat)[-1]
-#v layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE), respect = TRUE)
+#' layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE), respect = TRUE)
 #' matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
 #'         main="testdat dataset", type="l", lty=1, col=colors, lwd=2)
 #' legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
