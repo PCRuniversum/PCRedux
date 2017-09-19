@@ -35,8 +35,8 @@ background and plateau region.
 
 # Perform an mblrr analysis on noise (negative) amplification data of qPCR data
 # with 35 cycles.
-
-mblrr(x=1:35, y=rnorm(35))
+library(qpcR)
+mblrr(x=boggy[, 1], y=boggy[, 2])
 
 }
 \author{

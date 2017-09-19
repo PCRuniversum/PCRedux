@@ -79,7 +79,9 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robus
             res_lm_fit_coefficients <- coefficients(res_lm_fit)
             res_lm_fit_confint <- confint(res_lm_fit, level=CI.level)
             res_hook_significance <- ifelse(res_lm_fit_summary < sig.level, TRUE, FALSE)
-            res_lm_fit_confint_decission <- ifelse(res_lm_fit_confint[2, 1] < 0 && res_lm_fit_confint[2, 2] < 0, TRUE, FALSE)
+            res_lm_fit_confint_decission <- ifelse(res_lm_fit_confint[2, 1] < 0 && 
+                                                   res_lm_fit_confint[2, 2] < 0, 
+                                                   TRUE, FALSE)
             
             res_hookreg <- c(res_lm_fit_coefficients[[1]],
                             res_lm_fit_coefficients[[2]],
@@ -92,6 +94,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robus
     } else {
             res_hookreg <- c(NA, NA, NA, NA, NA, NA, FALSE, FALSE)
             }
-    names(res_hookreg) <- c("intercept", "slope", "hook.start", "p.value", "CI.low", "CI.up", "hook", "hook.CI")
+    names(res_hookreg) <- c("intercept", "slope", "hook.start", "p.value", 
+                            "CI.low", "CI.up", "hook", "hook.CI")
     res_hookreg
 }
