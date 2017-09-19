@@ -2,7 +2,7 @@
 % Please edit documentation in R/autocorrelation_test.R
 \name{autocorrelation_test}
 \alias{autocorrelation_test}
-\title{A function to the autocorrelation of amplification curve data 
+\title{A function to test for autocorrelation of amplification curve data 
 from a quantitative PCR experiment}
 \usage{
 autocorrelation_test(y, n = 3, sig.level = 0.01)
@@ -10,16 +10,19 @@ autocorrelation_test(y, n = 3, sig.level = 0.01)
 \arguments{
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
-\item{n}{is}
+\item{n}{is the number of lagged cycles.}
 
-\item{sig.level}{is the significance level for the correlation test., Default: 0.01}
+\item{sig.level}{is the significance level for the correlation test., 
+Default: 0.01}
 }
 \description{
-\code{autocorrelation_test} is a function an autocorrelation analysis
+\code{autocorrelation_test} is a function for an autocorrelation analysis
 from a quantitative PCR experiment. The result of the funciton is either
 a correlation coefficient in case the result is significant at a given
 significance level, or a "n.s." (non-significant) of no correlation could
 be determined.
+Noise (negative) amplification curves usually do not exhibt any 
+autocorrelation and will therefore be "n.s.".
 }
 \examples{
 # Test for autocorrelation in amplification curve data
@@ -37,7 +40,7 @@ res_ac <- sapply(2:ncol(testdat), function(i) {
 colors <- rainbow(ncol(testdat)-1, alpha=0.3)
 # Names of samples
 samples <- colnames(testdat)[-1]
-layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE), respect = TRUE)
+layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE))
 matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
         main="testdat dataset", type="l", lty=1, col=colors, lwd=2)
 legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
@@ -62,7 +65,8 @@ barplot(res_ac_hr[, "hr"], main="Rated by a human", col=colors, xlab="Sample",
         ylab="rating", names.arg=samples)
 }
 \seealso{
-\code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}}, \code{\link[stats]{cor.test}}
+\code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}}, 
+ \code{\link[stats]{cor.test}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz
