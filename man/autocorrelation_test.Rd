@@ -12,18 +12,56 @@ autocorrelation_test(y, n = 3, sig.level = 0.01)
 
 \item{n}{is}
 
-\item{sig.level}{is the significance level for the correlation test.}
+\item{sig.level}{is the significance level for the correlation test., Default: 0.01}
 }
 \description{
 \code{autocorrelation_test} is a function an autocorrelation analysis
-from a quantitative PCR experiment.
+from a quantitative PCR experiment. The result of the funciton is either
+a correlation coefficient in case the result is significant at a given
+significance level, or a "n.s." (non-significant) of no correlation could
+be determined.
 }
 \examples{
+# Test for autocorrelation in amplification curve data
+# Load the libraries magrittr for pipes and qpcR for the data
+library(magrittr)
+library(qpcR)
+# Test for autocorrelation in the testdat dataset
+res_ac <- sapply(2:ncol(testdat), function(i) {
+                    autocorrelation_test(testdat[, i])
+                }
+         )
 
-# calculate head to tail ratio on noise (negative) amplification curve data
+# Plot curve data as overview
+# Define the colors for the amplification curves
+colors <- rainbow(ncol(testdat)-1, alpha=0.3)
+# Names of samples
+samples <- colnames(testdat)[-1]
+matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
+        main="testdat dataset", type="l", lty=1, col=colors, lwd=2)
+legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
+    
+# Curves rated by a human after analysis of the overview. 1 = positive, 
+# 0 = negative
+human_rating <- c(1,1,0,0,1,1,0,0,
+                  1,1,0,0,1,1,0,0,
+                  1,1,0,0,1,1,0,0)
 
-autocorrelation_test(y=rnorm(35))
+# Convert the n.s. (not significant) in 0 and others to 1. 
+# Combine the results of the atomatic autocorrelation_test as variable "ac", 
+# the human rated values as variable "hr" in a new data frame (res_ac_hr).
+res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1), 
+                        hr=human_rating) \%>\% as.matrix
 
+# Add ratings by humna and autocorrelation_test to the plot
+par(las=2)
+barplot(res_ac_hr[, "ac"], main="Rated by autocorrelation_test", col=colors, 
+        xlab="Sample", ylab="rating", names.arg=samples)
+barplot(res_ac_hr[, "hr"], main="Rated by a human", col=colors, xlab="Sample", 
+        ylab="rating", names.arg=samples)
+}
+\seealso{
+\code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}}, \code{\link[stats]{cor.test}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz
