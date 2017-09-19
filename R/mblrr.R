@@ -34,7 +34,7 @@ function(x, y, sig.level=0.01) {
             res_less_than_median <- y < median(y)
             res_more_than_median <- y > median(y)
             
-            res_mblrr <- c(NA, NA, NA, NA, NA, NA, NA)
+            res_mblrr <- c(NA, NA, NA, NA, NA, NA)
             
             if(class(res_less_than_median) == "logical" && class(res_less_than_median) == "logical") {
                 res_less_than_median_lm <- try(lmrob(y[res_less_than_median] ~ x[res_less_than_median]), silent=TRUE)
