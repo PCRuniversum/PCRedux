@@ -1,7 +1,10 @@
-#' A function to get a final decission (modus) from a vector of classes
+#' A function to get a decission (modus) from a vector of classes
 #' 
-#' \code{decission_modus} is a function to to get a final decission (modus) 
-#' from a vector of classes.
+#' \code{decission_modus} is a function that can be used to find the most frequent
+#' (modus) decission. The classes can be defined by the user (e.g., a", "n", "y" 
+#' -> "ambiguos", "negaive", "positive"). This function is usefuel if large 
+#' collections of varying decission (e.g., "a", "a", "a", "n", "n") need to be 
+#' condensed to a single decission (3 x "a", 2 x "n" -> "a").
 #' 
 #' @param data is a table contining the classes.
 #' @param variables is the class to look for.
@@ -27,14 +30,22 @@
 #' @export decission_modus
 
 decission_modus <- function(data, variables=c("a", "n", "y"), max_freq=TRUE){
+    # read in data and unlist them for the processing
     unlisted_data <- unlist(data)
+    #  find the unique elements
     unique_variables <- unlisted_data %>% unique
+    # traverse over the vector with the decission elements and apply the sum 
+    # function to the to get the total number for each decission element.
     sum_unique_variables <- sapply(1L:length(unique_variables), function(i) {
         unlisted_data %in% unique_variables[i] %>% sum
     })
-    
+    # Perform a logical operation on the summarized decission elements.
+    # Either report the most common element or total statistics about the decission
     if(max_freq) {
-        tmp <- data.frame(variable=as.character(unique_variables), freq=sum_unique_variables)
+        # Make a data frame wiht the decission and their frequencies.
+        tmp <- data.frame(variable=as.character(unique_variables), 
+                          freq=sum_unique_variables)
+        # Report the most frequent decission only
         tmp[tmp[, "freq"] == max(tmp[, "freq"]), "variable"]
     } else{
         data.frame(variable=as.character(unique_variables), freq=sum_unique_variables)

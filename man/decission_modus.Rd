@@ -2,7 +2,7 @@
 % Please edit documentation in R/decission_modus.R
 \name{decission_modus}
 \alias{decission_modus}
-\title{A function to get a final decission (modus) from a vector of classes}
+\title{A function to get a decission (modus) from a vector of classes}
 \usage{
 decission_modus(data, variables = c("a", "n", "y"), max_freq = TRUE)
 }
@@ -14,8 +14,11 @@ decission_modus(data, variables = c("a", "n", "y"), max_freq = TRUE)
 \item{max_freq}{delivers either the most ocurring class or a summary.}
 }
 \description{
-\code{decission_modus} is a function to to get a final decission (modus) 
-from a vector of classes.
+\code{decission_modus} is a function that can be used to find the most frequent
+(modus) decission. The classes can be defined by the user (e.g., a", "n", "y" 
+-> "ambiguos", "negaive", "positive"). This function is usefuel if large 
+collections of varying decission (e.g., "a", "a", "a", "n", "n") need to be 
+condensed to a single decission (3 x "a", 2 x "n" -> "a").
 }
 \examples{
 

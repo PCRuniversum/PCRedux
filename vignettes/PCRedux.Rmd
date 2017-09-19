@@ -12,10 +12,24 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introduction to the analysis of simgmoid shaped curves – or the analysis of amplification curve data from quantitative real-time PCR experiments
+# Introduction to the analysis of simgmoid shaped curves – or the analysis of 
+amplification curve data from quantitative real-time PCR experiments
 
-**PCRedux** is an R package designed to perform analysis of sigmoid curves. This 
-kind of curve is common in many biological assays such as quantitative real-time 
+**PCRedux** is an R package designed to perform analysis of sigmoid curves. A 
+sigmoid function results a S-shaped curve. For example, the equation 
+\autoref{sigmoid} produces such a curvature.
+
+\begin{equation}
+\label{sigmoid}
+f(x) = \frac{1}{1 +  e^{-x}}
+\end{equation}
+
+These non-linar functions are real-valued and can be differentiated (first derivative 
+maximum, with one local minimum and one loacl maximum).
+
+This 
+kind of curve is common in many biological assays such as quantitative 
+real-time 
 PCR (qPCR) experiments. qPCRs are performed in thermo-cyclers. There are many 
 manufactures of such systems, which offer such technologies as commercial 
 products. Moreover, thermo-cyclers are produced in house as part of scientific 
@@ -24,10 +38,13 @@ projects. An example is the VideoScan-technology [@rodiger_highly_2013].
 A challenge for the user is, to make sense from the data produced by these 
 devices. This is a manageable task if the volume of data is low, or dedicated 
 software is available for the analysis thereof. An example for a low number of 
-amplification curves is shown in Figure \ref{samples_of_qPCRs}A. All 96 curves 
-exhibit a sigmoid curve shape. In contrast, the example in Figure 
-\ref{samples_of_qPCRs}B is no longer manageable by simple visual inspection. 
-Dedicated software is needed.
+amplification curves is shown in Figure \ref{samples_of_qPCRs}A. All `r 
+ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape. In contrast, 
+the example in Figure \ref{samples_of_qPCRs}B is no longer manageable by simple 
+visual inspection. The data originate from an high-throghput experiment an 
+encompas in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a 
+manual analysis of the data is time consuming and prone to errors. Dedicated 
+software that can distinguish the amplification curves automatically is needed.
 
 
 ```{r, echo=FALSE, fig.cap="Sample data from A) the **C127EGHP** data set (*chipPCR* package, [@rodiger_chippcr:_2015]) and B) from the **htPCR** data set (*qpcR* package, [@ritz_qpcr:_2008]). \\label{samples_of_qPCRs}", fig.height=8, fig.width=8}
@@ -46,7 +63,8 @@ matplot(htPCR[, 1], htPCR[, c(-1)], xlab="Cycle", ylab="RFU",
 mtext("B", cex = 2, side = 3, adj = 0, font = 2)
 ```
 
-There are several open source and closed source software tools, which can be used 
+There are several open source and closed source software tools, which can be 
+used 
 for the analysis of qPCR data. The software packages deal for example with
     
     * missing values, 
@@ -74,7 +92,8 @@ and textbooks.
 Others and we have shown that amplification curve analysis is not a simple 
 task. For example selected qPCR systems (device and/or detection chemistry) 
 cause a periodicity in the amplification curve data 
-[@spiess_system-specific_2016]. Or the commonly employed smoothing of data might 
+[@spiess_system-specific_2016]. Or the commonly employed smoothing of data 
+might 
 case alterations to the raw data that affects both the estimation of the 
 template material (Cq value) and the amplification efficiency 
 [@spiess_impact_2015].
@@ -82,11 +101,14 @@ template material (Cq value) and the amplification efficiency
 At this level all software assumes that the amplification resemble a sigmoid 
 curve shape (ideal positive amplification reaction) or a flat low line (ideal 
 negative amplification reaction). For example, @ritz_qpcr:_2008 published an R 
-package that contains functions to fit several multi-parameter models. This includes the 5-parameter Richardson function, which is often used for the analysis of qPCR data.
+package that contains functions to fit several multi-parameter models. This 
+includes the 5-parameter Richardson function, which is often used for the 
+analysis of qPCR data.
 
 In general, the software packages do not take into account if an amplification 
 curve fulfills a certain criterion (e.g., positive or negative, good quality or 
-bad quality). This is a needed imformation for some algorithms. For example, the 
+bad quality). This is a needed imformation for some algorithms. For example, 
+the 
 *linreg* method by @ruijter_amplification_2009 requires a decision, if an 
 amplification curve is positive or negative. 
 
@@ -95,33 +117,143 @@ addressed. In particular, algorithms for the processing of the positive
 amplification curves are widely available. One bottleneck in qPCR data 
 analysis is the lack of amplification curve data classifier. Classifier herein 
 refer to a vector of features that can be used to distinguish the amplification 
-curves by their shape only. One reason for this is the lack of features that 
-are known for amplification curve data. Only few features for amplification curves 
-are described in the literature. For example, tools described by us are the 
-``amptester`` and the ``amptester.gui`` functions, which are part of the **chipPCR** 
-package ([@rodiger_chippcr:_2015]). The **qpcR** package ([@ritz_qpcr:_2008]) 
-contains an amplification curve test via the ``modlist`` function. The parameter 
-check = "uni2" offers an analytical approach, as part of a method for the 
-kinetic outlier detection. It checks for a sigmoid structure of the 
-amplification curve. Then it tests for the location of the first derivative 
-maximum and the second derivative maximum. However, multi-parameter functions, 
-like sigmoid models, fit "successful" in most cases including noise and give 
-false positive results. 
+curves by their shape only.
+
+One reason for this is the lack of features that are known for amplification 
+curve data. Only few features for amplification curves are described in the 
+literature. For example, tools described by us are the ``amptester`` and the 
+``amptester.gui`` functions, which are part of the **chipPCR** package 
+([@rodiger_chippcr:_2015]). The **qpcR** package ([@ritz_qpcr:_2008]) contains 
+an amplification curve test via the ``modlist`` function. The parameter check = 
+"uni2" offers an analytical approach, as part of a method for the kinetic 
+outlier detection. It checks for a sigmoid structure of the amplification curve. 
+Then it tests for the location of the first derivative maximum and the second 
+derivative maximum. However, multi-parameter functions, like sigmoid models, fit 
+"successful" in most cases including noise and give false positive results. 
 
 # Aim of the `PCRedux` package
 
 The `PCRedux` package contains function and data sets for machine learning on 
-quantitative PCR data in R. There are numerous software packages for R which can 
+quantitative PCR data in R. There are numerous software packages for R which 
+can 
 be used for the analysis of quantitative PCR (qPCR) data [@rodiger_r_2015, 
 @pabinger_survey_2014].
 
 This vignette covers important features of the package and should be used as an 
 addendum to the manual.
 
-\newpage
+Reproducible research is an important fundation of research. Both, the technical 
+and the experimental aspects need to be performed under principles that follow 
+good practics of reproducible research. Serveral authors addressed the matter 
+[@huggett_how_2014, @bustin_reproducibility_2014, @bustin_continuing_2017, 
+@rodiger_r_2015, @rodiger_enabling_2017, @wilson_good_2016]. During our 
+literature studies we found barely material, which can be used for further 
+studies. Therefore, we included data set of amplification curves, human rated 
+amplification curves (negative, ambiguos, positive) and examples in this 
+package.
+
+# Functions of the `PCRedux` package
+
+The function described following are aimed for experimental studies. It is 
+important to note that the features proposed herein emerged during a critical 
+reasoning process. The aim of the package is to propose a set of features, 
+functions and data for an independent research.
+
+## autocorrelation_test
+
+Autocorrelation analysis is a technique that is used in the field of time series 
+analysis. It can be used to reveal regularly occurring patterns in 
+one-dimensional data [@spiess_system-specific_2016]. The autocorrelation 
+function measures the correlation of a signal $f(t)$ with itself shifted by some 
+time delay $f(t - \tau)$.
+The `autocorrelation_test` function coercres the amplification curve data to an 
+object of the class "zoo" (*zoo* package) as indexed totally ordered 
+observations. Next follows the computation of a lagged version of the 
+amplification curve data. The shifting the amplification curve data is based 
+back by a given number of observations (default $\tau = 3$). Then follows a 
+significance test for correlation between paired samples (amplification curve 
+data & lagged amplification curve data). The hypothesis is that the paired 
+sample of positive amplification curves has is significant correlation in 
+contrast to negative amplification curves (noise).
+
+The application of the `autocorrelation_test` function is shown in the following 
+example. 
+
+```{r, echo=TRUE, fig.cap="Autocorrelation analysis for amplification curves of the **testdat** data set (*qpcR* package, [@ritz_qpcr:_2008]). \\label{autocorrelation}", fig.height=8, fig.width=8}
+# Test for autocorrelation in amplification curve data
+# Load the libraries magrittr for pipes and qpcR for the data
+library(magrittr)
+library(PCRedux)
+library(qpcR)
+
+# Test for autocorrelation in the testdat dataset
+res_ac <- sapply(2:ncol(testdat), function(i) {
+    autocorrelation_test(testdat[, i])
+}
+)
+
+# Plot curve data as overview
+# Define the colors for the amplification curves
+colors <- rainbow(ncol(testdat)-1, alpha=0.3)
+# Names of samples
+samples <- colnames(testdat)[-1]
+layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE))
+matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
+        main="testdat dataset", type="l", lty=1, col=colors, lwd=2)
+legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
+
+# Curves rated by a human after analysis of the overview. 1 = positive, 
+# 0 = negative
+human_rating <- c(1,1,0,0,1,1,0,0,
+                  1,1,0,0,1,1,0,0,
+                  1,1,0,0,1,1,0,0)
+
+# Convert the n.s. (not significant) in 0 and others to 1. 
+# Combine the results of the atomatic autocorrelation_test as variable "ac", 
+# the human rated values as variable "hr" in a new data frame (res_ac_hr).
+res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1), 
+                        hr=human_rating) %>% as.matrix
+                        
+# Add ratings by humna and autocorrelation_test to the plot
+par(las=2)
+barplot(res_ac_hr[, "ac"], main="Rated by autocorrelation_test", col=colors, 
+        xlab="Sample", ylab="rating", names.arg=samples)
+barplot(res_ac_hr[, "hr"], main="Rated by a human", col=colors, xlab="Sample", 
+        ylab="rating", names.arg=samples)
+```
+
+## decission_modus
+
+## earlyreg
+
+## head2tailratio
+
+## hookreg
+
+## mblrr
+
+## pcrfit_helper
+
+## pcrfit_parallel
+
+## qPCR2fdata
 
 
-## Generalized Linear Models (GLM) 
-Generalized Linear Models (GLM) are linear models for data, where the response variables may have non-normal distributions. GLMs can describe the relationships between
+
+# Summary and conlusion
+
+The `PCRedux` enables the user to extract features from amplification curve 
+data. We implemented numerous features that can be extracted from the 
+amplification curve data. Some of them have not been described in the 
+literature. We consider `PCRedux` as enabling technology for further research. 
+For example, the proposed features can be used for machine learing applications 
+or quality assassemt of data.
+
+The ``pcrfit_helper`` function is a wrapper that can be extended if new features 
+emerge.
+
+Of note, we would like to emphasise that the functianlity of this package is not 
+limited to amplificatiton curve data from qPCR experiments. As stated before, 
+amplification curves have a sigmoid curve shape. So do many other processes. 
 
 # References
