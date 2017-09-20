@@ -166,6 +166,7 @@ analysis. It can be used to reveal regularly occurring patterns in
 one-dimensional data [@spiess_system-specific_2016]. The autocorrelation 
 function measures the correlation of a signal $f(t)$ with itself shifted by some 
 time delay $f(t - \tau)$.
+
 The `autocorrelation_test` function coercres the amplification curve data to an 
 object of the class "zoo" (*zoo* package) as indexed totally ordered 
 observations. Next follows the computation of a lagged version of the 
@@ -173,13 +174,13 @@ amplification curve data. The shifting the amplification curve data is based
 back by a given number of observations (default $\tau = 3$). Then follows a 
 significance test for correlation between paired samples (amplification curve 
 data & lagged amplification curve data). The hypothesis is that the paired 
-sample of positive amplification curves has is significant correlation in 
-contrast to negative amplification curves (noise).
-
+sample of positive amplification curves has is significant correlation 
+(`stats::cor.test`, significance level is 0.01) in contrast to negative 
+amplification curves (noise).
 The application of the `autocorrelation_test` function is shown in the following 
 example. 
 
-```{r, echo=TRUE, fig.cap="Autocorrelation analysis for amplification curves of the **testdat** data set (*qpcR* package, [@ritz_qpcr:_2008]). \\label{autocorrelation}", fig.height=8, fig.width=8}
+```{r, echo=TRUE, fig.cap="Autocorrelation analysis for amplification curves of the **testdat** data set (*qpcR* package, [@ritz_qpcr:_2008]). A) All amplification curves of the **testdat** data set. B) Positive curves (1) and negative (0) curves as determined by the `autocorrelation_test`. C) Positive curves (1) and negative (0) curves as determined by a human. \\label{autocorrelation}", fig.height=6, fig.width=8}
 # Test for autocorrelation in amplification curve data
 # Load the libraries magrittr for pipes and qpcR for the data
 library(magrittr)
@@ -201,6 +202,7 @@ layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE))
 matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
         main="testdat dataset", type="l", lty=1, col=colors, lwd=2)
 legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
 
 # Curves rated by a human after analysis of the overview. 1 = positive, 
 # 0 = negative
@@ -218,9 +220,14 @@ res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1),
 par(las=2)
 barplot(res_ac_hr[, "ac"], main="Rated by autocorrelation_test", col=colors, 
         xlab="Sample", ylab="rating", names.arg=samples)
+mtext("B", cex = 2, side = 3, adj = 0, font = 2, las=1)
+
 barplot(res_ac_hr[, "hr"], main="Rated by a human", col=colors, xlab="Sample", 
         ylab="rating", names.arg=samples)
+mtext("C", cex = 2, side = 3, adj = 0, font = 2, las=1)
 ```
+
+As shown in this example, the `autocorrelation_test` function is able to distinguish between positive and negative amplification curves. Negative amplification curve were in all cases non-significant. In contrast, the coefficients of correlation for positive amplification curves ranged between `r signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[1]` and `r signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[2]` at a significance level of 0.01 and a lag of 3.
 
 ## decission_modus
 
