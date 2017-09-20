@@ -1,6 +1,6 @@
 #' PCRedux - quantitative PCR machine learning helper tool
 #'
-#' @description \code{PCRedux} package is a toolbox for the analysis of qPCR data.
+#' @description \code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
 #' 
 #' @section ML:
 #' T.B.D.
@@ -20,7 +20,7 @@
 #' @importFrom qpcR efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
 #' @importFrom zoo as.zoo
-#' @author Stefan Roediger, Michal Burdukiewcz
+#' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess
 #' @docType package
 #' @name PCRedux-package
 #' @aliases PCRedux

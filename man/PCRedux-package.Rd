@@ -6,7 +6,7 @@
 \alias{PCRedux}
 \title{PCRedux - quantitative PCR machine learning helper tool}
 \description{
-\code{PCRedux} package is a toolbox for the analysis of qPCR data.
+\code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
 }
 \section{ML}{
 
@@ -18,5 +18,5 @@ T.B.D.
 mblrr(x=1:35, y=rnorm(35))
 }
 \author{
-Stefan Roediger, Michal Burdukiewcz
+Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess
 }

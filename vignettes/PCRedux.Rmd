@@ -237,6 +237,8 @@ As shown in this example, the `autocorrelation_test` function is able to disting
 
 ## hookreg
 
+## hookregNL
+
 ## mblrr
 
 ## pcrfit_helper
