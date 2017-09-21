@@ -5,7 +5,7 @@
 \title{A function to calculate the slope and intercept of an amplification curve data 
 from a quantitative PCR experiment.}
 \usage{
-earlyreg(x, y, range = 10)
+earlyreg(x, y, range = 6)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -16,15 +16,25 @@ earlyreg(x, y, range = 10)
 }
 \description{
 \code{earlyreg} is a function to calculate the slope and intercept of an 
-amplification curve data from a quantitative PCR experiment.
+amplification curve data from a quantitative PCR experiment. The number
+of cycles to be analyzed is defined by the user (default 6 cycles).
 }
 \examples{
 
 # Calculate slope and intercept on noise (negative) amplification curve data
-# for the cycles 2 to 10.
+# for the cycles 2 to 10 for the C316.amp data set
+library(chipPCR)
+data(C316.amp)
 
-earlyreg(x=1:35, y=rnorm(35), range=10)
-
+# Plot the data
+plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU", 
+     main="C316.amp dataset", lty=1, type="l")
+res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=6)
+res
+}
+\seealso{
+\code{\link[robustbase]{lmrob}}
+ \code{\link[stats]{coefficients}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

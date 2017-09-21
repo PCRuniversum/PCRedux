@@ -1,4 +1,4 @@
----
+﻿---
 title: "PCRedux package - an overview"
 author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Andrej-Nikolai Spiess"
 date: "2017-09-15"
@@ -237,7 +237,12 @@ signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[2]` at a significance level of
 
 ## decision_modus - A function to get a decision (modus) from a vector of classes
 
-several approaches for machine learning exist. One of them is the supervised learning, where the aim is to infer a function from labeled training data. Labeled training data are for example created by a human. As described in the sections before, amplification curves can be labeled as negative, ambiguous or positive for example (Figure \ref{htPCR_nap}) were taken from the ``htPCR`` dataset (compare Figure \ref{samples_of_qPCRs}B).
+Several approaches for machine learning exist. One of them is the supervised 
+learning, where the aim is to infer a function from labeled training data. 
+Labeled training data are for example created by a human. As described in the 
+sections before, amplification curves can be labeled as negative, ambiguous or 
+positive for example (Figure \ref{htPCR_nap}) were taken from the ``htPCR`` 
+dataset (compare Figure \ref{samples_of_qPCRs}B).
 
 
 ```{r, echo=FALSE, fig.cap="Sample data from the **htPCR** data set (*qpcR* package, [@ritz_qpcr:_2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. The negative amplification curve has no sigmoid curvature, just a strong positive trend. The ambiguous amplification curve is not a perfect sigmoid curve, exhibits a positive slope in the background phase (Cylce 1 $\rightarrow$ 5) and a low amplitude. In contrast, the positive amplification curve has a sigmoid curvature, starting with a background phase (Cylce 1 $\rightarrow$ 5), an exponential phase (Cylce 6 $\rightarrow$ 25) and a plateau phase (Cylce 26 $\rightarrow$ 35). \\label{htPCR_nap}", fig.height=4, fig.width=7}
@@ -305,7 +310,93 @@ summary(dec)
 barplot(table(dec), xlab="Decision", ylab="Frequency", main="Amplification curves rated by humans\n htPCR data set", col=c(1:3))
 ```
 
-## earlyreg
+Another usage of the ``decision_modus`` function is by setting the `max_freq` 
+parameter to `FALSE`. This option gives the counts of all decisions.
+
+```{r, eval=TRUE, echo=TRUE}
+# Decisions for sample P01.W06
+decision_modus(decision_res_htPCR[which(decision_res_htPCR[["sample"]] == "P01.W06"), 2:4], max_freq=FALSE)
+
+# Decisions for sample P01.W13
+decision_modus(decision_res_htPCR[which(decision_res_htPCR[["sample"]] == "P01.W13"), 2:4], max_freq=FALSE)
+```
+
+## earlyreg - A function to calculate the slope and intercept of an amplification curve data from a quantitative PCR experiment
+
+As shown in Figure \ref{earlyreg_slopes} have amplification curves different 
+slopes in the backround phase.
+
+
+```{r, echo=TRUE, fig.cap="Amplification curves from the **htPCR** data set (*qpcR* package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. \\label{earlyreg_slopes}", fig.height=4, fig.width=7}
+par(bty="n", font=2, font.axis=2, las=1, cex.axis=1.3, cex.lab=1.3, lwd=1.3, bg="white", oma=c(.5,.5,.5,.5))
+data <- htPCR[, 1:501]
+curve_colors <- c(rainbow(ncol(data)-1, alpha=.5))
+range <- 1:10
+
+par(mfrow=c(1,2), las=0, bty="n", oma=c(1,1,1,1))
+
+matplot(data[, 1], data[, -1], col= curve_colors, pch=19, lty=1, type="l", 
+        xlab="Cycle", ylab="RFU", main="htPCR dataset")
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+matplot(data[range, 1], data[range, -1], col= curve_colors, pch=19, lty=1, 
+        type="l", xlab="Cycle", ylab="RFU", 
+        main="htPCR dataset\n Cycle 1 to 10")
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+```
+Next we calculated of the slope and intercept with the `earlyreg` function for 
+the first six cycles of the qPCR data. The results were subjected to a cluster 
+analysis by k-means clustering. For the analysis we focused on the slope, 
+because the intercept is representing the background fluorescence in the early 
+phase of the qPCR. In contrast, the slope is a strong indicator of the qPCR 
+amplification reaction. The results of the analysis are shown in Figure 
+\ref{earlyreg_results}. For the analysis we used arbitrarily the first 500 
+amplification curves of the ``htPCR`` dataset.
+
+```{r, echo=TRUE, fig.cap="Clusters of samples according to their slope and intercept. The **htPCR** data set (*qpcR* package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).\\label{earlyreg_results}", fig.height=7, fig.width=7}
+# Noramlize each amplification curve to their 0.99 quantile and use the 
+# earlyreg function to determine the slope and intercept of the first 
+# 6 cycles
+
+res_slope_intercept <- do.call(rbind, lapply(2L:ncol(data), function(i){
+                    y_tmp <- data[, i]/ quantile(data[, i], 0.99)
+                    earlyreg(x=data[, 1], y=y_tmp, range=7)
+                    }))
+# Label the sample with their original names
+rownames(res_slope_intercept) <- colnames(htPCR)[2:ncol(data)]
+# Use k-means for cluster analysis
+res_kmeans <- kmeans(res_slope_intercept[, "slope"], 3)$"cluster"
+
+par(mfrow=c(2,3))
+plot(res_slope_intercept, col=res_kmeans)
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+plot(density(res_slope_intercept[, "intercept"]), main="Intercept")
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+
+plot(density(res_slope_intercept[, "slope"]), main="Slope")
+
+for(i in unique(res_kmeans)) {
+    abline(v=min(res_slope_intercept[res_kmeans==i, "slope"]), col=i)
+}
+mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+
+
+matplot(data[, 1], data[, which(res_kmeans==1)+1], col= curve_colors, pch=19, lty=1, 
+ type="l", xlab="Cycle", ylab="RFU", 
+ main="htPCR dataset (1-500)\n Cluster 1", ylim=c(min(data[, -1]), 0.4))
+mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+
+matplot(data[, 1], data[, which(res_kmeans==2)+1], col= curve_colors, pch=19, lty=1, 
+ type="l", xlab="Cycle", ylab="RFU", 
+ main="htPCR dataset (1-500)\n Cluster 2", ylim=c(min(data[, -1]), 0.4))
+mtext("E", cex = 2, side = 3, adj = 0, font = 2)
+
+matplot(data[, 1], data[, which(res_kmeans==3)+1], col= curve_colors, pch=19, lty=1, 
+ type="l", xlab="Cycle", ylab="RFU", 
+ main="htPCR dataset (1-500)\n Cluster 3", ylim=c(min(data[, -1]), 0.4))
+mtext("F", cex = 2, side = 3, adj = 0, font = 2)
+```
 
 ## head2tailratio
 
@@ -323,20 +414,20 @@ barplot(table(dec), xlab="Decision", ylab="Frequency", main="Amplification curve
 
 
 
-# Summary and conlusion
+# Summary and conclusions
 
 The `PCRedux` enables the user to extract features from amplification curve 
 data. We implemented numerous features that can be extracted from the 
 amplification curve data. Some of them have not been described in the 
 literature. We consider `PCRedux` as enabling technology for further research. 
-For example, the proposed features can be used for machine learing applications 
-or quality assassemt of data.
+For example, the proposed features can be used for machine learning applications 
+or quality assessment of data.
 
 The ``pcrfit_helper`` function is a wrapper that can be extended if new features 
 emerge.
 
-Of note, we would like to emphasise that the functianlity of this package is not 
-limited to amplificatiton curve data from qPCR experiments. As stated before, 
+Of note, we would like to emphasis that the functionality of this package is not 
+limited to amplification curve data from qPCR experiments. As stated before, 
 amplification curves have a sigmoid curve shape. So do many other processes. 
 
 # References
