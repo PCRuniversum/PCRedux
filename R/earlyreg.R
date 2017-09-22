@@ -8,6 +8,8 @@
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param range is the number of cycles to be used for the regression.
+#' @param normalize is a logical parameter which indicates if the amplification curve
+#' data should be normalized to the 99 percent quntile of the amplification curve.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords slope intercept
 #' @seealso 
@@ -27,7 +29,9 @@
 #' res
 #' @export earlyreg
 
-earlyreg <- function(x, y, range=6) {
+earlyreg <- function(x, y, range=6, normalize=FALSE) {
+            
+            if(normalize) y <- y/quantile(y, 0.999)
             
             range <- head(x[-1], range)
             suppressWarnings

@@ -5,7 +5,7 @@
 \title{A function to calculate the slope and intercept of an amplification curve data 
 from a quantitative PCR experiment.}
 \usage{
-earlyreg(x, y, range = 6)
+earlyreg(x, y, range = 6, normalize = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -13,6 +13,9 @@ earlyreg(x, y, range = 6)
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
 \item{range}{is the number of cycles to be used for the regression.}
+
+\item{normalize}{is a logical parameter which indicates if the amplification curve
+data should be normalized to the 99 percent quntile of the amplification curve.}
 }
 \description{
 \code{earlyreg} is a function to calculate the slope and intercept of an 

@@ -5,7 +5,7 @@
 \title{A function perform the Median based Local Robust Regression (mblrr) 
 from a quantitative PCR experiment}
 \usage{
-mblrr(x, y, sig.level = 0.01)
+mblrr(x, y, sig.level = 0.01, normalize = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -13,6 +13,9 @@ mblrr(x, y, sig.level = 0.01)
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
 \item{sig.level}{is the significance level for the correlation test.}
+
+\item{normalize}{is a logical parameter which indicates if the amplification curve
+data should be normalized to the 99 percent quntile of the amplification curve.}
 }
 \description{
 \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr) 

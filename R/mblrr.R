@@ -1,5 +1,4 @@
-#' A function perform the Median based Local Robust Regression (mblrr) 
-#' from a quantitative PCR experiment
+#' A function to perform a Qunantile-filter based Local Robust Regression
 #' 
 #' \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr) 
 #' from a quantitative PCR experiment. In detail, this function attempts to break the 
@@ -19,6 +18,8 @@
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param sig.level is the significance level for the correlation test.
+#' @param normalize is a logical parameter which indicates if the amplification curve
+#' data should be normalized to the 99 percent quntile of the amplification curve.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords segmented regression
 #' @examples
@@ -26,40 +27,43 @@
 #' # Perform an mblrr analysis on noise (negative) amplification data of qPCR data
 #' # with 35 cycles.
 #' library(qpcR)
-#' mblrr(x=boggy[, 1], y=boggy[, 2])
+#' mblrr(x=boggy[, 1], y=boggy[, 2], normalize=TRUE)
 #' 
 #' @export mblrr
 mblrr <-
-function(x, y, sig.level=0.01) {
-            res_less_than_median <- y < median(y)
-            res_more_than_median <- y > median(y)
+function(x, y, sig.level=0.01, normalize=FALSE) {
             
+            if(normalize) y <- y/quantile(y, 0.999)
+            
+            res_q25 <- y < quantile(y, 0.25)
+            res_q75 <- y > quantile(y, 0.75)
+
             res_mblrr <- c(NA, NA, NA, NA, NA, NA)
             
-            if(class(res_less_than_median) == "logical" && class(res_less_than_median) == "logical") {
-                res_less_than_median_lm <- try(lmrob(y[res_less_than_median] ~ x[res_less_than_median]), silent=TRUE)
-                res_more_than_median_lm <- try(lmrob(y[res_more_than_median] ~ x[res_more_than_median]), silent=TRUE)
+            if(class(res_q25) == "logical" && class(res_q25) == "logical") {
+                res_q25_lm <- try(suppressWarnings(lmrob(y[res_q25] ~ x[res_q25])), silent=TRUE)
+                res_q75_lm <- try(suppressWarnings(lmrob(y[res_q75] ~ x[res_q75])), silent=TRUE)
                 
-                if(class(res_less_than_median_lm) != "try-error" & class(res_more_than_median_lm) != "try-error"){
-                    res_less_than_median_cor.test <- try(cor.test(x[res_less_than_median], y[res_less_than_median]), silent=TRUE)
-                    res_more_than_median_cor.test <- try(cor.test(x[res_more_than_median], y[res_more_than_median]), silent=TRUE)
+                if(class(res_q25_lm) != "try-error" & class(res_q75_lm) != "try-error"){
+                    res_q25_cor.test <- try(cor.test(x[res_q25], y[res_q25]), silent=TRUE)
+                    res_q75_cor.test <- try(cor.test(x[res_q75], y[res_q75]), silent=TRUE)
                     
-                    if(class(res_less_than_median_cor.test) != "try-error" & class(res_more_than_median_cor.test) != "try-error"){
-                        ifelse(res_less_than_median_cor.test$p.value <= sig.level, 
-                                        res_less_than_median_cor.test_estimate <- res_less_than_median_cor.test$estimate, 
-                                        res_less_than_median_cor.test_estimate <- NA
+                    if(class(res_q25_cor.test) != "try-error" & class(res_q75_cor.test) != "try-error"){
+                        ifelse(res_q25_cor.test$p.value <= sig.level, 
+                                        res_q25_cor.test_estimate <- res_q25_cor.test$estimate, 
+                                        res_q25_cor.test_estimate <- NA
                               )
-                        ifelse(res_more_than_median_cor.test$p.value <= sig.level, 
-                                        res_more_than_median_cor.test_estimate <- res_more_than_median_cor.test$estimate, 
-                                        res_more_than_median_cor.test_estimate <- NA
+                        ifelse(res_q75_cor.test$p.value <= sig.level, 
+                                        res_q75_cor.test_estimate <- res_q75_cor.test$estimate, 
+                                        res_q75_cor.test_estimate <- NA
                               )
                     }
-                res_mblrr <- c(res_less_than_median_lm$coefficients[1],
-                               res_less_than_median_lm$coefficients[2],
-                               res_less_than_median_cor.test_estimate,
-                               res_more_than_median_lm$coefficients[1],
-                               res_more_than_median_lm$coefficients[2],
-                               res_more_than_median_cor.test_estimate
+                res_mblrr <- c(res_q25_lm$coefficients[1],
+                               res_q25_lm$coefficients[2],
+                               res_q25_cor.test_estimate,
+                               res_q75_lm$coefficients[1],
+                               res_q75_lm$coefficients[2],
+                               res_q75_cor.test_estimate
                                )
                                 
                 }
