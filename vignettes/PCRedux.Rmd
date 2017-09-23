@@ -501,7 +501,7 @@ useful to extract a feature for an amplification curve classification.
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_mblrr}Some text here.", fig.height=7, fig.width=7}
 library(qpcR)
 par(mfrow=c(2,2))
-data <- htPCR[, c(1, 20:40, 500:520, 6000:6020, 8000:8050)]
+data <- htPCR[, c(1, 20:30, 500:510, 6000:6020, 8000:8020)]
 for(i in 2:ncol(data)){
         x <- data[, 1]
         y_tmp <- data[, i]/quantile(data[, i], 0.999)
