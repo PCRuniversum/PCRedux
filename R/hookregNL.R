@@ -16,11 +16,11 @@
 #' # curvature
 #' library(qpcR)
 #' # has hook
-#' res <- hookregNL(boggy[, 1], boggy[, 12])
+#' res <- hookregNL(boggy[, 1], boggy[, 2])
 #' res
 #' 
 #' # has no hook
-#' res <- hookregNL(reps[, 1], reps[, 2])
+#' res <- hookregNL(boggy[, 1], boggy[, 12])
 #' res
 #' @seealso 
 #'  \code{\link[qpcR]{pcrfit}}
@@ -62,7 +62,7 @@ hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   
   # Output
   if(simple){
-        return(data.frame(slope=slope[[1]], CI.low=confslope_simple[1], CI.up=confslope_simple[2], hook=hook))
+        return(data.frame(slope=slope[[1]], CI.low=confslope_simple[[1]], CI.up=confslope_simple[[2]], hook=hook))
   } else {
         return(list(fit=fit, slope=slope, conf=confslope, hook=hook))
         }
