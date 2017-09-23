@@ -1,4 +1,4 @@
-﻿---
+---
 title: "PCRedux package - an overview"
 author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Andrej-Nikolai Spiess"
 date: "2017-09-15"

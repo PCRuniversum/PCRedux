@@ -30,7 +30,10 @@
 #' @export earlyreg
 
 earlyreg <- function(x, y, range=6, normalize=FALSE) {
-            
+            # Remove missing values from data
+            data <- na.omit(cbind(x=x, y=y))
+            x <- data[, "x"]
+            y <- data[, "y"]
             if(normalize) y <- y/quantile(y, 0.999)
             
             range <- head(x[-1], range)
