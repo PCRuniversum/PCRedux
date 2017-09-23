@@ -34,11 +34,11 @@ DETAILS
 # curvature
 library(qpcR)
 # has hook
-res <- hookregNL(boggy[, 1], boggy[, 12])
+res <- hookregNL(boggy[, 1], boggy[, 2])
 res
 
 # has no hook
-res <- hookregNL(reps[, 1], reps[, 2])
+res <- hookregNL(boggy[, 1], boggy[, 12])
 res
 }
 \seealso{

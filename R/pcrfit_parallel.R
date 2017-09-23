@@ -59,6 +59,8 @@ pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry = NA, device 
                  detection_chemistry = detection_chemistry,
                  device = device)
     
+    rownames(res) <- NULL
+    
     res
     
 }
