@@ -105,18 +105,28 @@ prcfit_single <- function(x) {
     if(class(res_efficiency_tmp) != "try-error") {                        
       res_cpDdiff <- try(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
     } else {
-      res_efficiency_tmp <- list(NA, NA, NA, NA, NA, NA)
+      res_efficiency_tmp <- list(eff = NA, 
+                                 cpD1 = NA, 
+                                 cpD2 = NA, 
+                                 fluo = NA, 
+                                 init1 = NA, 
+                                 init2 = NA)
       res_cpDdiff <- NA
     }
   } else {
-    res_efficiency_tmp <- list(NA, NA, NA, NA, NA, NA)
+    res_efficiency_tmp <- list(eff = NA, 
+                               cpD1 = NA, 
+                               cpD2 = NA, 
+                               fluo = NA, 
+                               init1 = NA, 
+                               init2 = NA)
     res_takeoff <- list(NA, NA)
     res_LRE <- NA
     res_sliwin <- NA
     res_cpDdiff <- NA
   }
   
-  res_efficiency <- list(
+  res_efficiency <- data.frame(
     eff=res_efficiency_tmp[["eff"]],
     cpD1=res_efficiency_tmp[["cpD1"]],
     cpD2=res_efficiency_tmp[["cpD2"]],

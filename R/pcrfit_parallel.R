@@ -47,13 +47,15 @@ pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry = NA, device 
 
     # just to shut RCHeck for NSE we define ith_cycle
     ith_cycle <- 1
+
     run_res <- foreach(ith_cycle = 1L:ncol(data_RFU), 
             .packages=c("bcp", "changepoint", "chipPCR", "ecp", "MBmca",
                         "PCRedux", "pracma", "qpcR", "robustbase", 
                         "zoo"),
             .combine = rbind) %dopar% {
                           prcfit_single(data_RFU[, ith_cycle])
-                        }
+            }
+    
 
     res <- cbind(runs = colnames(data_RFU), run_res, 
                  detection_chemistry = detection_chemistry,
