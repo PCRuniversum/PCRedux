@@ -52,9 +52,14 @@
 #' @export hookreg
 
 hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robust=FALSE) {
+    # Remove missing values from data
+    data <- na.omit(cbind(x=x, y=y))
+    x <- data[, "x"]
+    y <- data[, "y"]
+    
     # Quantile Normaliation of amplification data
     if(normalize) {y <- y / quantile(y, 0.999)}
-
+    
     # narrow the range of the potential hook region by a 75% quantile 
     # filter
     hook_quantile_range <- which(y >= quantile(y, c(0.75)))[1]:length(y)
@@ -65,8 +70,10 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robus
 
     # Determine putative hook range
     range <- hook_max_range:length(x)
+    
+    hook_delta <- length(hook_max_range:length(x))
 
-    if(hook_max_range < length(x) && length(hook_max_range:length(x)) >= 5) {
+    if(hook_max_range < length(x) && hook_delta >= 5) {
             # Regression for putative hook range
             if(robust) {
                         res_lm_fit <- try(lmrob(y[range] ~ x[range]), silent=TRUE)
@@ -86,15 +93,16 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robus
             res_hookreg <- c(res_lm_fit_coefficients[[1]],
                             res_lm_fit_coefficients[[2]],
                             hook_max_range,
+                            hook_delta,
                             res_lm_fit_summary,
                             res_lm_fit_confint[1, 2],
                             res_lm_fit_confint[2, 2],
                             res_hook_significance,
                             res_lm_fit_confint_decision)
     } else {
-            res_hookreg <- c(NA, NA, NA, NA, NA, NA, FALSE, FALSE)
+            res_hookreg <- c(NA, NA, NA, NA, NA, NA, NA, FALSE, FALSE)
             }
-    names(res_hookreg) <- c("intercept", "slope", "hook.start", "p.value", 
+    names(res_hookreg) <- c("intercept", "slope", "hook.start", "hook.delta", "p.value", 
                             "CI.low", "CI.up", "hook", "hook.CI")
     res_hookreg
 }

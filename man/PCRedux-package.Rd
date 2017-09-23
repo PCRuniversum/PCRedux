@@ -14,8 +14,9 @@ T.B.D.
 }
 
 \examples{
-# Use the mblrr functopm to analyse 
-mblrr(x=1:35, y=rnorm(35))
+# Use the mblrr function to analyse amplification curves
+library(qpcR)
+mblrr(x=boggy[, 1], y=boggy[, 2])
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess

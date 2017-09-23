@@ -2,8 +2,7 @@
 % Please edit documentation in R/mblrr.R
 \name{mblrr}
 \alias{mblrr}
-\title{A function perform the Median based Local Robust Regression (mblrr) 
-from a quantitative PCR experiment}
+\title{A function to perform a Qunantile-filter based Local Robust Regression}
 \usage{
 mblrr(x, y, sig.level = 0.01, normalize = FALSE)
 }
@@ -39,7 +38,7 @@ background and plateau region.
 # Perform an mblrr analysis on noise (negative) amplification data of qPCR data
 # with 35 cycles.
 library(qpcR)
-mblrr(x=boggy[, 1], y=boggy[, 2])
+mblrr(x=boggy[, 1], y=boggy[, 2], normalize=TRUE)
 
 }
 \author{

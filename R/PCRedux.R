@@ -12,7 +12,7 @@
 #' @importFrom fda.usc fdata
 #' @importFrom graphics matplot par
 #' @importFrom grDevices rainbow
-#' @importFrom stats coefficients confint cor.test lag lm median quantile
+#' @importFrom stats coefficients confint cor.test lag lm median na.omit quantile
 #' @importFrom utils head tail
 #' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
@@ -25,7 +25,8 @@
 #' @name PCRedux-package
 #' @aliases PCRedux
 #' @examples
-#' # Use the mblrr functopm to analyse 
-#' mblrr(x=1:35, y=rnorm(35))
+#' # Use the mblrr function to analyse amplification curves
+#' library(qpcR)
+#' mblrr(x=boggy[, 1], y=boggy[, 2])
 
 NULL

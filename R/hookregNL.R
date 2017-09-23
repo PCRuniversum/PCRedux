@@ -31,11 +31,11 @@
 hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   # Create data and remove first 5 cycles to 
   # Avoid fitting baseline slopes
-  data <- cbind(cycles = x, fluo = y)
-  data <- data[-(1:1), ]
+  data <- na.omit(cbind(cycles = x, fluo = y))
+  data <- data[-(1:5), ]
   
   # fit a 6-parameter log-logistic model
-  fit <- try(qpcR::pcrfit(data, 1, 2, model=l6), silent = TRUE)
+  fit <- try(pcrfit(data, 1, 2, l6), silent = TRUE)
   l6 <- NULL
   if (inherits(fit, "try-error")) {
     print("fitting failed.")
@@ -52,17 +52,17 @@ hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   }
   
   # Decision
-  hook <- ifelse(!is.na(confslope) && confslope[1] < 0 && confslope[2] < 0, TRUE, FALSE)
+  hook <- ifelse(!is.na(confslope) && confslope[1] < 0 && confslope[2] < 0, 1, 0)
   
   confslope_simple <- if(!is.na(confslope)) {
-                            data.frame(CI.low=confslope[1], CI.up=confslope[2])  
+                            data.frame(CI.low=confslope[[1]], CI.up=confslope[[2]])  
                       } else{
                             data.frame(CI.low=NA, CI.up=NA)
                       }
   
   # Output
   if(simple){
-        return(data.frame(slope=slope, conf=confslope_simple, hook=hook))
+        return(data.frame(slope=slope[[1]], CI.low=confslope_simple[1], CI.up=confslope_simple[2], hook=hook))
   } else {
         return(list(fit=fit, slope=slope, conf=confslope, hook=hook))
         }
