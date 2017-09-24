@@ -36,7 +36,7 @@ hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   data <- data[-(1:5), ]
   
   # fit a 6-parameter log-logistic model
-  fit <- try(pcrfit(data, 1, 2, l7), silent = TRUE)
+  fit <- try(pcrfit(data, 1, 2, l6), silent = TRUE)
   l6 <- NULL
   if (inherits(fit, "try-error")) {
     print("fitting failed.")
