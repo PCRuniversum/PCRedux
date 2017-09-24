@@ -29,17 +29,18 @@
 #' @export hookregNL
 
 hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
-  # Create data and remove first 5 cycles to 
-  # Avoid fitting baseline slopes
+  # Create data, remove missing values and remove first 5 cycles to 
+  # avoid fitting baseline slopes.
+  
   data <- na.omit(cbind(cycles = x, fluo = y))
   data <- data[-(1:5), ]
   
   # fit a 6-parameter log-logistic model
-  fit <- try(pcrfit(data, 1, 2, l6), silent = TRUE)
+  fit <- try(pcrfit(data, 1, 2, l7), silent = TRUE)
   l6 <- NULL
   if (inherits(fit, "try-error")) {
     print("fitting failed.")
-    return(NA)
+     return(NA)
   }
   if (plot) plot(fit)
   
@@ -48,11 +49,11 @@ hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   confslope <- try(stats::confint(fit, level = level)[6, ], silent = TRUE)
   if (inherits(confslope, "try-error")) {
     print("Could not calculate confidence interval.")
-    confslope <- NA
+    confslope <- c(NA,NA)
   }
   
   # Decision
-  hook <- ifelse(!is.na(confslope) && confslope[1] < 0 && confslope[2] < 0, 1, 0)
+  hook <- ifelse(!is.na(confslope) && confslope[1] < 0 && confslope[2] < 0  && class(fit) != "try-error", 1, 0)
   
   confslope_simple <- if(!is.na(confslope)) {
                             data.frame(CI.low=confslope[[1]], CI.up=confslope[[2]])  
