@@ -53,7 +53,7 @@
 
 hookreg <- function(x, y, normalize=TRUE, sig.level=0.001, CI.level=0.999, robust=FALSE) {
     # Remove missing values from data
-    data <- na.omit(cbind(x=x, y=y))
+    data <- na.omit(data.frame(x=x, y=y))
     x <- data[, "x"]
     y <- data[, "y"]
     

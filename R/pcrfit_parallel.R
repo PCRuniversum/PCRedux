@@ -41,7 +41,7 @@ pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry = NA, device 
     data_RFU <- data.frame(data[, -1])
     data_RFU_colnames <- colnames(data_RFU)
     data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
-        data_RFU[, i] / quantile(data_RFU[, i], 0.999)
+        data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm=TRUE)
     })
     colnames(data_RFU) <- data_RFU_colnames
 

@@ -32,7 +32,7 @@ hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   # Create data, remove missing values and remove first 5 cycles to 
   # avoid fitting baseline slopes.
   
-  data <- na.omit(cbind(cycles = x, fluo = y))
+  data <- na.omit(data.frame(cycles = x, fluo = y))
   data <- data[-(1:5), ]
   
   # fit a 6-parameter log-logistic model
@@ -40,7 +40,7 @@ hookregNL <- function(x, y, plot=FALSE, level=0.99, simple=TRUE) {
   l6 <- NULL
   if (inherits(fit, "try-error")) {
     print("fitting failed.")
-     return(NA)
+     return("NA")
   }
   if (plot) plot(fit)
   

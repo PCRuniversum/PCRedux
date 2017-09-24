@@ -1,16 +1,16 @@
 prcfit_single <- function(x) {
   
   # Normalize RFU values to the alpha quantiles (0.999)
-  x <- x/quantile(x, 0.999)
+#   x <- x/quantile(x, 0.999)
   cycles <- 1L:length(x)
   # Determine highest and lowest amplification curve values
-  fluo_range <- quantile(x, c(0.01, 0.99))
+  fluo_range <- quantile(x, c(0.01, 0.99), na.rm=TRUE)
   
   # for qpcR
-  dat <- data.frame(cyc = 1, fluo = x)
+  dat <- data.frame(cyc = cycles, fluo = x)
   
   res_bg.max_tmp <- bg.max(cycles, x)
-  length_cycle <- nrow(cycles)
+  length_cycle <- length(cycles)
   res_bg.max <- c(bg.start=res_bg.max_tmp@bg.start/length_cycle,
                   bg.stop=res_bg.max_tmp@bg.stop/length_cycle,
                   amp.stop=res_bg.max_tmp@amp.stop/length_cycle)
