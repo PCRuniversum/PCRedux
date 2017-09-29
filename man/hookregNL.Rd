@@ -4,7 +4,8 @@
 \alias{hookregNL}
 \title{hookregNL}
 \usage{
-hookregNL(x, y, plot = FALSE, level = 0.99, simple = TRUE)
+hookregNL(x, y, plot = FALSE, level = 0.99, simple = TRUE,
+  manualtrim = 5)
 }
 \arguments{
 \item{x}{PARAM_DESCRIPTION}
@@ -16,7 +17,10 @@ hookregNL(x, y, plot = FALSE, level = 0.99, simple = TRUE)
 \item{level}{PARAM_DESCRIPTION, Default: 0.99}
 
 \item{simple}{is a logical parameter. If TRUE (default) only the slope, 
-confidence interval and decisions are shown as output 
+confidence interval and decisions are shown as output}
+
+\item{manualtrim}{is the number of cycles that should be reomoved from the 
+background.
 (\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}} 
 including the 6-parameter model is the output.}
 }
