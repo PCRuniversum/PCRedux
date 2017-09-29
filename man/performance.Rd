@@ -47,6 +47,9 @@ ACC = (TP + TN) / (TP + FP + FN + TN)
 F1 score
 F1 = 2TP / (2TP + FP + FN)
 
+Likelihood ratio positive - LRp
+LRp = TPR/(1-SPC)
+
 Matthews correlation coefficient (MCC)
 MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
 }

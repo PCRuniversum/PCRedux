@@ -34,6 +34,9 @@
 #' F1 score
 #' F1 = 2TP / (2TP + FP + FN)
 #'
+#' Likelihood ratio positive - LRp
+#' LRp = TPR/(1-SPC)
+#'
 #' Matthews correlation coefficient (MCC)
 #' MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
 #' @examples 
@@ -114,6 +117,10 @@ performance <- function(data, reference) {
     # MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
     MCC <- (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
     
+    # Likelihood ratio positive
+    # LRp = TPR/(1-SPC)
+    LRp <- TPR/(1 - SPC)
+    
     # Combination of all results
     res <- data.frame(
         TPR=TPR,
@@ -126,6 +133,7 @@ performance <- function(data, reference) {
         ACC=ACC,
         F1=F1,
         MCC=MCC,
+        LRp=LRp,
         TP=TP,
         TN=TN,
         FP=FP,
