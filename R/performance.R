@@ -1,9 +1,23 @@
 #' @title Performance analysis for binary classification
 #' @description This function performs an analysis sensitivity and specificity 
-#' to asses the performance of a binary classification test.
+#' to asses the performance of a binary classification test. For further reading
+#' the studies by Brenner and Gefeller 1997 and by Kuhn 2008 are a good starting
+#' point. 
 #' @param data is a vector with logical decisions (0, 1) of the test system.
 #' @param reference  is a vector with logical decisions (0, 1) of the reference 
 #' system.
+#' @author Stefan Roediger, Michal Burdukiewcz
+#' @keywords sensitivity specificity precision accuracy
+#' @seealso 
+#'  \code{\link[caret]{sensitivity}}
+#'  \code{\link[caret]{specificity}}
+#'  \code{\link[caret]{negPredValue}}
+#' @references H. Brenner, O. Gefeller, others, Variation of sensitivity, 
+#' specificity, likelihood ratios and predictive values with disease prevalence, 
+#' \emph{Statistics in Medicine}. 16 (1997) 981--991.
+#'
+#' M. Kuhn, Building Predictive Models in R Using the caret Package, 
+#' \emph{Journal of Statistical Software}. 28 (2008). doi:10.18637/jss.v028.i05.
 #' @details TP, true positive; FP, false positive; TN, true negative; FN, false 
 #' negative
 #' 
@@ -120,7 +134,7 @@ performance <- function(data, reference) {
     # Likelihood ratio positive
     # LRp = TPR/(1-SPC)
     LRp <- TPR/(1 - SPC)
-    
+
     # Combination of all results
     res <- data.frame(
         TPR=TPR,
