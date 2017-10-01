@@ -73,8 +73,8 @@
 #' @rdname performance
 #' @export performance
 
-performance <- function(data, reference) {
-    data <- data.frame(d=data,r=reference)
+performance <- function(sample, reference) {
+    data <- data.frame(s=sample,r=reference)
     
     counts <- nrow(data)
     
@@ -87,15 +87,15 @@ performance <- function(data, reference) {
     # TPR = TP / (TP + FN)
     
     data_tmp <- data[data[, "r"] == 1, ]
-    TP <- length(which(data_tmp[["d"]] == data_tmp[["r"]]))
-    FN <- length(which(data_tmp[["d"]] != data_tmp[["r"]]))
+    TP <- length(which(data_tmp[["s"]] == data_tmp[["r"]]))
+    FN <- length(which(data_tmp[["s"]] != data_tmp[["r"]]))
     TPR <- TP / (TP + FN)
         
     # Specificity - SPC, true negative rate
     # SPC = TN / (TN + FP)
     data_tmp <- data[data[, "r"] == 0, ]
-    TN <- length(which(data_tmp[["d"]] == data_tmp[["r"]]))
-    FP <- length(which(data_tmp[["d"]] != data_tmp[["r"]]))
+    TN <- length(which(data_tmp[["s"]] == data_tmp[["r"]]))
+    FP <- length(which(data_tmp[["s"]] != data_tmp[["r"]]))
     SPC <- TN / (TN + FP)
     
     # Precision - PPV, positive predictive value
@@ -134,6 +134,10 @@ performance <- function(data, reference) {
     # Likelihood ratio positive
     # LRp = TPR/(1-SPC)
     LRp <- TPR/(1 - SPC)
+    
+    # Cohen's kappa coefficient
+    
+    a <- 
 
     # Combination of all results
     res <- data.frame(
