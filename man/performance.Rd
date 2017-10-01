@@ -7,10 +7,10 @@
 performance(sample, reference)
 }
 \arguments{
+\item{sample}{is a vector with logical decisions (0, 1) of the test system.}
+
 \item{reference}{is a vector with logical decisions (0, 1) of the reference 
 system.}
-
-\item{data}{is a vector with logical decisions (0, 1) of the test system.}
 }
 \description{
 This function performs an analysis sensitivity and specificity 

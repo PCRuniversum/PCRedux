@@ -3,7 +3,7 @@
 #' to asses the performance of a binary classification test. For further reading
 #' the studies by Brenner and Gefeller 1997 and by Kuhn 2008 are a good starting
 #' point. 
-#' @param data is a vector with logical decisions (0, 1) of the test system.
+#' @param sample is a vector with logical decisions (0, 1) of the test system.
 #' @param reference  is a vector with logical decisions (0, 1) of the reference 
 #' system.
 #' @author Stefan Roediger, Michal Burdukiewcz
