@@ -53,6 +53,24 @@
 #'
 #' Matthews correlation coefficient (MCC)
 #' MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+#'
+#' Cohen's kappa (binary classification)     
+#' kappa=(p0-pc)/(1-p0)
+#'
+#' r (reference) is the trusted label and s (sample) is the predicted value
+#'
+#' \tabular{ccc}{
+#'       \tab r=1 \tab r=0 \cr
+#'   s=1 \tab a   \tab b   \cr
+#'   s=0 \tab c   \tab d
+#' }
+#'
+#' \deqn{n = a + b + c + d}
+#'
+#' pc=((a+b)/n)((a+c)/n)+((c+d)/n)((b+d)/n)
+#'
+#' po=(a+d)/n
+#'
 #' @examples 
 #' # Produce some arbitrary binary decisions data
 #' # test_data is the new test or method that should be analyzed
@@ -65,18 +83,17 @@
 #'      yaxt="n", pch=19)
 #' axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
 #' points(1:length(reference_data), reference_data, pch=1, cex=2, col="blue")
-#' legend("topleft", c("Test data", "Reference data"), pch=c(19,1), 
+#' legend("topleft", c("Sample", "Reference"), pch=c(19,1), 
 #'         cex=c(1.5,1.5), bty="n", col=c("black","blue"))
 #' 
 #' # Do the statistical analysis with the performance function
-#' performance(data=test_data, reference=reference_data)
+#' performance(sample=test_data, reference=reference_data)
 #' @rdname performance
 #' @export performance
 
 performance <- function(sample, reference) {
     data <- data.frame(s=sample,r=reference)
     
-    counts <- nrow(data)
     
     # TP, true positive
     # FP, false positive
@@ -135,9 +152,40 @@ performance <- function(sample, reference) {
     # LRp = TPR/(1-SPC)
     LRp <- TPR/(1 - SPC)
     
-    # Cohen's kappa coefficient
+    # Number of samples for analysis
     
-    a <- 
+    n <- nrow(data)
+    if(TP + TN + FP + FN == n) {
+                        counts <- n
+                        } else {
+                            message("error")
+                        }
+    
+    # Cohen's kappa coefficient
+    # r is the trusted label and s is the predicted value
+    # 
+    #      | r= 1| r=0 
+    # -----|-----|-----
+    # s=1  | a   | b
+    # s=0  | c   | d 
+    # 
+    # n=a+b+c+d
+    # 
+    # pc=((a+b)/n)((a+c)/n)+((c+d)/n)((b+d)/n)
+    # 
+    # po=(a+d)/n
+    #
+    # k=(po-pc)/(1-pc)
+    
+    a <- TP
+    b <- FP
+    c <- FN
+    d <- TN
+    
+    pc <- ((a+b)/n)*((a+c)/n)+((c+d)/n)*((b+d)/n)
+    po <- (a+d)/n
+    
+    kappa <- (po-pc)/(1-pc)
 
     # Combination of all results
     res <- data.frame(
@@ -152,6 +200,7 @@ performance <- function(sample, reference) {
         F1=F1,
         MCC=MCC,
         LRp=LRp,
+        kappa=kappa,
         TP=TP,
         TN=TN,
         FP=FP,

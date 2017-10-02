@@ -54,6 +54,23 @@ LRp = TPR/(1-SPC)
 
 Matthews correlation coefficient (MCC)
 MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+
+Cohen's kappa (binary classification)     
+kappa=(p0-pc)/(1-p0)
+
+r (reference) is the trusted label and s (sample) is the predicted value
+
+\tabular{ccc}{
+      \tab r=1 \tab r=0 \cr
+  s=1 \tab a   \tab b   \cr
+  s=0 \tab c   \tab d
+}
+
+\deqn{n = a + b + c + d}
+
+pc=((a+b)/n)((a+c)/n)+((c+d)/n)((b+d)/n)
+
+po=(a+d)/n
 }
 \examples{
 # Produce some arbitrary binary decisions data
@@ -67,11 +84,11 @@ plot(1:length(test_data), test_data, xlab="Sample", ylab="Decisions",
      yaxt="n", pch=19)
 axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
 points(1:length(reference_data), reference_data, pch=1, cex=2, col="blue")
-legend("topleft", c("Test data", "Reference data"), pch=c(19,1), 
+legend("topleft", c("Sample", "Reference"), pch=c(19,1), 
         cex=c(1.5,1.5), bty="n", col=c("black","blue"))
 
 # Do the statistical analysis with the performance function
-performance(data=test_data, reference=reference_data)
+performance(sample=test_data, reference=reference_data)
 }
 \references{
 H. Brenner, O. Gefeller, others, Variation of sensitivity, 
