@@ -5,7 +5,7 @@ date: "2017-09-15"
 output: 
   rmarkdown::html_vignette:
     toc: true
-bibliography: "PCRedux.bib"
+bibliography: "literature.bib"
 vignette: >
   %\VignetteIndexEntry{PCRedux package - an overview}
   %\VignetteEngine{knitr::rmarkdown}
