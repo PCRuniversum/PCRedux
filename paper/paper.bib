@@ -194,7 +194,7 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
 	title = {{bcp}: an {R} package for performing a {Bayesian} analysis of change point problems},
 	volume = {23},
 	shorttitle = {bcp},
-	url = {https://www.researchgate.net/profile/Chandra_Erdman/publication/26538600_bcp_An_R_Package_for_Performing_a_Bayesian_Analysis_of_Change_Point_Problems/links/56dee56608aec8c022cf2fd2.pdf},
+	url = {https://www.jstatsoft.org/article/view/v023i03/v23i03.pdf},
 	number = {3},
 	urldate = {2017-08-13},
 	journal = {Journal of Statistical Software},
@@ -287,4 +287,91 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
 	journal = {Journal of Statistical Software},
 	author = {Kuhn, Max},
 	year = {2008}
+}
+
+@Manual{R_language,
+  title = {{R: A Language and Environment for Statistical Computing}},
+  author = {{R Core Team}},
+  organization = {R Foundation for Statistical Computing},
+  address = {Vienna, Austria},
+  year = {2017},
+  url = {https://www.R-project.org/},
+}
+
+@article{rodiger_enabling_2017,
+  title = {Enabling reproducible real-time quantitative {PCR} research: the {RDML} package},
+  shorttitle = {Enabling reproducible real-time quantitative {PCR} research},
+  url = {https://academic.oup.com/bioinformatics/article/doi/10.1093/bioinformatics/btx528/4095640/Enabling-reproducible-real-time-quantitative-PCR},
+  doi = {10.1093/bioinformatics/btx528},
+  abstract = {Motivation: Reproducibility, a cornerstone of research, requires defined data formats, which include the setup and output of experiments. The real-time PCR data markup language (RDML) is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines. Despite the popularity of the RDML format for analysis of quantitative PCR data, handling of RDML files is not yet widely supported in all PCR curve analysis softwares.Results: This study describes the open-source RDML package for the statistical computing language R. RDML is compatible with RDML versions ≤ 1.2 and provides functionality to (i) import RDML data; (ii) extract sample information (e.g. targets and concentration); (iii) transform data to various formats of the R environment; (iv) generate human-readable run summaries; and (v) to create RDML files from user data. In addition, RDML offers a graphical user interface to read, edit and create RDML files.Availability and implementation:https://cran.r-project.org/package=RDML. rdmlEdit server http://shtest.evrogen.net/rdmlEdit/. Documentation: http://kablag.github.io/RDML/.Contact:k.blag@yandex.ruSupplementary information:Supplementary data are available at Bioinformatics online.},
+  urldate = {2017-09-09},
+  journal = {Bioinformatics},
+  author = {Rödiger, Stefan and Burdukiewicz, Michał and Spiess, Andrej-Nikolai and Blagodatskikh, Konstantin},
+  month = aug,
+  year = {2017}
+}
+
+@article{ruijter_removal_2015,
+  series = {Special {Issue}: {Advanced} {Molecular} {Diagnostics} for {Biomarker} {Discovery} – {Part} {I}},
+  title = {Removal of between-run variation in a multi-plate {qPCR} experiment},
+  volume = {5},
+  issn = {2214-7535},
+  url = {http://www.sciencedirect.com/science/article/pii/S2214753515300012},
+  doi = {10.1016/j.bdq.2015.07.001},
+  abstract = {Quantitative PCR (qPCR) is the method of choice in gene expression analysis. However, the number of groups or treatments, target genes and technical replicates quickly exceeds the capacity of a single run on a qPCR machine and the measurements have to be spread over more than 1 plate. Such multi-plate measurements often show similar proportional differences between experimental conditions, but different absolute values, even though the measurements were technically carried out with identical procedures. Removal of this between-plate variation will enhance the power of the statistical analysis on the resulting data. Inclusion and application of calibrator samples, with replicate measurements distributed over the plates, assumes a multiplicative difference between plates. However, random and technical errors in these calibrators will propagate to all samples on the plate. To avoid this effect, the systematic bias between plates can be removed with a correction factor based on all overlapping technical and biological replicates between plates. This approach removes the requirement for all calibrator samples to be measured successfully on every plate. This paper extends an already published factor correction method to the use in multi-plate qPCR experiments. The between-run correction factor is derived from the target quantities which are calculated from the quantification threshold, PCR efficiency and observed Cq value. To enable further statistical analysis in existing qPCR software packages, an efficiency-corrected Cq value is reported, based on the corrected target quantity and a PCR efficiency per target. The latter is calculated as the mean of the PCR efficiencies taking the number of reactions per amplicon per plate into account. Export to the RDML format completes an RDML-supported analysis pipeline of qPCR data ranging from raw fluorescence data, amplification curve analysis and application of reference genes to statistical analysis.},
+  urldate = {2016-11-08},
+  journal = {Biomolecular Detection and Quantification},
+  author = {Ruijter, Jan M. and Ruiz Villalba, Adrián and Hellemans, Jan and Untergasser, Andreas and van den Hoff, Maurice J. B.},
+  month = sep,
+  year = {2015},
+  keywords = {Between-plate correction, Between-run variation, Multi-plate experiment, qPCR, RDML, Software},
+  pages = {10--14}
+}
+
+@article{ruijter_evaluation_2013,
+  title = {Evaluation of {qPCR} curve analysis methods for reliable biomarker discovery: {Bias}, resolution, precision, and implications},
+  volume = {59},
+  issn = {10462023},
+  shorttitle = {Evaluation of {qPCR} curve analysis methods for reliable biomarker discovery},
+  url = {http://linkinghub.elsevier.com/retrieve/pii/S1046202312002290},
+  doi = {10.1016/j.ymeth.2012.08.011},
+  language = {en},
+  number = {1},
+  urldate = {2016-10-05},
+  journal = {Methods},
+  author = {Ruijter, Jan M. and Pfaffl, Michael W. and Zhao, Sheng and Spiess, Andrej N. and Boggy, Gregory and Blom, Jochen and Rutledge, Robert G. and Sisti, Davide and Lievens, Antoon and De Preter, Katleen and Derveaux, Stefaan and Hellemans, Jan and Vandesompele, Jo},
+  month = jan,
+  year = {2013},
+  keywords = {Benchmark, Bias, Precision, qPCR curve analysis, Resolution, Transcriptional biomarker},
+  pages = {32--46}
+}
+
+@article{martins_dna_2015,
+	author = {C. Martins and G. Lima and Mr. Carvalho and L. Cain{\'e} and Mj. Porto},
+	doi = {10.1016/j.fsigss.2015.09.215},
+	issn = {18751768},
+	journal = {Forensic Science International: Genetics Supplement Series},
+	language = {en},
+	month = dec,
+	pages = {e545--e546},
+	title = {{{DNA} quantification by real-time {PCR} in different forensic samples}},
+	url = {http://linkinghub.elsevier.com/retrieve/pii/S1875176815301335},
+	urldate = {2016-12-22},
+	volume = {5},
+	year = {2015}
+}
+
+@article{sauer_differentiation_2016,
+	author = {Eva Sauer and Ann-Kathrin Reinke and Cornelius Courts},
+	doi = {10.1016/j.fsigen.2016.01.018},
+	issn = {18724973},
+	journal = {Forensic Science International: Genetics},
+	language = {en},
+	month = may,
+	pages = {89--99},
+	title = {{Differentiation of five body fluids from forensic samples by expression analysis of four {microRNAs} using quantitative {PCR}}},
+	url = {http://linkinghub.elsevier.com/retrieve/pii/S1872497316300187},
+	urldate = {2016-08-16},
+	volume = {22},
+	year = {2016}
 }
