@@ -55,17 +55,14 @@ raw_data_tab <- raw_data$AsTable(name.pattern=paste(
     react$sample$id,
     # run id added to names
     sep="~"))
-fdata <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
+data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
 
-data <- fdata
-
-
-matplot(fdata[, 1], fdata[, -1], type="l", lty=1, lwd=2, ylab="RFU", xlab="Cycle")
+matplot(data[, 1], data[, -1], type="l", lty=1, lwd=2, ylab="RFU", xlab="Cycle")
 
 head(data, 3)
 ```
 
-Printout of all measured samples, their rating be two humans (rater 1 and rater 
+Printout of all measured samples, their rating by two humans (rater 1 and rater 
 2) with their dichotomous ratings (0, no hook; 1, hook) and their sources.
 
 - The boggy data (qpcR::boggy) set was taken from the **qpcR** package 
