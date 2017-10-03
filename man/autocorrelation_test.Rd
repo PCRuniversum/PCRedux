@@ -61,11 +61,12 @@ res_performance <- performance(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
 # Add ratings by human and autocorrelation_test to the plot
 par(las=2)
 plot(1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample", ylab="Decisions", 
-     yaxt="n", pch=19)
+     xaxt="n", yaxt="n", pch=19)
 axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
-points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, col="blue")
+axis(1, at=1:nrow(res_ac_hr), labels=colnames(testdat)[-1], las=2)
+points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, col="red")
 legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1), 
-        cex=c(1.5,1.5), bty="n", col=c("black","blue"))
+       bty="n", col=c("black","red"))
         
 barplot(as.matrix(res_performance[, c(1:10,12)]), yaxt="n", ylab="", main="Performance of autocorrelation_test")
 axis(2, at=c(0,1), labels=c("0", "1"), las=2)

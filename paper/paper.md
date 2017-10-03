@@ -53,13 +53,13 @@ analysis, normalization procedures, and data management
 @ruijter_removal_2015, @rodiger_enabling_2017, @mallona_chainy:_nodate].
 
 The `PCRedux` package contains functions and data sets for machine learning and 
-statistical analysis with a focus on amplification curve data.
-Amplification curves have characteristics, which can be used for the 
-classification. The features from amplification curves can be extract by the 
-`pcrfit_helper` function. Analysis on the curve data such as 
-changepoint analysis, regression analysis, noise analysis, autocorrelation 
-analysis and model fitting are applied to the qPCR data. They can be used for 
-the creation of models that predict a class (e.g., positive, ambiguous, negative 
+statistical analysis with a focus on amplification curve data. Amplification 
+curves have characteristics, which can be used for the classification. The 
+features from amplification curves can be extract by the `pcrfit_helper` 
+function. Analysis on the curve data such as changepoint analysis, regression 
+analysis, noise analysis, autocorrelation analysis and model fitting are applied 
+to the qPCR data and yield more than 30 feautures. They can be used for the 
+creation of models that predict a class (e.g., positive, ambiguous, negative 
 qPCR reaction) from input features (slope, background level, changepoints) based 
 on implementations by others (e.g., @erdman_bcp:_2007, @ritz_qpcr:_2008, 
 @Febrero_Bande_2012, @james_ecp:_2013) and us [@rodiger_surface_2013, 
@@ -71,15 +71,15 @@ on implementations by others (e.g., @erdman_bcp:_2007, @ritz_qpcr:_2008,
 - `head2tailratio` compares the ratio of the head and tail,
 - `hookregNL` and `hookreg` attempt to detect a hook effect in the amplification curve,
 - `mblrr`, a function to perform a qunantile-filter based local robust regression,
-- `performance`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification
-- `qPCR2fdata`, a helper function to convert amplification curve data to the **fdata** format.
+- `performance`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
+- `qPCR2fdata`, a helper function to convert amplification curve data to the *fdata* format.
 
 `pcrfit_parallel` is a wrapper for numerous functions, which are performed in parallel.
 
 The data sets originate form qPCRs, which were created and rated by human experts.
 
 To best of our knowledge, there was no *R* package, which uses raw amplification 
-curve data for features extraction and machine learning purposes. `PCRedux` 
+curve data for features extraction and machine learning. `PCRedux` 
 provides tools for importing and working with sigmoid data. The `PCRedux` 
 package an add-on package for the open source statistical computing language and 
 environment *R* [@R_language].
