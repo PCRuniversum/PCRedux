@@ -17,7 +17,7 @@ Default: 0.01}
 }
 \description{
 \code{autocorrelation_test} is a function for an autocorrelation analysis
-from a quantitative PCR experiment. The result of the funciton is either
+from a quantitative PCR experiment. The result of the function is either
 a correlation coefficient in case the result is significant at a given
 significance level, or a "n.s." (non-significant) of no correlation could
 be determined.
@@ -52,17 +52,23 @@ human_rating <- c(1,1,0,0,1,1,0,0,
                   1,1,0,0,1,1,0,0)
 
 # Convert the n.s. (not significant) in 0 and others to 1. 
-# Combine the results of the atomatic autocorrelation_test as variable "ac", 
+# Combine the results of the aromatic autocorrelation_test as variable "ac", 
 # the human rated values as variable "hr" in a new data frame (res_ac_hr).
 res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1), 
                         hr=human_rating) \%>\% as.matrix
+res_performance <- performance(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
 
-# Add ratings by humna and autocorrelation_test to the plot
+# Add ratings by human and autocorrelation_test to the plot
 par(las=2)
-barplot(res_ac_hr[, "ac"], main="Rated by autocorrelation_test", col=colors, 
-        xlab="Sample", ylab="rating", names.arg=samples)
-barplot(res_ac_hr[, "hr"], main="Rated by a human", col=colors, xlab="Sample", 
-        ylab="rating", names.arg=samples)
+plot(1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample", ylab="Decisions", 
+     yaxt="n", pch=19)
+axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
+points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, col="blue")
+legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1), 
+        cex=c(1.5,1.5), bty="n", col=c("black","blue"))
+        
+barplot(as.matrix(res_performance[, c(1:10,12)]), yaxt="n", ylab="", main="Performance of autocorrelation_test")
+axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 }
 \seealso{
 \code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}}, 
