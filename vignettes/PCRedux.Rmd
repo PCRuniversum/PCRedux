@@ -26,13 +26,13 @@ f(x) = \frac{1}{1 +  e^{-x}}
 These non-linar functions are real-valued and can be differentiated (first derivative 
 maximum, with one local minimum and one loacl maximum).
 
-This 
-kind of curve is common in many biological assays such as quantitative 
-real-time 
-PCR (qPCR) experiments. qPCRs are performed in thermo-cyclers. There are many 
-manufactures of such systems, which offer such technologies as commercial 
-products. Moreover, thermo-cyclers are produced in house as part of scientific 
-projects. An example is the VideoScan-technology [@rodiger_highly_2013].
+This kind of curve is common in many biological assays such as quantitative 
+real-time PCR (qPCR) experiments. Applications include human diagnostics and 
+forensics [@martins_dna_2015, @sauer_differentiation_2016]. qPCRs are performed 
+in thermo-cyclers. There are many manufactures of such systems, which offer such 
+technologies as commercial products. Moreover, thermo-cyclers are produced in 
+house as part of scientific projects. An example is the VideoScan-technology 
+[@rodiger_highly_2013].
 
 A challenge for the user is, to make sense from the data produced by these 
 devices. This is a manageable task if the volume of data is low, or dedicated 
@@ -46,7 +46,7 @@ manual analysis of the data is time-consuming and prone to errors. Dedicated
 software that can distinguish the amplification curves automatically is needed.
 
 
-```{r, echo=FALSE, fig.cap="Sample data from A) the **C127EGHP** data set with 64 amplification curves (*chipPCR* package, [@rodiger_chippcr:_2015]) and B) from the **htPCR** data set with 8858 amplification curves (*qpcR* package, [@ritz_qpcr:_2008]). \\label{samples_of_qPCRs}", fig.height=7, fig.width=7}
+```{r, echo=FALSE, fig.cap="Sample data from A) the **C127EGHP** data set with 64 amplification curves (*chipPCR* package, [@rodiger_chippcr:_2015]) and B) from the **htPCR** data set with 8858 amplification curves (*qpcR* package, [@Ritz2008]). \\label{samples_of_qPCRs}", fig.height=7, fig.width=7}
     
 library(chipPCR)
 suppressMessages(library(qpcR))
@@ -80,7 +80,7 @@ for the analysis of qPCR data. The software packages deal for example with
     * realative gene expression analysis,
     
 and other tasks [@pabinger_survey_2014, @rodiger_chippcr:_2015, 
-@ritz_qpcr:_2008, @rodiger_r_2015, @lefever_rdml:_2009, 
+@Ritz2008, @rodiger_r_2015, @lefever_rdml:_2009, 
 @ruijter_rdml-ninja_2015, @rodiger_enabling_2017, @perkins_readqpcr_2012, 
 @pabinger_qpcr:_2009, @neve_unifiedwmwqpcr:_2014, @feuer_lemming:_2015, 
 @mccall_non-detects_2014, @ruijter_evaluation_2013, @ruijter_removal_2015, 
@@ -101,7 +101,7 @@ template material (Cq value) and the amplification efficiency
 
 At this level all software assumes that the amplification resemble a sigmoid 
 curve shape (ideal positive amplification reaction) or a flat low line (ideal 
-negative amplification reaction). For example, @ritz_qpcr:_2008 published an R 
+negative amplification reaction). For example, @Ritz2008 published an R 
 package that contains functions to fit several multi-parameter models. This 
 includes the 5-parameter Richardson function, which is often used for the 
 analysis of qPCR data.
@@ -128,7 +128,7 @@ One reason for this is the lack of features that are known for amplification
 curve data. Only few features for amplification curves are described in the 
 literature. For example, tools described by us are the ``amptester`` and the 
 ``amptester.gui`` functions, which are part of the **chipPCR** package 
-([@rodiger_chippcr:_2015]). The **qpcR** package ([@ritz_qpcr:_2008]) contains 
+([@rodiger_chippcr:_2015]). The **qpcR** package ([@Ritz2008]) contains 
 an amplification curve test via the ``modlist`` function. The parameter check = 
 "uni2" offers an analytical approach, as part of a method for the kinetic 
 outlier detection. It checks for a sigmoid structure of the amplification curve. 
@@ -185,7 +185,7 @@ amplification curves (noise).
 The application of the `autocorrelation_test` function is shown in the following 
 example. 
 
-```{r, echo=TRUE, fig.cap="Autocorrelation analysis for amplification curves of the **testdat** data set (*qpcR* package, [@ritz_qpcr:_2008]). A) All amplification curves of the **testdat** data set. B) Positive curves (1) and negative (0) curves as determined by the `autocorrelation_test`. C) Positive curves (1) and negative (0) curves as determined by a human. \\label{autocorrelation}", fig.height=6, fig.width=8}
+```{r, echo=TRUE, fig.cap="Autocorrelation analysis for amplification curves of the **testdat** data set (*qpcR* package, [@Ritz2008]). A) All amplification curves of the **testdat** data set. B) Positive curves (1) and negative (0) curves as determined by the `autocorrelation_test`. C) Positive curves (1) and negative (0) curves as determined by a human. \\label{autocorrelation}", fig.height=6, fig.width=8}
 # Test for autocorrelation in amplification curve data
 # Load the libraries magrittr for pipes and qpcR for the data
 library(magrittr)
@@ -250,7 +250,7 @@ positive for example (Figure \ref{htPCR_nap}) were taken from the ``htPCR``
 dataset (compare Figure \ref{samples_of_qPCRs}B).
 
 
-```{r, echo=FALSE, fig.cap="Sample data from the **htPCR** data set (*qpcR* package, [@ritz_qpcr:_2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. The negative amplification curve has no sigmoid curvature, just a strong positive trend. The ambiguous amplification curve is not a perfect sigmoid curve, exhibits a positive slope in the background phase (cylce 1 $\rightarrow$ 5) and a low amplitude. In contrast, the positive amplification curve has a sigmoid curvature, starting with a background phase (cylce 1 $\rightarrow$ 5), an exponential phase (cylce 6 $\rightarrow$ 25) and a plateau phase (cylce 26 $\rightarrow$ 35). \\label{htPCR_nap}", fig.height=4, fig.width=7}
+```{r, echo=FALSE, fig.cap="Sample data from the **htPCR** data set (*qpcR* package, [@Ritz2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. The negative amplification curve has no sigmoid curvature, just a strong positive trend. The ambiguous amplification curve is not a perfect sigmoid curve, exhibits a positive slope in the background phase (cylce 1 $\rightarrow$ 5) and a low amplitude. In contrast, the positive amplification curve has a sigmoid curvature, starting with a background phase (cylce 1 $\rightarrow$ 5), an exponential phase (cylce 6 $\rightarrow$ 25) and a plateau phase (cylce 26 $\rightarrow$ 35). \\label{htPCR_nap}", fig.height=4, fig.width=7}
 library(qpcR)
 matplot(htPCR[, 1], htPCR[, c(552, 512, 616)], xlab="Cycle", ylab="RFU", main="htPCR dataset", type="l", lty=1, lwd=2)
 legend("topleft", c(paste("negative ", colnames(htPCR)[552]), 
@@ -309,7 +309,7 @@ names(dec) <- decision_res_htPCR[, 1]
 summary(dec)
 ```
 
-```{r, echo=FALSE, fig.cap="Summary of all sample data from the **htPCR** data set (*qpcR* package, [@ritz_qpcr:_2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. \\label{htPCR_nap}", fig.height=4, fig.width=7}
+```{r, echo=FALSE, fig.cap="Summary of all sample data from the **htPCR** data set (*qpcR* package, [@Ritz2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. \\label{htPCR_nap}", fig.height=4, fig.width=7}
 
 # Plot the Frequencies of the decisions
 barplot(table(dec), xlab="Decision", ylab="Frequency", main="Amplification curves rated by humans\n htPCR data set", col=c(2,3,1))
@@ -389,6 +389,52 @@ without typical infliction points. Others show a step signal increase even in th
 background phase (cycle 1 to 10) (compare @rodiger_chippcr:_2015, Figure S12). 
 The slope and the intercept in background region is an interesting target for a 
 classification.
+
+@gunay_machine_2016 used a "modified sigmoid function for CT [Cq] prediction". The 
+fundamental assumption of this approach is, that such a model can be applied to 
+any data set. There are several reason to why such assumption is flawed an many 
+sitation. For example, in the section about the ``hookreg`` and ``hookregNL`` 
+functions it becomes evident that a three parameter model fit will give wrong 
+predictions. Moreover, non-linear function tend to fit even noise (Figure \ref{curve_fit_fail}).
+
+
+```{r, echo=TRUE, fig.cap="Sample data from the **testdat** data set (*qpcR* package, [@Ritz2008]) with negative and positive amplification curves. \\label{curve_fit_fail}", fig.height=7, fig.width=7}
+# Load the drc package for the five-parameter log-logistic fit.
+require(drc)
+library(chipPCR)
+# Load the testdat dataset from the qpcR package without 
+# loading the entire package.
+data(testdat, package = "qpcR")
+
+# Arrange graphs in an orthogonal matrix and set the plot parmeters.
+par(mfrow = c(2,2))
+
+# Apply the the amptester function to all amplification curve data
+# and write the results to the main of the plots.
+
+curve_data_columns <- c(2,4,5,9,20,24)
+
+for(i in 1:length(curve_data_columns)) {
+    res.ampt <- amptester(testdat[, curve_data_columns[i]])
+    
+    # Make a logical connection by two tests (shap.noisy, lrt.test and 
+    # tht.dec) of amptester to decide if an amplification reaction is 
+    # positive or negative.
+    decision <- ifelse(!res.ampt@decisions[1] &&
+                       res.ampt@decisions[2] && 
+                       res.ampt@decisions[4], 
+                       "positive", "negative")
+    
+    plot(testdat[, 1], testdat[, curve_data_columns[i]], xlab = "Cycle", ylab = "RFU", 
+         pch = 19, main = "")
+    mtext(LETTERS[i], cex = 2, side = 3, adj = 0, font = 2)
+    legend("bottomright", paste0(colnames(testdat)[curve_data_columns[i]], "\nDecision: ", decision), 
+           bty="n", cex=1.25, col="red")
+    # Use the drm function with a five-parameter log-logistic fit model.
+    try(lines(predict(drm(testdat[, curve_data_columns[i]] ~ testdat[, 1], fct = LL.3())), col = 2), silent=TRUE)
+    try(lines(predict(drm(testdat[, curve_data_columns[i]] ~ testdat[, 1], fct = LL.4())), col = 3), silent=TRUE)
+ }
+```
 
 We suggest using the slope and the intercept for the differentiation of the 
 different amplification curves. Therefore, we developed the function 

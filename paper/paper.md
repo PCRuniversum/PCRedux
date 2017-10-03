@@ -30,7 +30,7 @@ affiliations:
   - name: "University Medical Center Hamburg-Eppendorf, Hamburg, Germany"
     index: 3
 date: "31 October 2017"
-bibliography: paper.bib
+bibliography: literature.bib
 output:
   html_document:
     keep_md: yes
@@ -61,8 +61,8 @@ analysis, noise analysis, autocorrelation analysis and model fitting are applied
 to the qPCR data and yield more than 30 feautures. They can be used for the 
 creation of models that predict a class (e.g., positive, ambiguous, negative 
 qPCR reaction) from input features (slope, background level, changepoints) based 
-on implementations by others (e.g., @erdman_bcp:_2007, @ritz_qpcr:_2008, 
-@Febrero_Bande_2012, @james_ecp:_2013) and us [@rodiger_surface_2013, 
+on implementations by others (e.g., @erdman_bcp:_2007, @Ritz2008, 
+@Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
 @rodiger_chippcr:_2015].
 
 - `autocorrelation_test` performs an autocorrelation analysis on qPCR data,

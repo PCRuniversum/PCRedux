@@ -66,11 +66,11 @@ Printout of all measured samples, their rating by two humans (rater 1 and rater
 2) with their dichotomous ratings (0, no hook; 1, hook) and their sources.
 
 - The boggy data (qpcR::boggy) set was taken from the **qpcR** package 
-[@ritz_qpcr:_2008, @spiess_highly_2008].
+[@Ritz2008, @spiess_highly_2008].
 - The C127EGHP data (chipPCR::C127EGHP) set was taken from the **chipPCR** package 
 [@rodiger_chippcr:_2015].
 - The testdat data (qpcR::testdat) set was taken from the **qpcR** package 
-[@ritz_qpcr:_2008, @spiess_highly_2008].
+[@Ritz2008, @spiess_highly_2008].
 - Other data were prepared by Evrogen laboratory experiments.
 
 
