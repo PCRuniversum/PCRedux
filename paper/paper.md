@@ -41,29 +41,33 @@ output:
 Data having a sigmoid ('S'-shaped) curves are found in many experiments. An 
 example are amplification curve data from quantitative Polyerase Chain Reactions 
 (qPCR). The qPCR is an indispensable method in many disciplines such as human 
-diagnostics and forensics [@martins_dna_2015]. 
-There are numerous software packages for the analysis of qPCR data were 
-published [@pabinger_survey_2014, @rodiger_r_2015]. These software packages 
-provide complex pipelines and a rich sets of criteria to process qPCR data 
-adequately. This includes the pre-processing of raw data, fitting of non-linear 
-models on raw data, the calculation of the cycle of quantification the 
-calculation of amplification efficiencies, the relative gene expression 
-analysis, normalization procedures, and data management 
-[@ruijter_evaluation_2013, @rodiger_chippcr:_2015, @spiess_impact_2015, 
-@ruijter_removal_2015, @rodiger_enabling_2017, @mallona_chainy:_nodate].
+diagnostics and forensics [@martins_dna_2015]. There are numerous software 
+packages for the analysis of qPCR data were published [@pabinger_survey_2014, 
+@rodiger_r_2015]. These software packages provide complex pipelines and a rich 
+sets of criteria to process qPCR data adequately. This includes the 
+pre-processing of raw data, fitting of non-linear models on raw data, the 
+calculation of the cycle of quantification the calculation of amplification 
+efficiencies, the relative gene expression analysis, normalization procedures, 
+and data management [@rodiger_chippcr:_2015, @spiess_impact_2015, 
+@rodiger_enabling_2017, @mallona_chainy:_nodate].
 
 The `PCRedux` package contains functions and data sets for machine learning and 
-statistical analysis with a focus on amplification curve data. Amplification 
-curves have characteristics, which can be used for the classification. The 
-features from amplification curves can be extract by the `pcrfit_helper` 
-function. Analysis on the curve data such as changepoint analysis, regression 
-analysis, noise analysis, autocorrelation analysis and model fitting are applied 
-to the qPCR data and yield more than 30 feautures. They can be used for the 
-creation of models that predict a class (e.g., positive, ambiguous, negative 
-qPCR reaction) from input features (slope, background level, changepoints) based 
-on implementations by others (e.g., @erdman_bcp:_2007, @Ritz2008, 
-@Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
-@rodiger_chippcr:_2015].
+statistical analysis with a focus on amplification curve data. The data sets 
+originate form qPCRs, which were created and rated by human experts. 
+Amplification curves have characteristics, which can be used for the 
+classification. Analysis on the curve data such as changepoint analysis, 
+regression analysis, noise analysis, autocorrelation analysis and model fitting 
+are applied to the qPCR data and yield more than 30 feautures. This can be used 
+for the creation of models that predict a class (e.g., positive, ambiguous, 
+negative qPCR reaction) from input features (slope, background level, 
+changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
+@Ritz2008, @Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
+@rodiger_chippcr:_2015]. The features from amplification curves can be extract 
+by the `pcrfit_helper` function. `pcrfit_parallel` is a wrapper for numerous 
+functions, which are performed in parallel. Since this function provides a 
+complex set of features we included the visualization function 
+`visdat_pcrfit_parallel`, which is based on the `vis_dat` function by 
+@Tierney2017. In addition, the following function were developed:
 
 - `autocorrelation_test` performs an autocorrelation analysis on qPCR data,
 - `decision_modus` finds the most frequent rating by a human,
@@ -74,9 +78,7 @@ on implementations by others (e.g., @erdman_bcp:_2007, @Ritz2008,
 - `performance`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
 - `qPCR2fdata`, a helper function to convert amplification curve data to the *fdata* format.
 
-`pcrfit_parallel` is a wrapper for numerous functions, which are performed in parallel.
 
-The data sets originate form qPCRs, which were created and rated by human experts.
 
 `PCRedux` provides tools for features extraction from sigmoid data and machine 
 learning. The `PCRedux` package an add-on package for the open source 

@@ -23,11 +23,13 @@ Imports:
     foreach,
     magrittr,
     MBmca,
+    plotly,
     pracma,
     qpcR,
     robustbase,
     stats,
     utils,
+    visdat,
     zoo
 Suggests:
     data.table,

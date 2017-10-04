@@ -27,8 +27,8 @@ to make use of multi-core architectures.
 }
 \examples{
 
-# Calculate curve features of an amplification curve data set by using all 
-# available CPU cores.
+# Calculate curve features of an amplification curve data. Note that not all 
+# available CPU cores are used. If need set "all" to use all available cores.
 library(qpcR)
 res_pcrfit_parallel <- pcrfit_parallel(boggy[, 1:7])
 res_pcrfit_parallel

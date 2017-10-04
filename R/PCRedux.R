@@ -16,9 +16,11 @@
 #' @importFrom utils head tail
 #' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
+#' @importFrom plotly ggplotly
 #' @importFrom pracma polyarea
 #' @importFrom qpcR efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
+#' @importFrom visdat vis_dat
 #' @importFrom zoo as.zoo
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 #' @docType package
