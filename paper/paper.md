@@ -38,18 +38,20 @@ output:
 
 # Summary
 
-Data having a sigmoid ('S'-shaped) curves are found in many experiments. An 
-example are amplification curve data from quantitative Polyerase Chain Reactions 
-(qPCR). The qPCR is an indispensable method in many disciplines such as human 
-diagnostics and forensics [@martins_dna_2015]. There are numerous software 
-packages for the analysis of qPCR data were published [@pabinger_survey_2014, 
-@rodiger_r_2015]. These software packages provide complex pipelines and a rich 
-sets of criteria to process qPCR data adequately. This includes the 
-pre-processing of raw data, fitting of non-linear models on raw data, the 
-calculation of the cycle of quantification the calculation of amplification 
-efficiencies, the relative gene expression analysis, normalization procedures, 
-and data management [@rodiger_chippcr:_2015, @spiess_impact_2015, 
-@rodiger_enabling_2017, @mallona_chainy:_nodate].
+Data having a sigmoid ('S'-shaped) curvature are found in numerous experiments. 
+An example are amplification curve data from quantitative Polymerase Chain 
+Reactions (qPCR). The qPCR is an indispensable method in many disciplines such 
+as human diagnostics and forensics [@martins_dna_2015]. There are dedicated 
+software packages for the analysis of qPCR data, which can be used for the 
+quantification of tartget DNA [@pabinger_survey_2014, @rodiger_r_2015]. These 
+software packages provide complex pipelines and a rich sets of criteria to 
+process qPCR data adequately. This includes the pre-processing of raw data, 
+fitting of non-linear models on raw data, the calculation of the cycle of 
+quantification the calculation of amplification efficiencies, the relative gene 
+expression analysis, normalization procedures, and data management 
+[@rodiger_chippcr:_2015, @spiess_impact_2015, @rodiger_enabling_2017, 
+@mallona_chainy:_nodate]. Yet, non of them aims to make use of the curvature for 
+classification and machine learning.
 
 The `PCRedux` package contains functions and data sets for machine learning and 
 statistical analysis with a focus on amplification curve data. The data sets 
@@ -57,7 +59,7 @@ originate form qPCRs, which were created and rated by human experts.
 Amplification curves have characteristics, which can be used for the 
 classification. Analysis on the curve data such as changepoint analysis, 
 regression analysis, noise analysis, autocorrelation analysis and model fitting 
-are applied to the qPCR data and yield more than 30 feautures. This can be used 
+are applied to the qPCR data and yield more than 30 features. This can be used 
 for the creation of models that predict a class (e.g., positive, ambiguous, 
 negative qPCR reaction) from input features (slope, background level, 
 changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
