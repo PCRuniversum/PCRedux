@@ -20,7 +20,7 @@ sigmoid function results a S-shaped curve. For example, the equation
 
 \begin{equation}
 \label{sigmoid}
-f(x) = \frac{1}{1 +  e^{-x}}
+f(x) = \frac{1}{1 +  e^{-x}} + c
 \end{equation}
 
 These non-linar functions are real-valued and can be differentiated (first derivative 

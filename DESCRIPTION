@@ -31,6 +31,7 @@ Imports:
     zoo
 Suggests:
     data.table,
+    drc,
     knitr
 NeedsCompilation: no
 VignetteBuilder: knitr

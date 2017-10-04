@@ -78,11 +78,9 @@ on implementations by others (e.g., @erdman_bcp:_2007, @Ritz2008,
 
 The data sets originate form qPCRs, which were created and rated by human experts.
 
-To best of our knowledge, there was no *R* package, which uses raw amplification 
-curve data for features extraction and machine learning. `PCRedux` 
-provides tools for importing and working with sigmoid data. The `PCRedux` 
-package an add-on package for the open source statistical computing language and 
-environment *R* [@R_language].
+`PCRedux` provides tools for features extraction from sigmoid data and machine 
+learning. The `PCRedux` package an add-on package for the open source 
+statistical computing language and environment *R* [@R_language].
 
 ![](fig1.png)<!-- -->
 

@@ -2,22 +2,67 @@
 #' from a quantitative PCR experiment
 #' 
 #' \code{head2tailratio} is a function to calculate the ratio of the head and the
-#' tail of a quantitative PCR amplification curve.
+#' tail of a quantitative PCR amplification curve. In this test, only the head 
+#' (first six cycles) and the tail (last six cycles) form the region of interest 
+#' (ROI).
 #' 
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
+#' @param normalize is a logical parameter, which indicates if the amplification curve.
+#' @param slope_normalizer is a logical parameter, which indicates if the 
+#' head2tailratio should be normalized to the slope of the ROI.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords ratio head tail
 #' @examples
 #' 
-#' # calculate head to tail ratio on noise (negative) amplification curve data
+#' # calculate head to tail ratio on amplification curve data
 #'
-#' head2tailratio(y=rnorm(35))
-#' 
+#'library(qpcR)
+#'
+#'res_head2tailratio <- sapply(2:ncol(competimer), function(i) {
+#'    head2tailratio(y=competimer[, i], normalize=TRUE, slope_normalizer=TRUE)
+#'})
+#'
+#'res_head2tailratio_cluster <- kmeans(res_head2tailratio, 3)$cluster
+#'
+#'matplot(competimer[, 1], competimer[, -1], xlab="Cycle", ylab="RFU", 
+#'         main="competimer dataset", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
+#'
 #' @export head2tailratio
-head2tailratio <- function(y) {
-    res_head_tail_ratio <- try(
-        median(head(y))/median(tail(y))
-    )
+head2tailratio <- function(y, normalize=FALSE, slope_normalizer=FALSE) {
+
+    # Remove missing values
+    y <-na.omit(y)
+    # Normalize data if needed
+    if(normalize) y <- y/quantile(y, 0.999)
+    # Create denovo the abscissa values
+    x <- 1:length(y)
+    
+    # Determine the head and tail values
+    y_head <- head(y)
+    y_tail <- tail(y)
+    
+    
+    # Calculate the ratio of the head and the tail
+    res_head_tail_ratio <- try(median(y_head) / median(y_tail))
+    
+    # Normalize the the head/tail ratio to the slope of the data set,
+    # provided that the slope is significant.
+    if(slope_normalizer) {
+                x_reg <- c(which(y %in% y_head), which(y %in% y_tail))
+                y_reg <- c(y_head,y_tail)
+                
+                head_tail_fit <- try(lm(y_reg ~ x_reg))
+                res_lm_fit_summary <- try(summary(head_tail_fit))$coefficients[2, 4]
+                
+                res_hook_significance <- ifelse(res_lm_fit_summary < 0.01, TRUE, FALSE)
+                
+                head_tail_slope <- try(coefficients(lm(y_reg ~ x_reg))[[2]])
+                
+                if(class(head_tail_slope) != "try-error" || res_hook_significance == TRUE) {
+                      res_head_tail_ratio <- res_head_tail_ratio / head_tail_slope
+                }
+    }
+    
     if(class(res_head_tail_ratio) != "numeric") {
         res_head_tail_ratio <- NA
         }
