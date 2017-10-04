@@ -64,10 +64,10 @@ for the creation of models that predict a class (e.g., positive, ambiguous,
 negative qPCR reaction) from input features (slope, background level, 
 changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
 @Ritz2008, @Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
-@rodiger_chippcr:_2015]. The features from amplification curves can be extract 
-by the `pcrfit_helper` function. `pcrfit_parallel` is a wrapper for numerous 
-functions, which are performed in parallel. Since this function provides a 
-complex set of features we included the visualization function 
+@rodiger_chippcr:_2015]. These and additional features can be extracted by the 
+`pcrfit_helper` function. `pcrfit_helper` can be combined with the 
+`pcrfit_parallel` function for parallel processing. Since this function provides 
+a complex set of features we included the visualization function 
 `visdat_pcrfit_parallel`, which is based on the `vis_dat` function by 
 @Tierney2017. In addition, the following function were developed:
 
