@@ -200,20 +200,6 @@ Matthews correlation coefficient - MCC     | $MCC = \frac{(TP*TN - FP*FN)}{\sqrt
 Likelihood ratio positive - LRp            | $LRp = \frac{TPR}{1-SPC}$
 Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}$
 
-
-r (reference) is the trusted label and s (sample) is the predicted value
-
-     | r=1 | r=0 
------|-----|-----
-s=1  | a   | b
-s=0  | c   | d 
-
-n=a+b+c+d
-
-pc=((a+b)/n)((a+c)/n)+((c+d)/n)((b+d)/n)
-
-po=(a+d)/n
-
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
 res_performance <- rbind(
