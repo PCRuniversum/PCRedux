@@ -34,7 +34,9 @@ Imports:
 Suggests:
     data.table,
     drc,
-    knitr
+    knitr,
+    RDML,
+    rmarkdown
 NeedsCompilation: no
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1.9000
