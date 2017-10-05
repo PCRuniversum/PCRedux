@@ -69,28 +69,27 @@ Supplementary information: Supplementary data are available at Bioinformatics on
 	pages = {1--34}
 }
 
-@article{spiess_impact_2015,
-	title = {Impact of {Smoothing} on {Parameter} {Estimation} in {Quantitative} {DNA} {Amplification} {Experiments}},
-	volume = {61},
-	issn = {0009-9147, 1530-8561},
-	url = {http://www.clinchem.org/cgi/doi/10.1373/clinchem.2014.230656},
-	doi = {10.1373/clinchem.2014.230656},
-	abstract = {BACKGROUND: Quantification cycle (Cq) and amplification efficiency (AE) are parameters mathematically extracted from raw data to characterize quantitative PCR (qPCR) reactions and quantify the copy number in a sample. Little attention has been paid to the effects of preprocessing and the use of smoothing or filtering approaches to compensate for noisy data. Existing algorithms largely are taken for granted, and it is unclear which of the various methods is most informative. We investigated the effect of smoothing and filtering algorithms on amplification curve data.
+@Article{spiess_impact_2015,
+  author   = {Spiess, Andrej-Nikolai and Deutschmann, Claudia and Burdukiewicz, Micha\l{} and Himmelreich, Ralf and Klat, Katharina and Schierack, Peter and R{\"o}diger, Stefan},
+  title    = {Impact of {Smoothing} on {Parameter} {Estimation} in {Quantitative} {DNA} {Amplification} {Experiments}},
+  journal  = {Clinical Chemistry},
+  year     = {2015},
+  volume   = {61},
+  number   = {2},
+  pages    = {379--388},
+  month    = feb,
+  issn     = {0009-9147, 1530-8561},
+  abstract = {BACKGROUND: Quantification cycle (Cq) and amplification efficiency (AE) are parameters mathematically extracted from raw data to characterize quantitative PCR (qPCR) reactions and quantify the copy number in a sample. Little attention has been paid to the effects of preprocessing and the use of smoothing or filtering approaches to compensate for noisy data. Existing algorithms largely are taken for granted, and it is unclear which of the various methods is most informative. We investigated the effect of smoothing and filtering algorithms on amplification curve data.
 
 METHODS: We obtained published high-replicate qPCR data sets from standard block thermocyclers and other cycler platforms and statistically evaluated the impact of smoothing on Cq and AE.
 
 RESULTS: Our results indicate that selected smoothing algorithms affect estimates of Cq and AE considerably. The commonly used moving average filter performed worst in all qPCR scenarios. The Savitzky–Golay smoother, cubic splines, and Whittaker smoother resulted overall in the least bias in our setting and exhibited low sensitivity to differences in qPCR AE, whereas other smoothers, such as running mean, introduced an AE-dependent bias.
 
 CONCLUSIONS: The selection of a smoothing algorithm is an important step in developing data analysis pipelines for real-time PCR experiments. We offer guidelines for selection of an appropriate smoothing algorithm in diagnostic qPCR applications. The findings of our study were implemented in the R packages chipPCR and qpcR as a basis for the implementation of an analytical strategy.},
-	language = {en},
-	number = {2},
-	urldate = {2016-12-03},
-	journal = {Clinical Chemistry},
-	author = {Spiess, Andrej-Nikolai and Deutschmann, Claudia and Burdukiewicz, Micha\l{} and Himmelreich, Ralf and Klat, Katharina and Schierack, Peter and R{\"o}diger, Stefan},
-	month = feb,
-	year = {2015},
-	pages = {379--388},
-	file = {379.full.pdf:/home/tux/Work/Literatur/Zotero_DB/zotero/storage/EM9Q45EP/379.full.pdf:application/pdf;Snapshot:/home/tux/Work/Literatur/Zotero_DB/zotero/storage/97F8NRHE/379.html:text/html}
+  doi      = {10.1373/clinchem.2014.230656},
+  file     = {379.full.pdf:/home/tux/Work/Literatur/Zotero_DB/zotero/storage/EM9Q45EP/379.full.pdf:application/pdf;Snapshot:/home/tux/Work/Literatur/Zotero_DB/zotero/storage/97F8NRHE/379.html:text/html},
+  language = {en},
+  urldate  = {2016-12-03},
 }
 
 @article{ruijter_amplification_2009,
@@ -132,21 +131,20 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   pages = {2065--2069}
 }
 
-@article{ruijter_rdml-ninja_2015,
-  title = {{RDML}-{Ninja} and {RDMLdb} for standardized exchange of {qPCR} data},
-  volume = {16},
-  issn = {1471-2105},
-  url = {https://link.springer.com/article/10.1186/s12859-015-0637-6},
-  doi = {10.1186/s12859-015-0637-6},
+@Article{ruijter_rdml-ninja_2015,
+  author   = {Ruijter, Jan M. and Lefever, Steve and Anckaert, Jasper and Hellemans, Jan and Pfaffl, Michael W. and Benes, Vladimir and Bustin, Stephen A. and Vandesompele, Jo and Untergasser, Andreas and Consortium, on behalf of the RDML},
+  title    = {{RDML}-{Ninja} and {RDMLdb} for standardized exchange of {qPCR} data},
+  journal  = {BMC Bioinformatics},
+  year     = {2015},
+  volume   = {16},
+  number   = {1},
+  pages    = {197},
+  month    = dec,
+  issn     = {1471-2105},
   abstract = {BackgroundThe universal qPCR data exchange file format RDML is today well accepted by the scientific community, part of the MIQE guidelines and implemented in many qPCR instruments. With the increased use of RDML new challenges emerge. The flexibility of the RDML format resulted in some implementations that did not meet the expectations of the consortium in the level of support or the use of elements.ResultsIn the current RDML version 1.2 the description of the elements was sharpened. The open source editor RDML-Ninja was released (http://sourceforge.net/projects/qpcr-ninja/). RDML-Ninja allows to visualize, edit and validate RDML files and thus clarifies the use of RDML elements. Furthermore RDML-Ninja serves as reference implementation for RDML and enables migration between RDML versions independent of the instrument software. The database RDMLdb will serve as an online repository for RDML files and facilitate the exchange of RDML data (http://www.rdmldb.org). Authors can upload their RDML files and reference them in publications by the unique identifier provided by RDMLdb. The MIQE guidelines propose a rich set of information required to document each qPCR run. RDML provides the vehicle to store and maintain this information and current development aims at further integration of MIQE requirements into the RDML format.ConclusionsThe editor RDML-Ninja and the database RDMLdb enable scientists to evaluate and exchange qPCR data in the instrument-independent RDML format. We are confident that this infrastructure will build the foundation for standardized qPCR data exchange among scientists, research groups, and during publication.},
+  doi      = {10.1186/s12859-015-0637-6},
   language = {en},
-  number = {1},
-  urldate = {2017-09-04},
-  journal = {BMC Bioinformatics},
-  author = {Ruijter, Jan M. and Lefever, Steve and Anckaert, Jasper and Hellemans, Jan and Pfaffl, Michael W. and Benes, Vladimir and Bustin, Stephen A. and Vandesompele, Jo and Untergasser, Andreas and Consortium, on behalf of the RDML},
-  month = dec,
-  year = {2015},
-  pages = {197}
+  urldate  = {2017-09-04},
 }
 
 
@@ -310,20 +308,18 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   pages = {811--821}
 }
 
-
-@article{mallona_pcrefficiency:_2011,
-  title = {{pcrEfficiency}: a {Web} tool for {PCR} amplification efficiency prediction},
-  volume = {12},
-  issn = {1471-2105},
+@Article{mallona_pcrefficiency:_2011,
+  author     = {Mallona, Izaskun and Weiss, Julia and Egea-Cortines, Marcos},
+  title      = {{pcrEfficiency}: a {Web} tool for {PCR} amplification efficiency prediction},
+  journal    = {BMC Bioinformatics},
+  year       = {2011},
+  volume     = {12},
+  pages      = {404},
+  issn       = {1471-2105},
+  abstract   = {Relative calculation of differential gene expression in quantitative PCR reactions requires comparison between amplification experiments that include reference genes and genes under study. Ignoring the differences between their efficiencies may lead to miscalculation of gene expression even with the same starting amount of template. Although there are several tools performing PCR primer design, there is no tool available that predicts PCR efficiency for a given amplicon and primer pair.},
+  doi        = {10.1186/1471-2105-12-404},
   shorttitle = {{pcrEfficiency}},
-  url = {http://dx.doi.org/10.1186/1471-2105-12-404},
-  doi = {10.1186/1471-2105-12-404},
-  abstract = {Relative calculation of differential gene expression in quantitative PCR reactions requires comparison between amplification experiments that include reference genes and genes under study. Ignoring the differences between their efficiencies may lead to miscalculation of gene expression even with the same starting amount of template. Although there are several tools performing PCR primer design, there is no tool available that predicts PCR efficiency for a given amplicon and primer pair.},
-  urldate = {2016-09-21},
-  journal = {BMC Bioinformatics},
-  author = {Mallona, Izaskun and Weiss, Julia and Egea-Cortines, Marcos},
-  year = {2011},
-  pages = {404}
+  urldate    = {2016-09-21},
 }
 
 
@@ -401,15 +397,14 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
 	year = {2009}
 }
 
-@article{mallona_chainy:_nodate,
-  title = {Chainy: an universal tool for standardized relative quantification in real-time {PCR}},
+@Article{mallona_chainy:_nodate,
+  author     = {Mallona, Izaskun and Díez-Villanueva, Anna and Martín, Berta and Peinado, Miguel A.},
+  title      = {Chainy: an universal tool for standardized relative quantification in real-time {PCR}},
+  journal    = {Bioinformatics},
+  year       = {2017},
+  doi        = {10.1093/bioinformatics/btw839},
   shorttitle = {Chainy},
-  url = {https://academic.oup.com/bioinformatics/article-abstract/doi/10.1093/bioinformatics/btw839/2840141/Chainy-an-universal-tool-for-standardized-relative},
-  doi = {10.1093/bioinformatics/btw839},
-  urldate = {2017-04-23},
-  year = {2017},
-  journal = {Bioinformatics},
-  author = {Mallona, Izaskun and Díez-Villanueva, Anna and Martín, Berta and Peinado, Miguel A.}
+  urldate    = {2017-04-23},
 }
 
 @article{kuhn_building_2008,
@@ -500,7 +495,6 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   doi        = {10.1186/s12859-017-1688-7},
   language   = {en},
   shorttitle = {{quantGenius}},
-  url        = {http://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1688-7},
   urldate    = {2017-09-26},
 }
 
@@ -571,7 +565,6 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   doi      = {10.1007/s12268-015-0610-y},
   file     = {465_531_BIOsp_0515_SD_- - 12268-015-0610-y.pdf:/home/tux/Work/Literatur/Zotero_DB/zotero/storage/652JTZ43/12268-015-0610-y.pdf:application/pdf;d_bs_pdf&_id=1362743:/home/tux/Work/Literatur/Zotero_DB/zotero/storage/IHV296UB/d_bs_pdf&_id=1362743:application/pdf},
   language = {de},
-  url      = {http://link.springer.com/10.1007/s12268-015-0610-y},
   urldate  = {2017-06-18},
 }
 
@@ -627,7 +620,6 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   abstract   = {Motivation: Reproducibility, a cornerstone of research, requires defined data formats, which include the setup and output of experiments. The real-time PCR data markup language (RDML) is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines. Despite the popularity of the RDML format for analysis of quantitative PCR data, handling of RDML files is not yet widely supported in all PCR curve analysis softwares.Results: This study describes the open-source RDML package for the statistical computing language R. RDML is compatible with RDML versions ≤ 1.2 and provides functionality to (i) import RDML data; (ii) extract sample information (e.g. targets and concentration); (iii) transform data to various formats of the R environment; (iv) generate human-readable run summaries; and (v) to create RDML files from user data. In addition, RDML offers a graphical user interface to read, edit and create RDML files.Availability and implementation:https://cran.r-project.org/package=RDML. rdmlEdit server http://shtest.evrogen.net/rdmlEdit/. Documentation: http://kablag.github.io/RDML/.Contact:k.blag@yandex.ruSupplementary information:Supplementary data are available at Bioinformatics online.},
   doi        = {10.1093/bioinformatics/btx528},
   shorttitle = {Enabling reproducible real-time quantitative {PCR} research},
-  url        = {https://academic.oup.com/bioinformatics/article/doi/10.1093/bioinformatics/btx528/4095640/Enabling-reproducible-real-time-quantitative-PCR},
   urldate    = {2017-09-09},
 }
 
@@ -644,7 +636,6 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   keywords = {Antibodies, Biological Assay, Computer Systems, Microscopy, Fluorescence, Microspheres, Nucleic Acid Hybridization, Pathology, Molecular, Polymerase chain reaction},
   language = {eng},
   pmid     = {22437246},
-  url      = {http://link.springer.com/chapter/10.1007/10_2011_132},
 }
 
 @Article{ruijter_evaluation_2013,
@@ -688,16 +679,16 @@ CONCLUSIONS: The selection of a smoothing algorithm is an important step in deve
   url          = {https://www.R-project.org/},
 }
 
-@article{Tierney2017,
-  doi = {10.21105/joss.00355},
-  url = {https://doi.org/10.21105/joss.00355},
-  year  = {2017},
-  month = {aug},
+@Article{Tierney2017,
+  author    = {Nicholas Tierney},
+  title     = {{visdat}: Visualising Whole Data Frames},
+  journal   = {The Journal of Open Source Software},
+  year      = {2017},
+  volume    = {2},
+  number    = {16},
+  month     = {aug},
+  doi       = {10.21105/joss.00355},
   publisher = {The Open Journal},
-  volume = {2},
-  number = {16},
-  author = {Nicholas Tierney},
-  title = {{visdat}: Visualising Whole Data Frames},
-  journal = {The Journal of Open Source Software}
 }
+
 @Comment{jabref-meta: databaseType:bibtex;}
