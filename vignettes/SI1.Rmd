@@ -2,8 +2,14 @@
 title: "Supplement to: Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves"
 author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Konstantin A. Blagodatskikh, Werner Lehmann, Peter Schierack, Andrej-Nikolai Spiess"
 date: "September 23, 2017"
+output: 
+  rmarkdown::pdf_document:
+    toc: true
 bibliography: "literature.bib"
-output: html_document
+vignette: >
+  %\VignetteIndexEntry{Hook Effect}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
