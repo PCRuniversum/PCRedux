@@ -190,7 +190,7 @@ example.
 # Load the libraries magrittr for pipes and qpcR for the data
 library(magrittr)
 library(PCRedux)
-library(qpcR)
+suppressMessages(library(qpcR))
 
 # Test for an autocorrelation in the testdat dataset
 res_ac <- sapply(2:ncol(testdat), function(i) {
@@ -251,7 +251,7 @@ dataset (compare Figure \ref{samples_of_qPCRs}B).
 
 
 ```{r, echo=FALSE, fig.cap="Sample data from the **htPCR** data set (*qpcR* package, [@Ritz2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. The negative amplification curve has no sigmoid curvature, just a strong positive trend. The ambiguous amplification curve is not a perfect sigmoid curve, exhibits a positive slope in the background phase (cylce 1 $\rightarrow$ 5) and a low amplitude. In contrast, the positive amplification curve has a sigmoid curvature, starting with a background phase (cylce 1 $\rightarrow$ 5), an exponential phase (cylce 6 $\rightarrow$ 25) and a plateau phase (cylce 26 $\rightarrow$ 35). \\label{htPCR_nap}", fig.height=4, fig.width=7}
-library(qpcR)
+suppressMessages(library(qpcR))
 matplot(htPCR[, 1], htPCR[, c(552, 512, 616)], xlab="Cycle", ylab="RFU", main="htPCR dataset", type="l", lty=1, lwd=2)
 legend("topleft", c(paste("negative ", colnames(htPCR)[552]), 
                     paste("ambiguos ", colnames(htPCR)[512]), 
@@ -538,6 +538,48 @@ a quantitative PCR amplification curve. The begin of the amplification curve
 region) are in positive amplification. Therefore, these segments are potentially 
 useful to extract a feature for an amplification curve classification.
 
+```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Some text here.", fig.height=7, fig.width=7}
+suppressMessages(library(qpcR))
+
+
+colors <- c("#FF00004D", "#80FF004D", "#00FFFF4D", "#8000FF4D")
+
+data <- dil4reps94[, c(1, 2, 98, 194,290)]
+
+res_head2tailratio <- lapply(2:ncol(data), function(i) {
+    head2tailratio(y=data[, i], normalize=TRUE, slope_normalizer=TRUE, verbose=TRUE)
+})
+
+data_normalized <- cbind(data[, 1], 
+              sapply(2L:ncol(data), function(i){
+                  data[, i] / quantile(data[, i], 0.999)
+            })
+             )
+
+par(mfrow=c(2,1), las=0, bty="n", oma=c(1,1,1,1))
+
+matplot(data_normalized[, 1], data_normalized[, -1], 
+        xlab="Cycle", ylab="normalized RFU", main="dil4reps94 dataset\nsubset", 
+        type="l", lty=1, lwd=2, col=colors
+       )
+for(i in 1L:(ncol(data_normalized)-1)) {
+    points(res_head2tailratio[[i]]$x_roi, res_head2tailratio[[i]]$y_roi, col=colors[i], pch=19, cex=1.5)
+    abline(res_head2tailratio[[i]]$fit, col=colors[i], lwd=2)
+}
+
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+colors <- c(rep("#FF00004D", 94),
+            rep("#80FF004D", 94),
+            rep("#00FFFF4D", 94),
+            rep("#8000FF4D", 94)
+            )
+
+matplot(dil4reps94[, 1], dil4reps94[, -1], xlab="Cycle", ylab="RFU", 
+        main="dil4reps94 dataset", type="l", lty=1, lwd=2, col=colors)
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+
+```
 ## hookreg and hookregNL
 
 
@@ -545,7 +587,7 @@ useful to extract a feature for an amplification curve classification.
 ## mblrr - A function perform the Quantile-filter based Local Robust Regression
 
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_mblrr}Some text here.", fig.height=7, fig.width=7}
-library(qpcR)
+suppressMessages(library(qpcR))
 par(mfrow=c(2,2))
 data <- htPCR[, c(1, 20:30, 500:510, 6000:6020, 8000:8020)]
 for(i in 2:ncol(data)){

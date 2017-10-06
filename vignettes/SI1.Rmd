@@ -1,9 +1,10 @@
 ---
 title: "Supplement to: Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves"
 author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Konstantin A. Blagodatskikh, Werner Lehmann, Peter Schierack, Andrej-Nikolai Spiess"
-date: "September 23, 2017"
+date: "October 23, 2017"
 output: 
   rmarkdown::pdf_document:
+    number_sections: true
     toc: true
 bibliography: "literature.bib"
 vignette: >
@@ -50,9 +51,8 @@ set, which is part of the **PCRedux** package. The data were transfered to the
 library(RDML)
 library(PCRedux)
 library(magrittr)
-library(qpcR)
-library(DT)
-library(htmlwidgets)
+suppressMessages(library(qpcR))
+
 
 raw_data <- RDML$new(filename=system.file("hookreg.rdml", package="PCRedux"))
 
@@ -80,14 +80,13 @@ Printout of all measured samples, their rating by two humans (rater 1 and rater
 - Other data were prepared by Evrogen laboratory experiments.
 
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+```{r results='asis', echo=TRUE, warning=FALSE}
 library(readxl)
-library(DT)
-library(htmlwidgets)
+library(xtable)
 
 Table_human_rated <- read_xlsx(path=system.file("Table_human_rated.xlsx", package="PCRedux"))
 
-datatable(Table_human_rated, options = list(pageLength = nrow(Table_human_rated)))
+xtable(Table_human_rated)
 ```
 
 ## Results for the analysis of the hookreg.rdml data set with hookreg
@@ -96,7 +95,7 @@ datatable(Table_human_rated, options = list(pageLength = nrow(Table_human_rated)
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(PCRedux)
 library(magrittr)
-library(qpcR)
+suppressMessages(library(qpcR))
 
 res_hookreg <- sapply(2L:ncol(data), function(i) {
     hookreg(x=data[, 1], y=data[, i])
@@ -120,10 +119,9 @@ res_hookreg_table <- data.frame(sample=as.character(res_hookreg[["sample"]]),
 Printout of all measured samples and their sources.
 
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(DT)
-library(htmlwidgets)
-datatable(res_hookreg_table, options = list(pageLength = nrow(res_hookreg_table)))
+```{r results='asis', echo=TRUE, warning=FALSE}
+library(xtable)
+xtable(res_hookreg_table)
 ```
 
 ## Results for the analysis of the hookreg.rdml data set with hookregNL
@@ -140,8 +138,10 @@ res_hookregNL_table <- data.frame(sample=as.character(res_hookregNL[["sample"]])
                                   CI.up=signif(as.numeric(res_hookregNL[["CI.up"]]), 2),
                                   hook.CI=unlist(res_hookregNL[["hook"]])
 )
+```
 
-datatable(res_hookregNL_table, options = list(pageLength = nrow(res_hookregNL_table)))
+```{r results='asis', echo=TRUE, warning=FALSE}
+xtable(res_hookregNL_table, options = list(pageLength = nrow(res_hookregNL_table)))
 ```
 
 
@@ -163,7 +163,11 @@ colnames(res) <- c("Sample",
                    "hookreg",
                    "hookregNL"
                 )
-datatable(res, options = list(pageLength = nrow(res)))
+```
+
+```{r results='asis', echo=TRUE, warning=FALSE}
+library(xtable)
+xtable(res)
 ```
 
 
@@ -180,8 +184,11 @@ colnames(res_out) <- c("Sample",
                    "hookregNL",
                    "hookreg and hoohkreNL combined"
 )
+```
 
-datatable(res_out, options = list(pageLength = nrow(res_hookregNL_table)))
+```{r results='asis', echo=TRUE, warning=FALSE}
+library(xtable)
+xtable(res_out)
 ```
 
 # Performance analysis
@@ -206,8 +213,8 @@ Matthews correlation coefficient - MCC     | $MCC = \frac{(TP*TN - FP*FN)}{\sqrt
 Likelihood ratio positive - LRp            | $LRp = \frac{TPR}{1-SPC}$
 Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}$
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(xtable)
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 res_performance <- rbind(
 hookreg=performance(res_out[["hookreg"]], res_out[["Human rater"]]),
 hookregNL=performance(res_out[["hookregNL"]], res_out[["Human rater"]]),
@@ -215,21 +222,11 @@ combined_hookreg=performance(res_out[["hookreg and hoohkreNL combined"]], res_ou
 ) %>% t %>% signif(., 4)
 
 colnames(res_performance) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
-# rownames(res_performance) <- c("Sensitivity (TPR)",
-#                                "Specificity (SPC)",
-#                                "Precision (PPV)",
-#                                "Negative predictive\nvalue (NPV)",
-#                                "Fall-out (FPR)",
-#                                "False negative rate (FNR)",
-#                                "False discovery rate (FDR)",
-#                                "Accuracy (ACC)",
-#                                "F1 score (F1)",
-#                                "Matthews correlation\ncoefficient (MCC)"
-# )
+```
 
+```{r results='asis', echo=TRUE, warning=FALSE}
+library(xtable)
 xtable(res_performance)
-
-datatable(res_performance, options = list(pageLength = nrow(res_performance)))
 ```
 
 # References

@@ -5,7 +5,8 @@
 \title{A function to calculate to head to tail ratio of amplification curve data 
 from a quantitative PCR experiment}
 \usage{
-head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE)
+head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
@@ -14,6 +15,9 @@ head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE)
 
 \item{slope_normalizer}{is a logical parameter, which indicates if the 
 head2tailratio should be normalized to the slope of the ROI.}
+
+\item{verbose}{is a logical parameter, which indicates if all the values, 
+parameters and coefficients of the ananlysis should be shown.}
 }
 \description{
 \code{head2tailratio} is a function to calculate the ratio of the head and the
