@@ -8,12 +8,12 @@ output:
     toc: true
 bibliography: "literature.bib"
 vignette: >
-  %\VignetteIndexEntry{Hook Effect}
+%\VignetteIndexEntry{Hook Effect}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-
-```{r setup, include=FALSE}
+  ---
+  
+  ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -57,10 +57,10 @@ suppressMessages(library(qpcR))
 raw_data <- RDML$new(filename=system.file("hookreg.rdml", package="PCRedux"))
 
 raw_data_tab <- raw_data$AsTable(name.pattern=paste(
-    react$position,
-    react$sample$id,
-    # run id added to names
-    sep="~"))
+  react$position,
+  react$sample$id,
+  # run id added to names
+  sep="~"))
 data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
 
 matplot(data[, 1], data[, -1], type="l", lty=1, lwd=2, ylab="RFU", xlab="Cycle")
@@ -98,7 +98,7 @@ library(magrittr)
 suppressMessages(library(qpcR))
 
 res_hookreg <- sapply(2L:ncol(data), function(i) {
-    hookreg(x=data[, 1], y=data[, i])
+  hookreg(x=data[, 1], y=data[, i])
 }) %>% t %>% data.frame(sample=colnames(data)[-1],.)
 
 
@@ -129,7 +129,7 @@ xtable(res_hookreg_table)
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 res_hookregNL <- suppressMessages(sapply(2L:ncol(data), function(i) {
-    hookregNL(x=data[, 1], y=data[, i])
+  hookregNL(x=data[, 1], y=data[, i])
 }) %>% t %>% data.frame(sample=colnames(data)[-1],.))
 
 res_hookregNL_table <- data.frame(sample=as.character(res_hookregNL[["sample"]]),
@@ -155,9 +155,9 @@ Table_human_rated <- read_xlsx(path=system.file("Table_human_rated.xlsx", packag
 
 res <- data.frame(sample=Table_human_rated[, "Sample"],
                   hr=Table_human_rated[, "Hook effect-like\nRater 2"],
-                  hookeg=res_hookreg_table[, "hook"],
+                  hookreg=res_hookreg_table[, "hook"],
                   hookregNL=data.frame(unlist(res_hookregNL[, "hook"]))
-          )
+)
 colnames(res) <- c("Sample",
                    "Human rater",
                    "hookreg",
@@ -173,16 +173,16 @@ xtable(res)
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 meta_hookreg <- sapply(1:nrow(res), function(i){
-    ifelse(res[i, "hookreg"] ==1 || res[i, "hookregNL"] == 1, 1, 0)
+  ifelse(res[i, "hookreg"] == 1 || res[i, "hookregNL"] == 1, 1, 0)
 })
 
 res_out <- data.frame(Sample=res[["Sample"]], res[["Human rater"]], res_hookreg[["hook"]], res_hookregNL_table[["hook.CI"]], meta_hookreg)
 
 colnames(res_out) <- c("Sample",
-                   "Human rater",
-                   "hookreg",
-                   "hookregNL",
-                   "hookreg and hoohkreNL combined"
+                       "Human rater",
+                       "hookreg",
+                       "hookregNL",
+                       "hookreg and hoohkreNL combined"
 )
 ```
 
@@ -216,10 +216,10 @@ Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 res_performance <- rbind(
-hookreg=performance(res_out[["hookreg"]], res_out[["Human rater"]]),
-hookregNL=performance(res_out[["hookregNL"]], res_out[["Human rater"]]),
-combined_hookreg=performance(res_out[["hookreg and hoohkreNL combined"]], res_out[["Human rater"]])
-) %>% t %>% signif(., 4)
+  hookreg=performance(res_out[["hookreg"]], res_out[["Human rater"]]),
+  hookregNL=performance(res_out[["hookregNL"]], res_out[["Human rater"]]),
+  combined_hookreg=performance(res_out[["hookreg and hoohkreNL combined"]], res_out[["Human rater"]])
+) %>% t %>% signif(4)
 
 colnames(res_performance) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 ```
@@ -228,5 +228,12 @@ colnames(res_performance) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 library(xtable)
 xtable(res_performance)
 ```
+
+# Hook effect analysis with **rdmlEdit** GUI
+
+You can analyse data with GUI by installing **RDML** package and run **rdmlEdit** as local server, or open [rdmlEdit app](http://shtest.evrogen.net/rdmlEdit/) at Evrogen server.
+After opening **rdmlEdit** you can see several tabs at the top of the screen. Inside *Files* tab click *Browse...* button to select your file. After the file is opened you can see its structure at right of the screen presented as dendrogramm. 
+
+Click to the *qPCR* tab to start analysis. Select proper hook detection method at *Hook Detection Method* selector and wait for analisys. Results can be viewed inside the table (*hook* column) or by color and shape of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
 
 # References
