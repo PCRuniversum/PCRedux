@@ -95,8 +95,9 @@ prcfit_single <- function(x) {
   # Perform an autocorrelation analysis
   res_autocorrelation <- PCRedux::autocorrelation_test(y=x)
 
+  browser()
   # Fit sigmoidal models to curve data
-  res_fit <- try(mselect(qpcR::pcrfit(dat, 1, 2), 
+  res_fit <- try(mselect(qpcR::pcrfit(dat, 1, 2, model = qpcR::l4), 
                          verbose=FALSE, do.all=TRUE), silent=TRUE)
 
   # Determine the model suggested by the mselect function based on the AICc
