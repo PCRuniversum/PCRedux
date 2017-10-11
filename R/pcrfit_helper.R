@@ -10,21 +10,13 @@
 #' res <- prcfit_single(C126EG685[, 2])
 #' @seealso 
 #'  \code{\link[bcp]{bcp}}
-
 #'  \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
-
 #'  \code{\link[ecp]{e.agglo}}
-
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
-
 #'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
-
 #'  \code{\link[pracma]{polyarea}}
-
 #'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
-
 #'  \code{\link[base]{diff}}
-
 #'  \code{\link[stats]{quantile}}
 #' @rdname prcfit_single
 #' @export prcfit_single
