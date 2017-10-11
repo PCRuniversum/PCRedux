@@ -49,10 +49,13 @@ head2tailratio <- function(y, normalize=FALSE, slope_normalizer=FALSE, verbose=F
     # Calculate the ratio of the head and the tail
     res_head_tail_ratio <- try(median(y_head) / median(y_tail))
     
+    # Regression analysis of the ROI
+    
+    head_tail_fit <- try(lm(y_reg ~ x_reg))
+    
     # Normalize the the head/tail ratio to the slope of the data set,
     # provided that the slope is significant.
     if(slope_normalizer) {
-                head_tail_fit <- try(lm(y_reg ~ x_reg))
                 res_lm_fit_summary <- try(summary(head_tail_fit))$coefficients[2, 4]
                 
                 res_hook_significance <- ifelse(res_lm_fit_summary < 0.01, TRUE, FALSE)

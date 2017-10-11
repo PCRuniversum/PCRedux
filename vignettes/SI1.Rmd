@@ -8,26 +8,19 @@ output:
     toc: true
 bibliography: "literature.bib"
 vignette: >
-%\VignetteIndexEntry{Hook Effect}
+  %\VignetteIndexEntry{Hook Effect}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  ---
-  
-  ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
+---
 
 # Introduction
 
 This is a supplement document for the study *Algorithms for Automatized 
 Detection of Hook Effect-bearing Amplification Curves*. The functions and data 
 presented in the paper are available from <https://github.com/devSJR/PCRedux>. 
-The data, including the RDML file are part of the **PCRedux** package and are 
+The data, including the RDML file are part of the `PCRedux` package and are 
 made available in the CSV or RDML format [@rodiger_enabling_2017] for a vendor 
-independent analysis. We have decided use the HTML format for the presentation 
-of the supplementary information to tables hand the reader an documents with 
-interactive tables (sorting and filter option).
+independent analysis.
 
 All analysis were implemented and done with the **R** statistical computing 
 language [@R_language, @rodiger_r_2015] and dedicated integrated development 
@@ -37,22 +30,27 @@ can be found in the help files of the **R** packages.
 We added the source code for the generation of the figures in the main text at 
 the end of the document.
 
-> Note: Some rows in the tables below appear to be empty. This may occur in 
-cases where the corresponding functions were not able to calculate the 
-coefficients due to a failed model fit or violation of truncation criterion.
+> Note: Some rows in the tables below appear to be empty. This expected 
+behaviour may occur in cases where the corresponding functions were not able to 
+calculate the coefficients due to a failed model fit or violation of truncation 
+criterion.
 
 ## Results for the analysis of the hookreg.rdml data set by human rater
 
 All calculations in the following sections were done with `hookreg.rdml` data 
-set, which is part of the **PCRedux** package. The data were transfered to the 
-**R** environment by the **RDML** package [@rodiger_enabling_2017].
+set, which is part of the `PCRedux` package. The data were transfered to the 
+**R** environment by the `RDML` package [@rodiger_enabling_2017].
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Load the RDML package for reading of the hookreg.rdml-file from the PCRedux
+# package. The magrittr package is used for pipes.
+
 library(RDML)
 library(PCRedux)
 library(magrittr)
-suppressMessages(library(qpcR))
 
+# A comprehensive description of the RDML-file import can be found in Rödiger 
+# et al. (2017) Bioinformatics
 
 raw_data <- RDML$new(filename=system.file("hookreg.rdml", package="PCRedux"))
 
@@ -63,30 +61,44 @@ raw_data_tab <- raw_data$AsTable(name.pattern=paste(
   sep="~"))
 data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
 
+# Plot all data of the hookreg.rdml-file
 matplot(data[, 1], data[, -1], type="l", lty=1, lwd=2, ylab="RFU", xlab="Cycle")
+```
 
-head(data, 3)
+Give the first three and last three entires of the data for data evaluation
+
+```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
+library(xtable)
+options(xtable.comment=FALSE)
+print(xtable(t(rbind(head(data, 10), tail(data, 10)))), scalebox='0.55', floating=FALSE)
 ```
 
 Printout of all measured samples, their rating by two humans (rater 1 and rater 
 2) with their dichotomous ratings (0, no hook; 1, hook) and their sources.
 
-- The boggy data (qpcR::boggy) set was taken from the **qpcR** package 
+- The boggy data (qpcR::boggy) set was taken from the `qpcR` package 
 [@Ritz2008, @spiess_highly_2008].
-- The C127EGHP data (chipPCR::C127EGHP) set was taken from the **chipPCR** package 
+- The C127EGHP data (chipPCR::C127EGHP) set was taken from the `chipPCR` package 
 [@rodiger_chippcr:_2015].
-- The testdat data (qpcR::testdat) set was taken from the **qpcR** package 
+- The testdat data (qpcR::testdat) set was taken from the `qpcR` package 
 [@Ritz2008, @spiess_highly_2008].
 - Other data were prepared by Evrogen laboratory experiments.
 
 
-```{r results='asis', echo=TRUE, warning=FALSE}
+```{r eval=TRUE,echo=FALSE,results="asis"}
 library(readxl)
 library(xtable)
 
 Table_human_rated <- read_xlsx(path=system.file("Table_human_rated.xlsx", package="PCRedux"))
 
-xtable(Table_human_rated)
+print(xtable(Table_human_rated, digits=0),
+      size = "normalsize",
+      include.rownames = FALSE,
+      include.colnames = TRUE,
+      caption.placement = "top",
+      comment=FALSE,
+      table.placement = "!ht", scalebox='0.55', floating=FALSE
+)
 ```
 
 ## Results for the analysis of the hookreg.rdml data set with hookreg
@@ -119,9 +131,16 @@ res_hookreg_table <- data.frame(sample=as.character(res_hookreg[["sample"]]),
 Printout of all measured samples and their sources.
 
 
-```{r results='asis', echo=TRUE, warning=FALSE}
+```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
-xtable(res_hookreg_table)
+print(xtable(res_hookreg_table),
+      size = "normalsize",
+      include.rownames = FALSE,
+      include.colnames = TRUE,
+      caption.placement = "top",
+      comment=FALSE,
+      table.placement = "!ht", scalebox='0.55', floating=FALSE
+)
 ```
 
 ## Results for the analysis of the hookreg.rdml data set with hookregNL
@@ -140,8 +159,15 @@ res_hookregNL_table <- data.frame(sample=as.character(res_hookregNL[["sample"]])
 )
 ```
 
-```{r results='asis', echo=TRUE, warning=FALSE}
-xtable(res_hookregNL_table, options = list(pageLength = nrow(res_hookregNL_table)))
+```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
+print(xtable(res_hookregNL_table),
+      size = "normalsize",
+      include.rownames = FALSE,
+      include.colnames = TRUE,
+      caption.placement = "top",
+      comment=FALSE,
+      table.placement = "!ht", scalebox='0.55', floating=FALSE
+)
 ```
 
 
@@ -165,9 +191,16 @@ colnames(res) <- c("Sample",
                 )
 ```
 
-```{r results='asis', echo=TRUE, warning=FALSE}
+```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
-xtable(res)
+print(xtable(res),
+      size = "normalsize",
+      include.rownames = FALSE,
+      include.colnames = TRUE,
+      caption.placement = "top",
+      comment=FALSE,
+      table.placement = "!ht", scalebox='0.55', floating=FALSE
+)
 ```
 
 
@@ -186,15 +219,15 @@ colnames(res_out) <- c("Sample",
 )
 ```
 
-```{r results='asis', echo=TRUE, warning=FALSE}
+```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
-xtable(res_out)
+print(xtable(res_out, digits=0), scalebox='0.55', floating=FALSE)
 ```
 
 # Performance analysis
 
-The performance of the **hookreg** and **hookregNL** function was analyzed with 
-the **performance** function of the **PCRedux** package.
+The performance of the **hookreg** function and **hookregNL** function was analyzed with 
+the **performance** function of the `PCRedux` package. The methods were adopted from @brenner_variation_1997 and @kuhn_building_2008.
 
 Abbreviations: TP, true positive; FP, false positive; TN, true negative; FN, false negative
 
@@ -218,22 +251,30 @@ Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}
 res_performance <- rbind(
   hookreg=performance(res_out[["hookreg"]], res_out[["Human rater"]]),
   hookregNL=performance(res_out[["hookregNL"]], res_out[["Human rater"]]),
-  combined_hookreg=performance(res_out[["hookreg and hoohkreNL combined"]], res_out[["Human rater"]])
+  combined_hookreg=performance(res_out[["hookreg and hoohkreNL combined"]], 
+                               res_out[["Human rater"]])
 ) %>% t %>% signif(4)
 
 colnames(res_performance) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 ```
 
-```{r results='asis', echo=TRUE, warning=FALSE}
+```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
-xtable(res_performance)
+print(xtable(res_performance, digits=0),
+      size = "normalsize",
+      include.rownames = TRUE,
+      include.colnames = TRUE,
+      caption.placement = "top",
+      comment=FALSE,
+      table.placement = "!ht", scalebox='0.75', floating=FALSE
+)
 ```
 
 # Hook effect analysis with **rdmlEdit** GUI
 
-You can analyse data with GUI by installing **RDML** package and run **rdmlEdit** as local server, or open [rdmlEdit app](http://shtest.evrogen.net/rdmlEdit/) at Evrogen server.
+You can analyse data with GUI by installing `RDML` package and run **rdmlEdit** as local server, or open [rdmlEdit app](http://shtest.evrogen.net/rdmlEdit/) at Evrogen server.
 After opening **rdmlEdit** you can see several tabs at the top of the screen. Inside *Files* tab click *Browse...* button to select your file. After the file is opened you can see its structure at right of the screen presented as dendrogramm. 
 
-Click to the *qPCR* tab to start analysis. Select proper hook detection method at *Hook Detection Method* selector and wait for analisys. Results can be viewed inside the table (*hook* column) or by color and shape of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
+Click to the `qpcR` tab to start analysis. Select proper hook detection method at *Hook Detection Method* selector and wait for analisys. Results can be viewed inside the table (*hook* column) or by color and shape of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
 
 # References

@@ -1,124 +1,154 @@
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param x PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples 
+#' # Load the chipPCR package and analyse from the C126EG685 the first qPCR run
+#' # "A01" (column 2).
+#' library(chipPCR)
+#' res <- prcfit_single(C126EG685[, 2])
+#' @seealso 
+#'  \code{\link[bcp]{bcp}}
+
+#'  \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
+
+#'  \code{\link[ecp]{e.agglo}}
+
+#'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
+
+#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
+
+#'  \code{\link[pracma]{polyarea}}
+
+#'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
+
+#'  \code{\link[base]{diff}}
+
+#'  \code{\link[stats]{quantile}}
+#' @rdname prcfit_single
+#' @export prcfit_single
+
 prcfit_single <- function(x) {
-  
+
   # Normalize RFU values to the alpha quantiles (0.999)
-#   x <- x/quantile(x, 0.999)
-  cycles <- 1L:length(x)
+  x <- x/quantile(x, 0.999)
+  length_cycle <- length(x)
+  cycles <- 1L:length_cycle
   # Determine highest and lowest amplification curve values
-  fluo_range <- quantile(x, c(0.01, 0.99), na.rm=TRUE)
-  
+  fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm=TRUE)
+
   # for qpcR
-  dat <- data.frame(cyc = cycles, fluo = x)
-  
-  res_bg.max_tmp <- bg.max(cycles, x)
-  length_cycle <- length(cycles)
+  dat <- cbind(cyc=cycles, fluo=x)
+
+  res_bg.max_tmp <- chipPCR::bg.max(cycles, x)
   res_bg.max <- c(bg.start=res_bg.max_tmp@bg.start/length_cycle,
                   bg.stop=res_bg.max_tmp@bg.stop/length_cycle,
                   amp.stop=res_bg.max_tmp@amp.stop/length_cycle)
-  
-  
+
   # Determine the head to tail ratio
-  res_head_tail_ratio <- head2tailratio(x)
-  
+  res_head_tail_ratio <- PCRedux::head2tailratio(x)
+
   # Determine the slope from the cycles 2 to 11
-  res_lm_fit <- earlyreg(x= cycles, x)
-  
+  res_lm_fit <- PCRedux::earlyreg(x=cycles, x)
+
   # Try to estimate the slope and the intercept of the tail region,
   # which might be indicative of a hook effect (strong negative slope)
-  res_hookreg <- hookreg(x= cycles, x)
-  
+  res_hookreg <- PCRedux::hookreg(x=cycles, x)
+
   # Calculates the area of the amplification curve
-  res_polyarea <- try(polyarea(cycles, x), silent=TRUE)
+  res_polyarea <- try(pracma::polyarea(cycles, x), silent=TRUE)
   if(class(res_polyarea) == "try-error") {res_polyarea <- NA}
   
   # Calculate change points
   # Agglomerative hierarchical estimation algorithm for multiple change point analysis
-  res_changepoint_e.agglo <- try(length(e.agglo(as.matrix(x))$estimates), silent=TRUE)
+  res_changepoint_e.agglo <- try(length(ecp::e.agglo(as.matrix(x))$estimates), silent=TRUE)
   if(class(res_changepoint_e.agglo) == "try-error") {res_changepoint_e.agglo <- NA}
-  
+
   # Bayesian analysis of change points
-  res_bcp_tmp <- bcp(x)            
+  res_bcp_tmp <- bcp::bcp(x)            
   res_bcp_tmp <- res_bcp_tmp$posterior.prob > 0.45
   res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length))
   if(class(res_bcp) == "try-error") {res_bcp <- NA}
-  
+
   # Median based local robust regression (mblrr)
-  res_mblrr <- mblrr(cycles, x)
-  
+  res_mblrr <- PCRedux::mblrr(cycles, x)
+
   # Calculate amptester results
-  res_amptester <- try(amptester(x))
+  res_amptester <- try(chipPCR::amptester(x))
   
   # Estimate the spread of the approximate local minima and maxima of the curve data
-  dat_smoothed <- smoother(cycles, x)
-  
-  res_diffQ <- diffQ(cbind(cycles, dat_smoothed), verbose = TRUE)$xy
-  res_mcaPeaks <- mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
-  mcaPeaks_minima_maxima_ratio <- diff(range(res_mcaPeaks$p.max[, 2])) / diff(range(res_mcaPeaks$p.min[, 2]))
-  
+  dat_smoothed <- chipPCR::smoother(cycles, x)
+
+  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles, dat_smoothed), verbose = TRUE)$xy)
+  res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
+  mcaPeaks_minima_maxima_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / diff(range(res_mcaPeaks$p.min[, 2]))
+
   # Estimate the slope between the minimum and the maximum of the second derivative
-  res_diffQ2 <- diffQ2(cbind(cycles, dat_smoothed), verbose=FALSE, fct=min)
+  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles, dat_smoothed), verbose=FALSE, fct=min))
   range_Cq <- diff(res_diffQ2[[3]])
   if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {range_Cq} else {range_Cq <- 0}
   if(res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && range_Cq > 1 && range_Cq < 9) {
     res_diffQ2_slope <- coefficients(lm(unlist(c(res_diffQ2[[4]])) ~ unlist(c(res_diffQ2[[3]]))))[2]
   } else {res_diffQ2_slope <- 0}
-  
-  # Perform an autocorrelation analysis           
-  res_autocorrelation <- autocorrelation_test(y=x)
-  
+
+  # Perform an autocorrelation analysis
+  res_autocorrelation <- PCRedux::autocorrelation_test(y=x)
+
   # Fit sigmoidal models to curve data
-  res_fit <- try(mselect(pcrfit(dat, cyc=1, fluo=2), 
+  res_fit <- try(mselect(qpcR::pcrfit(dat, 1, 2), 
                          verbose=FALSE, do.all=TRUE), silent=TRUE)
-  
+
   # Determine the model suggested by the mselect function based on the AICc
   res_fit_model <- try(names(which(res_fit[["retMat"]][, "AICc"] == min(res_fit[["retMat"]][, "AICc"]))), silent=TRUE)
   if(class(res_fit_model) == "try-error") {res_fit_model <- NA}
-  
+
   if(class(res_fit)[1] != "try-error") {
     # TakeOff Point
     # Calculates the first significant cycle of the exponential region 
     # (takeoff point) using externally studentized residuals as described 
     # in Tichopad et al. (2003).
-    res_takeoff <- try(takeoff(res_fit), silent=TRUE)
+    res_takeoff <- try(qpcR::takeoff(res_fit), silent=TRUE)
     if(class(res_takeoff) == "try-error") {res_takeoff <- list(NA, NA)}
-    
+
     # LRE qPCR efficiency
     # Calculation of qPCR efficiency by the 'linear regression of 
     # efficiency' method
-    
-    res_LRE <- try(LRE(res_fit, plot=FALSE, verbose=FALSE)$eff, silent=TRUE)
+
+    res_LRE <- try(qpcR::LRE(res_fit, plot=FALSE, verbose=FALSE)$eff, silent=TRUE)
     if(class(res_LRE) == "try-error") {res_LRE <- NA}
-    
+
     # sliwin qPCR efficiency
     # Calculation of the qPCR efficiency by the 'window-of-linearity' method
-    res_sliwin <- try(sliwin(res_fit, plot=FALSE, verbose=FALSE)$eff, 
+    res_sliwin <- try(qpcR::sliwin(res_fit, plot=FALSE, verbose=FALSE)$eff, 
                       silent=TRUE)
     if(class(res_sliwin) == "try-error") {res_sliwin <- NA}
-    
+
     # Cq of the amplification curve
     # Determine the Cq and other parameters
     res_efficiency_tmp <- try(
-      efficiency(res_fit, plot=FALSE)[c("eff",
+      qpcR::efficiency(res_fit, plot=FALSE)[c("eff",
                                         "cpD1", "cpD2",
                                         "fluo",
-                                        "init1", "init2")], 
+                                        "init1", "init2")],
       silent=TRUE)
-    if(class(res_efficiency_tmp) != "try-error") {                        
+    if(class(res_efficiency_tmp) != "try-error") {
       res_cpDdiff <- try(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
     } else {
-      res_efficiency_tmp <- list(eff = NA, 
-                                 cpD1 = NA, 
-                                 cpD2 = NA, 
-                                 fluo = NA, 
-                                 init1 = NA, 
+      res_efficiency_tmp <- list(eff = NA,
+                                 cpD1 = NA,
+                                 cpD2 = NA,
+                                 fluo = NA,
+                                 init1 = NA,
                                  init2 = NA)
       res_cpDdiff <- NA
     }
   } else {
-    res_efficiency_tmp <- list(eff = NA, 
-                               cpD1 = NA, 
-                               cpD2 = NA, 
-                               fluo = NA, 
-                               init1 = NA, 
+    res_efficiency_tmp <- list(eff = NA,
+                               cpD1 = NA,
+                               cpD2 = NA,
+                               fluo = NA,
+                               init1 = NA,
                                init2 = NA)
     res_takeoff <- list(NA, NA)
     res_LRE <- NA
