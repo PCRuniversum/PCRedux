@@ -88,6 +88,7 @@ Printout of all measured samples, their rating by two humans (rater 1 and rater
 ```{r eval=TRUE,echo=FALSE,results="asis"}
 library(readxl)
 library(xtable)
+options(xtable.comment=FALSE)
 
 Table_human_rated <- read_xlsx(path=system.file("Table_human_rated.xlsx", package="PCRedux"))
 
@@ -133,6 +134,7 @@ Printout of all measured samples and their sources.
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
+options(xtable.comment=FALSE)
 print(xtable(res_hookreg_table),
       size = "normalsize",
       include.rownames = FALSE,
@@ -160,6 +162,9 @@ res_hookregNL_table <- data.frame(sample=as.character(res_hookregNL[["sample"]])
 ```
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
+library(xtable)
+options(xtable.comment=FALSE)
+
 print(xtable(res_hookregNL_table),
       size = "normalsize",
       include.rownames = FALSE,
@@ -193,6 +198,8 @@ colnames(res) <- c("Sample",
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
+options(xtable.comment=FALSE)
+
 print(xtable(res),
       size = "normalsize",
       include.rownames = FALSE,
@@ -221,6 +228,8 @@ colnames(res_out) <- c("Sample",
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
+options(xtable.comment=FALSE)
+
 print(xtable(res_out, digits=0), scalebox='0.55', floating=FALSE)
 ```
 
@@ -260,6 +269,8 @@ colnames(res_performance) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
+options(xtable.comment=FALSE)
+
 print(xtable(res_performance, digits=0),
       size = "normalsize",
       include.rownames = TRUE,

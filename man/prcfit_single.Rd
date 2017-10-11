@@ -2,18 +2,21 @@
 % Please edit documentation in R/pcrfit_helper.R
 \name{prcfit_single}
 \alias{prcfit_single}
-\title{FUNCTION_TITLE}
+\title{prcfit_single - A function to extract features from an amplification curve}
 \usage{
 prcfit_single(x)
 }
 \arguments{
-\item{x}{PARAM_DESCRIPTION}
+\item{x}{is the data set containing the fluorescence amplitudes.}
 }
 \value{
 OUTPUT_DESCRIPTION
 }
 \description{
-FUNCTION_DESCRIPTION
+The prcfit_single is responsible for the 
+extraction of features from amplification curve data. This function is the basis
+of the \code{\link[PCRedux]{pcrfit_parallel}} function. The later performs the 
+parallelized analysis of amplification curve data
 }
 \details{
 DETAILS

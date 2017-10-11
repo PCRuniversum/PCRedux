@@ -11,7 +11,7 @@ pcrfit_parallel(data, n_cores = 1, detection_chemistry = NA, device = NA)
 \item{data}{is the data set containing the cycles and fluorescence amplitudes.}
 
 \item{n_cores}{defines the numbers of cores that should be left unused by this 
-function. By default \code{pcrfit_parallel} is using only two cores. Use
+function. By default pcrfit_parallel is using only two cores. Use
 \code{"all"} to use all available cores.}
 
 \item{detection_chemistry}{contains additional meta information about the 
@@ -20,10 +20,16 @@ detection chemistry (e.g., probes, intercalating dye) that was used.}
 \item{device}{contains additional meta information about the qPCR system that 
 was used.}
 }
+\value{
+The output of the pcrfit_parallel function is 
+identical to the \code{\link[PCRedux]{prcfit_single}} function.
+}
 \description{
-\code{pcrfit_parallel} is a function to calculate numerous features of a large 
-amplification curve data set. pcrfit_parallel makes use of parallelized code
-to make use of multi-core architectures.
+pcrfit_parallel is a function to calculate numerous 
+features of a large amplification curve data set. 
+pcrfit_parallel makes use of parallelized code to make 
+use of multi-core architectures. The \code{\link[PCRedux]{prcfit_single}} is 
+performing the analysis for a single process. pcrfit_parallel
 }
 \examples{
 
@@ -38,4 +44,6 @@ res_pcrfit_parallel
 Stefan Roediger, Michal Burdukiewcz
 }
 \keyword{intercept}
+\keyword{normalization}
+\keyword{preprocessing}
 \keyword{slope}
