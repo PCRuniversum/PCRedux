@@ -165,7 +165,7 @@ important to note that the features proposed herein emerged during a critical
 reasoning process. The aim of the package is to propose a set of features, 
 functions and data for an independent research.
 
-## ``autocorrelation_test`` - A function to detect positive amplification curves
+## ``autocorrelation_test`` - A function to detect positive amplification curves \label{section_autocorrelation_test}
 
 Autocorrelation analysis is a technique that is used in the field of time series 
 analysis. It can be used to reveal regularly occurring patterns in 
@@ -241,7 +241,7 @@ signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[1]` and `r
 signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[2]` at a significance level of 
 0.01 and a lag of 3.
 
-## ``decision_modus`` - A function to get a decision (modus) from a vector of classes
+## ``decision_modus`` - A function to get a decision (modus) from a vector of classes \label{section_decision_modus}
 
 Several approaches for machine learning exist. One of them is the supervised 
 learning, where the aim is to infer a function from labeled training data. 
@@ -382,7 +382,7 @@ decision_plot(decision_res_htPCR_reevaluation, name="", rating_columns=2:4)
 decision_plot(decision_res_htPCR_merged, name="merged", rating_columns=2:7)
 ```
 
-## ``earlyreg`` - A function to calculate the slope and intercept of an amplification curve data from a quantitative PCR experiment
+## ``earlyreg`` - A function to calculate the slope and intercept of an amplification curve data from a quantitative PCR experiment \label{section_earlyreg}
 
 There are numerous segments of an amplification curve, that are potentially 
 useful to extract a feature for an amplification curve classification. Figure 
@@ -541,7 +541,7 @@ matplot(data[, 1], data[, which(res_kmeans==3)+1], col= curve_colors, pch=19, lt
 mtext("F", cex = 2, side = 3, adj = 0, font = 2)
 ```
 
-## ``head2tailratio`` - A function to calculate the ratio of the head and the tail of a quantitative PCR amplification curve
+## ``head2tailratio`` - A function to calculate the ratio of the head and the tail of a quantitative PCR amplification curve\label{section_head2tailratio}
 
 
 The ``head2tailratio`` function calculates the ratio of the head and the tail of 
@@ -595,11 +595,11 @@ mtext("B", cex = 2, side = 3, adj = 0, font = 2)
 
 ```
 
-## ``hookreg`` and ``hookregNL``
+## ``hookreg`` and ``hookregNL``\label{section_hookreg}
 
 
 
-## ``mblrr`` - A function perform the Quantile-filter based Local Robust Regression
+## ``mblrr`` - A function perform the Quantile-filter based Local Robust Regression \label{section_mblrr}
 
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_mblrr}Some text here.", fig.height=7, fig.width=7}
 suppressMessages(library(qpcR))
@@ -643,24 +643,23 @@ the `prcfit_single` function.
 
 Function                 | Package   | Source                   | Details
 -------------------------|-----------|--------------------------|------------------------------
-``bg.max``               | `chipPCR` | @rodiger_chippcr:_2015   | 
-``head2tailratio``       | `PCRedux` |                          |
-``earlyreg``             | `PCRedux` |                          |
-``hookreg``              | `PCRedux` |                          |
-``polyarea``             | `pracma`  | @pracma                  |
-``e.agglo``              | `ecp`     | @james_ecp:_2013         |
-``bcp``                  | `bcp`     | @erdman_bcp:_2007        |
-``mblrr``                | `PCRedux` |                          |
-``amptester``            | `chipPCR` | @rodiger_chippcr:_2015   |
+``bcp``                  | `bcp`     | @erdman_bcp:_2007        | Performs a change point analysis based on a Bayesian approach.
+``amptester``            | `chipPCR` | @rodiger_chippcr:_2015   | Test with different statistical methods, if the amplification is positive of negative.
+``bg.max``               | `chipPCR` | @rodiger_chippcr:_2015   | Calculates estimates for the start and end of the background region and the end of the exponential amplification reaction. The estimates of the ``bg.max`` function are normalized to the total cycle number.
+``e.agglo``              | `ecp`     | @james_ecp:_2013         | Performs a multiple change point analysis based on agglomerative hierarchical estimation.
 ``diffQ``                | `MBmca`   | @roediger_RJ_2013        |
 ``diffQ2``               | `MBmca`   | @roediger_RJ_2013        |
-``lm``                   | `stats`   |                          |
-``autocorrelation_test`` | `PCRedux` |                          |
-``pcrfit``               | `qpcR`    | @Ritz2008                |
-``takeoff``              | `qpcR`    | @Ritz2008                |
-``LRE``                  | `qpcR`    | @Ritz2008                |
-``sliwin``               | `qpcR`    | @Ritz2008                |
-``efficiency``           | `qpcR`    | @Ritz2008                |
+``mcaPeaks``             | `MBmca`   | @roediger_RJ_2013        |
+``head2tailratio``       | `PCRedux` |                          | Calculates an estimate for the head to tail fluorescence, normalized to the slope. See Section \ref{section_head2tailratio}.
+``earlyreg``             | `PCRedux` |                          | Calculates the slope and intercept of an amplification curve data from a quantitative PCR experiment. See Section \ref{section_earlyreg}.
+``hookreg`` & ``hookregNL`` | `PCRedux` |                          |
+``autocorrelation_test`` | `PCRedux` |                          | Test for an autocorrelation of amplification curve data from a quantitative PCR experiment. See Section \ref{section_autocorrelation_test}.
+``mblrr``                | `PCRedux` |                          | See Section \ref{section_mblrr}.
+``polyarea``             | `pracma`  | @pracma                  | Calculates the area of a polygon defined by the vertices with coordinates of the cycles and fluorescence, based on the Gauss polygon area formula.
+``efficiency``           | `qpcR`    | @Ritz2008                | Determine the Cq (first derivative maximum, second derivative maximum) and other parameters.
+``LRE``                  | `qpcR`    | @Ritz2008                | Calculates the qPCR efficiency by the 'linear regression of efficiency' method.
+``sliwin``               | `qpcR`    | @Ritz2008                | Calculates the qPCR efficiency by the 'window-of-linearity' method.
+``takeoff``              | `qpcR`    | @Ritz2008                | Calculates the qPCR takeoff point.
 
 ## ``performance``
 
