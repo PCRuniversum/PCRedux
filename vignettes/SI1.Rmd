@@ -200,7 +200,7 @@ colnames(res) <- c("Sample",
 library(xtable)
 options(xtable.comment=FALSE)
 
-print(xtable(res),
+print(xtable(res, digits=0),
       size = "normalsize",
       include.rownames = FALSE,
       include.colnames = TRUE,
@@ -268,6 +268,6 @@ print(xtable(res_performeR, digits=0),
 You can analyse data with GUI by installing `RDML` package and run **rdmlEdit** as local server, or open [rdmlEdit app](http://shtest.evrogen.net/rdmlEdit/) at Evrogen server.
 After opening **rdmlEdit** you can see several tabs at the top of the screen. Inside *Files* tab click *Browse...* button to select your file. After the file is opened you can see its structure at right of the screen presented as dendrogramm. 
 
-Click to the `qpcR` tab to start analysis. Select proper hook detection method at *Hook Detection Method* selector and wait for analisys. Results can be viewed inside the table (*hook* column) or by color and shape of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
+Click to the `qPCR` tab to start analysis. Select proper hook detection method at *Hook Detection Method* selector and wait for analisys. Results can be viewed inside the table (*hook* column) or by color and shape of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
 
 # References

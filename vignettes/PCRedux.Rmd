@@ -301,7 +301,7 @@ useful if large collections of varying decision (e.g., "a", "a", "a", "n",
 "a").
 
 We used the ``decision_modus`` function on the `decision_res_htPCR.csv` data 
-set (see with all the ratings (column 2 to 4) and determined the modus of each 
+set with all the ratings (column 2 to 4) and determined the modus of each 
 line.
 
 ```{r, eval=TRUE, echo=TRUE}
@@ -691,6 +691,69 @@ Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}
 
 
 ## ``qPCR2fdata`` \label{section_qPCR2fdata}
+
+``qPCR2fdata`` is a helper function to convert qPCR data to the functional `fdata` class as proposed by @Febrero_Bande_2012. This function prepares the data for further analysis, which includes utilities for functional data analysis. For example, it this can be used to determine the similarity measures between amplification curves shapes by the Hausdorff distance [@charpiat_shape_2003].
+The ``qPCR2fdata`` function takes a data set containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. Since noise and missing values may effect the analysis adversely we integrated an instance of ``CPP`` function from the `chipPCR` package [@rodiger_chippcr:_2015] in `qPCR2fdata`.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Calculate slope and intercept on noise (negative) amplification curve data
+# for the last eight cycles.
+# Load additional packages for data and pipes.
+library(qpcR)
+library(fda.usc)
+library(magrittr)
+
+# Convert the qPCR data set to the fdata format
+# Use unprocessed data from the testdat data set
+res_fdata <- qPCR2fdata(testdat)
+
+# Use preprocessed data (preprocess=TRUE) from the testdat data set
+res_fdata_preprocessed <- qPCR2fdata(testdat, preprocess=TRUE)
+
+# Extract column names and create rainbow color to label the data
+res_fdata_colnames <- testdat[-1] %>% colnames()
+data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
+```
+
+```{r, echo=TRUE, fig.cap="\\label{qPCR2fdata}Some text here.", fig.height=11, fig.width=11}
+# Plot the converted qPCR data
+par(mfrow=c(2,2))
+res_fdata %>% plot(., xlab="cycles", ylab="RFU", main="testdat", type="l", 
+                   lty=1, lwd=2, col=data_colors)
+legend("topleft", as.character(res_fdata_colnames), pch=19, 
+       col=data_colors, bty="n", ncol=2)
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+# Calculate the Hausdorff distance (fda.usc) package and plot the distances
+# as clustered data.
+
+res_fdata_hclust <- metric.hausdorff(res_fdata)
+plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
+curves as calculated by the Hausdorff distance")
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+rect(0.5,-3,12.25,0.25, border = "red")
+text(7, 1, "negative", col="red")
+rect(12.5,-3,24.5,0.25, border = "green")
+text(14, 1, "positive", col="green")
+
+# Repeat the plot and the cluster analysis for the preprocessed data
+res_fdata_preprocessed %>% plot(., xlab="cycles", ylab="RFU", main="testdat", type="l", 
+                   lty=1, lwd=2, col=data_colors)
+legend("topleft", as.character(res_fdata_colnames), pch=19, 
+       col=data_colors, bty="n", ncol=2)
+mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+# Calculate the Hausdorff distance (fda.usc) package and plot the distances
+# as clustered data from preprocessed amplification curves.
+
+res_fdata_hclust_preprocessed <- metric.hausdorff(res_fdata_preprocessed)
+plot(hclust(as.dist(res_fdata_hclust_preprocessed)), main="Clusters of the preprocessed amplification\n
+curves as calculated by the Hausdorff distance")
+rect(0.5,-3,12.25,0.25, border = "red")
+text(7, 1, "negative", col="red")
+rect(12.5,-3,24.5,0.25, border = "green")
+text(14, 1, "positive", col="green")
+mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+```
 
 ## ``visdat_pcrfit_parallel`` - A function to visualize the content of data from an analysis with the `pcrfit_parallel` function  \label{section_visdat_pcrfit_parallel}
 
