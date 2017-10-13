@@ -1,8 +1,9 @@
 #' @title Performance analysis for binary classification
 #' @description This function performs an analysis sensitivity and specificity 
 #' to asses the performance of a binary classification test. For further reading
-#' the studies by Brenner and Gefeller 1997 and by Kuhn 2008 are a good starting
-#' point. 
+#' the studies by Brenner and Gefeller 1997, James 2013 by Kuhn 2008 are a good 
+#' starting point. 
+#'
 #' @param sample is a vector with logical decisions (0, 1) of the test system.
 #' @param reference  is a vector with logical decisions (0, 1) of the reference 
 #' system.
@@ -18,6 +19,11 @@
 #'
 #' M. Kuhn, Building Predictive Models in R Using the caret Package, 
 #' \emph{Journal of Statistical Software}. 28 (2008). doi:10.18637/jss.v028.i05.
+#'
+#' G. James, D. Witten, T. Hastie, R. Tibshirani, An Introduction to Statistical 
+#' Learning, \emph{Springer New York, New York, NY}, (2013). 
+#' doi:10.1007/978-1-4614-7138-7.
+#'
 #' @details TP, true positive; FP, false positive; TN, true negative; FN, false 
 #' negative
 #' 
@@ -86,12 +92,12 @@
 #' legend("topleft", c("Sample", "Reference"), pch=c(19,1), 
 #'         cex=c(1.5,1.5), bty="n", col=c("black","blue"))
 #' 
-#' # Do the statistical analysis with the performance function
-#' performance(sample=test_data, reference=reference_data)
-#' @rdname performance
-#' @export performance
+#' # Do the statistical analysis with the performeR function
+#' performeR(sample=test_data, reference=reference_data)
+#' @rdname performeR
+#' @export performeR
 
-performance <- function(sample, reference) {
+performeR <- function(sample, reference) {
     data <- data.frame(s=sample,r=reference)
     
     

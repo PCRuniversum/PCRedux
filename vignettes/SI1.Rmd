@@ -236,42 +236,24 @@ print(xtable(res_out, digits=0), scalebox='0.55', floating=FALSE)
 # Performance analysis
 
 The performance of the **hookreg** function and **hookregNL** function was analyzed with 
-the **performance** function of the `PCRedux` package. The methods were adopted from @brenner_variation_1997 and @kuhn_building_2008.
-
-Abbreviations: TP, true positive; FP, false positive; TN, true negative; FN, false negative
-
-Measure                                    | Formula
--------------------------------------------|-----------------------------------------------
-Sensitivity - TPR, true positive rate      | $TPR = \frac{TP}{TP + FN}$
-Specificity - SPC, true negative rate      | $SPC = \frac{TN}{TN + FP}$
-Precision - PPV, positive predictive value | $PPV = \frac{TP}{TP +  FP}$
-Negative predictive value - NPV            | $NPV = \frac{TN}{TN + FN}$
-Fall-out, FPR, false positive rate         | $FPR = \frac{FP}{FP + TN} = 1 - SPC$
-False negative rate - FNR                  | $FNR = \frac{FN}{TN + FN} = 1 - TPR$
-False discovery rate - FDR                 | $FDR = \frac{FP}{TP + FP} = 1 - PPV$
-Accuracy - ACC                             | $ACC =  \frac{(TP + TN)}{(TP + FP + FN + TN)}$
-F1 score - F1                              | $F1 = \frac{2TP}{(2TP + FP + FN)}$
-Matthews correlation coefficient - MCC     | $MCC = \frac{(TP*TN - FP*FN)}{\sqrt{(TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)}}$
-Likelihood ratio positive - LRp            | $LRp = \frac{TPR}{1-SPC}$
-Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}$
-
+the **performeR** function of the `PCRedux` package. The methods were adopted from @brenner_variation_1997 and @kuhn_building_2008.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-res_performance <- rbind(
-  hookreg=performance(res_out[["hookreg"]], res_out[["Human rater"]]),
-  hookregNL=performance(res_out[["hookregNL"]], res_out[["Human rater"]]),
-  combined_hookreg=performance(res_out[["hookreg and hoohkreNL combined"]], 
+res_performeR <- rbind(
+  hookreg=performeR(res_out[["hookreg"]], res_out[["Human rater"]]),
+  hookregNL=performeR(res_out[["hookregNL"]], res_out[["Human rater"]]),
+  combined_hookreg=performeR(res_out[["hookreg and hoohkreNL combined"]], 
                                res_out[["Human rater"]])
 ) %>% t %>% signif(4)
 
-colnames(res_performance) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
+colnames(res_performeR) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 ```
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
 options(xtable.comment=FALSE)
 
-print(xtable(res_performance, digits=0),
+print(xtable(res_performeR, digits=0),
       size = "normalsize",
       include.rownames = TRUE,
       include.colnames = TRUE,

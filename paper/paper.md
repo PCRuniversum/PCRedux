@@ -77,7 +77,7 @@ a complex set of features we included the visualization function
 - `head2tailratio` compares the ratio of the head and tail,
 - `hookregNL` and `hookreg` attempt to detect a hook effect in the amplification curve,
 - `mblrr`, a function to perform a qunantile-filter based local robust regression,
-- `performance`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
+- `performeR`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
 - `qPCR2fdata`, a helper function to convert amplification curve data to the *fdata* format.
 
 

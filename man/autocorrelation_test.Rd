@@ -56,7 +56,7 @@ human_rating <- c(1,1,0,0,1,1,0,0,
 # the human rated values as variable "hr" in a new data frame (res_ac_hr).
 res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1), 
                         hr=human_rating) \%>\% as.matrix
-res_performance <- performance(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
+res_performeR <- performeR(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
 
 # Add ratings by human and autocorrelation_test to the plot
 par(las=2)
@@ -68,7 +68,7 @@ points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, col="red")
 legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1), 
        bty="n", col=c("black","red"))
         
-barplot(as.matrix(res_performance[, c(1:10,12)]), yaxt="n", ylab="", main="Performance of autocorrelation_test")
+barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n", ylab="", main="Performance of autocorrelation_test")
 axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 }
 \seealso{
