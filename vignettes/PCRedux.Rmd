@@ -320,7 +320,8 @@ summary(dec)
 ```{r, echo=FALSE, fig.cap="Summary of all sample data from the **htPCR** data set (*qpcR* package, [@Ritz2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. \\label{htPCR_nap}", fig.height=5.5, fig.width=11}
 
 # Plot the Frequencies of the decisions
-barplot(table(dec), xlab="Decision", ylab="Frequency", main="Amplification curves rated by humans\n htPCR data set", col=c(2,3,1))
+barplot(table(dec), xlab="Decision", ylab="Frequency", 
+        main="Amplification curves rated by humans\n htPCR data set", col=c(2,3,1))
 ```
 
 Another usage of the ``decision_modus`` function is by setting the `max_freq` 
@@ -667,10 +668,13 @@ Function                 | Package   | Source                   | Details
 
 ## ``performeR`` \label{section_performeR}
 
-The assessment of the performance by the sensitivity (percentage of true 
-decisions that are identified) and specificity (percentage of negative decision 
-that are correctly identified) is important to characterize the performance of a 
-classifier or screening test [@james_introduction_2013].
+Statistical modeling and machine learning can be powerful but expose the user to 
+the risk of introducing unexpected biases. This may lead to an overestimation of 
+the performance.The assessment of the performance by the sensitivity (percentage 
+of true decisions that are identified) and specificity (percentage of negative 
+decision that are correctly identified) is important to characterize the 
+performance of a classifier or screening test [@james_introduction_2013].
+
 
 Abbreviations: TP, true positive; FP, false positive; TN, true negative; FN, false negative
 
@@ -692,15 +696,27 @@ Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}
 
 ## ``qPCR2fdata`` \label{section_qPCR2fdata}
 
-``qPCR2fdata`` is a helper function to convert qPCR data to the functional `fdata` class as proposed by @Febrero_Bande_2012. This function prepares the data for further analysis, which includes utilities for functional data analysis. For example, it this can be used to determine the similarity measures between amplification curves shapes by the Hausdorff distance [@charpiat_shape_2003].
-The ``qPCR2fdata`` function takes a data set containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. Since noise and missing values may effect the analysis adversely we integrated an instance of ``CPP`` function from the `chipPCR` package [@rodiger_chippcr:_2015] in `qPCR2fdata`.
+``qPCR2fdata`` is a helper function to convert qPCR data to the functional 
+`fdata` class as introduced by @Febrero_Bande_2012. This function prepares the 
+data for further analysis, which includes utilities for functional data 
+analysis. For example, it this can be used to determine the similarity measures 
+between amplification curves shapes by the Hausdorff distance 
+[@charpiat_shape_2003].
 
+The ``qPCR2fdata`` function takes a data set containing the amplification cycles 
+(first column) and the fluorescence amplitudes (subsequent columns) as input. 
+Since noise and missing values may effect the analysis adversely we integrated 
+an instance of ``CPP`` function from the `chipPCR` package 
+[@rodiger_chippcr:_2015] in `qPCR2fdata`.
+
+The following example illustrates the usage for the `testdat` data set.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the last eight cycles.
 # Load additional packages for data and pipes.
 library(qpcR)
+library(chipPCR)
 library(fda.usc)
 library(magrittr)
 
@@ -731,9 +747,9 @@ res_fdata_hclust <- metric.hausdorff(res_fdata)
 plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
 curves as calculated by the Hausdorff distance")
 mtext("B", cex = 2, side = 3, adj = 0, font = 2)
-rect(0.5,-3,12.25,0.25, border = "red")
+rect(0.5,-3,12.25,0.5, border = "red")
 text(7, 1, "negative", col="red")
-rect(12.5,-3,24.5,0.25, border = "green")
+rect(12.5,-3,24.5,0.5, border = "green")
 text(14, 1, "positive", col="green")
 
 # Repeat the plot and the cluster analysis for the preprocessed data
@@ -746,11 +762,12 @@ mtext("C", cex = 2, side = 3, adj = 0, font = 2)
 # as clustered data from preprocessed amplification curves.
 
 res_fdata_hclust_preprocessed <- metric.hausdorff(res_fdata_preprocessed)
-plot(hclust(as.dist(res_fdata_hclust_preprocessed)), main="Clusters of the preprocessed amplification\n
+plot(hclust(as.dist(res_fdata_hclust_preprocessed)), 
+     main="Clusters of the preprocessed amplification\n
 curves as calculated by the Hausdorff distance")
-rect(0.5,-3,12.25,0.25, border = "red")
+rect(0.5,-3,12.25,0.5, border = "red")
 text(7, 1, "negative", col="red")
-rect(12.5,-3,24.5,0.25, border = "green")
+rect(12.5,-3,24.5,0.5, border = "green")
 text(14, 1, "positive", col="green")
 mtext("D", cex = 2, side = 3, adj = 0, font = 2)
 ```
