@@ -640,11 +640,11 @@ colnames(res_mblrr) <- colnames(testdat)[-1]
 a <- res_mblrr %>% t
 ```
 
-## ``prcfit_single`` and ``pcrfit_parallel`` \label{section_prcfit_single_pcrfit_parallel}
+## ``pcrfit_single`` and ``pcrfit_parallel`` \label{section_pcrfit_single_pcrfit_parallel}
 
 The functionality is provided by packages developed by others and us. The 
 following table gives an overview and some comments on the function as used by 
-the `prcfit_single` function.
+the `pcrfit_single` function.
 
 Function                 | Package   | Source                   | Details
 -------------------------|-----------|--------------------------|------------------------------

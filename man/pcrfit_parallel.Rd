@@ -22,13 +22,13 @@ was used.}
 }
 \value{
 The output of the pcrfit_parallel function is 
-identical to the \code{\link[PCRedux]{prcfit_single}} function.
+identical to the \code{\link[PCRedux]{pcrfit_single}} function.
 }
 \description{
 pcrfit_parallel is a function to calculate numerous 
 features of a large amplification curve data set. 
 pcrfit_parallel makes use of parallelized code to make 
-use of multi-core architectures. The \code{\link[PCRedux]{prcfit_single}} is 
+use of multi-core architectures. The \code{\link[PCRedux]{pcrfit_single}} is 
 performing the analysis for a single process. pcrfit_parallel
 }
 \examples{

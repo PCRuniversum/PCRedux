@@ -4,7 +4,7 @@
 #' pcrfit_parallel is a function to calculate numerous 
 #' features of a large amplification curve data set. 
 #' pcrfit_parallel makes use of parallelized code to make 
-#' use of multi-core architectures. The \code{\link[PCRedux]{prcfit_single}} is 
+#' use of multi-core architectures. The \code{\link[PCRedux]{pcrfit_single}} is 
 #' performing the analysis for a single process. pcrfit_parallel 
 #'
 #' 
@@ -17,7 +17,7 @@
 #' @param device contains additional meta information about the qPCR system that 
 #' was used.
 #' @return The output of the pcrfit_parallel function is 
-#' identical to the \code{\link[PCRedux]{prcfit_single}} function.
+#' identical to the \code{\link[PCRedux]{pcrfit_single}} function.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords slope intercept preprocessing normalization
 #' @importFrom parallel detectCores
@@ -58,7 +58,7 @@ pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry = NA, device 
                         "PCRedux", "pracma", "qpcR", "robustbase", 
                         "zoo"),
             .combine = rbind) %dopar% {
-                          prcfit_single(data_RFU[, ith_cycle])
+                          pcrfit_single(data_RFU[, ith_cycle])
             }
     
 
