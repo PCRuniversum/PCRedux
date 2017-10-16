@@ -64,7 +64,8 @@
 #' legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1), 
 #'        bty="n", col=c("black","red"))
 #'         
-#' barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n", ylab="", main="Performance of autocorrelation_test")
+#' barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n", 
+#'         ylab="", main="Performance of autocorrelation_test")
 #' axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 
 

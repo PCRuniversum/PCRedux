@@ -1,4 +1,4 @@
-﻿---
+---
 title: "PCRedux: machine learning helper tool for sigmoid curves"
 tags:
   - "R"

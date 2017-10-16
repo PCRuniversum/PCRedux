@@ -2,7 +2,7 @@ Package: PCRedux
 Type: Package
 Title: quantitative PCR machine learning helper tool
 Version: 0.1.0
-Date: 2017-10-04
+Date: 2017-10-20
 Authors@R: c(person("Stefan", "Roediger", email = "stefan.roedigier@b-tu.de", role = c("cre", "aut")),
              person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("aut")),
              person("Andrej-Nikolai", "Spiess", email = "a.spiess@uke.de", role = c("aut")),
@@ -34,9 +34,12 @@ Imports:
 Suggests:
     data.table,
     drc,
+    dplyr,
     knitr,
     RDML,
-    rmarkdown
+    readxl,
+    rmarkdown,
+    xtable
 NeedsCompilation: no
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1.9000
