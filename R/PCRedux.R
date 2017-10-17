@@ -18,8 +18,12 @@
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
+<<<<<<< HEAD
 #' @importFrom stats coefficients confint cor.test lag lm median na.omit quantile
 #' @importFrom utils head tail
+=======
+#' @importFrom utils data
+>>>>>>> 27294de222bc2a076ecedf7d424a02498f49200c
 #' @importFrom visdat vis_dat
 #' @importFrom zoo as.zoo
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
