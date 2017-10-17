@@ -34,12 +34,12 @@
 #' @export pcrfit_parallel
 
 pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry = NA, device = NA) {
-    # Determine the number of available cores and registrate them    
+    # Determine the number of available cores and registrate them
     if(n_cores == "all")
       n_cores <- detectCores() 
-    
+
     registerDoParallel(n_cores)
-    
+
     # Prepare the data for further processing
     # Normalize RFU values to the alpha quantiles (0.999)
     cycles <- data.frame(cycles=data[, 1])
@@ -58,16 +58,16 @@ pcrfit_parallel <- function(data, n_cores = 1, detection_chemistry = NA, device 
                         "PCRedux", "pracma", "qpcR", "robustbase", 
                         "zoo"),
             .combine = rbind) %dopar% {
-                          pcrfit_single(data_RFU[, ith_cycle])
+                          suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
             }
-    
+
 
     res <- cbind(runs = colnames(data_RFU), run_res, 
                  detection_chemistry = detection_chemistry,
                  device = device)
-    
+
     rownames(res) <- NULL
-    
+
     res
-    
+
 }

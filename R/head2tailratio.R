@@ -33,18 +33,19 @@
 head2tailratio <- function(y, normalize=FALSE, slope_normalizer=FALSE, verbose=FALSE) {
 
     # Remove missing values
-    y <-na.omit(y)
+    y <- na.omit(y)
     # Normalize data if needed
     if(normalize) y <- y/quantile(y, 0.999)
     # Create denovo the abscissa values
-    x <- 1:length(y)
+    y_length <- length(y)
+
     
     # Determine the head and tail values
-    y_head <- head(y)
-    y_tail <- tail(y)
+    y_head <- head(y, 6L)
+    y_tail <- tail(y, 6L)
+    y_reg <- c(y_head, y_tail)
     
-    x_reg <- c(which(y %in% y_head), which(y %in% y_tail))
-    y_reg <- c(y_head,y_tail)
+    x_reg <- c(1:6, (y_length-5L):y_length)
     
     # Calculate the ratio of the head and the tail
     res_head_tail_ratio <- try(median(y_head) / median(y_tail))
