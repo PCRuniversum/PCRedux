@@ -38,7 +38,7 @@ pcrfit_single <- function(x) {
   # for qpcR
   dat <- cbind(cyc=cycles, fluo=x)
   # inefficient kludge to find l4 model
-  data(qpcR)
+  data("sysdata", package = "qpcR", envir = environment())
   
   res_bg.max_tmp <- chipPCR::bg.max(cycles, x)
   res_bg.max <- c(bg.start=res_bg.max_tmp@bg.start/length_cycle,
