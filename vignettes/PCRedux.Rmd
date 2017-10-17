@@ -249,7 +249,7 @@ signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[2]` at a significance level of
 
 ## ``decision_modus`` - A function to get a decision (modus) from a vector of classes \label{section_decision_modus}
 
-Several approaches for machine learning exist. One of them is the supervised 
+Several approaches for machine learning exist. It is a very rich topic. One of them is the supervised 
 learning, where the aim is to infer a function from labeled training data. 
 Labeled training data are for example created by a human. As described in the 
 sections before, amplification curves can be labeled as negative, ambiguous or 

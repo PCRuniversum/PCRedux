@@ -12,14 +12,14 @@
 #' @importFrom fda.usc fdata
 #' @importFrom graphics matplot par
 #' @importFrom grDevices rainbow
-#' @importFrom stats coefficients confint cor.test lag lm median na.omit quantile
-#' @importFrom utils head tail
 #' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
 #' @importFrom plotly ggplotly
 #' @importFrom pracma polyarea
-#' @importFrom qpcR efficiency LRE mselect pcrfit sliwin takeoff
+#' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
+#' @importFrom stats coefficients confint cor.test lag lm median na.omit quantile
+#' @importFrom utils head tail
 #' @importFrom visdat vis_dat
 #' @importFrom zoo as.zoo
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh

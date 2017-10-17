@@ -19,7 +19,7 @@
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
 #'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
 #'  \code{\link[pracma]{polyarea}}
-#'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
+#'  \code{\link[qpcR]{AICc}},\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
 #'  \code{\link[base]{diff}}
 #'  \code{\link[stats]{quantile}}
 #'
@@ -92,10 +92,12 @@ pcrfit_single <- function(x) {
   # Perform an autocorrelation analysis
   res_autocorrelation <- PCRedux::autocorrelation_test(y=x)
 
+  
+  
   # Fit sigmoidal models to curve data
-  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2), silent=TRUE)
-  res_fit <- try(qpcR::mselect(pcrfit_startmodel, 
-                         verbose = FALSE, do.all = TRUE), silent = TRUE)
+  
+   res_fit <- try(qpcR::mselect(pcrfit_startmodel, 
+                          verbose = FALSE, do.all = TRUE), silent = TRUE)
 
   # Determine the model suggested by the mselect function based on the AICc
   res_fit_model <- try(names(which(res_fit[["retMat"]][, "AICc"] == min(res_fit[["retMat"]][, "AICc"]))), silent=TRUE)
