@@ -1,4 +1,4 @@
----
+﻿---
 title: "PCRedux: machine learning helper tool for sigmoid curves"
 tags:
   - "R"
@@ -43,8 +43,8 @@ An example are amplification curve data from quantitative Polymerase Chain
 Reactions (qPCR). The qPCR is an indispensable method in many disciplines such 
 as human diagnostics and forensics [@martins_dna_2015]. There are dedicated 
 software packages for the analysis of qPCR data, which can be used for the 
-quantification of tartget DNA [@pabinger_survey_2014, @rodiger_r_2015]. These 
-software packages provide complex pipelines and a rich sets of criteria to 
+quantification of target DNA [@pabinger_survey_2014, @rodiger_r_2015]. These 
+software packages provide complex pipelines, and a rich sets of criteria to 
 process qPCR data adequately. This includes the pre-processing of raw data, 
 fitting of non-linear models on raw data, the calculation of the cycle of 
 quantification the calculation of amplification efficiencies, the relative gene 
@@ -57,7 +57,7 @@ The `PCRedux` package contains functions and data sets for machine learning and
 statistical analysis with a focus on amplification curve data. The data sets 
 originate form qPCRs, which were created and rated by human experts. 
 Amplification curves have characteristics, which can be used for the 
-classification. Analysis on the curve data such as changepoint analysis, 
+classification. Analysis on the curve data such as change-point analysis, 
 regression analysis, noise analysis, autocorrelation analysis and model fitting 
 are applied to the qPCR data and yield more than 30 features. This can be used 
 for the creation of models that predict a class (e.g., positive, ambiguous, 
@@ -66,8 +66,8 @@ changepoints) based on implementations by others (e.g., @erdman_bcp:_2007,
 @Ritz2008, @Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
 @rodiger_chippcr:_2015]. These and additional features can be extracted by the 
 `pcrfit_helper` function. `pcrfit_helper` can be combined with the 
-`pcrfit_parallel` function for parallel processing. Since this function provides 
-a complex set of features we included the visualization function 
+`pcrfit_parallel` function for parallel processing. This function provides 
+a complex set of features. Therefore, we included the visualization function 
 `visdat_pcrfit_parallel`, which is based on the `vis_dat` function by 
 @Tierney2017. In addition, the following function were developed:
 
@@ -88,7 +88,7 @@ statistical computing language and environment *R* [@R_language].
 
 ![](fig1.png)<!-- -->
 
-# Acknowlegements
+# Acknowledgements
 This work was funded by the Federal Ministry of Education and Research
 (BMBF) InnoProfile-Transfer-Projekt 03IPT611X and in part by 'digilog: Digitale
 und analoge Begleiter für eine alternde Bevölkerung' (Gesundheitscampus

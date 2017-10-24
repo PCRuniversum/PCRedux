@@ -13,6 +13,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+\begin{figure}[ht]
+\centering
+\scalebox{0.6}{
+\includegraphics[clip=true,trim=1cm 1cm 1cm 1cm]{Logo.pdf}
+}
+\end{figure}
+
+
 # Introduction to the analysis of simgmoid shaped curves – or the analysis of amplification curve data from quantitative real-time PCR experiments \label{section_introduction}
 
 `PCRedux` is an R package designed to perform analysis of sigmoid curves. A 
