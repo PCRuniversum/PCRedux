@@ -1,5 +1,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/devSJR/PCRedux.svg?branch=master)](https://travis-ci.org/devSJR/PCRedux)
 
+![PCRedux](https://github.com/devSJR/PCRedux/blob/master/vignettes/Logo.png)
 # PCRedux
 quantitative PCR machine learning helper tool
 
