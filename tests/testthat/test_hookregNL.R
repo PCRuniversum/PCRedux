@@ -1,0 +1,15 @@
+library(PCRedux)
+
+context("hookregNL")
+
+test_that("hookregNL gives the correct dimensions and properties", {
+
+    library(qpcR)
+    res_hookregNL_positve <- hookregNL(x=boggy[, 1], y=boggy[, 2])
+    res_hookregNL_negative <- hookregNL(x=boggy[, 1], y=boggy[, 6])
+
+    expect_that(res_hookregNL_positve, is_a("data.frame"))
+    expect_that(res_hookregNL_negative, is_a("data.frame"))
+    expect_that(res_hookregNL_positve[["hook"]] == 1, is_true())
+    expect_that(res_hookregNL_negative[["hook"]] == 1, is_false())
+})

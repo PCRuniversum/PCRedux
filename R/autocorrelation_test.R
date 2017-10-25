@@ -47,7 +47,7 @@
 #'                   1,1,0,0,1,1,0,0,
 #'                   1,1,0,0,1,1,0,0)
 #' 
-#' # Convert the n.s. (not significant) in 0 and others to 1. 
+#' # Convert the n.s. (not significant) to 0 and others to 1. 
 #' # Combine the results of the aromatic autocorrelation_test as variable "ac", 
 #' # the human rated values as variable "hr" in a new data frame (res_ac_hr).
 #' res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1), 

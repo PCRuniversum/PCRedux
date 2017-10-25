@@ -8,12 +8,22 @@
 #' 
 #' @param data is a table contining the classes.
 #' @param variables is the class to look for.
-#' @param max_freq delivers either the most ocurring class or a summary.
+#' @param max_freq is a logical parameter (default == TRUE) delivers either the 
+#' most ocurring class or a summary.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords decision modus
 #' @examples
 #' 
-#' #
+#' # First example
+#' # Enter a string of arbritary of "a","a","y","n"
+#' # Result:
+#' # [1] a
+#' # Levels: a b n y
+#'
+#' decision_modus(c("a","a","y","n","b"))
+#'
+#' # Second example
+#' # Analyze data from the decision_res_testdat.csv data file
 #' library(data.table)
 #' library(magrittr)
 #' filename <- system.file("decision_res_testdat.csv", package = "PCRedux")

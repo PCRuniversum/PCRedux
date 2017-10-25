@@ -11,7 +11,8 @@ decision_modus(data, variables = c("a", "n", "y"), max_freq = TRUE)
 
 \item{variables}{is the class to look for.}
 
-\item{max_freq}{delivers either the most ocurring class or a summary.}
+\item{max_freq}{is a logical parameter (default == TRUE) delivers either the 
+most ocurring class or a summary.}
 }
 \description{
 \code{decision_modus} is a function that can be used to find the most frequent
@@ -22,7 +23,16 @@ condensed to a single decision (3 x "a", 2 x "n" -> "a").
 }
 \examples{
 
-#
+# First example
+# Enter a string of arbritary of "a","a","y","n"
+# Result:
+# [1] a
+# Levels: a b n y
+
+decision_modus(c("a","a","y","n","b"))
+
+# Second example
+# Analyze data from the decision_res_testdat.csv data file
 library(data.table)
 library(magrittr)
 filename <- system.file("decision_res_testdat.csv", package = "PCRedux")

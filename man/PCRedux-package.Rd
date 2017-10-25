@@ -8,7 +8,7 @@
 \description{
 \code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
 }
-\section{ML}{
+\section{Machine learning}{
 
 In machine learning and statistics, classification is the task to identify a new observation which is assigned to a set of categories. A foundation are training data set, which containing observations with known memberships of the categories. In the context of sigmoid amplification curves this could be an assignment into "negative", "ambiguous" or "positive" classes. Basically, a set of descriptors (features of the curvature) is need to perform an assignment to a class. The PCRedux package contains function for feature extraction and human rated amplification curve with classes.
 }
