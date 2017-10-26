@@ -1,6 +1,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/devSJR/PCRedux.svg?branch=master)](https://travis-ci.org/devSJR/PCRedux)
 
-[![codecov.io](https://codecov.io/gh/devSJR/coverage.svg?branch=master)](https://codecov.io/gh/devSJR/PCRedux)
+[![codecov.io](https://codecov.io/github/devSJR/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/devSJR/PCRedux?branch=master) 
 
 ![PCRedux](https://github.com/devSJR/PCRedux/blob/master/vignettes/Logo.png)
 # PCRedux
