@@ -4,8 +4,78 @@
 #' of the \code{\link[PCRedux]{pcrfit_parallel}} function. The later performs the 
 #' parallelized analysis of amplification curve data
 #' @param x is the data set containing the fluorescence amplitudes.
+#' @author Stefan Roediger, Michal Burdukiewcz
+#' @references M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical 
+#' computing in functional data analysis: The R package fda.usc}, Journal of 
+#' Statistical Software. 51 (2012) 1--28. http://www.jstatsoft.org/v51/i04/
+#' 
+#' A.-N. Spiess, C. Deutschmann, M. Burdukiewicz, R. Himmelreich, K. Klat, P. 
+#' Schierack, S. Roediger, Impact of Smoothing on Parameter Estimation in 
+#' Quantitative DNA Amplification Experiments, Clinical Chemistry. 61 (2015) 
+#' 379--388. doi:10.1373/clinchem.2014.230656.
+#' 
+#' S. Roediger, A. Boehm, I. Schimke, Surface Melting Curve Analysis with R, 
+#' \emph{The R Journal}. 5 (2013) 37--53. 
+#' http://journal.r-project.org/archive/2013-2/roediger-bohm-schimke.pdf.
+#' 
+#' S. Roediger, M. Burdukiewicz, K.A. Blagodatskikh, P. Schierack, R as an 
+#' Environment for the Reproducible Analysis of DNA Amplification Experiments, 
+#' \emph{The R Journal}. 7 (2015) 127--150. 
+#' http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf.
+#' 
+#' S. Pabinger, S. Roediger, A. Kriegner, K. Vierlinger, A. Weinhauusel, A 
+#' survey of tools for the analysis of quantitative PCR (qPCR) data, \emph{Biomolecular 
+#' Detection and Quantification}. 1 (2014) 23--33. doi:10.1016/j.bdq.2014.08.002.
+#' 
+#' S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to 
+#' pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015) 
+#' 2900--2902. doi:10.1093/bioinformatics/btv205.
+#'
 #' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' \tabular{ll}{
+#'   "eff" \tab qPCR amplification efficiency (numeric) \cr
+#'   "cpD1" \tab maximum of the first derivative curve (numeric) \cr
+#'   "cpD2" \tab maximum of the second derivative curve (numeric) \cr
+#'   "fluo" \tab raw fluorescence value at the point defined by cpD2 (numeric) \cr
+#'   "init1" \tab initial template fluorescence from the sigmoidal model (numeric) \cr
+#'   "init2" \tab initial template fluorescence from an exponential model (numeric) \cr
+#'   "top" \tab takeoff point (numeric) \cr
+#'   "f.top" \tab fluorescence at takeoff point (numeric) \cr
+#'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method (numeric) \cr
+#'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method (numeric) \cr
+#'   "cpDdiff" \tab difference between cpD1 and cpD2 (numeric) \cr
+#'   "slope_background" \tab slope of the first cycles (numeric) \cr
+#'   "intercept_background" \tab intercept of the first cycles (numeric) \cr
+#'   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence (numeric) \cr
+#'   "changepoint.e.agglo" \tab agglomerative hierarchical estimate for multiple change points (numeric) \cr
+#'   "changepoint.bcp" \tab change point by Bayesian analysis methods (numeric) \cr
+#'   "qPCRmodel" \tab non-linear model determined for the analysis (factor) \cr
+#'   "amptester_shap.noisy" \tab \cr
+#'   "amptester_lrt.test" \tab \cr
+#'   "amptester_rgt.dec" \tab \cr
+#'   "amptester_tht.dec" \tab \cr
+#'   "amptester_slt.dec" \tab \cr
+#'   "amptester_polygon" \tab \cr
+#'   "amptester_slope.ratio" \tab \cr
+#'   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) (numeric) \cr
+#'   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) (numeric) \cr
+#'   "bg.start_normalized" \tab \cr
+#'   "bg.stop_normalized" \tab \cr
+#'   "amp.stop_normalized" \tab \cr
+#'   "head_to_tail_ratio" \tab \cr
+#'   "autocorellation" \tab \cr
+#'   "mblrr_intercept_less" \tab \cr
+#'   "mblrr_slope_less" \tab \cr
+#'   "mblrr_cor_less" \tab \cr
+#'   "mblrr_intercept_more" \tab \cr
+#'   "mblrr_slope_more" \tab \cr
+#'   "mblrr_cor_more" \tab \cr
+#'   "hookreg_hook" \tab esitmate of hooke effect like curvature (binary) \cr
+#'   "mcaPeaks_minima_maxima_ratio" \tab \cr
+#'   "diffQ2_slope" \tab \cr
+#'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve (numeric) \cr
+#' }
+#' @details Detaills can be found in the vignette.
 #' @importFrom qpcR pcrfit
 #' @examples 
 #' # Load the chipPCR package and analyse from the C126EG685 the first qPCR run
