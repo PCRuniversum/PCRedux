@@ -31,54 +31,54 @@
 #' pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015) 
 #' 2900--2902. doi:10.1093/bioinformatics/btv205.
 #'
-#' @return OUTPUT_DESCRIPTION
-#' \tabular{ll}{
-#'   "eff" \tab qPCR amplification efficiency (numeric) \cr
-#'   "cpD1" \tab maximum of the first derivative curve (numeric) \cr
-#'   "cpD2" \tab maximum of the second derivative curve (numeric) \cr
-#'   "fluo" \tab raw fluorescence value at the point defined by cpD2 (numeric) \cr
-#'   "init1" \tab initial template fluorescence from the sigmoidal model (numeric) \cr
-#'   "init2" \tab initial template fluorescence from an exponential model (numeric) \cr
-#'   "top" \tab takeoff point (numeric) \cr
-#'   "f.top" \tab fluorescence at takeoff point (numeric) \cr
-#'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method (numeric) \cr
-#'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method (numeric) \cr
-#'   "cpDdiff" \tab difference between cpD1 and cpD2 (numeric) \cr
-#'   "slope_background" \tab slope of the first cycles (numeric) \cr
-#'   "intercept_background" \tab intercept of the first cycles (numeric) \cr
-#'   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence (numeric) \cr
-#'   "changepoint.e.agglo" \tab agglomerative hierarchical estimate for multiple change points (numeric) \cr
-#'   "changepoint.bcp" \tab change point by Bayesian analysis methods (numeric) \cr
-#'   "qPCRmodel" \tab non-linear model determined for the analysis (factor) \cr
-#'   "amptester_shap.noisy" \tab \cr
-#'   "amptester_lrt.test" \tab \cr
-#'   "amptester_rgt.dec" \tab \cr
-#'   "amptester_tht.dec" \tab \cr
-#'   "amptester_slt.dec" \tab \cr
-#'   "amptester_polygon" \tab \cr
-#'   "amptester_slope.ratio" \tab \cr
-#'   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) (numeric) \cr
-#'   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) (numeric) \cr
-#'   "bg.start_normalized" \tab \cr
-#'   "bg.stop_normalized" \tab \cr
-#'   "amp.stop_normalized" \tab \cr
-#'   "head_to_tail_ratio" \tab \cr
-#'   "autocorellation" \tab \cr
-#'   "mblrr_intercept_less" \tab \cr
-#'   "mblrr_slope_less" \tab \cr
-#'   "mblrr_cor_less" \tab \cr
-#'   "mblrr_intercept_more" \tab \cr
-#'   "mblrr_slope_more" \tab \cr
-#'   "mblrr_cor_more" \tab \cr
-#'   "hookreg_hook" \tab esitmate of hooke effect like curvature (binary) \cr
-#'   "mcaPeaks_minima_maxima_ratio" \tab \cr
-#'   "diffQ2_slope" \tab \cr
-#'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve (numeric) \cr
+#' @return Output Description
+#' \tabular{llr}{
+#'   "eff" \tab qPCR amplification efficiency \tab numeric \cr
+#'   "cpD1" \tab maximum of the first derivative curve \tab  numeric \cr
+#'   "cpD2" \tab maximum of the second derivative curve \tab  numeric \cr
+#'   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
+#'   "init1" \tab initial template fluorescence from the sigmoidal model \tab  numeric \cr
+#'   "init2" \tab initial template fluorescence from an exponential model \tab  numeric \cr
+#'   "top" \tab takeoff point \tab numeric \cr
+#'   "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
+#'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab  numeric \cr
+#'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
+#'   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
+#'   "slope_background" \tab slope of the first cycles \tab numeric \cr
+#'   "intercept_background" \tab intercept of the first cycles \tab numeric \cr
+#'   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
+#'   "changepoint.e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
+#'   "changepoint.bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
+#'   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
+#'   "amptester_shap.noisy" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
+#'   "amptester_lrt.test" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
+#'   "amptester_rgt.dec" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
+#'   "amptester_tht.dec" \tab  Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests. \tab binary \cr
+#'   "amptester_slt.dec" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
+#'   "amptester_polygon" \tab pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order. \tab binary \cr
+#'   "amptester_slope.ratio" \tab SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. \tab numeric \cr
+#'   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
+#'   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
+#'   "bg.start_normalized" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "bg.stop_normalized" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "amp.stop_normalized" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "head_to_tail_ratio" \tab \tab numeric \cr
+#'   "autocorellation" \tab  \tab numeric \cr
+#'   "mblrr_intercept_less" \tab  \tab numeric \cr
+#'   "mblrr_slope_less" \tab \tab numeric \cr
+#'   "mblrr_cor_less" \tab \tab numeric \cr
+#'   "mblrr_intercept_more" \tab \tab numeric \cr
+#'   "mblrr_slope_more" \tab \tab numeric \cr
+#'   "mblrr_cor_more" \tab \tab numeric \cr
+#'   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
+#'   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+#'   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
+#'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
 #' }
-#' @details Detaills can be found in the vignette.
+#' @details Details can be found in the vignette.
 #' @importFrom qpcR pcrfit
 #' @examples 
-#' # Load the chipPCR package and analyse from the C126EG685 the first qPCR run
+#' # Load the chipPCR package and analyze from the C126EG685 the first qPCR run
 #' # "A01" (column 2).
 #' library(chipPCR)
 #' res <- pcrfit_single(C126EG685[, 2])
@@ -151,7 +151,7 @@ pcrfit_single <- function(x) {
 
   res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles, dat_smoothed), verbose = TRUE)$xy)
   res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
-  mcaPeaks_minima_maxima_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / diff(range(res_mcaPeaks$p.min[, 2]))
+  mcaPeaks_minima_maxima_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
   if(is.infinite(mcaPeaks_minima_maxima_ratio)) {mcaPeaks_minima_maxima_ratio <- NA}
 
   # Estimate the slope between the minimum and the maximum of the second derivative

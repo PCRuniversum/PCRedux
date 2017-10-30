@@ -27,8 +27,12 @@
 #' 
 #' # Calculate curve features of an amplification curve data. Note that not all 
 #' # available CPU cores are used. If need set "all" to use all available cores.
+#' # In this example the testdat dataset from the qpcR package is used.
+#' # The samples F1.1 and F1.2 are positive amplification curves. The samples 
+#' # F1.3 and F1.4 are negative.
+#' 
 #' library(qpcR)
-#' res_pcrfit_parallel <- pcrfit_parallel(boggy[, 1:7])
+#' res_pcrfit_parallel <- pcrfit_parallel(testdat[, 1:5])
 #' res_pcrfit_parallel
 #'  
 #' @export pcrfit_parallel

@@ -32,7 +32,7 @@ sigmoid function results a S-shaped curve. For example, the equation
 f(x) = \frac{1}{1 +  e^{-x}}
 \end{equation}
 
-These non-linar functions are real-valued and can be differentiated (first derivative 
+These non-linear functions are real-valued and can be differentiated (first derivative 
 maximum, with one local minimum and one local maximum).
 
 This kind of curve is common in many biological assays such as quantitative 
@@ -232,11 +232,12 @@ res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1),
                         
                         # Add ratings by human and autocorrelation_test to the plot
                         par(las=2)
-                        plot(1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample", ylab="Decisions", 
-                             xaxt="n", yaxt="n", pch=19)
+                        plot(1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample", 
+			     ylab="Decisions", xaxt="n", yaxt="n", pch=19)
                         axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
                         axis(1, at=1:nrow(res_ac_hr), labels=colnames(testdat)[-1], las=2)
-                        points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, col="red")
+                        points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, 
+			      col="red")
                         legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1), 
                                bty="n", col=c("black","red"))
                         mtext("B", cex = 2, side = 3, adj = 0, font = 2, las=0)
@@ -291,7 +292,7 @@ part of the ``PCRedux`` package.
 
 ```{r, eval=TRUE, echo=TRUE}
 library(PCRedux)
-library(data.table)
+suppressMessages(library(data.table))
 library(magrittr)
 filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
 decision_res_htPCR <- fread(filename) %>% as.data.frame()
@@ -674,6 +675,45 @@ Function                 | Package   | Source                   | Details
 ``sliwin``               | `qpcR`    | @Ritz2008                | Calculates the qPCR efficiency by the 'window-of-linearity' method.
 ``takeoff``              | `qpcR`    | @Ritz2008                | Calculates the qPCR takeoff point.
 
+An example is given for the internal parameter ``diffQ2_slope`` which is calculated 
+from the slope determined by a linear model of the data points from the minimum 
+and maximum of the second derivative. The coordinates of the minimum and the maximum
+were determined as described in @roediger_RJ_2013. In the following example, the data 
+
+```{r, echo=TRUE, fig.cap="\\label{diffQ2_slope}Some text here.", fig.height=5, fig.width=11}
+# Load example data (sample F6.1) from the testdat data set
+library(qpcR)
+library(magrittr)
+# Load MBmca package to calculate the minimum and the maximum of the second 
+# derivative
+
+library(MBmca)
+data <- testdat[, c(1,22)]
+
+# Calculate the minimum and the maximum of the second 
+# derivative and assign it to the object res_diffQ2
+
+res_diffQ2 <- suppressMessages(diffQ2(data, plot=FALSE, fct=min))
+
+# Build a linear model from der second derivative of res_diffQ2
+res_diffQ2_lm <- lm(res_diffQ2[["yTm1.2.D2"]] ~ res_diffQ2[["xTm1.2.D2"]])
+
+par(mfrow=c(1,2))
+
+data %>% plot(., xlab="Cycle", ylab="RFU", main="F6.1 (testdat)", type="l", 
+                   lty=1, lwd=2, col="black")
+abline(v=res_diffQ2[["xTm1.2.D2"]], col="grey", lwd=2)
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+
+plot(res_diffQ2[["xTm1.2.D2"]], res_diffQ2[["yTm1.2.D2"]], pch=19, cex=1.5,
+     xlab="Cycle", ylab="dd(RFU)/d(T)", 
+     main="minimum and the maximum\n of second derivative")
+abline(res_diffQ2_lm, col="blue", lwd=2)
+legend("bottomright", paste("Slope: ", coefficients(res_diffQ2_lm)[2]), bty="n")
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+```
+
 ## ``performeR`` \label{section_performeR}
 
 Statistical modeling and machine learning can be powerful but expose the user to 
@@ -743,7 +783,7 @@ data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
 ```{r, echo=TRUE, fig.cap="\\label{qPCR2fdata}Some text here.", fig.height=11, fig.width=11}
 # Plot the converted qPCR data
 par(mfrow=c(2,2))
-res_fdata %>% plot(., xlab="cycles", ylab="RFU", main="testdat", type="l", 
+res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", type="l", 
                    lty=1, lwd=2, col=data_colors)
 legend("topleft", as.character(res_fdata_colnames), pch=19, 
        col=data_colors, bty="n", ncol=2)
@@ -761,7 +801,7 @@ rect(12.5,-3,24.5,0.5, border = "green")
 text(14, 1, "positive", col="green")
 
 # Repeat the plot and the cluster analysis for the preprocessed data
-res_fdata_preprocessed %>% plot(., xlab="cycles", ylab="RFU", main="testdat", type="l", 
+res_fdata_preprocessed %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", type="l", 
                    lty=1, lwd=2, col=data_colors)
 legend("topleft", as.character(res_fdata_colnames), pch=19, 
        col=data_colors, bty="n", ncol=2)
@@ -801,7 +841,7 @@ Finally the data were visualized with the ``visdat_pcrfit_parallel`` function. I
 # Show all results in a plot. Not that the interactive parameter is set to 
 # FALSE.
 
-visdat_pcrfit_parallel(res_pcrfit_parallel, type="all", interactive=FALSE)
+# visdat_pcrfit_parallel(res_pcrfit_parallel, type="all", interactive=FALSE)
 ```
 
 # Summary and conclusions  \label{section_Summary_and_conclusions}

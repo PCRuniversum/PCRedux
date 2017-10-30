@@ -27,11 +27,24 @@ type 'all' shows all results from the analysis by the
 # Calculate curve features of an amplification curve data. Note that not all 
 # available CPU cores are used. If need set "all" to use all available cores.
 library(qpcR)
-res_pcrfit_parallel <- pcrfit_parallel(boggy[, 1:7])
-res_pcrfit_parallel
+# take the samples F1.1 (positive), F1.3 (negative), F3.1 (positive), 
+# F3.3 (negative), F5.4 (positive) and F6.2 (negative) for this example.
+
+test_data <- testdat[, c(1,2,4,10,12,21,23)]
+
+# Plot the amplification curves
+
+matplot(test_data[, 1], test_data[, -1], xlab="Cycle", ylab="RFU", 
+        main="testdat dataset", type="l", lty=1, lwd=2, col=1:6)
+legend("topleft", paste(colnames(test_data)[-1], rep(c("pos", "neg"), 3)), 
+       pch=19, col=1:6)
+
+# Analyze the amplification curves with the pcrfit_parallel function
+res <- pcrfit_parallel(test_data)
+res
 
 # Show all results in an interactive plot
-visdat_pcrfit_parallel(res_pcrfit_parallel, type="all")
+visdat_pcrfit_parallel(res, type="all")
 }
 \references{
 N. Tierney, visdat: Visualising Whole Data Frames, \emph{The 
