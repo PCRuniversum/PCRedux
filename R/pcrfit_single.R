@@ -87,7 +87,7 @@
 #'  \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
 #'  \code{\link[ecp]{e.agglo}}
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
-#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
+#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
 #'  \code{\link[pracma]{polyarea}}
 #'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
 #'  \code{\link[base]{diff}}
@@ -98,8 +98,8 @@
 
 pcrfit_single <- function(x) {
   
-  # Normalize RFU values to the alpha quantiles (0.999)
-  x <- x/quantile(x, 0.999)
+  # Normalize RFU values to the alpha percentile (0.999)
+  x <- x/quantile(x, 0.999, na.rm=TRUE)
   length_cycle <- length(x)
   cycles <- 1L:length_cycle
   # Determine highest and lowest amplification curve values
@@ -123,7 +123,10 @@ pcrfit_single <- function(x) {
 
   # Try to estimate the slope and the intercept of the tail region,
   # which might be indicative of a hook effect (strong negative slope)
-  res_hookreg <- PCRedux::hookreg(x=cycles, x)
+  res_hookreg_simple <- PCRedux::hookreg(x=cycles, x)
+  res_hookregNL <- suppressMessages(PCRedux::hookregNL(x=cycles, x))
+  
+  res_hookreg <- ifelse(res_hookreg_simple["hook"] == 1 || res_hookregNL["hook"] == 1, 1, 0)
 
   # Calculates the area of the amplification curve
   res_polyarea <- try(pracma::polyarea(cycles, x), silent=TRUE)
@@ -267,7 +270,7 @@ pcrfit_single <- function(x) {
     mblrr_intercept_more=res_mblrr[4],
     mblrr_slope_more=res_mblrr[5],
     mblrr_cor_more=res_mblrr[6],
-    hookreg_hook=res_hookreg[["hook"]],
+    hookreg_hook=res_hookreg,
     mcaPeaks_minima_maxima_ratio=mcaPeaks_minima_maxima_ratio,
     diffQ2_slope=res_diffQ2_slope,
     diffQ2_Cq_range=range_Cq
