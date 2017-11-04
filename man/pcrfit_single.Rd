@@ -57,9 +57,9 @@ Output Description
 }
 \description{
 The pcrfit_single is responsible for the 
-extraction of features from amplification curve data. This function is the basis
-of the \code{\link[PCRedux]{pcrfit_parallel}} function. The later performs the 
-parallelized analysis of amplification curve data
+extraction of features from amplification curve data. The function can be used
+for custom functions for a parallelized analysis of amplification curve data. 
+An example is given in the vignette.
 }
 \details{
 Details can be found in the vignette.

@@ -1,5 +1,11 @@
+First stabilized version 0.2.1 [November 2017]
+* pcrfit_parallel was unreliably working on Windows -> was removed
+* visdat_pcrfit_prarallel was renamed to visdat_pcrfit
+* further improvements on the documentation and bug fixes
+
 First stabilized version 0.1.0 [October 2017]
 * Bug fixing
+* added testing
 * adding of data
 * improvement of documentation
 

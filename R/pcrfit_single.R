@@ -1,8 +1,8 @@
 #' @title pcrfit_single - A function to extract features from an amplification curve
 #' @description The pcrfit_single is responsible for the 
-#' extraction of features from amplification curve data. This function is the basis
-#' of the \code{\link[PCRedux]{pcrfit_parallel}} function. The later performs the 
-#' parallelized analysis of amplification curve data
+#' extraction of features from amplification curve data. The function can be used
+#' for custom functions for a parallelized analysis of amplification curve data. 
+#' An example is given in the vignette.
 #' @param x is the data set containing the fluorescence amplitudes.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @references M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical 

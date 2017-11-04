@@ -1,4 +1,4 @@
-﻿---
+---
 title: "PCRedux: machine learning helper tool for sigmoid curves"
 tags:
   - "R"
@@ -65,20 +65,20 @@ negative qPCR reaction) from input features (slope, background level,
 changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
 @Ritz2008, @Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
 @rodiger_chippcr:_2015]. These and additional features can be extracted by the 
-`pcrfit_helper` function. `pcrfit_helper` can be combined with the 
-`pcrfit_parallel` function for parallel processing. This function provides 
-a complex set of features. Therefore, we included the visualization function 
-`visdat_pcrfit_parallel`, which is based on the `vis_dat` function by 
+`pcrfit_single()` function. This function provides a complex set of features and 
+can be combined with other functions (e.g., `foreach()`) for parallel 
+processing. Therefore, we included the visualization function 
+`visdat_pcrfit()`, which is based on the `vis_dat()` function by 
 @Tierney2017. In addition, the following function were developed:
 
-- `autocorrelation_test` performs an autocorrelation analysis on qPCR data,
-- `decision_modus` finds the most frequent rating by a human,
-- `earlyreg` performs a regression analysis in background region,
-- `head2tailratio` compares the ratio of the head and tail,
-- `hookregNL` and `hookreg` attempt to detect a hook effect in the amplification curve,
-- `mblrr`, a function to perform a qunantile-filter based local robust regression,
-- `performeR`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
-- `qPCR2fdata`, a helper function to convert amplification curve data to the *fdata* format.
+- `autocorrelation_test()` performs an autocorrelation analysis on qPCR data,
+- `decision_modus()` finds the most frequent rating by a human,
+- `earlyreg()` performs a regression analysis in background region,
+- `head2tailratio()` compares the ratio of the head and tail,
+- `hookregNL()` and `hookreg()` attempt to detect a hook effect in the amplification curve,
+- `mblrr()`, a function to perform a qunantile-filter based local robust regression,
+- `performeR()`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
+- `qPCR2fdata()`, a helper function to convert amplification curve data to the *fdata* format.
 
 
 

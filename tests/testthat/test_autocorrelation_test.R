@@ -2,7 +2,7 @@ library(PCRedux)
 
 context("autocorrelation_test")
 
-test_that("pcrfit_parallel gives the correct dimensions and properties", {
+test_that("autocorrelation_test gives the correct dimensions and properties", {
 
     library(qpcR)
     res_ac_positive <- autocorrelation_test(testdat[, 2])

@@ -137,7 +137,7 @@ One reason for this is the lack of features that are known for amplification
 curve data. Only few features for amplification curves are described in the 
 literature. For example, tools described by us are the ``amptester`` and the 
 ``amptester.gui`` functions, which are part of the `chipPCR` package 
-([@rodiger_chippcr:_2015]). The **qpcR** package ([@Ritz2008]) contains 
+([@rodiger_chippcr:_2015]). The **qpcR** package [@Ritz2008] contains 
 an amplification curve test via the ``modlist`` function. The parameter check = 
 "uni2" offers an analytical approach, as part of a method for the kinetic 
 outlier detection. It checks for a sigmoid structure of the amplification curve. 
@@ -649,7 +649,7 @@ colnames(res_mblrr) <- colnames(testdat)[-1]
 a <- res_mblrr %>% t
 ```
 
-## ``pcrfit_single`` and ``pcrfit_parallel`` \label{section_pcrfit_single_pcrfit_parallel}
+## ``pcrfit_single`` \label{section_pcrfit_single_pcrfit_parallel}
 
 The functionality is provided by packages developed by others and us. The 
 following table gives an overview and some comments on the function as used by 
@@ -712,6 +712,85 @@ plot(res_diffQ2[["xTm1.2.D2"]], res_diffQ2[["yTm1.2.D2"]], pch=19, cex=1.5,
 abline(res_diffQ2_lm, col="blue", lwd=2)
 legend("bottomright", paste("Slope: ", coefficients(res_diffQ2_lm)[2]), bty="n")
 mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+```
+
+The ``pcrfit_single`` function is a powerful function, which calculates numerous 
+features from amplification curve data. This comes at a cost, since several 
+internal functions are computational very intensive [@porzelius_easier_2009, 
+@schmidberger_2009]. Recent information about parallelization in **R** is available 
+from @eddelbuettel_cran_2017. An example is the ``pcrfit`` 
+function from the `qpcR` package. This function fits and optimizes eight 
+non-linear (sigmoid) models to the amplification curve data.
+
+The code block below shows an example for a parallelized version of 
+``pcrfit_single``. We call this function ``pcrfit_parallel`` is presumably 
+beneficial for users who wish to calculate the features of a large amplification 
+curve data set. We found that this function works on Linux systems. On Windows 
+systems we received selectively error messages. ``pcrfit_parallel`` makes use of 
+parallelized code to make use of multi-core architectures. In this function we 
+import from the `parallel` package the ``detectCores`` function. This function 
+determines the number of available cores. Function from the `foreach` package 
+(e.g., `%dopar%`, `foreach`) are used for the further organization of the CPU 
+usage. The ``pcrfit_single`` performs the analysis for a single process.
+
+* The parameter `data` is the data set containing the cycles and fluorescence amplitudes.
+* The parameter `n_cores` defines the numbers of cores that should be left unused by this function. By default ``pcrfit_parallel`` is using only one core (`n_cores = 1`). `n_cores = "all"` uses all available cores. 
+
+The output of the ``pcrfit_parallel`` function is similar to the ``pcrfit_single`` function.
+
+
+```{r, echo=TRUE, eval=FALSE}
+# Copy and paste the code to an R console to evaluate it
+
+library(parallel)
+library(doParallel)
+
+pcrfit_parallel <- function(data, n_cores = 1) {
+    # Determine the number of available cores and register them
+    if(n_cores == "all")
+        n_cores <- detectCores() 
+        
+        registerDoParallel(n_cores)
+        
+        # Prepare the data for further processing
+        # Normalize RFU values to the alpha percentile (0.999)
+        cycles <- data.frame(cycles=data[, 1])
+        data_RFU <- data.frame(data[, -1])
+        data_RFU_colnames <- colnames(data_RFU)
+        data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
+            data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm=TRUE)
+        })
+        colnames(data_RFU) <- data_RFU_colnames
+        
+        # just to shut RCHeck for NSE we define ith_cycle
+        ith_cycle <- 1
+        
+        run_res <- foreach::foreach(ith_cycle = 1L:ncol(data_RFU), 
+                           .packages=c("bcp", "changepoint", "chipPCR", "ecp", "MBmca",
+                                       "PCRedux", "pracma", "qpcR", "robustbase", 
+                                       "zoo"),
+                           .combine = rbind) %dopar% {
+                               suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
+                           }
+                           
+                           
+                           res <- cbind(runs = colnames(data_RFU), run_res)
+                           
+                           rownames(res) <- NULL
+                           
+                           res
+                           
+}
+
+# Calculate curve features of an amplification curve data. Note that not all 
+# available CPU cores are used. If need set "all" to use all available cores.
+# In this example the testdat dataset from the qpcR package is used.
+# The samples F1.1 and F1.2 are positive amplification curves. The samples 
+# F1.3 and F1.4 are negative.
+ 
+library(qpcR)
+res_pcrfit_parallel <- pcrfit_parallel(testdat[, 1:5])
+res_pcrfit_parallel
 ```
 
 ## ``performeR`` \label{section_performeR}
@@ -820,28 +899,30 @@ text(14, 1, "positive", col="green")
 mtext("D", cex = 2, side = 3, adj = 0, font = 2)
 ```
 
-## ``visdat_pcrfit_parallel`` - A function to visualize the content of data from an analysis with the `pcrfit_parallel` function  \label{section_visdat_pcrfit_parallel}
+## ``visdat_pcrfit`` - A function to visualize the content of data from an analysis with the `pcrfit_single` function  \label{section_visdat_pcrfit_parallel}
 
-The ``visdat_pcrfit_parallel`` function makes use of the ``vis_dat`` function from the `visdat` package by @Tierney2017.
-The samples "A01", "A06", "A10", "B02", "B06" and "E06" from the ``C126EG685`` of the ``chipPCR`` package were analyzed.
+The ``visdat_pcrfit`` function makes use of the ``vis_dat`` function from the `visdat` package by @Tierney2017.
+The samples "A01", "A06" and "A10" from the ``C126EG685`` of the ``chipPCR`` package were analyzed.
 
 ```{r, eval=TRUE, echo=TRUE}
 # Calculate curve features of an amplification curve data set. Note that not all 
 # available CPU cores are used. If need set "all" to use all available cores.
 library(chipPCR)
-res_pcrfit_parallel <- suppressMessages(
-                                pcrfit_parallel(C126EG685[, c(1, 2, 7, 11, 15, 19, 55)], 
-                                                detection_chemistry="EvaGreen", 
-                                                device="LC 1.5")
-                            )
-```
-Finally the data were visualized with the ``visdat_pcrfit_parallel`` function. In this example the static plot is shown. It is also possible to run the function in an interactive mode by setting the parameter "interactive = TRUE". In this case starts a `ggplotly` instance.
+dat <- C126EG685[, c(2, 7, 11)]
 
-```{r, echo=TRUE, fig.cap="visdat_pcrfit_parallel. \\label{visdat_pcrfit_parallel_plot}", fig.height=11, fig.width=11}
+res_1 <- cbind(runs="A01", pcrfit_single(dat[, 1]))
+res_2 <- cbind(runs="A06", pcrfit_single(dat[, 2]))
+res_3 <- cbind(runs="A10", pcrfit_single(dat[, 3]))
+
+res <- rbind(A01=res_1, A06=res_2, A10=res_3)
+```
+Finally the data were visualized with the ``visdat_pcrfit`` function. In this example the static plot is shown. It is also possible to run the function in an interactive mode by setting the parameter "interactive = TRUE". In this case starts a `ggplotly` instance.
+
+```{r, echo=TRUE, fig.cap="visdat_pcrfit. \\label{visdat_pcrfit_plot}", fig.height=11, fig.width=11}
 # Show all results in a plot. Not that the interactive parameter is set to 
 # FALSE.
 
-# visdat_pcrfit_parallel(res_pcrfit_parallel, type="all", interactive=FALSE)
+visdat_pcrfit(res, type="all", interactive=FALSE)
 ```
 
 # Summary and conclusions  \label{section_Summary_and_conclusions}
