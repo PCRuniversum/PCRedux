@@ -1,4 +1,4 @@
----
+﻿---
 title: "PCRedux package - an overview"
 author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Andrej-Nikolai Spiess"
 date: "`r Sys.Date()`"
@@ -95,8 +95,7 @@ and other tasks [@pabinger_survey_2014, @rodiger_chippcr:_2015,
 @mccall_non-detects_2014, @ruijter_evaluation_2013, @ruijter_removal_2015, 
 @dvinge_htqpcr:_2009, @ronde_practical_2017, @mallona_pcrefficiency:_2011, 
 @mallona_chainy:_nodate]. Many of them are implemented in the R statistical 
-computing language. It should be mentioned that this list is far from 
-completeness. Dedicated literature is available from peer-reviewed publications 
+computing language. This list is far from complete. Dedicated literature is available from peer-reviewed publications 
 and textbooks.
 
 Others and we have shown that amplification curve analysis is not a simple 
@@ -122,7 +121,7 @@ the
 *linreg* method by @ruijter_amplification_2009 requires a decision, if an 
 amplification curve is positive or negative. 
 
-To illistrate this problem we give and example for the analysis of amplification 
+To illustrate this problem we give and example for the analysis of amplification 
 curves of the ``htPCR`` data set in the section about the function 
 `decision_modus`.
 
@@ -402,11 +401,11 @@ decision_plot(decision_res_htPCR_merged, name="merged", rating_columns=2:7)
 
 There are numerous segments of an amplification curve, that are potentially 
 useful to extract a feature for an amplification curve classification. Figure 
-\ref{earlyreg_slopes} shows the the first 500 amplification curves from the 
+\ref{earlyreg_slopes} shows the first 500 amplification curves from the 
 ``htPCR`` data set. Besides the fact that the data stem from a high-throughput 
-experiment they exhibit interesting characteristics. Some of the amplification 
-curves obviously deviate from the curvature as expected from a sigmoid model. In 
-particular, some of the amplification curve just have a positive (linear) trend 
+experiment they exhibit interesting characteristics. Some amplification 
+curves deviate from the curvature as expected from a sigmoid model. In 
+particular, some amplification curve just have a positive (linear) trend 
 without typical infliction points. Others show a step signal increase even in 
 the background phase (cycle 1 to 10) (compare @rodiger_chippcr:_2015, Figure 
 S12). The slope and the intercept in background region is an interesting target 
@@ -414,7 +413,7 @@ for a classification.
 
 @gunay_machine_2016 used a "modified sigmoid function for CT [Cq] prediction". The 
 fundamental assumption of this approach is, that such a model can be applied to 
-any data set. There are several reason to why such assumption is flawed. For example is shown in section \ref{section_hookreg} about the ``hookreg`` and ``hookregNL`` functions. There it becomes evident that a three parameter model fit will give wrong 
+any data set. There are several reasons to why such assumption is flawed. For example is shown in section \ref{section_hookreg} about the ``hookreg`` and ``hookregNL`` functions. There it becomes evident that a three parameter model fit will give wrong 
 predictions. Moreover, non-linear function tend to fit even noise (Figure \ref{curve_fit_fail}).
 
 
@@ -559,9 +558,7 @@ mtext("F", cex = 2, side = 3, adj = 0, font = 2)
 
 
 The ``head2tailratio`` function calculates the ratio of the head and the tail of 
-a quantitative PCR amplification curve. The begin of the amplification curve 
-(head, background region) and the end of the amplification curve (tail, plateau 
-region) are in positive amplification. Therefore, these segments are potentially 
+a quantitative PCR amplification curve. Positive amplification curves have different slopes and intercepts at the begin of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these segments are potentially 
 useful to extract a feature for an amplification curve classification.
 
 ```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Some text here.", fig.height=5.5, fig.width=11}
@@ -611,7 +608,7 @@ mtext("B", cex = 2, side = 3, adj = 0, font = 2)
 
 ## ``hookreg`` and ``hookregNL``\label{section_hookreg}
 
-
+``hookreg`` and ``hookregNL`` are functions to detect amplification curves bearing a hook effect or negative slope at the end of the amplification curve. Both functions calculate the slope and intercept of an amplification curve data. The idea is that a strong negative slope at the end of an amplification curve is indicative for a hook effect. Examples are shown the manual.
 
 ## ``mblrr`` - A function perform the Quantile-filter based Local Robust Regression \label{section_mblrr}
 
@@ -832,7 +829,7 @@ between amplification curves shapes by the Hausdorff distance
 
 The ``qPCR2fdata`` function takes a data set containing the amplification cycles 
 (first column) and the fluorescence amplitudes (subsequent columns) as input. 
-Since noise and missing values may effect the analysis adversely we integrated 
+Since noise and missing values may affect the analysis adversely we integrated 
 an instance of ``CPP`` function from the `chipPCR` package 
 [@rodiger_chippcr:_2015] in `qPCR2fdata`.
 
@@ -916,7 +913,7 @@ res_3 <- cbind(runs="A10", pcrfit_single(dat[, 3]))
 
 res <- rbind(A01=res_1, A06=res_2, A10=res_3)
 ```
-Finally the data were visualized with the ``visdat_pcrfit`` function. In this example the static plot is shown. It is also possible to run the function in an interactive mode by setting the parameter "interactive = TRUE". In this case starts a `ggplotly` instance.
+Finally, the data were visualized with the ``visdat_pcrfit`` function. In this example the static plot is shown. It is also possible to run the function interactively by setting the parameter "interactive = TRUE". In this case starts a `ggplotly` instance.
 
 ```{r, echo=TRUE, fig.cap="visdat_pcrfit. \\label{visdat_pcrfit_plot}", fig.height=11, fig.width=11}
 # Show all results in a plot. Not that the interactive parameter is set to 
