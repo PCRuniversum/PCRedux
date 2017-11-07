@@ -10,6 +10,7 @@
 #' @importFrom chipPCR amptester bg.max CPP smoother
 #' @importFrom ecp e.agglo
 #' @importFrom fda.usc fdata
+#' @importFrom FFTrees FFTrees
 #' @importFrom graphics matplot par
 #' @importFrom grDevices rainbow
 #' @importFrom magrittr %>%

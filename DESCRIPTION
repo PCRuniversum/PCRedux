@@ -19,6 +19,7 @@ Imports:
     chipPCR,
     ecp,
     fda.usc,
+    FFTrees,
     magrittr,
     MBmca,
     plotly,
