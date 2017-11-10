@@ -1,6 +1,6 @@
 ﻿---
 title: "PCRedux Package - An Overview"
-author: "Stefan R&ouml;diger"
+author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Andrej-Nikolai Spiess"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::pdf_document:
@@ -88,7 +88,7 @@ used for the analysis of qPCR data. The software packages deal for example with
     * quantification cycle estimation, 
     * amplification efficiency estimation, 
     * data exchange, 
-    * relative gene expression analysis,
+    * relative gene expression analysis
     
 and other tasks [@pabinger_survey_2014, @rodiger_chippcr:_2015, 
 @Ritz2008, @rodiger_r_2015, @lefever_rdml:_2009, 
@@ -859,7 +859,6 @@ colnames(output_res_mblrr) <- c("nBG", "mBG", "rBG",
 output_res_mblrr <- data.frame(class=human_rater_classification,
                           output_res_mblrr
                          )
-
 
 output_res_mblrr.fft <- suppressMessages(FFTrees(formula = class ~., 
                                     data = output_res_mblrr[, c(1,2,3,5,6)]))
