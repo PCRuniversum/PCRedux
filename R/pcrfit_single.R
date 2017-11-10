@@ -147,7 +147,7 @@ pcrfit_single <- function(x) {
   res_mblrr <- PCRedux::mblrr(cycles, x)
 
   # Calculate amptester results
-  res_amptester <- try(chipPCR::amptester(x))
+  res_amptester <- suppressMessages(try(chipPCR::amptester(x)))
   
   # Estimate the spread of the approximate local minima and maxima of the curve data
   dat_smoothed <- chipPCR::smoother(cycles, x)
