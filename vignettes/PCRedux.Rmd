@@ -466,10 +466,16 @@ for(i in 1L:length(curve_data_columns)) {
 We suggest using the slope and the intercept for the differentiation of the 
 different amplification curves. Therefore, we developed the function 
 ``earlyreg()``. This wrapper function uses a MM-type estimator for a robust linear 
-regression [@todorov_object-oriented_2009]. ``earlyreg()`` ignores the first cycle 
-value and includes by default the next six cycle-dependent amplitude values to 
-perform the regression on them. For the analysis we used arbitrarily the first 
-500 amplification curves of the ``htPCR`` data set.
+regression [@todorov_object-oriented_2009].
+
+
+``earlyreg()`` ignores the first cycle value and includes by default the next 
+six cycle-dependent amplitude values to perform the regression on them. The 
+exclusion of the first values is based on empirical expert knowledge. Many qPCR 
+system report initial values in cycle one, which largely deviate from subsequent 
+values in the background phase. Therefore, extreme values are removed. For the 
+analysis we used arbitrarily the first 500 amplification curves of the ``htPCR`` 
+data set.
 
 The following example illustrates a potential use of the ``earlyreg()`` function 
 on the **htPCR** data set. Figure \ref{earlyreg_slopes} A shows all amplification 
@@ -687,7 +693,7 @@ Further examples are shown in the manual for the ``hookregNL()`` function.
 ``mblrr()`` is a function to perform the Median based Local Robust Regression (m b l r r) 
 from a quantitative PCR experiment. In detail, this function attempts to break 
 the amplification curve in two parts (head (~background) and tail (~plateau)). 
-Subsequent, a robust linear regression analysis (lmrob) is preformed 
+Subsequent, a robust linear regression analysis (``lmrob()``) is preformed 
 individually on both parts. The rational behind this analysis is that the slope 
 and intercept of an amplification curve differ in the background and plateau 
 region. In the example shown below, the samples "P01.W19", "P06.W35", "P33.W66", 
@@ -757,11 +763,12 @@ print(xtable(output_res_mblrr, caption = "mblrr text intro. nBG, intercept of
 In another example, we combined the results from the `mblrr()` function with the 
 classification (positive, negative) by a human rater to apply them in an 
 analysis with Fast and Frugal Trees (FFTrees). A general introduction to 
-decission trees is given in [@quinlan_induction_1986]. FFTrees belong to class 
-of simple decision rules. In many situation, FFTrees make fast decisions based 
-on a few features (1 - 5).
+decision trees is given in [@quinlan_induction_1986, 
+@luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. 
+In many situation, FFTrees make fast decisions based on a few features (1 - 5). 
+In our example we have six feature which are considered for the analysis.
 
-The ``FFTrees`` package [@FFTrees_package] provides an implementation for the 
+The `FFTrees` package [@FFTrees_package] provides an implementation for the 
 **R** statistical computing language. All that is needed for the present example 
 are:
 
@@ -771,7 +778,7 @@ are:
 
 The function `FFTrees()` returns a fast and frugal tree object. This rich object 
 contains the underlying trees and many classification statistics (similar to 
-\ref{section_performeR}.
+section \ref{section_performeR}).
 
 In the following example we use the `testdat` data set from the `qpcR` package. 
 The show the usefulness and robustness of the `mblrr()` function we replicated the 
@@ -782,10 +789,10 @@ deviation=1).
 # Load the qpcR package to get some data
 suppressMessages(library(qpcR))
 
-# Use the testdat data set, which contains positive and negative amplification 
-# curves.
+# Use testdat data set, which contains positive and negative amplification 
+# curves. Note, that noise was added to the raw data.
 
-data <- data.frame(testdat, testdat[, -1] + rnorm(nrow(testdat[, -1])*ncol(testdat[, -1]), 0, 1))
+data <- data.frame(testdat[, 1], testdat[, -1] + rnorm(nrow(testdat[, -1])*ncol(testdat[, -1]), 0, 0.2))
 
 # Visualize the data
 par(mfrow=c(1,2), las=0, bty="n", oma=c(1,1,1,1))
@@ -797,18 +804,6 @@ mtext("A", cex = 2, side = 3, adj = 0, font = 2)
 # Give classes to the amplification curves (positive = TRUE, negative = FALSE)
 
 human_rater_classification <- c(TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
                                 FALSE, FALSE,
                                 TRUE, TRUE,
                                 FALSE, FALSE,
@@ -875,7 +870,11 @@ print(xtable(output_res_mblrr, caption = "mblrr text. nBG, intercept of
              label='tablemblrr'), include.rownames = FALSE)
 ```
 
-The plot.
+Figure \ref{plot_FFTrees} shows the Fast and Frugal Trees by 
+using the features nBG (intercept of head region), mBG (slope of head region), 
+rBG (Pearson correlation of head region), nTP (intercept of tail region), mTP 
+(slope of tail region), and rBG (Pearson correlation of tail region).
+
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_FFTrees}Fast and Frugal Trees. nBG, intercept of head region; mBG, slope of head region; rBG, Pearson correlation of head region; nTP, intercept of tail region; mTP, slope of tail region; rBG, Pearson correlation of tail region.", fig.height=11, fig.width=11}
 plot(output_res_mblrr.fft, decision.lables = c("Positive", "Negative"))
@@ -887,8 +886,8 @@ The functionality is provided by packages developed by others and us. The
 following table gives an overview and some comments on the internal algorithms 
 used by the ``pcrfit_single()`` function.
 
-Function                 | Package   | Source                   | Details
--------------------------|-----------|--------------------------|------------------------------
+Function                   | Package   | Source                   | Details
+---------------------------|-----------|--------------------------|------------------------------
 ``bcp()``                  | `bcp`     | @erdman_bcp:_2007        | Performs a change point analysis based on a Bayesian approach.
 ``amptester()``            | `chipPCR` | @rodiger_chippcr:_2015   | Test with different statistical methods, if the amplification is positive of negative.
 ``bg.max()``               | `chipPCR` | @rodiger_chippcr:_2015   | Calculates estimates for the start and end of the background region and the end of the exponential amplification reaction. The estimates of the ``bg.max`` function are normalized to the total cycle number.
@@ -945,6 +944,14 @@ abline(res_diffQ2_lm, col="blue", lwd=2)
 legend("bottomright", paste("Slope: ", coefficients(res_diffQ2_lm)[2]), bty="n")
 mtext("B", cex = 2, side = 3, adj = 0, font = 2)
 ```
+
+``encu()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function. 
+Similarly, this function calculates numerous but with an emphasis on features 
+extraction of large amplification curve data sets. The ``pcrfit_single()`` 
+function is performing the analysis for a single process and the ``pblapply()`` 
+function from the `pbapply` package is used internally to is delivers a 
+progress bar and leverages parallel processing. Examples are given in the 
+documentation of the ``encu()`` function.
 
 ``pcrfit_single()`` is a powerful function, which calculates numerous 
 features from amplification curve data. This comes at a cost, since several 
