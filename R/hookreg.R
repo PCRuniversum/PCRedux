@@ -13,7 +13,7 @@
 #' @param sig.level defines the significance level to test for a significant 
 #' regression
 #' @param CI.level confidence level required for the slope
-#' @param robust is  a logical parameter indicating if the data should be 
+#' @param robust is a logical parameter indicating if the data should be 
 #' analyzed be a robust linear regression (\code{lmrob}).
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @references K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 

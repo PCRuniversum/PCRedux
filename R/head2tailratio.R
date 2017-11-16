@@ -10,8 +10,8 @@
 #' @param normalize is a logical parameter, which indicates if the amplification curve.
 #' @param slope_normalizer is a logical parameter, which indicates if the 
 #' head2tailratio should be normalized to the slope of the ROI.
-#' @param verbose  is a logical parameter, which indicates if all the values, 
-#' parameters and coefficients of the ananlysis should be shown.
+#' @param verbose is a logical parameter, which indicates if all the values, 
+#' parameters and coefficients of the analysis should be shown.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords ratio head tail
 #' @examples
@@ -27,7 +27,7 @@
 #'res_head2tailratio_cluster <- kmeans(res_head2tailratio, 3)$cluster
 #'
 #'matplot(competimer[, 1], competimer[, -1], xlab="Cycle", ylab="RFU", 
-#'         main="competimer dataset", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
+#'         main="competimer data set", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
 #'
 #' @export head2tailratio
 head2tailratio <- function(y, normalize=FALSE, slope_normalizer=FALSE, verbose=FALSE) {

@@ -24,7 +24,7 @@
 #' # Plot the amplification curves
 #'
 #' matplot(test_data[, 1], test_data[, -1], xlab="Cycle", ylab="RFU", 
-#'         main="testdat dataset", type="l", lty=1, lwd=2, col=1:2)
+#'         main="testdat data set", type="l", lty=1, lwd=2, col=1:2)
 #' legend("topleft", paste(colnames(test_data)[-1], c("pos", "neg")), 
 #'        pch=19, col=1:2)
 #'

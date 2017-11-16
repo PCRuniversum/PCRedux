@@ -1,7 +1,7 @@
 #' @title pcrfit_single - A function to extract features from an amplification curve
 #' @description The pcrfit_single is responsible for the 
 #' extraction of features from amplification curve data. The function can be used
-#' for custom functions for a parallelized analysis of amplification curve data. 
+#' for custom functions for a paralleled analysis of amplification curve data. 
 #' An example is given in the vignette.
 #' @param x is the data set containing the fluorescence amplitudes.
 #' @author Stefan Roediger, Michal Burdukiewcz
@@ -34,14 +34,14 @@
 #' @return Output Description
 #' \tabular{llr}{
 #'   "eff" \tab qPCR amplification efficiency \tab numeric \cr
-#'   "cpD1" \tab maximum of the first derivative curve \tab  numeric \cr
-#'   "cpD2" \tab maximum of the second derivative curve \tab  numeric \cr
+#'   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
+#'   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
 #'   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
-#'   "init1" \tab initial template fluorescence from the sigmoidal model \tab  numeric \cr
-#'   "init2" \tab initial template fluorescence from an exponential model \tab  numeric \cr
+#'   "init1" \tab initial template fluorescence from the sigmoidal model \tab numeric \cr
+#'   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
 #'   "top" \tab takeoff point \tab numeric \cr
 #'   "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
-#'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab  numeric \cr
+#'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
 #'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
 #'   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
 #'   "slope_background" \tab slope of the first cycles \tab numeric \cr

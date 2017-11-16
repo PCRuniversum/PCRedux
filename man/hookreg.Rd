@@ -21,7 +21,7 @@ regression}
 
 \item{CI.level}{confidence level required for the slope}
 
-\item{robust}{is  a logical parameter indicating if the data should be 
+\item{robust}{is a logical parameter indicating if the data should be 
 analyzed be a robust linear regression (\code{lmrob}).}
 }
 \description{

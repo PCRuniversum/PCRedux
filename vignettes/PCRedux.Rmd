@@ -43,20 +43,20 @@ technologies as commercial products. Moreover, thermo-cyclers are produced in
 house as part of scientific projects. An example is the VideoScan-technology 
 [@rodiger_highly_2013].
 
-A challenge for the user is, to make sense from the vast amount of data produced 
-by these devices. In particular, the reproducible and objective analysis of the 
-amplification curve data exposes challenges to inexperienced users. But even 
-among peers is is not uncommon that different laboratories rate results 
-differently.
+A challenge for the user is, to make sense from the vast amount of data 
+produced. In particular, the reproducible and objective analysis of the 
+amplification curve data exposes challenges to inexperienced users. Even among 
+peers is not uncommon that they rate (classify) results differently.
 
-Moreover, it is a manageable task if the volume of data is low, or 
-dedicated software is available for the analysis thereof. An example for a low 
-number of amplification curves is shown in Figure \ref{samples_of_qPCRs}A. All 
-`r ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape. In contrast, 
-the example in Figure \ref{samples_of_qPCRs}B is no longer manageable by simple 
+The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if 
+the volume of data is low, or dedicated software is available for the analysis 
+thereof. An example such a scenario (low number of amplification curves) is 
+shown in Figure \ref{samples_of_qPCRs}A. All `r ncol(chipPCR::C127EGHP)-1` 
+curves exhibit a sigmoid curve shape. In contrast, the example in Figure 
+\ref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple 
 visual inspection. The data originate from a high-throughput experiment an 
 encompass in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a 
-manual analysis of the data is time-consuming and prone to errors. Dedicated 
+manual analysis of the data is time-consuming and prone to errors. Specialized 
 software that can distinguish the amplification curves automatically is needed.
 
 
@@ -116,23 +116,23 @@ package that contains functions to fit several multi-parameter models. This
 includes the five-parameter Richardson function, which is often used for the 
 analysis of qPCR data.
 
-In general, the software packages do not take into account if an amplification 
-curve fulfills a certain criterion (e.g., positive or negative, good quality or 
-bad quality). This is a needed information for some algorithms. For example, 
-the 
-*linreg* method by @ruijter_amplification_2009 requires a decision, if an 
+Most software packages do not take into account if an amplification curve 
+fulfills a certain criterion. For example, they do not try to make a 
+classification if an amplification curve is positive (good quality) or negative 
+(bad quality). This is a needed information for some algorithms. For example, 
+the *linreg* method by @ruijter_amplification_2009 requires a decision, if an 
 amplification curve is positive or negative. 
 
 To illustrate this problem we give and example for the analysis of amplification 
 curves of the ``htPCR`` data set in the section about the function 
 `decision_modus()`.
 
-In summary, during our past research we noticed that a many challenges are well 
-addressed. In particular, algorithms for the processing of the positive 
-amplification curves are widely available. A bottleneck in qPCR data 
-analysis is the lack of amplification curve data classifier. Classifier herein 
-refer to a vector of features that can be used to distinguish the amplification 
-curves by their shape only.
+In summary, researchers solved many challenges that were daunting the users of 
+qPCR devices in the past. In particular, algorithms for the processing of the 
+positive amplification curves are widely available. A bottleneck of qPCR data 
+analysis is the lack of classifier for amplification curve data. Classifier 
+herein refer to a vector of features that can be used to distinguish the 
+amplification curves by their shape only.
 
 One reason for this is the lack of features that are known for amplification 
 curve data. Only few features for amplification curves are described in the 
@@ -1038,7 +1038,7 @@ res_pcrfit_parallel
 
 Statistical modeling and machine learning can be powerful but expose the user to 
 the risk of introducing unexpected biases. This may lead to an overestimation of 
-the performance.The assessment of the performance by the sensitivity (percentage 
+the performance. The assessment of the performance by the sensitivity (percentage 
 of true decisions that are identified) and specificity (percentage of negative 
 decision that are correctly identified) is important to characterize the 
 performance of a classifier or screening test [@james_introduction_2013].

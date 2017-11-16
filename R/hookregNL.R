@@ -1,9 +1,14 @@
-#' @title hookregNL
-#' @description \code{hookregNL} is just a nice thing
-#' @param x PARAM_DESCRIPTION
-#' @param y PARAM_DESCRIPTION
-#' @param plot PARAM_DESCRIPTION, Default: FALSE
-#' @param level PARAM_DESCRIPTION, Default: 0.99
+#' @title hookregNL - A function to calculate the slope of amplification curves in the tail region
+#' @description \code{hookregNL} is a function to calculate the slope and intercept of an
+#' amplification curve from a quantitative PCR experiment. The idea is that a 
+#' strong negative slope at the end of an amplification curve is indicative for a 
+#' hook effect (see Barratt and Mackay 2002). In contrast to 
+#' \code{\link[PCRedux]{hookreg}} fits this function a sex-parameter model to the 
+#' amplification curve and extracts the coefficient, which describes the slope.
+#' @param x is the cycle numbers (x-axis).
+#' @param y is the cycle dependent fluorescence amplitude (y-axis).
+#' @param plot is a logical parameter indicating if the data should be plotted, Default: FALSE.
+#' @param level the confidence level required, Default: 0.99.
 #' @param simple is a logical parameter. If TRUE (default) only the slope, 
 #' confidence interval and decisions are shown as output 
 #' @param manualtrim is the number of cycles that should be reomoved from the 
@@ -11,8 +16,9 @@
 #' (\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}} 
 #' including the 6-parameter model is the output.
 #' @author Andrej-Nikolai Spiess, Stefan Roediger, Michal Burdukiewcz
-#' @return OUTPUT_DESCRIPTION 
-#' @details DETAILS
+#' @references K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
+#' Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
+#' doi:10.1128/JCM.40.4.1571-1572.2002.
 #' @examples 
 #' # Analyze data from the boggy data set for potential hook effect like 
 #' # curvature

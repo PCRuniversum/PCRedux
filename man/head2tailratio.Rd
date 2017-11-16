@@ -17,7 +17,7 @@ head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE,
 head2tailratio should be normalized to the slope of the ROI.}
 
 \item{verbose}{is a logical parameter, which indicates if all the values, 
-parameters and coefficients of the ananlysis should be shown.}
+parameters and coefficients of the analysis should be shown.}
 }
 \description{
 \code{head2tailratio} is a function to calculate the ratio of the head and the
@@ -38,7 +38,7 @@ res_head2tailratio <- sapply(2:ncol(competimer), function(i) {
 res_head2tailratio_cluster <- kmeans(res_head2tailratio, 3)$cluster
 
 matplot(competimer[, 1], competimer[, -1], xlab="Cycle", ylab="RFU", 
-        main="competimer dataset", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
+        main="competimer data set", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
 
 }
 \author{

@@ -6,7 +6,7 @@
 #' a correlation coefficient in case the result is significant at a given
 #' significance level, or a "n.s." (non-significant) of no correlation could
 #' be determined.
-#' Noise (negative) amplification curves usually do not exhibt any 
+#' Noise (negative) amplification curves usually do not exhibit any 
 #' autocorrelation and will therefore be "n.s.".
 #' 
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
@@ -25,7 +25,7 @@
 #' # Load the libraries magrittr for pipes and qpcR for the data
 #' library(magrittr)
 #' library(qpcR)
-#' # Test for autocorrelation in the testdat dataset
+#' # Test for autocorrelation in the testdat data set
 #' res_ac <- sapply(2:ncol(testdat), function(i) {
 #'                     autocorrelation_test(testdat[, i])
 #'                 }
@@ -34,11 +34,11 @@
 #' # Plot curve data as overview
 #' # Define the colors for the amplification curves
 #' colors <- rainbow(ncol(testdat)-1, alpha=0.3)
-#' # Names of samples
+#' # Names of samplesfile:///home/tux/R_malade
 #' samples <- colnames(testdat)[-1]
 #' layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE))
 #' matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
-#'         main="testdat dataset", type="l", lty=1, col=colors, lwd=2)
+#'         main="testdat data set", type="l", lty=1, col=colors, lwd=2)
 #' legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
 #'     
 #' # Curves rated by a human after analysis of the overview. 1 = positive, 

@@ -13,8 +13,8 @@ mblrr(x, y, sig.level = 0.01, normalize = FALSE)
 
 \item{sig.level}{is the significance level for the correlation test.}
 
-\item{normalize}{is a logical parameter which indicates if the amplification curve
-data should be normalized to the 99 percent quntile of the amplification curve.}
+\item{normalize}{is a logical parameter, which indicates if the amplification curve
+data should be normalized to the 99 percent quantile of the amplification curve.}
 }
 \description{
 \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr) 

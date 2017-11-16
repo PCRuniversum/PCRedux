@@ -5,7 +5,7 @@
 #' starting point. 
 #'
 #' @param sample is a vector with logical decisions (0, 1) of the test system.
-#' @param reference  is a vector with logical decisions (0, 1) of the reference 
+#' @param reference is a vector with logical decisions (0, 1) of the reference 
 #' system.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords sensitivity specificity precision accuracy

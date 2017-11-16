@@ -17,7 +17,7 @@ and the fluorescence (subsequent columns).}
 }
 \description{
 \code{qPCR2fdata} is a helper function to convert qPCR data to the functional 
-\code{\link{fdata}} class as proposed by  Febrero-Bande &  de la Fuente (2012). This 
+\code{\link{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This 
 function prepares the data for further analysis with the \code{\link{fda.usc}} package, 
 which includes utilities for functional data analysis (e.g., Hausdorff 
 distance).

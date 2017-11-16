@@ -1,3 +1,6 @@
+First stabilized version 0.2.2 [November 2017]
+* further improvements on the documentation and bug fixes
+
 First stabilized version 0.2.1 [November 2017]
 * pcrfit_parallel was unreliably working on Windows -> was removed
 * encu function (quasi substitute for pcrfit_parallel) was added

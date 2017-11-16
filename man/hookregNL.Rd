@@ -2,19 +2,19 @@
 % Please edit documentation in R/hookregNL.R
 \name{hookregNL}
 \alias{hookregNL}
-\title{hookregNL}
+\title{hookregNL - A function to calculate the slope of amplification curves in the tail region}
 \usage{
 hookregNL(x, y, plot = FALSE, level = 0.99, simple = TRUE,
   manualtrim = 5)
 }
 \arguments{
-\item{x}{PARAM_DESCRIPTION}
+\item{x}{is the cycle numbers (x-axis).}
 
-\item{y}{PARAM_DESCRIPTION}
+\item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
-\item{plot}{PARAM_DESCRIPTION, Default: FALSE}
+\item{plot}{is a logical parameter indicating if the data should be plotted, Default: FALSE.}
 
-\item{level}{PARAM_DESCRIPTION, Default: 0.99}
+\item{level}{the confidence level required, Default: 0.99.}
 
 \item{simple}{is a logical parameter. If TRUE (default) only the slope, 
 confidence interval and decisions are shown as output}
@@ -24,14 +24,13 @@ background.
 (\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}} 
 including the 6-parameter model is the output.}
 }
-\value{
-OUTPUT_DESCRIPTION
-}
 \description{
-\code{hookregNL} is just a nice thing
-}
-\details{
-DETAILS
+\code{hookregNL} is a function to calculate the slope and intercept of an
+amplification curve from a quantitative PCR experiment. The idea is that a 
+strong negative slope at the end of an amplification curve is indicative for a 
+hook effect (see Barratt and Mackay 2002). In contrast to 
+\code{\link[PCRedux]{hookreg}} fits this function a sex-parameter model to the 
+amplification curve and extracts the coefficient, which describes the slope.
 }
 \examples{
 # Analyze data from the boggy data set for potential hook effect like 
@@ -44,6 +43,11 @@ res
 # has no hook
 res <- hookregNL(boggy[, 1], boggy[, 12])
 res
+}
+\references{
+K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
+Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
+doi:10.1128/JCM.40.4.1571-1572.2002.
 }
 \seealso{
 \code{\link[qpcR]{pcrfit}}

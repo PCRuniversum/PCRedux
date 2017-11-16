@@ -18,8 +18,8 @@
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param sig.level is the significance level for the correlation test.
-#' @param normalize is a logical parameter which indicates if the amplification curve
-#' data should be normalized to the 99 percent quntile of the amplification curve.
+#' @param normalize is a logical parameter, which indicates if the amplification curve
+#' data should be normalized to the 99 percent quantile of the amplification curve.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords segmented regression
 #' @examples

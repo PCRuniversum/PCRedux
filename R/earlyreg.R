@@ -9,7 +9,7 @@
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param range is the number of cycles to be used for the regression.
 #' @param normalize is a logical parameter which indicates if the amplification curve
-#' data should be normalized to the 99 percent quntile of the amplification curve.
+#' data should be normalized to the 99 percent percentile of the amplification curve.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords slope intercept
 #' @seealso 
@@ -24,7 +24,7 @@
 #' 
 #' # Plot the data
 #' plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU", 
-#'      main="C316.amp dataset", lty=1, type="l")
+#'      main="C316.amp data set", lty=1, type="l")
 #' res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=6)
 #' res
 #' @export earlyreg
