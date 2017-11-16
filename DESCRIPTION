@@ -1,13 +1,13 @@
 Package: PCRedux
 Type: Package
-Title: quantitative PCR machine learning helper tool
-Version: 0.2.3
-Date: 2017-11-16
+Title: Quantitative PCR Machine Learning Helper Tool
+Version: 0.2.4
+Date: 2017-11-17
 Authors@R: c(person("Stefan", "Roediger", email = "stefan.roediger@b-tu.de", role = c("cre", "aut")),
              person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("aut")),
              person("Andrej-Nikolai", "Spiess", email = "a.spiess@uke.de", role = c("aut")),
              person("Konstantin A.", "Blagodatskikh", email = "k.blag@yandex.ru", role = c("aut")))
-Description: quantitative PCR machine learning helper tool. This package extracts features from amplification curve data for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg and hookregNL functions can be used to predict amplification curves with an hook effect-like curvature.
+Description: Quantitative PCR machine learning helper tool. This package extracts features from amplification curve data for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg and hookregNL functions can be used to predict amplification curves with an hook effect-like curvature.
 License: GPL (>= 2) | BSD_3_clause + file LICENSE
 URL: https://github.com/devSJR/PCRedux
 BugReports: https://github.com/devSJR/PCRedux/issues
