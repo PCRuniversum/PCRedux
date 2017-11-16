@@ -1,7 +1,7 @@
 ---
 title: "Supplement to: Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves"
 author: "Stefan R&ouml;diger, Micha&#322; Burdukiewicz, Konstantin A. Blagodatskikh, Werner Lehmann, Peter Schierack, Andrej-Nikolai Spiess"
-date: "October 23, 2017"
+date: "`r Sys.Date()`"
 output: 
   rmarkdown::pdf_document:
     number_sections: true
