@@ -1140,6 +1140,42 @@ text(14, 1, "positive", col="green")
 mtext("D", cex = 2, side = 3, adj = 0, font = 2)
 ```
 
+The following example illustrates the usage for the `HCU32_aggR.rdml` data set 
+from the 32 channel VideoScan heating and cooling unit. In this experiment the
+bacterial gene *aggR* from *E. coli* was amplified in 32 identical reactions.
+
+# ```{r echo=TRUE, message=FALSE, warning=FALSE}
+# # Load the RDML package for reading of the HCU32_aggR.rdml-file from the PCRedux
+# # package. The magrittr package is used for pipes.
+# # Load additional packages for data and pipes.
+# library(qpcR)
+# library(RDML)
+# library(chipPCR)
+# library(fda.usc)
+# library(magrittr)
+# 
+# raw_data <- RDML$new(filename=system.file("HCU32_aggR.rdml", package="PCRedux"))
+# 
+# raw_data_tab <- raw_data$AsTable(name.pattern=paste(
+#     react$position,
+#     react$sample$id,
+#     # run id added to names
+#     sep="~"))
+# data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
+# 
+# # Convert the qPCR data set to the fdata format
+# # Use unprocessed data from the testdat data set
+# res_fdata <- qPCR2fdata(testdat)
+# 
+# # Use preprocessed data (preprocess=TRUE) from the testdat data set
+# res_fdata_preprocessed <- qPCR2fdata(testdat, preprocess=TRUE)
+# 
+# # Extract column names and create rainbow color to label the data
+# res_fdata_colnames <- testdat[-1] %>% colnames()
+# data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
+# ```
+
+
 ## ``visdat_pcrfit()`` - A Function to Visualize the Content of Data From an Analysis with the ``pcrfit_single()`` Function  \label{section_visdat_pcrfit_parallel}
 
 The ``visdat_pcrfit()`` function makes use of the ``vis_dat`` function from the `visdat` package by @Tierney2017.
@@ -1223,15 +1259,20 @@ decision_res_testdat.csv                   | testdat                  | [qpcR]
 decision_res_vermeulen1.csv                | vermeulen1               | [qpcR]
 decision_res_vermeulen2.csv                | vermeulen2               | [qpcR]
 decision_res_VIMCFX96_60.csv               | VIMCFX96_60              | [chipPCR]
-
+decision_res_HCU32_aggR.csv                | HCU32_aggR.rdml          | [PCRedux]
 
 ## Amplification Curve Data in the `RDML` Format
 
+Selected amplification cure data sets were stored in the RDML format as 
+described in [@rodiger_r_2015, @rodiger_enabling_2017].
 
+RDML data file             | Device                            | Target gene           | Detection chemistry
+---------------------------|-----------------------------------|-----------------------|------------------------------
+`2017_08_07__RAS002.rdml`  | CFX96, Bio-Rad                    | HPV16, HPV18, HPRT1   | Taqman
+`2017_08_11__RAS003.rdml`  | CFX96, Bio-Rad                    | HPV16, HPV18, HPRT1   | Taqman
+`hookreg.rdml`             | Bio-Rad                           | various               | Taqman, intercalating dyes
+`HCU32_aggR.rdml`          | 32HCU VideoScan, Attomol GmbH     | various               | intercalating dye (EvaGreen)
 
-2017_08_07__RAS002.rdml
-2017_08_11__RAS003.rdml
-hookreg.rdml
 
 Table_human_rated.xlsx
 

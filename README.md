@@ -2,7 +2,7 @@
 
 [![codecov.io](https://codecov.io/github/devSJR/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/devSJR/PCRedux?branch=master)
 
-[![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![Licence](https://img.shields.io/bower/l/bootstrap.svg)](https://opensource.org/licenses/MIT)
 
 ![PCRedux](https://github.com/devSJR/PCRedux/blob/master/vignettes/Logo.png)
 # PCRedux
