@@ -1,8 +1,8 @@
 Package: PCRedux
 Type: Package
 Title: Quantitative PCR Machine Learning Helper Tool
-Version: 0.2.4-1
-Date: 2017-11-17
+Version: 0.2.5
+Date: 2017-11-18
 Authors@R: c(person("Stefan", "Roediger", email = "stefan.roediger@b-tu.de", role = c("cre", "aut")),
              person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("aut")),
              person("Andrej-Nikolai", "Spiess", email = "a.spiess@uke.de", role = c("aut")),
