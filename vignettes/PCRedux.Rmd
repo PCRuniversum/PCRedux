@@ -1176,51 +1176,51 @@ In advance the the Cq values were calculated by the following code:
 suppressMessages(library(qpcR))
 
 res_Cq <- sapply(2L:ncol(data), function(i){
-    efficiency(pcrfit(data, cyc=1, fluo=i, model=l6))$cpD2
+    efficiency(pcrfit(data, cyc=1, fluo=i, model=l6))#$cpD2
 })
 
-data.frame(sample=colnames(data)[-1], Cq=res_Cq)
+data.frame(sample=colnames(data)[-1], Cq=unlist(res_Cq["cpD2", ]), eff=unlist(res_Cq["eff", ]))
 
 #        Result
 #
-# sample    Cq
-# 1      A1 14.89
-# 2      B1 15.68
-# 3      C1 15.63
-# 4      D1 15.50
-# 5      E1 15.54
-# 6      F1 15.37
-# 7      G1 15.78
-# 8      H1 15.24
-# 9      A2 15.94
-# 10     B2 15.88
-# 11     C2 15.91
-# 12     D2 15.77
-# 13     E2 15.78
-# 14     F2 15.74
-# 15     G2 15.84
-# 16     H2 15.78
-# 17     A3 15.64
-# 18     B3 15.61
-# 19     C3 15.66
-# 20     D3 15.63
-# 21     E3 15.77
-# 22     F3 15.71
-# 23     G3 15.70
-# 24     H3 15.79
-# 25     A4 15.80
-# 26     B4 15.72
-# 27     C4 15.70
-# 28     D4 15.82
-# 29     E4 15.62
-# 30     F4 15.71
-# 31     G4 15.70
-# 32     H4 15.73
+# sample    Cq      eff
+# 1      A1 14.89 1.092963
+# 2      B1 15.68 1.110480
+# 3      C1 15.63 1.111474
+# 4      D1 15.50 1.103089
+# 5      E1 15.54 1.100122
+# 6      F1 15.37 1.091367
+# 7      G1 15.78 1.118713
+# 8      H1 15.24 1.080062
+# 9      A2 15.94 1.095004
+# 10     B2 15.88 1.107878
+# 11     C2 15.91 1.112694
+# 12     D2 15.77 1.106286
+# 13     E2 15.78 1.108201
+# 14     F2 15.74 1.110697
+# 15     G2 15.84 1.110749
+# 16     H2 15.78 1.107229
+# 17     A3 15.64 1.107543
+# 18     B3 15.61 1.100984
+# 19     C3 15.66 1.110703
+# 20     D3 15.63 1.115996
+# 21     E3 15.77 1.113885
+# 22     F3 15.71 1.113985
+# 23     G3 15.70 1.094108
+# 24     H3 15.79 1.124223
+# 25     A4 15.80 1.119774
+# 26     B4 15.72 1.112124
+# 27     C4 15.70 1.121453
+# 28     D4 15.82 1.121809
+# 29     E4 15.62 1.108028
+# 30     F4 15.71 1.109634
+# 31     G4 15.70 1.110373
+# 32     H4 15.73 1.117827
 ```
 
 Next follows the cluster analysis based on the Hausdorff distance (Figure \ref{HCU32}).
 
-```{r, echo=TRUE, fig.cap="\\label{HCU32}Clustering of amplification curves. The amplification curves from the 32HCU were processed with the qPCR2fdata() function and subsequent processed by a cluster analysis and Hausdorff distance analysis.", fig.height=7, fig.width=11} 
+```{r, echo=TRUE, fig.cap="\\label{HCU32}Clustering of amplification curves. The amplification curves from the 32HCU were processed with the qPCR2fdata() function and subsequent processed by a cluster analysis and Hausdorff distance analysis.", fig.height=8.5, fig.width=11} 
 
 library(fda.usc)
 library(magrittr)
@@ -1230,13 +1230,38 @@ calculated_Cqs <- c(14.89, 15.68, 15.63, 15.5, 15.54, 15.37, 15.78, 15.24, 15.94
                     15.66, 15.63, 15.77, 15.71, 15.7, 15.79, 15.8, 15.72, 15.7, 15.82, 
                     15.62, 15.71, 15.7, 15.73)
 
+calculated_effs <- c(1.09296326515231, 1.11047987547324, 1.11147389307153, 1.10308929700635, 
+                     1.10012176315852, 1.09136717687619, 1.11871308210321, 1.08006168654712, 
+                     1.09500422011318, 1.1078777171126, 1.11269436700649, 1.10628580163733, 
+                     1.1082009954558, 1.11069683827291, 1.11074914659374, 1.10722949813473, 
+                     1.10754282514113, 1.10098387264025, 1.1107026749644, 1.11599641663658, 
+                     1.11388510347017, 1.11398547396991, 1.09410798249025, 1.12422338092929, 
+                     1.11977386646464, 1.11212436173214, 1.12145338871426, 1.12180879952503, 
+                     1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295)
+
 # Plot the converted qPCR data
-par(mfrow=c(1,2))
+layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE))
 res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="HCU32_aggR", type="l", 
                    lty=1, lwd=2, col=data_colors)
 legend("topleft", as.character(res_fdata_colnames), pch=19, 
        col=data_colors, bty="n", ncol=4)
 mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+# Plot the Cqs and the amplification efficiencies
+# Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs 
+# of the median or more then 0.1 Cqs of the median Cq.
+
+plot(calculated_Cqs, calculated_effs, xlab="Cq (SDM)", ylab="Amplification 
+    efficiency", main="Cq vs. Amplification Efficiency", 
+     type="p", pch=19, lty=1, lwd=2, col=data_colors)
+median_Cq <- median(calculated_Cqs)
+abline(v=median_Cq)
+labeled <- c(which(calculated_Cqs < median_Cq - 0.1),  
+             which(calculated_Cqs > median_Cq + 0.1))
+
+text(calculated_Cqs[labeled], calculated_effs[labeled], as.character(res_fdata_colnames)[labeled])
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+
 # Calculate the Hausdorff distance (fda.usc) package and plot the distances
 # as clustered data.
 
@@ -1244,9 +1269,13 @@ res_fdata_hclust <- metric.hausdorff(res_fdata)
 cluster <- hclust(as.dist(res_fdata_hclust))
 plot(cluster, main="Clusters of the amplification\n
 curves as calculated by the Hausdorff distance")
-text(seq(0.8, 39.8, 1), rep(0.25, 40), calculated_Cqs, cex=0.85, srt=90)
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+# text(seq(0.8, 39.8, 1), rep(0.5, 40), calculated_Cqs, cex=0.85, srt=90)
+text(cluster[["order"]], rep(0.5, 32), calculated_Cqs, cex=0.85, srt=90)
+points(cluster[["order"]], rep(0.425 , 32), pch=19, cex=1, 
+     col=data_colors)
+mtext("C", cex = 2, side = 3, adj = 0, font = 2)
 ```
+
 The analysis gives an overview of the variation of the amplification curve data.
 
 ## ``visdat_pcrfit()`` - A Function to Visualize the Content of Data From an Analysis with the ``pcrfit_single()`` Function  \label{section_visdat_pcrfit_parallel}
