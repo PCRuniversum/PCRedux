@@ -1158,14 +1158,14 @@ library(magrittr)
 # Load the qPCR data from the HCU32_aggR.csv data set
 
 filename <- system.file("HCU32_aggR.csv", package="PCRedux")
-data <- fread(filename) %>% as.data.frame()
+data_32HCU <- fread(filename) %>% as.data.frame()
 
 # Convert the qPCR data set to the fdata format
-res_fdata <- qPCR2fdata(data)
+res_fdata <- qPCR2fdata(data_32HCU)
 
 # Extract column names and create rainbow color to label the data
-res_fdata_colnames <- data[-1] %>% colnames()
-data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
+res_fdata_colnames <- data_32HCU[-1] %>% colnames()
+data_colors <- rainbow(length(res_fdata_colnames), alpha=0.55)
 ```
 In advance the the Cq values were calculated by the following code:
 
@@ -1175,11 +1175,11 @@ In advance the the Cq values were calculated by the following code:
 
 suppressMessages(library(qpcR))
 
-res_Cq <- sapply(2L:ncol(data), function(i){
-    efficiency(pcrfit(data, cyc=1, fluo=i, model=l6))#$cpD2
+res_Cq <- sapply(2L:ncol(data_32HCU), function(i){
+    efficiency(pcrfit(data_32HCU, cyc=1, fluo=i, model=l6))
 })
 
-data.frame(sample=colnames(data)[-1], Cq=unlist(res_Cq["cpD2", ]), eff=unlist(res_Cq["eff", ]))
+data.frame(sample=colnames(data_32HCU)[-1], Cq=unlist(res_Cq["cpD2", ]), eff=unlist(res_Cq["eff", ]))
 
 #        Result
 #
@@ -1218,9 +1218,19 @@ data.frame(sample=colnames(data)[-1], Cq=unlist(res_Cq["cpD2", ]), eff=unlist(re
 # 32     H4 15.73 1.117827
 ```
 
-Next follows the cluster analysis based on the Hausdorff distance (Figure \ref{HCU32}).
+Next follows the plotting of all data and the cluster analysis based on the 
+Hausdorff distance (Figure \ref{HCU32}). Note that the raw data were not altered 
+to preserve the curvature. As shown in Figure \ref{HCU32}A there are some 
+amplification curves, which have jumps in the amplification curve signal. A 
+comparison of the signal (plateau phase) to noise (background phase) shows that 
+the samples `E1`, `F1` and `H1` have the lowest signals and lowest signal 
+differences (Figure \ref{HCU32}B). The comparison of the Cq and amplification 
+efficiencies showed that most curves cluster in a similar range. Some samples 
+had a larger deviation from median Cq (Figure 
+\ref{HCU32}C). The analysis by clustering the the Hausdorff distance showed no
+specific pattern for the amplification curves (Figure \ref{HCU32}D).
 
-```{r, echo=TRUE, fig.cap="\\label{HCU32}Clustering of amplification curves. The amplification curves from the 32HCU were processed with the qPCR2fdata() function and subsequent processed by a cluster analysis and Hausdorff distance analysis.", fig.height=8.5, fig.width=11} 
+```{r, echo=TRUE, fig.cap="\\label{HCU32}Clustering of amplification curves. The amplification curves from the 32HCU were processed with the ``qPCR2fdata()`` function and subsequent processed by a cluster analysis and Hausdorff distance analysis. A) Amplification curves were plotted from the raw data. B) Overall, the signal to noise ratios of the amplification curves were comparable between all cavities. C) The Cqs (Second Derivative Maximum) and the amplification efficiency (eff) were calculated with the ``efficiency(pcrfit())`` functions from the ``qpcR`` package. The median Cq is indicated as vertical line. Cqs larger or less than 0.1 of the Cq $\\tilde{x}$ are indicated with the labels of the corresponding sample. D) The clusters according to the Hausdorff distance show no specific pattern regarding the amplification curve signals. It appears that the samples D1, E1, F1, F3, G3 and H1 deviate most from the other amplification curves.", fig.height=8.5, fig.width=11} 
 
 library(fda.usc)
 library(magrittr)
@@ -1240,40 +1250,50 @@ calculated_effs <- c(1.09296326515231, 1.11047987547324, 1.11147389307153, 1.103
                      1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295)
 
 # Plot the converted qPCR data
-layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE))
+layout(matrix(c(1,2,3,4,4,4), 2, 3, byrow = TRUE))
 res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="HCU32_aggR", type="l", 
                    lty=1, lwd=2, col=data_colors)
 legend("topleft", as.character(res_fdata_colnames), pch=19, 
        col=data_colors, bty="n", ncol=4)
 mtext("A", cex = 2, side = 3, adj = 0, font = 2)
 
-# Plot the Cqs and the amplification efficiencies
+# Plot the background and plateau phase.
+
+boxplot(data_32HCU[,-1] - apply(data_32HCU[, -1], 2, min), 
+        col=data_colors, las=2, main="Signal to noise ratio", 
+        xlab="Sample", ylab="RFU")
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+
+# Plot the Cqs and the amplification efficiencies.
 # Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs 
 # of the median or more then 0.1 Cqs of the median Cq.
 
-plot(calculated_Cqs, calculated_effs, xlab="Cq (SDM)", ylab="Amplification 
-    efficiency", main="Cq vs. Amplification Efficiency", 
+plot(calculated_Cqs, calculated_effs, xlab="Cq (SDM)", 
+     ylab="eff", main="Cq vs. Amplification Efficiency", 
      type="p", pch=19, lty=1, lwd=2, col=data_colors)
+
 median_Cq <- median(calculated_Cqs)
 abline(v=median_Cq)
+
+text(median_Cq + 0.01, 1.085, expression(paste(tilde(x))))
 labeled <- c(which(calculated_Cqs < median_Cq - 0.1),  
              which(calculated_Cqs > median_Cq + 0.1))
 
 text(calculated_Cqs[labeled], calculated_effs[labeled], as.character(res_fdata_colnames)[labeled])
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+mtext("C", cex = 2, side = 3, adj = 0, font = 2)
 
-# Calculate the Hausdorff distance (fda.usc) package and plot the distances
-# as clustered data.
+# Calculate the Hausdorff distance using the fda.usc package and cluster the 
+# the distances.
 
 res_fdata_hclust <- metric.hausdorff(res_fdata)
 cluster <- hclust(as.dist(res_fdata_hclust))
+
+# plot the distances as clustered data and label the leafs with the Cq values and
+# colored dots.
+
 plot(cluster, main="Clusters of the amplification\n
 curves as calculated by the Hausdorff distance")
-# text(seq(0.8, 39.8, 1), rep(0.5, 40), calculated_Cqs, cex=0.85, srt=90)
-text(cluster[["order"]], rep(0.5, 32), calculated_Cqs, cex=0.85, srt=90)
-points(cluster[["order"]], rep(0.425 , 32), pch=19, cex=1, 
-     col=data_colors)
-mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+mtext("D", cex = 2, side = 3, adj = 0, font = 2)
 ```
 
 The analysis gives an overview of the variation of the amplification curve data.
