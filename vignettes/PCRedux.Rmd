@@ -52,7 +52,7 @@ The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if
 the volume of data is low, or dedicated software is available for the analysis 
 thereof. An example such a scenario (low number of amplification curves) is 
 shown in Figure \ref{samples_of_qPCRs}A. All `r ncol(chipPCR::C127EGHP)-1` 
-curves exhibit a sigmoid curve shape. In contrast, the example in Figure 
+curves are sigmoid. In contrast, the example in Figure 
 \ref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple 
 visual inspection. The data originate from a high-throughput experiment an 
 encompass in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a 
@@ -1412,6 +1412,6 @@ emerge.
 
 Of note, we would like to emphasis that the functionality of this package is not 
 limited to amplification curve data from qPCR experiments. As stated before, 
-amplification curves have a sigmoid curve shape. So do many other processes.
+amplification curves have a sigmoid curve. So do many other processes.
 
 # References
