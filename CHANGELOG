@@ -1,4 +1,8 @@
-First CRAN version 0.2.4-1 [November 2017]
+Version 0.2.5-1 [November 2017]
+* improvements to documentation
+* DESCRIPTION adjusted to CRAN requirements
+
+First CRAN version 0.2.5 [November 2017]
 * further bug fixes
 * GPL3 -> MIT
 * Submission to CRAN

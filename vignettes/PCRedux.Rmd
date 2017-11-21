@@ -21,7 +21,7 @@ vignette: >
 \end{figure}
 
 
-# Introduction to the Analysis of Simgmoid Shaped Curves – or the Analysis of Amplification Curve Data from Quantitative real-time PCR Experiments \label{section_introduction}
+# Introduction to the Analysis of Sigmoid Shaped Curves – or the Analysis of Amplification Curve Data from Quantitative real-time PCR Experiments \label{section_introduction}
 
 `PCRedux` is an R package designed to perform analysis of sigmoid curves. A 
 sigmoid function results a S-shaped curve. For example, the equation 
@@ -52,7 +52,7 @@ The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if
 the volume of data is low, or dedicated software is available for the analysis 
 thereof. An example such a scenario (low number of amplification curves) is 
 shown in Figure \ref{samples_of_qPCRs}A. All `r ncol(chipPCR::C127EGHP)-1` 
-curves exhibit a sigmoid curve shape. In contrast, the example in Figure 
+curves are sigmoid. In contrast, the example in Figure 
 \ref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple 
 visual inspection. The data originate from a high-throughput experiment an 
 encompass in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a 
@@ -202,7 +202,7 @@ library(magrittr)
 library(qpcR)
 library(PCRedux)
 # Test for autocorrelation in the testdat data set
-res_ac <- sapply(2:ncol(testdat), function(i) {
+res_ac <- sapply(2L:ncol(testdat), function(i) {
     autocorrelation_test(testdat[, i])
 }
 )
@@ -478,7 +478,7 @@ analysis we used arbitrarily the first 500 amplification curves of the ``htPCR``
 data set.
 
 The following example illustrates a potential use of the ``earlyreg()`` function 
-on the **htPCR** data set. Figure \ref{earlyreg_slopes} A shows all amplification 
+on the ``htPCR`` data set. Figure \ref{earlyreg_slopes} A shows all amplification 
 curves. Figure \ref{earlyreg_slopes} B shows the first ten cycles only.
 
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the **htPCR** data set (*qpcR* package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
@@ -529,7 +529,7 @@ res_slope_intercept <- do.call(rbind, lapply(2L:ncol(data), function(i){
                      earlyreg(x=data[, 1], y=data[, i], range=7, normalize=TRUE)
                     }))
 # Label the sample with their original names
-rownames(res_slope_intercept) <- colnames(htPCR)[2:ncol(data)]
+rownames(res_slope_intercept) <- colnames(htPCR)[2L:ncol(data)]
 # Use k-means for cluster analysis
 res_kmeans <- kmeans(res_slope_intercept[, "slope"], 3)$"cluster"
 
@@ -636,7 +636,7 @@ negative trend in the late phase of the amplification reaction
 library(qpcR)
 library(magrittr)
 
-res_hook <- sapply(2:ncol(boggy), function(i) {
+res_hook <- sapply(2L:ncol(boggy), function(i) {
     hookreg(x=boggy[, 1], y=boggy[, i])}) %>% t %>% 
     data.frame(sample=colnames(boggy)[-1],.)
 
@@ -704,7 +704,7 @@ purposes.
 suppressMessages(library(qpcR))
 par(mfrow=c(3,2))
 data <- htPCR[, c(1, 20, 500, 3000, 6000, 6500, 8000)]
-for(i in 2:ncol(data)){
+for(i in 2L:ncol(data)){
         x <- data[, 1]
         y_tmp <- data[, i]/quantile(data[, i], 0.999)
         res_q25 <- y_tmp < quantile(y_tmp, 0.25)
@@ -1080,8 +1080,7 @@ an instance of ``CPP()`` function from the `chipPCR` package
 The following example illustrates the usage for the `testdat` data set.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-# Calculate slope and intercept on noise (negative) amplification curve data
-# for the last eight cycles.
+# Calculate slope and intercept on noise (negative) amplification curve data.
 # Load additional packages for data and pipes.
 library(qpcR)
 library(chipPCR)
@@ -1100,7 +1099,7 @@ res_fdata_colnames <- testdat[-1] %>% colnames()
 data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
 ```
 
-```{r, echo=TRUE, fig.cap="\\label{qPCR2fdata}Grouping of amplification curves via Hausdorff distance. The amplification curves were preprocessed with the qPCR2fdata() function and subsequent processed by a cluster analysis and Hausdorff distance analysis.", fig.height=11, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{qPCR2fdata}Clustering of amplification curves via Hausdorff distance. The amplification curves were preprocessed with the qPCR2fdata() function and subsequent processed by a cluster analysis and Hausdorff distance analysis.", fig.height=11, fig.width=11}
 # Plot the converted qPCR data
 par(mfrow=c(2,2))
 res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", type="l", 
@@ -1140,41 +1139,164 @@ text(14, 1, "positive", col="green")
 mtext("D", cex = 2, side = 3, adj = 0, font = 2)
 ```
 
-The following example illustrates the usage for the `HCU32_aggR.rdml` data set 
+The following example illustrates the usage for the `HCU32_aggR.csv` data set 
 from the 32 channel VideoScan heating and cooling unit. In this experiment the
 bacterial gene *aggR* from *E. coli* was amplified in 32 identical reactions.
+The ambition was to test if the 32 amplification curves of the qPCR reaction 
+are identical. As before, the data were processed with the ``qPCR2fdata()`` 
+function and compared by the the Hausdorff distance. Ideally, the amplification 
+curves form only few clusters.
 
-# ```{r echo=TRUE, message=FALSE, warning=FALSE}
-# # Load the RDML package for reading of the HCU32_aggR.rdml-file from the PCRedux
-# # package. The magrittr package is used for pipes.
-# # Load additional packages for data and pipes.
-# library(qpcR)
-# library(RDML)
-# library(chipPCR)
-# library(fda.usc)
-# library(magrittr)
-# 
-# raw_data <- RDML$new(filename=system.file("HCU32_aggR.rdml", package="PCRedux"))
-# 
-# raw_data_tab <- raw_data$AsTable(name.pattern=paste(
-#     react$position,
-#     react$sample$id,
-#     # run id added to names
-#     sep="~"))
-# data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
-# 
-# # Convert the qPCR data set to the fdata format
-# # Use unprocessed data from the testdat data set
-# res_fdata <- qPCR2fdata(testdat)
-# 
-# # Use preprocessed data (preprocess=TRUE) from the testdat data set
-# res_fdata_preprocessed <- qPCR2fdata(testdat, preprocess=TRUE)
-# 
-# # Extract column names and create rainbow color to label the data
-# res_fdata_colnames <- testdat[-1] %>% colnames()
-# data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
-# ```
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Calculate slope and intercept on positive amplification curve data from the
+# VideoScan 32 cavity real-time PCR device.
+# Load additional packages for data and pipes.
+suppressMessages(library(data.table))
+library(fda.usc)
+library(magrittr)
 
+# Load the qPCR data from the HCU32_aggR.csv data set
+
+filename <- system.file("HCU32_aggR.csv", package="PCRedux")
+data_32HCU <- fread(filename) %>% as.data.frame()
+
+# Convert the qPCR data set to the fdata format
+res_fdata <- qPCR2fdata(data_32HCU)
+
+# Extract column names and create rainbow color to label the data
+res_fdata_colnames <- data_32HCU[-1] %>% colnames()
+data_colors <- rainbow(length(res_fdata_colnames), alpha=0.55)
+```
+In advance the the Cq values were calculated by the following code:
+
+```{r, echo=TRUE, eval=FALSE}
+# Load the qpcR package to calculate the Cq values by the second derivative 
+# maximum method.
+
+suppressMessages(library(qpcR))
+
+res_Cq <- sapply(2L:ncol(data_32HCU), function(i){
+    efficiency(pcrfit(data_32HCU, cyc=1, fluo=i, model=l6))
+})
+
+data.frame(sample=colnames(data_32HCU)[-1], Cq=unlist(res_Cq["cpD2", ]), eff=unlist(res_Cq["eff", ]))
+
+#        Result
+#
+# sample    Cq      eff
+# 1      A1 14.89 1.092963
+# 2      B1 15.68 1.110480
+# 3      C1 15.63 1.111474
+# 4      D1 15.50 1.103089
+# 5      E1 15.54 1.100122
+# 6      F1 15.37 1.091367
+# 7      G1 15.78 1.118713
+# 8      H1 15.24 1.080062
+# 9      A2 15.94 1.095004
+# 10     B2 15.88 1.107878
+# 11     C2 15.91 1.112694
+# 12     D2 15.77 1.106286
+# 13     E2 15.78 1.108201
+# 14     F2 15.74 1.110697
+# 15     G2 15.84 1.110749
+# 16     H2 15.78 1.107229
+# 17     A3 15.64 1.107543
+# 18     B3 15.61 1.100984
+# 19     C3 15.66 1.110703
+# 20     D3 15.63 1.115996
+# 21     E3 15.77 1.113885
+# 22     F3 15.71 1.113985
+# 23     G3 15.70 1.094108
+# 24     H3 15.79 1.124223
+# 25     A4 15.80 1.119774
+# 26     B4 15.72 1.112124
+# 27     C4 15.70 1.121453
+# 28     D4 15.82 1.121809
+# 29     E4 15.62 1.108028
+# 30     F4 15.71 1.109634
+# 31     G4 15.70 1.110373
+# 32     H4 15.73 1.117827
+```
+
+Next follows the plotting of all data and the cluster analysis based on the 
+Hausdorff distance (Figure \ref{HCU32}). Note that the raw data were not altered 
+to preserve the curvature. As shown in Figure \ref{HCU32}A there are some 
+amplification curves, which have jumps in the amplification curve signal. A 
+comparison of the signal (plateau phase) to noise (background phase) shows that 
+the samples `E1`, `F1` and `H1` have the lowest signals and lowest signal 
+differences (Figure \ref{HCU32}B). The comparison of the Cq and amplification 
+efficiencies showed that most curves cluster in a similar range. Some samples 
+had a larger deviation from median Cq (Figure 
+\ref{HCU32}C). The analysis by clustering the the Hausdorff distance showed no
+specific pattern for the amplification curves (Figure \ref{HCU32}D).
+
+```{r, echo=TRUE, fig.cap="\\label{HCU32}Clustering of amplification curves. The amplification curves from the 32HCU were processed with the ``qPCR2fdata()`` function and subsequent processed by a cluster analysis and Hausdorff distance analysis. A) Amplification curves were plotted from the raw data. B) Overall, the signal to noise ratios of the amplification curves were comparable between all cavities. C) The Cqs (Second Derivative Maximum) and the amplification efficiency (eff) were calculated with the ``efficiency(pcrfit())`` functions from the ``qpcR`` package. The median Cq is indicated as vertical line. Cqs larger or less than 0.1 of the Cq $\\tilde{x}$ are indicated with the labels of the corresponding sample. D) The clusters according to the Hausdorff distance show no specific pattern regarding the amplification curve signals. It appears that the samples D1, E1, F1, F3, G3 and H1 deviate most from the other amplification curves.", fig.height=8.5, fig.width=11} 
+
+library(fda.usc)
+library(magrittr)
+
+calculated_Cqs <- c(14.89, 15.68, 15.63, 15.5, 15.54, 15.37, 15.78, 15.24, 15.94, 
+                    15.88, 15.91, 15.77, 15.78, 15.74, 15.84, 15.78, 15.64, 15.61, 
+                    15.66, 15.63, 15.77, 15.71, 15.7, 15.79, 15.8, 15.72, 15.7, 15.82, 
+                    15.62, 15.71, 15.7, 15.73)
+
+calculated_effs <- c(1.09296326515231, 1.11047987547324, 1.11147389307153, 1.10308929700635, 
+                     1.10012176315852, 1.09136717687619, 1.11871308210321, 1.08006168654712, 
+                     1.09500422011318, 1.1078777171126, 1.11269436700649, 1.10628580163733, 
+                     1.1082009954558, 1.11069683827291, 1.11074914659374, 1.10722949813473, 
+                     1.10754282514113, 1.10098387264025, 1.1107026749644, 1.11599641663658, 
+                     1.11388510347017, 1.11398547396991, 1.09410798249025, 1.12422338092929, 
+                     1.11977386646464, 1.11212436173214, 1.12145338871426, 1.12180879952503, 
+                     1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295)
+
+# Plot the converted qPCR data
+layout(matrix(c(1,2,3,4,4,4), 2, 3, byrow = TRUE))
+res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="HCU32_aggR", type="l", 
+                   lty=1, lwd=2, col=data_colors)
+legend("topleft", as.character(res_fdata_colnames), pch=19, 
+       col=data_colors, bty="n", ncol=4)
+mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+
+# Plot the background and plateau phase.
+
+boxplot(data_32HCU[,-1] - apply(data_32HCU[, -1], 2, min), 
+        col=data_colors, las=2, main="Signal to noise ratio", 
+        xlab="Sample", ylab="RFU")
+mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+
+# Plot the Cqs and the amplification efficiencies.
+# Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs 
+# of the median or more then 0.1 Cqs of the median Cq.
+
+plot(calculated_Cqs, calculated_effs, xlab="Cq (SDM)", 
+     ylab="eff", main="Cq vs. Amplification Efficiency", 
+     type="p", pch=19, lty=1, lwd=2, col=data_colors)
+
+median_Cq <- median(calculated_Cqs)
+abline(v=median_Cq)
+
+text(median_Cq + 0.01, 1.085, expression(paste(tilde(x))))
+labeled <- c(which(calculated_Cqs < median_Cq - 0.1),  
+             which(calculated_Cqs > median_Cq + 0.1))
+
+text(calculated_Cqs[labeled], calculated_effs[labeled], as.character(res_fdata_colnames)[labeled])
+mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+
+# Calculate the Hausdorff distance using the fda.usc package and cluster the 
+# the distances.
+
+res_fdata_hclust <- metric.hausdorff(res_fdata)
+cluster <- hclust(as.dist(res_fdata_hclust))
+
+# plot the distances as clustered data and label the leafs with the Cq values and
+# colored dots.
+
+plot(cluster, main="Clusters of the amplification\n
+curves as calculated by the Hausdorff distance")
+mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+```
+
+The analysis gives an overview of the variation of the amplification curve data.
 
 ## ``visdat_pcrfit()`` - A Function to Visualize the Content of Data From an Analysis with the ``pcrfit_single()`` Function  \label{section_visdat_pcrfit_parallel}
 
@@ -1240,8 +1362,6 @@ decision_res_competimer.csv                | competimer               | [qpcR]
 decision_res_dil4reps94.csv                | dil4reps94               | [qpcR]
 decision_res_guescini1.csv                 | guescini1                | [qpcR]
 decision_res_guescini2.csv                 | guescini2                | [qpcR]
-decision_res_htPCR_reevaluation_tmp.csv    |
-decision_res_htPCR_reevaluation.csv        | 
 decision_res_htPCR.csv                     | htPCR                    | [qpcR]
 decision_res_karlen1.csv                   | karlen1                  | [qpcR]
 decision_res_karlen2.csv                   | karlen2                  | [qpcR]
@@ -1259,19 +1379,21 @@ decision_res_testdat.csv                   | testdat                  | [qpcR]
 decision_res_vermeulen1.csv                | vermeulen1               | [qpcR]
 decision_res_vermeulen2.csv                | vermeulen2               | [qpcR]
 decision_res_VIMCFX96_60.csv               | VIMCFX96_60              | [chipPCR]
-decision_res_HCU32_aggR.csv                | HCU32_aggR.rdml          | [PCRedux]
+decision_res_HCU32_aggR.csv                | HCU32_aggR.csv           | [PCRedux]
 
 ## Amplification Curve Data in the `RDML` Format
 
 Selected amplification cure data sets were stored in the RDML format as 
 described in [@rodiger_r_2015, @rodiger_enabling_2017].
 
-RDML data file             | Device                            | Target gene           | Detection chemistry
----------------------------|-----------------------------------|-----------------------|------------------------------
-`2017_08_07__RAS002.rdml`  | CFX96, Bio-Rad                    | HPV16, HPV18, HPRT1   | Taqman
-`2017_08_11__RAS003.rdml`  | CFX96, Bio-Rad                    | HPV16, HPV18, HPRT1   | Taqman
-`hookreg.rdml`             | Bio-Rad                           | various               | Taqman, intercalating dyes
-`HCU32_aggR.rdml`          | 32HCU VideoScan, Attomol GmbH     | various               | intercalating dye (EvaGreen)
+RDML data file           | Device    | Target gene           | Detection chemistry
+-------------------------|-----------|-----------------------|------------------------------
+2017_08_07__RAS002.rdml  | CFX96     | HPV16, HPV18, HPRT1   | Taqman
+2017_08_11__RAS003.rdml  | CFX96     | HPV16, HPV18, HPRT1   | Taqman
+hookreg.rdml             | Bio-Rad   | various               | Taqman, intercalating dyes
+HCU32_aggR.rdml          | 32HCU     | various               | intercalating dye (EvaGreen)
+
+32HCU: VideoScan (Attomol GmbH), CFX96: Bio-Rad.
 
 
 Table_human_rated.xlsx
@@ -1290,6 +1412,6 @@ emerge.
 
 Of note, we would like to emphasis that the functionality of this package is not 
 limited to amplification curve data from qPCR experiments. As stated before, 
-amplification curves have a sigmoid curve shape. So do many other processes.
+amplification curves have a sigmoid curve. So do many other processes.
 
 # References

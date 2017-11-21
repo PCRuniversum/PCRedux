@@ -235,8 +235,8 @@ print(xtable(res_out, digits=0), scalebox='0.55', floating=FALSE)
 
 # Performance analysis
 
-The performance of the **hookreg** function and **hookregNL** function was analyzed with 
-the **performeR** function of the `PCRedux` package. The methods were adopted from @brenner_variation_1997 and @kuhn_building_2008.
+The performance of the **hookreg()** function and **hookregNL()** function was analyzed with 
+the **performeR()** function of the `PCRedux` package. The methods were adopted from @brenner_variation_1997 and @kuhn_building_2008.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 res_performeR <- rbind(
