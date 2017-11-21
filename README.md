@@ -3,7 +3,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/devSJR/PCRedux.svg?branch=master)](https://travis-ci.org/devSJR/PCRedux)
 [![codecov.io](https://codecov.io/github/devSJR/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/devSJR/PCRedux?branch=master)
 [![Licence](https://github.com/devSJR/PCRedux/blob/master/vignettes/MIT.svg)](https://opensource.org/licenses/MIT)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/PCRedux)](https://cran.r-project.org/package=PCRedux)
 
 ![PCRedux](https://github.com/devSJR/PCRedux/blob/master/vignettes/Logo.png)
 # PCRedux
