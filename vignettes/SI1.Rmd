@@ -15,29 +15,29 @@ vignette: >
 
 # Introduction
 
-This is a supplement document for the study *Algorithms for Automatized 
+This is a supplemental document for the study *Algorithms for Automatized 
 Detection of Hook Effect-bearing Amplification Curves*. The functions and data 
 presented in the paper are available from <https://github.com/devSJR/PCRedux>. 
-The data, including the RDML file are part of the `PCRedux` package and are 
-made available in the CSV or RDML format [@rodiger_enabling_2017] for a vendor 
+The data, including the RDML file, are part of the `PCRedux` package and are 
+made available in the CSV or RDML format [@rodiger_enabling_2017] for vendor 
 independent analysis.
 
-All analysis were implemented and done with the **R** statistical computing 
+All analyses were implemented and conducted with the **R** statistical computing 
 language [@R_language, @rodiger_r_2015] and dedicated integrated development 
 environments such as **RKWard** [@rodiger_rkward:_2012]. Further documentation 
 can be found in the help files of the **R** packages.
 
-We added the source code for the generation of the figures in the main text at 
+We added the source code for the generation of the Figures in the main text at 
 the end of the document.
 
-> Note: Some rows in the tables below appear to be empty. This expected 
+> Note: Some rows in the Tables below appear to be empty. This expected 
 behaviour may occur in cases where the corresponding functions were not able to 
-calculate the coefficients due to a failed model fit or violation of truncation 
+calculate the coefficients due to a failed model fit or violation of the truncation 
 criterion.
 
 ## Results for the analysis of the hookreg.rdml data set by human rater
 
-All calculations in the following sections were done with `hookreg.rdml` data 
+All calculations in the following sections were employed on the `hookreg.rdml` data 
 set, which is part of the `PCRedux` package. The data were transfered to the 
 **R** environment by the `RDML` package [@rodiger_enabling_2017].
 
@@ -65,7 +65,7 @@ data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
 matplot(data[, 1], data[, -1], type="l", lty=1, lwd=2, ylab="RFU", xlab="Cycle")
 ```
 
-Give the first three and last three entires of the data for data evaluation
+Provide the first three and last three entires of the data for data evaluation.
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
 library(xtable)
@@ -235,7 +235,7 @@ print(xtable(res_out, digits=0), scalebox='0.55', floating=FALSE)
 
 # Performance analysis
 
-The performance of the **hookreg()** function and **hookregNL()** function was analyzed with 
+The performance of the **hookreg()** and **hookregNL()** functions was analyzed with 
 the **performeR()** function of the `PCRedux` package. The methods were adopted from @brenner_variation_1997 and @kuhn_building_2008.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -263,11 +263,11 @@ print(xtable(res_performeR, digits=0),
 )
 ```
 
-# Hook effect analysis with **rdmlEdit** GUI
+# Hook effect analysis with the **rdmlEdit** GUI
 
-One can analyze data with GUI by installing `RDML` package and run **rdmlEdit** as local server, or open [rdmlEdit app](http://shtest.evrogen.net/rdmlEdit/) at Evrogen server.
-After opening **rdmlEdit** you can see several tabs at the top of the screen. Inside *Files* tab click *Browse...* button to select your file. After, the file is opened you can see its structure at right of the screen presented as dendrogramm. 
+A more visual analysis is provided with a comprehensive GUI by installing the `RDML` package and running **rdmlEdit** as a local server, or altenatively starting [rdmlEdit app](http://shtest.evrogen.net/rdmlEdit/) at the Evrogen server.
+After opening **rdmlEdit**, several tabs at the top of the screen appear. Inside the *Files* tab, click the *Browse...* button to select your file, which is then opened to display its structure on the right of the screen as a dendrogramm. 
 
-Click to the `qPCR` tab to start analysis. Select a hook detection method at *Hook Detection Method* selector and wait for analysis. Results can be viewed inside the table (*hook* column) or by color and shape of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
+Then, click to the `qPCR` tab to start the analysis. Select a hook detection method from the *Hook Detection Method* selector and wait for the analysis to finish. Results can be viewed inside the table (*hook* column) or by color and line type of PCR curves (select *Hook* at *Color by* and *Line Type by* selectors).
 
 # References

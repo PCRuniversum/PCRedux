@@ -573,7 +573,7 @@ background region) and the end of the amplification curve (tail, plateau
 region). Therefore, these segments are potentially useful to extract a feature 
 for an amplification curve classification.
 
-```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve.", fig.height=5.5, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) For amplification curves from each dilution (1:1, red;  1:10, green, 1:100, cyan; 1:1000, purple) of the dil4reps94 data set were selected to visualize the approach of the head2tailratio() function. B) Plot of all amplification curves from the dil4reps94 data set.", fig.height=5.5, fig.width=11}
 suppressMessages(library(qpcR))
 
 
@@ -700,10 +700,25 @@ region. In the example shown below, the samples "P01.W19", "P06.W35", "P33.W66",
 "P65.W90", "P71.W23" and "P87.W01" were arbitrarily selected for demonstration
 purposes.
 
-```{r, echo=TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the htPCR data set. Not the differences in slopes and intercepts (red and green lines). The mblrr() function is presumably useful for data sets which are accompanied by noise and artifacts.", fig.height=7, fig.width=7}
+```{r, echo=TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the htPCR data set. Not the differences in slopes and intercepts (red and green lines). The mblrr() function is presumably useful for data sets which are accompanied by noise and artifacts. m, slop; n, intercept.", fig.height=7, fig.width=7}
+# Load the qpcR package
 suppressMessages(library(qpcR))
-par(mfrow=c(3,2))
+
+# Select six amplification curves from the htPCR data set
 data <- htPCR[, c(1, 20, 500, 3000, 6000, 6500, 8000)]
+
+# Make names for the figures
+figure_name <- LETTERS[1L:(ncol(data)-1)]
+
+coef_plot <- function(model, x, y, color) {
+    res_lm_coef <- signif(coef(model), 5)
+    text(x, y, paste("m = ", res_lm_coef[1], 
+                           "\nn = ", res_lm_coef[2]),
+           bty="n", col=color)
+}
+
+# Prepare a plot with two columns and three rows
+par(mfrow=c(3,2))
 for(i in 2L:ncol(data)){
         x <- data[, 1]
         y_tmp <- data[, i]/quantile(data[, i], 0.999)
@@ -717,14 +732,18 @@ for(i in 2L:ncol(data)){
         plot(x, y_tmp, xlab="Cylce", ylab="RFU (normalized)", 
              main=colnames(data)[i], 
              type="b", pch=19)
+        mtext(figure_name[i -1], cex = 2, side = 3, adj = 0, font = 2)
         abline(res_q25_lm, col="red")
         points(x[res_q25], y_tmp[res_q25], cex=2.5, col="red")
+        coef_plot(x=30, y=0.3, res_q25_lm, "red")
+        
         abline(res_q75_lm, col="green")
         points(x[res_q75], y_tmp[res_q75], cex=2.5, col="green")
+        coef_plot(x=5, y=0.7, res_q75_lm, "green")
     }
 ```
 
-Finally we print the results of the analysis in tabular format.
+Finally, the results of the analysis are printed in tabular format. As shown in Figure \ref{plot_mblrr} differ the amplification curves 
 
 ```{r, eval=TRUE, echo=TRUE, results='asis'}
 # Load the library xtable for an appealing table output
@@ -785,7 +804,7 @@ The show the usefulness and robustness of the `mblrr()` function we replicated t
 `testdat` with an additional noise source (normal distribution, mean=0, standard 
 deviation=1).
 
-```{r, echo=FALSE, fig.cap="\\label{plot_raw_data_FFTrees}Fast and Frugal Trees.", fig.height=5.5, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{plot_raw_data_FFTrees}Pot of the input data for the analysis by Fast and Frugal Trees. A) The raw amplification curves were taken from the testdat data set with some noise added. B) The ", fig.height=5.5, fig.width=11}
 # Load the qpcR package to get some data
 suppressMessages(library(qpcR))
 
@@ -1013,14 +1032,13 @@ pcrfit_parallel <- function(data, n_cores = 1) {
                            .combine = rbind) %dopar% {
                                suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
                            }
-                           
-                           
+
+
                            res <- cbind(runs = colnames(data_RFU), run_res)
-                           
+
                            rownames(res) <- NULL
-                           
+
                            res
-                           
 }
 
 # Calculate curve features of an amplification curve data. Note that not all 
@@ -1120,8 +1138,8 @@ rect(12.5,-3,24.5,0.5, border = "green")
 text(14, 1, "positive", col="green")
 
 # Repeat the plot and the cluster analysis for the preprocessed data
-res_fdata_preprocessed %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", type="l", 
-                   lty=1, lwd=2, col=data_colors)
+res_fdata_preprocessed %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", 
+                                type="l", lty=1, lwd=2, col=data_colors)
 legend("topleft", as.character(res_fdata_colnames), pch=19, 
        col=data_colors, bty="n", ncol=2)
 mtext("C", cex = 2, side = 3, adj = 0, font = 2)
@@ -1279,7 +1297,8 @@ text(median_Cq + 0.01, 1.085, expression(paste(tilde(x))))
 labeled <- c(which(calculated_Cqs < median_Cq - 0.1),  
              which(calculated_Cqs > median_Cq + 0.1))
 
-text(calculated_Cqs[labeled], calculated_effs[labeled], as.character(res_fdata_colnames)[labeled])
+text(calculated_Cqs[labeled], calculated_effs[labeled], 
+     as.character(res_fdata_colnames)[labeled])
 mtext("C", cex = 2, side = 3, adj = 0, font = 2)
 
 # Calculate the Hausdorff distance using the fda.usc package and cluster the 
@@ -1344,8 +1363,6 @@ The following table gives an overview about the available data sets.
 
 Decision Data Sets in PCRedux              | qPCR Data Set            | Package
 -------------------------------------------|--------------------------|----------------
-decision_res_2017_08_07__RAS002.csv        | 2017_08_07__RAS002.rdml  | [PCRedux]
-decision_res_2017_08_11__RAS003.csv        | 2017_08_11__RAS003.rdml  | [PCRedux] 
 decision_res_batsch1.csv                   | batsch1                  | [qpcR]
 decision_res_batsch2.csv                   | batsch2                  | [qpcR]
 decision_res_batsch3.csv                   | batsch3                  | [qpcR]
@@ -1369,6 +1386,8 @@ decision_res_karlen3.csv                   | karlen3                  | [qpcR]
 decision_res_lievens1.csv                  | lievens1                 | [qpcR]
 decision_res_lievens2.csv                  | lievens2                 | [qpcR]
 decision_res_lievens3.csv                  | lievens3                 | [qpcR]
+decision_res_RAS002.csv                    | RAS002.rdml              | [PCRedux]
+decision_res_RAS003.csv                    | RAS003.rdml              | [PCRedux]
 decision_res_reps.csv                      | reps                     | [qpcR]
 decision_res_reps2.csv                     | reps2                    | [qpcR]
 decision_res_reps3.csv                     | reps3                    | [qpcR]
@@ -1379,7 +1398,6 @@ decision_res_testdat.csv                   | testdat                  | [qpcR]
 decision_res_vermeulen1.csv                | vermeulen1               | [qpcR]
 decision_res_vermeulen2.csv                | vermeulen2               | [qpcR]
 decision_res_VIMCFX96_60.csv               | VIMCFX96_60              | [chipPCR]
-decision_res_HCU32_aggR.csv                | HCU32_aggR.csv           | [PCRedux]
 
 ## Amplification Curve Data in the `RDML` Format
 
@@ -1388,8 +1406,8 @@ described in [@rodiger_r_2015, @rodiger_enabling_2017].
 
 RDML data file           | Device    | Target gene           | Detection chemistry
 -------------------------|-----------|-----------------------|------------------------------
-2017_08_07__RAS002.rdml  | CFX96     | HPV16, HPV18, HPRT1   | Taqman
-2017_08_11__RAS003.rdml  | CFX96     | HPV16, HPV18, HPRT1   | Taqman
+RAS002.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
+RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
 hookreg.rdml             | Bio-Rad   | various               | Taqman, intercalating dyes
 HCU32_aggR.rdml          | 32HCU     | various               | intercalating dye (EvaGreen)
 
@@ -1413,5 +1431,6 @@ emerge.
 Of note, we would like to emphasis that the functionality of this package is not 
 limited to amplification curve data from qPCR experiments. As stated before, 
 amplification curves have a sigmoid curve. So do many other processes.
+
 
 # References

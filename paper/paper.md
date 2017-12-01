@@ -13,12 +13,15 @@ authors:
   - name: "Michał Burdukiewicz"
     orcid: 0000-0001-8926-582X
     affiliation: 2
-  - name: "Roy-Arne Senkel"
-    orcid: 0000-0001-6139-9471
-    affiliation: 1
   - name: "Andrej-Nikolai Spiess"
     orcid: 0000-0002-9630-4724
     affiliation: 3
+  - name: "Konstantin Blagodatskikh"
+    orcid: 0000-0002-8732-0300
+    affiliation: 4
+  - name: "Roy-Arne Senkel"
+    orcid: 0000-0001-6139-9471
+    affiliation: 1
   - name: "Peter Schierack"
     orcid: 0000-0002-6445-3506
     affiliation: 1
@@ -32,7 +35,9 @@ affiliations:
     index: 2
   - name: "University Medical Center Hamburg-Eppendorf, Hamburg, Germany"
     index: 3
-date: "16 November 2017"
+  - name: "Evrogen JSC, Moscow, Russia"
+    index: 4
+date: "10 December 2017"
 bibliography: literature.bib
 output:
   html_document:
