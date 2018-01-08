@@ -58,7 +58,10 @@
 #' LRp = TPR/(1-SPC)
 #'
 #' Matthews correlation coefficient (MCC)
-#' MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+#' MCC = (TP*TN - FP*FN) / 
+#        (sqrt(TP + FP) * sqrt(TP + FN) * 
+#'        sqrt(TN + FP) * sqrt(TN+FN)
+#'       )
 #'
 #' Cohen's kappa (binary classification)     
 #' kappa=(p0-pc)/(1-p0)
@@ -152,7 +155,7 @@ performeR <- function(sample, reference) {
     
     # Matthews correlation coefficient (MCC)
     # MCC = (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
-    MCC <- (TP*TN - FP*FN) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+    MCC <- (TP*TN - FP*FN) / (sqrt(TP+FP)*sqrt(TP+FN)*sqrt(TN+FP)*sqrt(TN+FN))
     
     # Likelihood ratio positive
     # LRp = TPR/(1-SPC)
