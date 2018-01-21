@@ -41,6 +41,8 @@
 #'   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
 #'   "top" \tab takeoff point \tab numeric \cr
 #'   "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
+#'   "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp) \tab numeric \cr
+#'   "f.tdp" \tab fluorescence at tdp point \tab  numeric \cr
 #'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
 #'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
 #'   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
@@ -107,6 +109,7 @@ pcrfit_single <- function(x) {
 
   # for qpcR
   dat <- cbind(cyc=cycles, fluo=x)
+  dat_reverse <- cbind(cyc=cycles, fluo=(max(x) - rev(x)))
   # inefficient kludge to find l4 model
   data("sysdata", package = "qpcR", envir = parent.frame())
   
@@ -171,13 +174,22 @@ pcrfit_single <- function(x) {
   # Fit sigmoidal models to curve data
   
    pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2), silent=TRUE)
+   pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent=TRUE)
   
    res_fit <- try(qpcR::mselect(pcrfit_startmodel, 
+                          verbose = FALSE, do.all = TRUE), silent = TRUE)
+                          
+   res_fit_reverse <- try(qpcR::mselect(pcrfit_startmodel_reverse, 
                           verbose = FALSE, do.all = TRUE), silent = TRUE)
 
   # Determine the model suggested by the mselect function based on the AICc
   res_fit_model <- try(names(which(res_fit[["retMat"]][, "AICc"] == min(res_fit[["retMat"]][, "AICc"]))), silent=TRUE)
   if(class(res_fit_model) == "try-error") {res_fit_model <- NA}
+  
+  # Determine the model for the reverse datas suggested by the 
+  # mselect function based on the AICc
+  res_fit_model_reverse <- try(names(which(res_fit_reverse[["retMat"]][, "AICc"] == min(res_fit_reverse[["retMat"]][, "AICc"]))), silent=TRUE)
+  if(class(res_fit_model_reverse) == "try-error") {res_fit_model_reverse <- NA}
 
   if(class(res_fit)[1] != "try-error") {
     # TakeOff Point
@@ -186,6 +198,22 @@ pcrfit_single <- function(x) {
     # in Tichopad et al. (2003).
     res_takeoff <- try(qpcR::takeoff(res_fit), silent=TRUE)
     if(class(res_takeoff) == "try-error") {res_takeoff <- list(NA, NA)}
+    
+    if(class(res_fit_reverse)[1] != "try-error") {
+        # TakeOff Point from the reverse data
+        # Calculates the first significant cycle of the exponential region 
+        #
+        #   Take Down Point tdp
+        #
+        # (takeoff point) using externally studentized residuals as described 
+        # in Tichopad et al. (2003).
+        res_takeoff_reverse <- try(qpcR::takeoff(res_fit_reverse, nsig=5), silent=TRUE)
+        res_takeoff_reverse[[1]] <- length_cycle - res_takeoff_reverse[[1]]
+        res_takeoff_reverse[[2]] <- x[res_takeoff_reverse[[1]]] - 
+                                    res_takeoff_reverse[[2]] + min(x)
+        names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+        if(class(res_takeoff_reverse) == "try-error") {res_takeoff_reverse <- list(NA, NA)}
+    }
 
     # LRE qPCR efficiency
     # Calculation of qPCR efficiency by the 'linear regression of 
@@ -227,6 +255,7 @@ pcrfit_single <- function(x) {
                                init1 = NA,
                                init2 = NA)
     res_takeoff <- list(NA, NA)
+    res_takeoff_reverse <- list(NA, NA)
     res_LRE <- NA
     res_sliwin <- NA
     res_cpDdiff <- NA
@@ -241,6 +270,8 @@ pcrfit_single <- function(x) {
     init2=res_efficiency_tmp[["init2"]],
     top=res_takeoff[[1]], 
     f.top=res_takeoff[[2]],
+    tdp=res_takeoff_reverse[[1]], 
+    f.tdp=res_takeoff_reverse[[2]], 
     resLRE=res_LRE[1],
     ressliwin=res_sliwin[[1]],
     cpDdiff=res_cpDdiff,

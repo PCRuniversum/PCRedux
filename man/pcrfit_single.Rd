@@ -20,6 +20,8 @@ Output Description
   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
   "top" \tab takeoff point \tab numeric \cr
   "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
+  "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp) \tab numeric \cr
+  "f.tdp" \tab fluorescence at tdp point \tab  numeric \cr
   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr

@@ -37,7 +37,7 @@ affiliations:
     index: 3
   - name: "Evrogen JSC, Moscow, Russia"
     index: 4
-date: "10 December 2017"
+date: "31 December 2017"
 bibliography: literature.bib
 output:
   html_document:
@@ -51,17 +51,19 @@ experiments. An example are amplification curve data from quantitative
 Polymerase Chain Reactions (qPCR). The qPCR is an indispensable technology in 
 many disciplines such as human diagnostics and forensics [@martins_dna_2015]. 
 There are software packages for the analysis of qPCR data, which can be used for 
-the quantification of target DNA [@pabinger_survey_2014, @rodiger_r_2015]. These 
+the quantification of target DNA [@pabinger_2014, @roediger2015r]. These 
 software packages provide pipelines, and a rich sets of criteria to process qPCR 
 data adequately. This includes the pre-processing of raw data, fitting of 
 non-linear models on raw data, the calculation of the cycle of quantification, 
 the calculation of amplification efficiencies, the relative gene expression 
-analysis, normalization procedures, and data management [@rodiger_chippcr:_2015, 
-@spiess_impact_2015, @rodiger_enabling_2017, @mallona_chainy:_nodate]. Yet, 
+analysis, normalization procedures, and data management [@roediger2015chippcr, 
+@spiess_impact_2015, @roediger_enabling_2017, @mallona_chainy:_nodate]. Yet, 
 there exits no open source software package which can be used for feature 
 extraction from amplification curves for  classification and machine learning.
 
-The `PCRedux` package contains functions and qPR data sets for machine learning 
+# Package and Functionalities
+
+The `PCRedux` package contains functions and qPCR data sets for machine learning 
 and statistical analysis. The  amplifications curves were rated by human 
 experts. Amplification curves have characteristics, which can be used for the 
 classification. Analysis on the curve data such as change-point analysis, 
@@ -71,7 +73,7 @@ for the creation of models that predict a class (e.g., positive, ambiguous,
 negative qPCR reaction) from input features (slope, background level, 
 changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
 @Ritz2008, @Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
-@rodiger_chippcr:_2015].  These and additional features can be extracted by the 
+@roediger2015chippcr].  These and additional features can be extracted by the 
 `pcrfit_single()` and `encu()` functions. Inspired by @Tierney2017 we integrated 
 the visualization function `visdat_pcrfit()`. The package contains the following 
 further functions:
