@@ -420,7 +420,7 @@ suppressMessages(library(qpcR))
 library(PCRedux)
 library(data.table)
 filename <- system.file("decision_res_competimer.csv", package = "PCRedux")
-res_competimer <- as.data.frame(fread(filename))
+res_competimer <- fread(filename, data.table = FALSE)
 
 curve_colors <- c(rainbow(ncol(competimer)-1, alpha=.5))
 
@@ -592,7 +592,7 @@ suppressMessages(library(data.table))
 library(magrittr)
 
 filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
-decision_res_htPCR <- fread(filename) %>% as.data.frame()
+decision_res_htPCR <- fread(filename, data.table = FALSE)
 
 print(xtable(head(decision_res_htPCR), caption = ".", 
              label='tableheaddecision'), include.rownames = FALSE, caption.placement = "top", size="\\fontsize{8pt}{9pt}\\selectfont")
@@ -654,11 +654,11 @@ decision_modus(decision_res_htPCR[which(decision_res_htPCR[["sample"]] == "P01.W
 # decision_res_htPCR_reevaluation.csv thereof.
 # Load the decision_res_htPCR.csv data set
 filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
-decision_res_htPCR <- as.data.frame(fread(filename))
+decision_res_htPCR <- fread(filename, data.table = FALSE)
 
 # Load the decision_res_htPCR_reevaluation.csv data set
 filename <- system.file("decision_res_htPCR_reevaluation.csv", package="PCRedux")
-decision_res_htPCR_reevaluation <- as.data.frame(fread(filename))
+decision_res_htPCR_reevaluation <- fread(filename, data.table = FALSE)
 
 # Show the first five elements of both data sets
 head(decision_res_htPCR)
@@ -708,7 +708,7 @@ There are numerous segments of an amplification curve, that are potentially usef
 @gunay_machine_2016 used a "modified sigmoid function for CT [Cq] prediction". The fundamental assumption of this approach is, that such a model can be applied to any data set. There are several reasons to why such assumption is flawed. For example is shown in \autoref{section_hookreg} about the ``hookreg()`` and ``hookregNL()`` functions. There it becomes evident that a three parameter model fit will give wrong predictions. Moreover, non-linear function tend to fit even noise (\autoref{curve_fit_fail}).
 
 
-```{r, echo=TRUE, fig.cap="\\label{curve_fit_fail}Sample data from the **testdat** data set (\\texttt{qpcR} package, [@Ritz2008]) with negative and positive amplification curves.", fig.height=7, fig.width=7}
+```{r, echo=TRUE, fig.cap="\\label{curve_fit_fail}Sample data from the **testdat** data set (\\texttt{qpcR} package, [@Ritz2008]) with negative and positive amplification curves.", fig.height=7, fig.width=7,eval=FALSE}
 # Load the drc package for the five-parameter log-logistic fit.
 library(drc)
 library(chipPCR)
@@ -1645,7 +1645,7 @@ library(magrittr)
 # Convert the qPCR data set to the fdata format
 
 filename <- system.file("HCU32_aggR.csv", package="PCRedux")
-data_32HCU <- fread(filename) %>% as.data.frame()
+data_32HCU <- fread(filename, data.table = FALSE)
 
 res_fdata <- qPCR2fdata(data_32HCU)
 # Extract column names and create rainbow color to label the data
