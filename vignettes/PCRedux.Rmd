@@ -595,7 +595,7 @@ filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
 decision_res_htPCR <- fread(filename, data.table = FALSE)
 
 print(xtable(head(decision_res_htPCR), caption = ".", 
-             label='tableheaddecision'), include.rownames = FALSE, caption.placement = "top", size="\\fontsize{8pt}{9pt}\\selectfont")
+             label='tableheaddecision'), include.rownames = FALSE, caption.placement = "top", size="\\tiny")
 ```
 
 
