@@ -744,8 +744,6 @@ for(i in 1L:length(curve_data_columns)) {
            bty="n", cex=1.25, col="red")
     # Use the drm function with a five-parameter log-logistic fit model.
 
-        try(lines(predict(drm(testdat[, curve_data_columns[i]] ~ testdat[, 1], 
-                          fct = LL.3())), col = 2), silent=TRUE)
 
         try(lines(predict(drm(testdat[, curve_data_columns[i]] ~ testdat[, 1], 
                           fct = LL.4())), col = 3), silent=TRUE)
