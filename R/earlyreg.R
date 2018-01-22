@@ -43,9 +43,8 @@ earlyreg <- function(x, y, range=6, normalize=FALSE) {
     if (normalize) 
         y <- y/quantile(y, 0.999)
     range <- head(x[-1], range)
-    suppressWarnings
-    res_lm_fit <- try(suppressWarnings(coefficients(lmrob(y[range] ~ 
-        x[range]))), silent = TRUE)
+
+    res_lm_fit <- try(suppressWarnings(coefficients(lmrob(y[range] ~ x[range]))), silent = TRUE)
     if (class(res_lm_fit) == "try-error") {
         res_lm_fit <- c(NA, NA)
     }

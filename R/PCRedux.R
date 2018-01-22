@@ -15,7 +15,6 @@
 #' @importFrom grDevices rainbow
 #' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
-#' @importFrom minerva mine
 #' @importFrom plotly ggplotly
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
