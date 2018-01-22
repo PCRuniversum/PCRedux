@@ -46,51 +46,34 @@ output:
 
 # Summary
 
-Data having a sigmoid ('S'-shaped) curvature can be found in numerous 
-experiments. An example are amplification curve data from quantitative 
-Polymerase Chain Reactions (qPCR). The qPCR is an indispensable technology in 
-many disciplines such as human diagnostics and forensics [@martins_dna_2015]. 
-There are software packages for the analysis of qPCR data, which can be used for 
-the quantification of target DNA [@pabinger_2014, @roediger2015r]. These 
-software packages provide pipelines, and a rich sets of criteria to process qPCR 
-data adequately. This includes the pre-processing of raw data, fitting of 
-non-linear models on raw data, the calculation of the cycle of quantification, 
-the calculation of amplification efficiencies, the relative gene expression 
-analysis, normalization procedures, and data management [@roediger2015chippcr, 
-@spiess_impact_2015, @roediger_enabling_2017, @mallona_chainy:_nodate]. Yet, 
-there exits no open source software package which can be used for feature 
-extraction from amplification curves for  classification and machine learning.
+There are numerous examples of data with a sigmoid (' S' -shaped) curve form in numerous 
+areas of science. One example is amplification curve data from quantitative 
+Polymerase chain reactions (qPCR). The qPCR technology is an indispensable technology in areas such as human diagnostics and forensics [@martins_dna_2015]. 
+A number of software packages are available for the analysis of qPCR data, which can be used to solve questions such as the quantification of the target DNA [@pabinger_2014, @roediger2015r]. These software packages also offer workflows and criteria to process qPCR data correctly. That includes the preprocessing of the raw data, the fitting of 
+non-linear models on raw data, the calculation of quantification points, 
+the computation of amplification efficiency, the relative gene expression 
+analysis, normalization procedures and data management [@roediger2015chippcr, 
+@spiess_impact_2015, @roediger_enabling_2017, @mallona_chainy: _nodate]. However. there is no open source software package that contains classified data sets and provides biostatistical methods for machine learning on amplification curves. 
 
 # Package and Functionalities
 
-The `PCRedux` package contains functions and qPCR data sets for machine learning 
-and statistical analysis. The  amplifications curves were rated by human 
-experts. Amplification curves have characteristics, which can be used for the 
-classification. Analysis on the curve data such as change-point analysis, 
-regression analysis, noise analysis, autocorrelation analysis and model fitting 
-are applied to the qPCR data and yield more than 30 features. This can be used 
-for the creation of models that predict a class (e.g., positive, ambiguous, 
-negative qPCR reaction) from input features (slope, background level, 
-changepoints) based on implementations by others (e.g., @erdman_bcp:_2007, 
-@Ritz2008, @Febrero_Bande_2012, @james_ecp:_2013) and us [@roediger_RJ_2013, 
-@roediger2015chippcr].  These and additional features can be extracted by the 
-`pcrfit_single()` and `encu()` functions. Inspired by @Tierney2017 we integrated 
-the visualization function `visdat_pcrfit()`. The package contains the following 
-further functions:
+The `PCRedux` package contains functions and classified amplification curves for machine learning and statistical analysis. Each amplification curve was classified by a human being as positive, ambiguous and negative. 
+To analyze the amplification curves, methods such as change-point analysis, regression analysis, autocorrelation analysis and model fitting have been integrated. Based on the implementations of others (e. g. @erdman_bcp: _2007, 
+@Ritz2008, @Febrero_Bande_2012, @james_ecp: _2013) and us [@roediger_RJ_2013, 
+@roediger2015chippcr] the `pcrfit_single ()` function can calculate more than 40 features from the amplification curves. This is useful for creating models and predicting classes (e. g. negative, positive). We have integrated the visualization function `visdat_pcrfit ()` for data management, inspired by @Tierney2017. Additional functionality in the package includes:
 
-- `autocorrelation_test()` performs an autocorrelation analysis on qPCR data,
-- `decision_modus()` finds the most frequent rating by a human,
-- `earlyreg()` performs a regression analysis in background region,
-- `head2tailratio()` compares the ratio of the head and tail,
-- `hookregNL()` and `hookreg()` attempt to detect a hook effect in the amplification curve,
-- `mblrr()`, a function to perform local robust regressions analysis,
-- `performeR()`, performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification, and
-- `qPCR2fdata()`, a helper function to convert amplification curve data to the *fdata* format.
+- `autocorrelation_test()`, which performs an autocorrelation analysis on amplification cures,
+- `decision_modus()`, which calculates the frequency of classes in a data set,
+- `earlyreg()`, which calculates features by a regression analysis in the background region,
+- `head2tailratio()`, which compares the ratio of the head and tail,
+- `hookregNL()` and `hookreg()`, which attempt to detect a hook effect in the amplification curve,
+- `mblrr()`, which performs local robust regressions analysis,
+- `performeR()`, which performance analysis (e.g., sensitivity, specificity, Cohen's kappa) for binary classification,
+- `qPCR2fdata()`, which is helper function to convert amplification curve data to the *fdata* format,
+- `encu()`, which enables high-throughput data processing.
 
 
-In conclusion, `PCRedux` supports feature extraction from sigmoid data that can 
-be used for machine learning. The `PCRedux` package an add-on package for the 
-open source statistical computing language and environment *R* [@R_language].
+In summary, `PCRedux` can be used for the extraction of features and for machine learning on amplification curves. The `PCRedux` package is an add-on package for open source statistical computing language and environment *R* [@R_language].
 
 ![](fig1.png)<!-- -->
 

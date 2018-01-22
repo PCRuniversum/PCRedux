@@ -110,7 +110,7 @@ P02.W15,y,y,y,n,n,n,a,n,FALSE
 P02.W16,y,y,y,a,y,a,a,n,FALSE
 P02.W17,y,y,y,n,n,n,n,n,FALSE
 P02.W18,y,y,y,n,n,n,n,n,FALSE
-P02.W19,y,y,y,a,y,y,y,y,FALSE
+P02.W19,y,y,y,y,y,y,y,y,TRUE
 P02.W20,y,y,y,a,y,a,y,y,FALSE
 P02.W21,y,y,y,a,a,a,y,y,FALSE
 P02.W22,y,y,y,y,y,a,y,y,FALSE

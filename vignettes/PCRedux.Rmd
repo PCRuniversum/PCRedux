@@ -65,7 +65,7 @@ install.packages("PCRedux")
 The \texttt{PCRedux} package should just install. If this fails make sure you that write access is permitted to the destination directory.
 
 ```{r, eval=FALSE, echo=TRUE}
-# The following command points to the help for download and install of packages 
+# The following command points to the help for download and install of packages
 # from CRAN-like repositories or from local files.
 ?install.packages()
 ```
@@ -82,29 +82,29 @@ Modules testing, better known as unit testing, is an approach to simplify the re
 
 The basic concept is to use checkpoints to check whether the software performs calculations and data transformations correctly for all builds. For this, numerous (logical) queries have to be defined by the developer in advance. They are refereed to \textit{expectations}. It should be ensured that as many errors as possible are covered. A logical query can be, for example, whether the calculation has a numeric or Boolean value as output. If the data type is incorrect during output, this is a sufficient termination criterion. Or it can be checked whether the length of the result vector is correct after the calculation. There are different approaches for unit tests in \texttt{R}. This also includes testing of units from the packages \texttt{RUnit}, \texttt{covr}, \texttt{svUnit} and \texttt{testthat}. (@wickham_testthat_2011).
 
-The package \texttt{testthat} was used in \texttt{PCRedux} because it could be well implemented and its maintenance is relatively simple. The logic is that an \textit{expectation} defines how the result, class or error in the corresponding unit (e. g. function) should behave. Unit tests can be found in the `/test/testthat` subdirectory of the \texttt{PCRedux} package. The unit tests always run automatically during the creation of the package. The following is an example of the function ``qPCR2fdata()``. The details of how ``qPCR2fdata()`` works are detailed in the \autoref{section_qPCR2fdata} section. The function ``test_that()``, from the \texttt{testthat} package, is given several \textit{expectations}. The ``qPCR2fdata()`` function when processing the amplification curves check whether:
+The package \texttt{testthat} was used in \texttt{PCRedux} because it could be well implemented and its maintenance is relatively simple. The logic is that an \textit{expectation} defines how the result, class or error in the corresponding unit (e.g., function) should behave. Unit tests can be found in the `/test/testthat` subdirectory of the \texttt{PCRedux} package. The unit tests always run automatically during the creation of the package. The following is an example of the function ``qPCR2fdata()``. The details of how ``qPCR2fdata()`` works are detailed in the \autoref{section_qPCR2fdata} section. The function ``test_that()``, from the \texttt{testthat} package, is given several \textit{expectations}. The ``qPCR2fdata()`` function when processing the amplification curves check whether:
 
 * an object of the class *fdata* is created (see @Febrero_Bande_2012 for details of the class *fdata*),
 * the parameter *rangeval* has a length of two,
 * is the second value of parameter *Rangeval* 49 (last cycle number) and 
 *whether the object structure of the function ``qPCR2fdata()` does not change if the parameter \textit{preprocess=TRUE} is set.
 
-```{r, eval=FALSE, echo = TRUE}
+```{r, eval=FALSE, echo=TRUE}
 library(PCRedux)
 
 context("qPCR2fdata")
 
 test_that("qPCR2fdata gives the correct dimensions and properties", {
-    library(qpcR)
-    res_fdata <- qPCR2fdata(testdat)
-    res_fdata_preprocess <- qPCR2fdata(testdat, preprocess=TRUE)
-    
-    expect_that(res_fdata, is_a("fdata"))
-    expect_that(length(res_fdata$rangeval) == 2 && 
+  library(qpcR)
+  res_fdata <- qPCR2fdata(testdat)
+  res_fdata_preprocess <- qPCR2fdata(testdat, preprocess=TRUE)
+
+  expect_that(res_fdata, is_a("fdata"))
+  expect_that(length(res_fdata$rangeval) == 2 &&
     res_fdata$rangeval[2] == 49, is_true())
-    
-    expect_that(res_fdata_preprocess, is_a("fdata"))
-    expect_that(length(res_fdata_preprocess$rangeval) == 2 && 
+
+  expect_that(res_fdata_preprocess, is_a("fdata"))
+  expect_that(length(res_fdata_preprocess$rangeval) == 2 &&
     res_fdata_preprocess$rangeval[2] == 49, is_true())
 })
 ```
@@ -113,9 +113,9 @@ Similar unit tests were implemented for all functions of the \texttt{PCRedux} pa
 
 > \url{https://codecov.io/gh/devSJR/PCRedux/list/master/}.
 
-### Data Sets of Amplification Curves and Classification
+### Data Sets of Amplification Curves and Classification\label{s}
 
-An extensive literature research showed that in the field of qPCR there are no openly accessible datasets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014]. Furthermore, only a few attributes of amplification curves are described in the literature (see \autoref{amplification_curve_forms}). That includes them:
+An extensive literature research showed that in the field of qPCR there are no openly accessible data sets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014]. Furthermore, only a few attributes of amplification curves are described in the literature (see \autoref{amplification_curve_forms}). That includes them:
 
 * the signal height and the slope in the baseline region (gradient and intersection),
 * the starting point of amplification,
@@ -124,19 +124,19 @@ An extensive literature research showed that in the field of qPCR there are no o
 
 However, these alone are not enough to describe amplification curves sufficiently. Furthermore, there are no references to further algorithms that can be used to calculate additional features from amplification curves. All these facts make further studies on machine learning and modelling difficult. 
 
-Therefore, a large number of records with amplification curves and their classification (negative, ambiguous, positive) were included in the \texttt{PCRedux} package. Another objective was the development of new algorithms and the transfer of algorithms from other domains (e. g. from digital image processing) to qPCR data sets.  A central goal was therefore to develop attributes to enable the classification of amplification curves in categories such as positive, negative and ambiguous.
+Therefore, a large number of records with amplification curves and their classification (negative, ambiguous, positive) were included in the \texttt{PCRedux} package. Another objective was the development of new algorithms and the transfer of algorithms from other domains (e.g., from digital image processing) to qPCR data sets.  A central goal was therefore to develop attributes to enable the classification of amplification curves in categories such as positive, negative and ambiguous.
 
 Initially, amplification curves from different sources had to be analyzed manually. From the \texttt{qpcR}, \texttt{chipPCR} and \texttt{PCRedux} packages, the amplification curves were classified with the ``humanrater()`` function from the \texttt{chipPCR} package. This step is briefly outlined in the chapter \autoref{humanrater}. This step is not to be discussed here. 
 
 Data preparation is an important step. This includes the steps involved in data cleansing, data transformation and data integration[@herrera_multiple_2016]. The \texttt{xray} package[@Seibelt_xray] was used to analyze the distribution form and variables in records for anomalies such as missing values, zeros, infinite values and their categories. 
 
-Note: All users of the \texttt{PCRedux} package should use such tools before continuing to work with the records. Although most records in the \texttt{PCRedux} package have the same data structure, some records contain missing values or have different dimensions (compare data from \autoref{samples_of_qPCRs}). For example, the data set ``C127EGHP`` spans a matrix of `r data_dim <- dim (chipPCR::C127EGHP); paste0(data_dim[1],"x", data_dim[2])`, while the data set ``htPCR`` comprises a matrix of `r data_dim <- dim (qpcR:: htPCR); paste0 (data_dim[1]," x ", data_dim[2])`.
+Note: All users of the \texttt{PCRedux} package should use such tools before continuing to work with the records. Although most records in the \texttt{PCRedux} package have the same data structure, some records contain missing values or have different dimensions (compare data from \autoref{samples_of_qPCRs}). For example, the data set `C127EGHP` spans a matrix of `r data_dim <- dim (chipPCR::C127EGHP); paste0(data_dim[1],"x", data_dim[2])`, while the `htPCR` data set comprises a matrix of `r data_dim <- dim (qpcR:: htPCR); paste0 (data_dim[1]," x ", data_dim[2])`.
 
 Raw data were exported as comma separated values from the thermal cyclers. Some records have been exported from the devices using the \texttt{RDML} package and transformed into RDML format. A detailed description can be found in @roediger_enabling_2017. The Real-time PCR Data Markup Language (RDML) is data exchange format for quantitative Real-Time PCR Experiments. RDML is a human readable file format and is based on XML (eXtensible Markup Language) and was created to enable the exchange of data across different information systems [@lefever_rdml_2009]. The following code section describes the import of an RDML file from the `PCRedux` package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
 
 ```{r, echo=TRUE, eval=FALSE}
 library(RDML)
-# Load the RDML package and use its functions to import the amplification curve 
+# Load the RDML package and use its functions to import the amplification curve
 #  data
 library(RDML)
 filename <- system.file("RAS002.rdml", package="PCRedux")
@@ -146,7 +146,7 @@ The further processing of the amplification data took place as described in @roe
 
 ### Classified Data Sets \label{chapter_humanrater}
 
-For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This tool to assist the human expert during the classification of amplificaion curves and melting curves. The human expert has to define classes (e.g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions.  ``humanrater()`` was set to randomly select individual amplification curves. All classifications were done in at least three repeats. The classification of the ``htPCR`` data set was done in total eight times because most of the amplification curves are neither unequivocal classifiable as positive or negative (see \autoref{samples_of_qPCRs}B).
+For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This tool to assist the human expert during the classification of amplification curves and melting curves. The human expert has to define classes (e.g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions.  ``humanrater()`` was set to randomly select individual amplification curves. All classifications were done in at least three repeats. The classification of the `htPCR` data set was done in total eight times because most of the amplification curves are neither unequivocal classifiable as positive or negative (see \autoref{samples_of_qPCRs}B).
 
 \begin{table}[]
 \centering
@@ -197,7 +197,7 @@ decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                &
 **Amplification Curve Data in the `RDML` Format**
 
 Selected amplification cure data sets were stored in the RDML format as 
-described in [@rodiger2015r, @roediger_enabling_2017].
+described in [@roediger2015r, @roediger_enabling_2017].
 
 RDML data file           | Device    | Target gene           | Detection chemistry
 -------------------------|-----------|-----------------------|------------------------------
@@ -220,59 +220,71 @@ Table_human_rated.xlsx
 A sigmoid function has a S-shaped curvature (\autoref{figure_sigmoid_cuve}). Sigmoid function are non-linear functions are real-valued and can be differentiated (first derivative maximum, with one local minimum and one local maximum).
 
 ```{r, echo=FALSE, fig.cap="\\label{figure_sigmoid_cuve} Sigmoid curve.", fig.height=8}
-x_val   <- seq(-10, 10, 0.01)
-y_val   <- 1 / (1 + exp(-x_val)) 
-y_val_slope  <- 1 / (1 + exp(-x_val)) + 0.2
-y_val_slope_quadratic  <- 1 / (1 + exp(-x_val)) + 0.0005 * x_val^2 + 0.2
-y_val_slope_quadratic_noise  <- 1 / (1 + exp(-x_val)) + 0.0005 * x_val^2 + 0.2 + rnorm(length(x_val), mean = 0.01, sd = 0.05)
+x_val <- seq(-10, 10, 0.01)
+y_val <- 1 / (1 + exp(-x_val))
+y_val_slope <- 1 / (1 + exp(-x_val)) + 0.2
+y_val_slope_quadratic <- 1 / (1 + exp(-x_val)) + 0.0005 * x_val ^ 2 + 0.2
+y_val_slope_quadratic_noise <- 1 / (1 + exp(-x_val)) + 0.0005 * x_val ^ 2 + 0.2 + rnorm(length(x_val), mean=0.01, sd=0.05)
 
-y_lim = c(-0.05, max(c(y_val, y_val_slope, y_val_slope_quadratic, y_val_slope_quadratic_noise)) * 1.2)
+y_lim <- c(-0.05, max(c(y_val, y_val_slope, y_val_slope_quadratic, y_val_slope_quadratic_noise)) * 1.2)
 
-# par(mfrow = c(2,2), las=0, bty="o", oma=c(1,1,1,1))
-par(mfrow = c(2,2), las=0, bty="o", oma=c(0,0,0,0))
+# par(mfrow=c(2,2), las=0, bty="o", oma=c(1,1,1,1))
+par(mfrow=c(2, 2), las=0, bty="o", oma=c(0, 0, 0, 0))
 
-plot(x_val, y_val, type="l", xlab="x", ylab="f(x)", ylim = y_lim)
-abline(h = 0, col = "grey")
-legend("topleft", expression(y == frac(1, (1 + e^{-x}))), bty="n", cex=0.9)
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+plot(x_val, y_val, type="l", xlab="x", ylab="f(x)", ylim=y_lim)
+abline(h=0, col="grey")
+legend("topleft", expression(y == frac(1, (1 + e ^ {
+  -x
+}))), bty="n", cex=0.9)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
-plot(x_val, y_val_slope, type="l", xlab="x", ylab="f(x)", ylim = y_lim)
-abline(h = 0, col = "grey")
-legend("topleft", expression(y == frac(1, (1 + e^{-x})) + n), bty="n", cex=0.9)
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+plot(x_val, y_val_slope, type="l", xlab="x", ylab="f(x)", ylim=y_lim)
+abline(h=0, col="grey")
+legend("topleft", expression(y == frac(1, (1 + e ^ {
+  -x
+})) + n), bty="n", cex=0.9)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 
-plot(x_val, y_val_slope_quadratic, type="l", xlab="x", ylab="f(x)", ylim = y_lim)
-abline(h = 0, col = "grey")
-legend("topleft", expression(y == frac(1, (1 + e^{-x})) + m * x^2 + n), bty="n", cex=0.9)
-mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+plot(x_val, y_val_slope_quadratic, type="l", xlab="x", ylab="f(x)", ylim=y_lim)
+abline(h=0, col="grey")
+legend("topleft", expression(y == frac(1, (1 + e ^ {
+  -x
+})) + m * x ^ 2 + n), bty="n", cex=0.9)
+mtext("C", cex=1.5, side=3, adj=0, font=2)
 
-plot(x_val, y_val_slope_quadratic_noise, type="l", xlab="x", ylab="f(x)", ylim = y_lim)
-abline(h = 0, col = "grey")
-legend("topleft", expression(y == frac(1, (1 + e^{-x})) + m * x^2 + n + N(mu, sigma^2)), bty="n", cex=0.9)
-mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+plot(x_val, y_val_slope_quadratic_noise, type="l", xlab="x", ylab="f(x)", ylim=y_lim)
+abline(h=0, col="grey")
+legend("topleft", expression(y == frac(1, (1 + e ^ {
+  -x
+})) + m * x ^ 2 + n + N(mu, sigma ^ 2)), bty="n", cex=0.9)
+mtext("D", cex=1.5, side=3, adj=0, font=2)
 ```
 
 The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if the volume of data is low, or dedicated software is available for the analysis thereof. An example such a scenario (low number of amplification curves) is shown in \autoref{samples_of_qPCRs}A. All `r ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape.
 
 In contrast, the example in \autoref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple visual inspection. The data originate from a high-throughput experiment encompasses in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a manual analysis of the data is time-consuming and prone to errors.
 
-```{r, echo=FALSE, fig.cap="\\label{samples_of_qPCRs}Amplification curve data from an iQ5 (Bio-Rad) thermal cycler and a high throughput experiment in the Biomark HD (Fluidigm). A) The **C127EGHP** data set (\\texttt{chipPCR} package, [@roediger2015chippcr]) with 64 amplification curves was produced in conventional thermal cycler with a 8 x 12 PCR grid. B) The **htPCR** data set (\\texttt{qpcR} package, [@Ritz2008]), which contains 8858 amplification curves, was produced in a 95 x 96 PCR grid. Only 2000 amplification curves are shown.", fig.height=5.5, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{samples_of_qPCRs}Amplification curve data from an iQ5 (Bio-Rad) thermal cycler and a high throughput experiment in the Biomark HD (Fluidigm). A) The `C127EGHP` data set (\\texttt{chipPCR} package, [@roediger2015chippcr]) with 64 amplification curves was produced in conventional thermal cycler with a 8 x 12 PCR grid. B) The `htPCR` data set (\\texttt{qpcR} package, [@Ritz2008]), which contains 8858 amplification curves, was produced in a 95 x 96 PCR grid. Only 2000 amplification curves are shown.", fig.height=5.5, fig.width=11}
 
 library(chipPCR)
 suppressMessages(library(qpcR))
 
 
 # par(mfrow=c(1,2), las=0, bty="o", oma=c(1,1,1,1))
-par(mfrow=c(1,2), las=0, bty="o", oma=c(0,0,0,0))
-colors <- rainbow(ncol(C127EGHP)-2, alpha=0.3)
-matplot(C127EGHP[, 2], C127EGHP[, c(-1, -2)], xlab="Cycle", ylab="RFU", 
-        main="C127EGHP data set", type="l", lty=1, lwd=2, col=colors)
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+par(mfrow=c(1, 2), las=0, bty="o", oma=c(0, 0, 0, 0))
+colors <- rainbow(ncol(C127EGHP) - 2, alpha=0.3)
+matplot(
+  C127EGHP[, 2], C127EGHP[, c(-1, -2)], xlab="Cycle", ylab="RFU",
+  main="C127EGHP data set", type="l", lty=1, lwd=2, col=colors
+)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
 colors <- rainbow(2000, alpha=0.2)
-matplot(htPCR[, 1], htPCR[, c(2L:2001)], xlab="Cycle", ylab="RFU", 
-        main="htPCR data set", type="l", lty=1, lwd=2, col=colors)
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+matplot(
+  htPCR[, 1], htPCR[, c(2L:2001)], xlab="Cycle", ylab="RFU",
+  main="htPCR data set", type="l", lty=1, lwd=2, col=colors
+)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 ```
 
 
@@ -298,11 +310,11 @@ At this level all software assumes that the amplification resemble a sigmoid cur
 
 Most software packages do not take into account if an amplification curve fulfills a certain criterion. For example, they do not try to make a classification if an amplification curve is positive (good quality) or negative (bad quality). This is a needed information for some algorithms. For example, the \texttt{linreg} method by @ruijter_amplification_2009 requires a decision, if an amplification curve is positive or negative. 
 
-To illustrate this problem an example for the analysis of amplification curves of the ``htPCR`` data set is given in \autoref{section_decision_modus}.
+To illustrate this problem an example for the analysis of amplification curves of the `htPCR` data set is given in \autoref{section_decision_modus}.
 
 Researchers solved many challenges that were daunting the users of qPCR devices in the past. In particular, algorithms for the processing of the positive amplification curves are widely available. A bottleneck of qPCR data analysis is the lack of features that can be used to build classifiers for amplification curve data. A classifier herein refer to a vector of features that can be used to distinguish the amplification curves by their shape only.
 
-One reason for this is the lack of features that are known for amplification curve data. Only few features for amplification curves are described in the literature. For example, tools described by us are the ``amptester()`` and the ``amptester.gui()`` functions, which are part of the \texttt{chipPCR} package [@roediger2015chippcr]. The \texttt{qpcR} package [@Ritz2008] contains an amplification curve test via the ``modlist()`` function. The parameter check = "uni2" offers an analytical approach, as part of a method for the kinetic outlier detection. It checks for a sigmoid structure of the amplification curve. Then it tests for the location of the first derivative maximum and the second derivative maximum. However, multi-parameter functions, like sigmoid models, fit "successful" in most cases including noise and give false positive results.
+One reason for this is the lack of features that are known for amplification curve data. Only few features for amplification curves are described in the literature. For example, tools described by us are the ``amptester()`` and the ``amptester.gui()`` functions, which are part of the \texttt{chipPCR} package [@roediger2015chippcr]. The \texttt{qpcR} package [@Ritz2008] contains an amplification curve test via the ``modlist()`` function. The parameter check="uni2" offers an analytical approach, as part of a method for the kinetic outlier detection. It checks for a sigmoid structure of the amplification curve. Then it tests for the location of the first derivative maximum and the second derivative maximum. However, multi-parameter functions, like sigmoid models, fit "successful" in most cases including noise and give false positive results.
 
 ## Principles of Amplification Curve Data Analysis \label{section_DataAnalysis}
 
@@ -315,7 +327,7 @@ The shape of a positive amplification curve follows in most cases a sigmoid shap
 These phases can also be considered a region of interest (ROI). For example the \textit{initial phase} is in the head region, while the \textit{plateau phase} is in the tail region. The \textit{exponential phase} is a ROI, which is in between the these ROIs.
 
 
-```{r, echo=FALSE, fig.cap="Graphical representation of qPCR amplification curves. The fluorescence emitted by the reporter dye (e.g, SYBR Green, EvaGreen) is plotted against cycle number. Data were taken from the ``testdat'' data set from the \\texttt{qpcR} package. \\label{amplification_curve_ROI}", fig.height=8, fig.width=8}
+```{r, echo=FALSE, fig.cap="Graphical representation of qPCR amplification curves. The fluorescence emitted by the reporter dye (e.g, SYBR Green, EvaGreen) is plotted against cycle number. Data were taken from the `testdat` data set from the \\texttt{qpcR} package. \\label{amplification_curve_ROI}", fig.height=8, fig.width=8}
 
 suppressMessages(library(qpcR))
 library(PCRedux)
@@ -324,11 +336,12 @@ colors <- rainbow(10, alpha=0.15)
 
 x_range <- 1L:35
 d <- testdat[x_range, ]
-amp_data <- data.frame(d[, 1], 
-                       pos=d[, 3] + 0.9, 
-                       posReverse = (max(d[, 3]) - rev(d[, 3])) + 0.9,
-                       neg=d[, 4] + 0.9 + 0.0005 * d[, 1]^2
-                      )
+amp_data <- data.frame(
+  d[, 1],
+  pos=d[, 3] + 0.9,
+  posReverse=(max(d[, 3]) - rev(d[, 3])) + 0.9,
+  neg=d[, 4] + 0.9 + 0.0005 * d[, 1] ^ 2
+)
 
 # Calculation for the normal data
 res_amp_data <- pcrfit(amp_data, 1, 2, l5)
@@ -341,12 +354,12 @@ res_takeoff_reverse <- takeoff(res_amp_data_reverse)
 res_takeoff_reverse[[1]] <- nrow(d) - res_takeoff_reverse[[1]]
 res_takeoff_reverse[[2]] <- amp_data[res_takeoff_reverse[[1]], 2] - res_takeoff_reverse[[2]] + min(amp_data[, 3])
 
-exponentialRange <- c((res_takeoff[[1]]+1):(res_takeoff_reverse[[1]]-1))
+exponentialRange <- c((res_takeoff[[1]] + 1):(res_takeoff_reverse[[1]] - 1))
 
 backgroundplateu <- function(x) {
-    bg <- mean(head(x, 10)) + 3 * sd(head(x, 10))
-    plat <- mean(tail(x, 10)) - 3 * sd(tail(x, 10))
-    list(bg=bg, plateau=plat)
+  bg <- mean(head(x, 10)) + 3 * sd(head(x, 10))
+  plat <- mean(tail(x, 10)) - 3 * sd(tail(x, 10))
+  list(bg=bg, plateau=plat)
 }
 
 res_lm <- lm(amp_data[exponentialRange, 2] ~ amp_data[exponentialRange, 1])
@@ -355,56 +368,59 @@ y_lim <- max(amp_data[, 2:4]) * 1.15
 
 res_bgpl <- unlist(backgroundplateu(amp_data[, 2]))
 
-layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE), respect = TRUE)
+layout(matrix(c(1, 1, 2, 3), 2, 2, byrow=TRUE), respect=TRUE)
 
-plot(amp_data[, 1], amp_data[, 2], ylim=c(-0.1, y_lim), xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
+plot(amp_data[, 1], amp_data[, 2], ylim=c(-0.1, y_lim), xlab="Cycle", ylab="RFU", type="b", lwd=2, pch=19)
 
-rect(0, 0, res_takeoff[[1]] + 1, res_takeoff[[2]]*1.25, col=colors[1], border=NA)
-text(5, res_bgpl[1]*1.45, "Baseline region")
+rect(0, 0, res_takeoff[[1]] + 1, res_takeoff[[2]] * 1.25, col=colors[1], border=NA)
+text(5, res_bgpl[1] * 1.45, "Baseline region")
 
-rect(res_takeoff_reverse[[1]] - 1, res_takeoff_reverse[[2]]*0.95, nrow(amp_data), y_lim, col=colors[5], border=NA)
-text(32, res_bgpl[2]*1.1, "Plateau region")
+rect(res_takeoff_reverse[[1]] - 1, res_takeoff_reverse[[2]] * 0.95, nrow(amp_data), y_lim, col=colors[5], border=NA)
+text(32, res_bgpl[2] * 1.1, "Plateau region")
 
 text(res_takeoff_reverse[[1]], mean(amp_data[, 2]), "Exponential\nregion")
 
 
-points(c(res_takeoff[[1]], res_takeoff_reverse[[1]]), 
-       c(res_takeoff[[2]], res_takeoff_reverse[[2]]), pch=12, cex=2.5)
+points(
+  c(res_takeoff[[1]], res_takeoff_reverse[[1]]),
+  c(res_takeoff[[2]], res_takeoff_reverse[[2]]), pch=12, cex=2.5
+)
 
 arrows(20, 0, 20, res_bgpl[1], code=3, length=0.1)
-text(30, res_bgpl[1]/2, "Background")
+text(30, res_bgpl[1] / 2, "Background")
 
 arrows(5, res_bgpl[2], 5, max(amp_data[, 2]), code=3, length=0.1)
-text(15, res_bgpl[2]*0.95, "Plateau")
+text(15, res_bgpl[2] * 0.95, "Plateau")
 
 
 abline(res_lm, col="red")
 points(amp_data[exponentialRange, 1], amp_data[exponentialRange, 2], pch=19, col="red")
 
-abline(h=res_bgpl, col=c("green","blue"))
+abline(h=res_bgpl, col=c("green", "blue"))
 abline(h=0, col="grey")
 
-legend(2, 12, paste0("Slope: ", signif(coef(res_lm)[2], 3),
-                               "\nBackground: ", signif(res_bgpl[1], 3),
-                               "\nPlateau: ", signif(res_bgpl[2], 3),
-                               "\nTOP: ", signif(res_takeoff[[1]], 3),
-                               "\nEND: ", signif(res_takeoff_reverse[[1]], 3)
-                        ), bty="n")
+legend(2, 12, paste0(
+  "Slope: ", signif(coef(res_lm)[2], 3),
+  "\nBackground: ", signif(res_bgpl[1], 3),
+  "\nPlateau: ", signif(res_bgpl[2], 3),
+  "\nTOP: ", signif(res_takeoff[[1]], 3),
+  "\nEND: ", signif(res_takeoff_reverse[[1]], 3)
+), bty="n")
 
-mtext("A    Positive", cex = 1, side = 3, adj = 0, font = 2)
+mtext("A    Positive", cex=1, side=3, adj=0, font=2)
 
 
 
-plot(amp_data[, 1], amp_data[, 4], ylim=c(-0.1, y_lim), xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
+plot(amp_data[, 1], amp_data[, 4], ylim=c(-0.1, y_lim), xlab="Cycle", ylab="RFU", type="b", lwd=2, pch=19)
 res_bgpl <- unlist(backgroundplateu(amp_data[, 4]))
-abline(h=res_bgpl, col=c("green","blue"))
+abline(h=res_bgpl, col=c("green", "blue"))
 abline(h=0, col="grey")
 
-mtext("B    Negative", cex = 1, side = 3, adj = 0, font = 2)
+mtext("B    Negative", cex=1, side=3, adj=0, font=2)
 
-curve_colors <- c(rainbow(ncol(boggy)-1, alpha=.5))
-matplot(boggy[, 1], boggy[, -1], type = "l", col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1)
-mtext("C    boggy data set", cex = 1, side = 3, adj = 0, font = 2)
+curve_colors <- c(rainbow(ncol(boggy) - 1, alpha=.5))
+matplot(boggy[, 1], boggy[, -1], type="l", col=curve_colors, xlab="Cycle", ylab="RFU", lty=1)
+mtext("C    boggy data set", cex=1, side=3, adj=0, font=2)
 ```
 
 
@@ -419,17 +435,17 @@ In contrast, negative or ambiguous amplification curves loosely resemble noise. 
 suppressMessages(library(qpcR))
 library(PCRedux)
 library(data.table)
-filename <- system.file("decision_res_competimer.csv", package = "PCRedux")
-res_competimer <- fread(filename, data.table = FALSE)
+filename <- system.file("decision_res_competimer.csv", package="PCRedux")
+res_competimer <- fread(filename, data.table=FALSE)
 
-curve_colors <- c(rainbow(ncol(competimer)-1, alpha=.5))
+curve_colors <- c(rainbow(ncol(competimer) - 1, alpha=.5))
 
-y_lim = c(0, max(competimer[, -1]))
+y_lim <- c(0, max(competimer[, -1]))
 
-par(mfrow = c(1, 3))
-matplot(competimer[, 1], competimer[, colnames(competimer) %in% res_competimer[res_competimer[["test.result.1"]] == "y", ]$competimer], type = "l", col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1, ylim = y_lim)
-matplot(competimer[, 1], competimer[, colnames(competimer) %in% res_competimer[res_competimer[["test.result.1"]] == "a", ]$competimer], type = "l", col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1, ylim = y_lim)
-matplot(competimer[, 1], competimer[, colnames(competimer) %in% res_competimer[res_competimer[["test.result.1"]] == "n", ]$competimer], type = "l", col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1, ylim = y_lim)
+par(mfrow=c(1, 3))
+matplot(competimer[, 1], competimer[, colnames(competimer) %in% res_competimer[res_competimer[["test.result.1"]] == "y", ]$competimer], type="l", col=curve_colors, xlab="Cycle", ylab="RFU", lty=1, ylim=y_lim)
+matplot(competimer[, 1], competimer[, colnames(competimer) %in% res_competimer[res_competimer[["test.result.1"]] == "a", ]$competimer], type="l", col=curve_colors, xlab="Cycle", ylab="RFU", lty=1, ylim=y_lim)
+matplot(competimer[, 1], competimer[, colnames(competimer) %in% res_competimer[res_competimer[["test.result.1"]] == "n", ]$competimer], type="l", col=curve_colors, xlab="Cycle", ylab="RFU", lty=1, ylim=y_lim)
 ```
 
 This means that the amplification curve shape, the amplification efficiency and the Cq value are essential to judge the outcome of a qPCR reaction.
@@ -461,7 +477,7 @@ Another approach is to use non-linear model to fit the amplification curve. For 
 
 \begin{equation}
 \label{eq_Richards}
-y = c + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
+y=c + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 \end{equation}
 
 
@@ -471,41 +487,45 @@ library(chipPCR)
 library(magrittr)
 
 res_model <- pcrfit(testdat, cyc=1, fluo=2, model=l5)
-res_takeoff <- takeoff(res_model, pval = 0.05, nsig = 3)
+res_takeoff <- takeoff(res_model, pval=0.05, nsig=3)
 res_th.cyc <- th.cyc(testdat[, 1], testdat[, 2], r=2.356, linear=FALSE)
 
 
-# par(las = 0, oma = c(0.5, 0.5, 0.5, 0.5))
-par(las = 0, oma = c(0, 0, 0, 0))
+# par(las=0, oma=c(0.5, 0.5, 0.5, 0.5))
+par(las=0, oma=c(0, 0, 0, 0))
 
-layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE), respect = TRUE)
+layout(matrix(c(1, 2, 3, 3), 2, 2, byrow=TRUE), respect=TRUE)
 
 
-plot(testdat[, 1], testdat[, 2], xlab = "Cycles", ylab = "Raw fluorescence")
+plot(testdat[, 1], testdat[, 2], xlab="Cycles", ylab="Raw fluorescence")
 
 abline(h=(mean(testdat[1:10, 2]) + 3 * sd(testdat[1:10, 2])), col="grey")
 
-abline(h=res_th.cyc[1,2], col="red")
-arrows(res_th.cyc[1,1], res_th.cyc[1,2], res_th.cyc[1,1], 0, angle=25, length=0.1, lwd=2)
-legend("bottomright", paste0("Ct = ", signif(res_th.cyc[1,1], 4)), bty="n")
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+abline(h=res_th.cyc[1, 2], col="red")
+arrows(res_th.cyc[1, 1], res_th.cyc[1, 2], res_th.cyc[1, 1], 0, angle=25, length=0.1, lwd=2)
+legend("bottomright", paste0("Ct=", signif(res_th.cyc[1, 1], 4)), bty="n")
+mtext("A", cex=1.25, side=3, adj=0, font=2)
 
-plot(testdat[, 1], log(testdat[, 2]), xlab = "Cycles", ylab = "log(Raw fluorescence)")
-abline(h=log(res_th.cyc[1,2]), col="red")
-arrows(res_th.cyc[1,1], log(res_th.cyc[1,2]), res_th.cyc[1,1], min(log(testdat[, 2]), na.rm=TRUE), angle=25, length=0.1, lwd=2)
-legend("bottomright", paste0("Ct = ", signif(res_th.cyc[1,1], 4)), bty="n")
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+plot(testdat[, 1], log(testdat[, 2]), xlab="Cycles", ylab="log(Raw fluorescence)")
+abline(h=log(res_th.cyc[1, 2]), col="red")
+arrows(res_th.cyc[1, 1], log(res_th.cyc[1, 2]), res_th.cyc[1, 1], min(log(testdat[, 2]), na.rm=TRUE), angle=25, length=0.1, lwd=2)
+legend("bottomright", paste0("Ct=", signif(res_th.cyc[1, 1], 4)), bty="n")
+mtext("B", cex=1.25, side=3, adj=0, font=2)
 
 res_efficiency <- efficiency(res_model)
 arrows(res_takeoff[[1]], res_takeoff[[2]], res_takeoff[[1]], -0.2, angle=25, length=0.1, lwd=2)
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C", cex=1.25, side=3, adj=0, font=2)
 ```
 
-    > A comment on noise in sigmoid amplification cures: Noise in amplification curves can have very different causes. Among them are incorrectly assigned dye detectors, errors during the calibration of dyes for the instrument, errors during the preparation of the PCR master mix, sample degradation, lack of a sample in the PCR, too much sample material in the PCR mix or a low detection probe concentration.
+> **A comment on noise in sigmoid amplification cures**: Noise in amplification curves can have very different causes. Among them are incorrectly assigned dye detectors, errors during the calibration of dyes for the instrument, errors during the preparation of the PCR master mix, sample degradation, lack of a sample in the PCR, too much sample material in the PCR mix or a low detection probe concentration.
 
 \newpage
 
 ## Functions of the \texttt{PCRedux} Package \label{section_Functions_of_PCRedux}
+
+There are a number of ROIs (see figure \autoref{amplification_curve_ROI}) in an amplification curve that are potentially useful for calculating characteristics for the classification of amplification curves. As a rule, amplification curves deviate differently from the ideal sigmoid models (compare figure \autoref{figure_sigmoid_cuve} and figure \autoref{samples_of_qPCRs}) of qPCRs. For instance, some amplification curves are only flat or have a rise with positive or negative signs without sigmodic function. In the case of sigmoid amplification curves, there are turning points which can be characteristic for positive amplification curves. Such differences are interesting candidates to calculate features for machine learning. On the basis of this observation, various concepts were developed and implemented in algorithms to describe amplification curves.
+
+The intent of @gunay_machine_2016 was to improve the Cq value determinations. They postulated that they can achieve an improved prediction of Cq values using a modified sigmoid function (three parameters). However, this is questionable. Because a basic assumption, from their approach, was that this model can be applied to any data set. There are several reasons why such an assumption is not universally valid. In the chapters \autoref{section_hookreg}, for example, the functions ``hookreg()`` and ``hookregNL()`` are briefly displayed. These amplification curves deviate significantly from a three-parameter model. In addition, non-linear functions also tend to adjust noise (\autoref{curve_fit_fail}). Therefore, several characteristics of an amplification curve should be recorded first and then checked for their usefulness. There, it becomes clear that a three-parameter model adaptation can be adapted to noise and thus provides unreliable predictions. 
 
 As shown in \autoref{amplification_curve_shapes} have positive amplification curves a typical sigmoid shape, while negative curves resemble random noise.
 
@@ -519,9 +539,9 @@ The function described following are aimed for experimental studies. It is impor
 
 Autocorrelation analysis is a technique that is used in the field of time series analysis. It can be used to reveal regularly occurring patterns in one-dimensional data [@spiess_system-specific_2016]. The autocorrelation measures the correlation of a signal $f(t)$ with itself shifted by some time delay $f(t - \tau)$.
 
-The ``autocorrelation_test()`` function coercers the amplification curve data to an object of the class "zoo" (\texttt{zoo} package) as indexed totally ordered observations. Next follows the computation of a lagged version of the amplification curve data. The shifting the amplification curve data is based back by a given number of observations (default $\tau = 3$). Then follows a significance test for correlation between paired samples (amplification curve data & lagged amplification curve data). The hypothesis is that the paired sample of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example. 
+The ``autocorrelation_test()`` function coercers the amplification curve data to an object of the class "zoo" (\texttt{zoo} package) as indexed totally ordered observations. Next follows the computation of a lagged version of the amplification curve data. The shifting the amplification curve data is based back by a given number of observations (default $\tau=3$). Then follows a significance test for correlation between paired samples (amplification curve data & lagged amplification curve data). The hypothesis is that the paired sample of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example. 
 
-```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the **testdat** data set (\\texttt{qpcR} package, [@Ritz2008]). A) All amplification curves of the **testdat** data set. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the `testdat` data set (\\texttt{qpcR} package, [@Ritz2008]). A) All amplification curves of the `testdat` data set. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
 # Test for autocorrelation in amplification curve data
 # Load the libraries magrittr for pipes and qpcR for the data
 library(magrittr)
@@ -529,61 +549,74 @@ suppressMessages(library(qpcR))
 library(PCRedux)
 # Test for autocorrelation in the testdat data set
 res_ac <- sapply(2:ncol(testdat), function(i) {
-    autocorrelation_test(testdat[, i])
-}
-)
+  autocorrelation_test(testdat[, i])
+})
 
 # Plot curve data as overview
 # Define the colors for the amplification curves
-colors <- rainbow(ncol(testdat)-1, alpha=0.3)
+colors <- rainbow(ncol(testdat) - 1, alpha=0.3)
 # Names of the samples
 samples <- colnames(testdat)[-1]
-layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE))
-matplot(testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU", 
-        main="testdat data set", type="l", lty=1, col=colors, lwd=2)
+layout(matrix(c(1, 2, 1, 3), 2, 2, byrow=TRUE))
+matplot(
+  testdat[, 1], testdat[, -1], xlab="Cycle", ylab="RFU",
+  main="testdat data set", type="l", lty=1, col=colors, lwd=2
+)
 legend("topleft", samples, pch=19, col=colors, ncol=2, bty="n")
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
-# Curves classified by a human after analysis of the overview. 1 = positive, 
-# 0 = negative
-human_rating <- c(1,1,0,0,1,1,0,0, 
-                  1,1,0,0,1,1,0,0,
-                  1,1,0,0,1,1,0,0)
+# Curves classified by a human after analysis of the overview. 1=positive,
+# 0=negative
+human_rating <- c(
+  1, 1, 0, 0, 1, 1, 0, 0,
+  1, 1, 0, 0, 1, 1, 0, 0,
+  1, 1, 0, 0, 1, 1, 0, 0
+)
 
-# Convert the n.s. (not significant) in 0 and others to 1. 
-# Combine the results of the aromatic autocorrelation_test as variable "ac", 
+# Convert the n.s. (not significant) in 0 and others to 1.
+# Combine the results of the aromatic autocorrelation_test as variable "ac",
 # the human classified values as variable "hr" in a new data frame (res_ac_hr).
-res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1), 
-                        hr=human_rating) %>% as.matrix
-                        res_performeR <- performeR(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
-                        
-                        # Add ratings by human and autocorrelation_test to the plot
-                        par(las=2)
-                        plot(1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample", 
-			     ylab="Decisions", xaxt="n", yaxt="n", pch=19)
-                        axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
-                        axis(1, at=1:nrow(res_ac_hr), labels=colnames(testdat)[-1], las=2)
-                        points(1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2, 
-			      col="red")
-                        legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1), 
-                               bty="n", col=c("black","red"))
-                        mtext("B", cex = 2, side = 3, adj = 0, font = 2, las=0)
-                        
-                        barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n", ylab="", 
-                                main="Performance of autocorrelation_test")
-                        axis(2, at=c(0,1), labels=c("0", "1"), las=2)
-                        mtext("C", cex = 2, side = 3, adj = 0, font = 2, las=0)
+res_ac_hr <- data.frame(
+  ac=ifelse(res_ac == "n.s.", 0, 1),
+  hr=human_rating
+) %>% as.matrix()
+res_performeR <- performeR(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
+
+# Add ratings by human and autocorrelation_test to the plot
+par(las=2)
+plot(
+  1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab="Sample",
+  ylab="Decisions", xaxt="n", yaxt="n", pch=19
+)
+axis(2, at=c(0, 1), labels=c("negative", "positive"), las=2)
+axis(1, at=1:nrow(res_ac_hr), labels=colnames(testdat)[-1], las=2)
+points(
+  1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch=1, cex=2,
+  col="red"
+)
+legend(
+  "topleft", c("Human", "autocorrelation_test"), pch=c(19, 1),
+  bty="n", col=c("black", "red")
+)
+mtext("B", cex=1.5, side=3, adj=0, font=2, las=0)
+
+barplot(
+  as.matrix(res_performeR[, c(1:10, 12)]), yaxt="n", ylab="",
+  main="Performance of autocorrelation_test"
+)
+axis(2, at=c(0, 1), labels=c("0", "1"), las=2)
+mtext("C", cex=1.5, side=3, adj=0, font=2, las=0)
 ```
 
 As shown in this example, the ``autocorrelation_test()`` function is able to distinguish between positive and negative amplification curves. Negative amplification curve were in all cases non-significant. In contrast, the coefficients of correlation for positive amplification curves ranged between `r signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[1]` and `r signif(range(as.numeric(res_ac), na.rm=TRUE), 3)[2]` at a significance level of 0.01 and a lag of 3.
 
 ### ``decision_modus()`` - A Function to Get a Decision (Modus) from a Vector of Classes \label{section_decision_modus}
 
-Several approaches for machine learning exist. It is a very rich topic. One of them is the supervised learning, where the aim is to infer a function from labeled training data. Labeled training data are for example created by a human. As described in \autoref{section_introduction} and \autoref{section_DataAnalysis}, amplification curves can be labeled as negative, ambiguous or positive. For example (\autoref{htPCR_nap}) were taken from the ``htPCR`` data set (compare \autoref{samples_of_qPCRs}B).
+Many approaches to machine learning exist. The subject is very rich. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Classified training data can be created by one or more individuals, for example. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve, similar to what was described in \autoref{section_introduction} and \autoref{section_DataAnalysis}. 
 
-Provided that different users are given the task to classify the amplification curves, it is likely that the ambiguous amplification curve (`r colnames(htPCR)[512]`) in \autoref{htPCR_nap} will get another rating (ambiguous $\rightarrow$ positive) from an inexperienced user. We performed exactly this kind of experiment with different users. For this task the amplification curve data were analyzed as described in @roediger2015chippcr.
+For example, the amplification curves in (\autoref{htPCR_nap}) were taken from the `htPCR` data set (see \autoref{samples_of_qPCRs}B). Assuming that the classification of the amplification curves is delegated to different users, it is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) will be considered ambiguous or even positive ($\leftrightarrow$ positive ambivalent) by the users. A classification experiment was carried out for the complete `htPCR` data set. For this purpose, the amplification curves were classified at different time points as described in @roediger2015chippcr.
 
-The \autoref{tableheaddecision} gives the first rows of the human classified amplification curves for the ``htPCR`` data set (in total `r ncol(qpcR::htPCR)-1` amplification curves). In total the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`) which sums up to 70864 individually analyzed amplification curves for this data set. All raw data a contained in the CSV file `decision_res_htPCR.csv` as part of the \texttt{PCRedux} package.
+Table \autoref{tableheaddecision} shows from a total of `r ncol (qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive.  In total, the curves were classified eight times (`Test Score. 1` $\ldots$ `Test Score. 8`), resulting in a whole of 70864 individually analyzed amplification curves for this data set. All the raw data is included in the CSV file. 
 
 ```{r, eval=TRUE, echo=TRUE, results='asis'}
 library(PCRedux)
@@ -592,24 +625,37 @@ suppressMessages(library(data.table))
 library(magrittr)
 
 filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
-decision_res_htPCR <- fread(filename, data.table = FALSE)
+decision_res_htPCR <- fread(filename, data.table=FALSE)
 
-print(xtable(head(decision_res_htPCR), caption = ".", 
-             label='tableheaddecision'), include.rownames = FALSE, caption.placement = "top", size="\\tiny")
+print(
+  xtable(
+    rbind(
+      head(subset(decision_res_htPCR, conformity == FALSE), 25),
+      head(subset(decision_res_htPCR, conformity == TRUE), 25)
+    ), caption=".",
+    label="tableheaddecision"
+  ), include.rownames=FALSE,
+  caption.placement="top", size="\\tiny"
+)
 ```
 
+This example shows that the amplification curves have been classified differently in of `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` the cases (e.g., line 1 "P01. W01"). While for other amplification curves all classifications were the same (e.g., line 8856 "P95. W94").
 
-As seen in the example the rating for the same amplification curves vary (e.g., row 1 "P01.W01"), while others are in agreement (e.g., row 8856 "P95.W94"). ``decision_modus()`` is a function that can be used to find the most frequent (mode) decision in such a data set. The classes were defined by the user (e.g., "a", "n", "y" -> "ambiguous", "negative", "positive"). This function is useful if large collections of varying decision (e.g., "a", "a", "a", "n", "n") need to be condensed to a single decision (3 x "a", 2 x "n" $\rightarrow$ "a").
+For the systematic statistical analysis of classification data sets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. This feature is useful if you want to consolidate large collections of different decisions into a single decision. 
 
-We used the ``decision_modus()`` function on the `decision_res_htPCR.csv` data set with all the ratings (column 2 to 4) and determined the mode of each line.
+Observed:"a", "a", "a", "a", "a", "n", "n", "n" $\rightarrow$ frequencies 5 x "a", 3 x "n" $\rightarrow$ mode:"a"
+
+Since the class names are known, they only have to be interpreted by the user (e.g., "a","n","y" -> "ambivalent","negative","positive"). 
+
+The ``decision_modus()`` function was applied to the record `decision_res_htPCR.csv` with all classification rounds (columns 2 to 9) and the mode was determined for each amplitude curve.
 
 ```{r, eval=TRUE, echo=TRUE}
 # Use decision_modus() to go through each row of all classification done by
 # a human.
 
 dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
-    decision_modus(decision_res_htPCR[i, 2:4])
-}) %>% unlist
+  decision_modus(decision_res_htPCR[i, 2:9])
+}) %>% unlist()
 
 names(dec) <- decision_res_htPCR[, 1]
 
@@ -617,216 +663,201 @@ names(dec) <- decision_res_htPCR[, 1]
 summary(dec)
 ```
 
-```{r, echo=FALSE, fig.cap="\\label{htPCR_nap}A) Sample data from the **htPCR** data set (\\texttt{qpcR} package, [@Ritz2008]) with negative (black), ambiguous (red) or positive (green) amplification curves. The negative amplification curve is not sigmoid. A strong positive trend is present in the data. The ambiguous amplification curve is not a perfect sigmoid curve, exhibits a positive slope in the background phase (cylce 1 $\\rightarrow$ 5) and a low amplitude. In contrast, the positive amplification curve is sigmoid, starting with a background phase (cylce 1 $\\rightarrow$ 5), an exponential phase (cylce 6 $\\rightarrow$ 25) and a plateau phase (cylce 26 $\\rightarrow$ 35). B) Summary of all sample data from the **htPCR** data set (\\texttt{qpcR} package, [@Ritz2008]) with negative (black), ambiguous (red) or positive (green) amplification curves.", fig.height=5.5, fig.width=11}
-
-par(mfrow=c(1,2))
+```{r, echo=FALSE, fig.cap="\\label{htPCR_nap}A) Comparison of amplification curves. Examples of a negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` data set (\\texttt{qpcR} package, @Ritz2008). The negative gain curve is not sigmoid and shows a strong positive trend. The ambiguous amplification curve approaches a sigmoid from, but shows a positive slope in the background (cycle 1 $\\rightarrow$ 5). The positive amplification curve is sigmoid. It begins in the background phase (cycle 1 $\\rightarrow$ 5) with a flat baseline, and shortly thereafter the exponential phase follows (cycle 5 $\\rightarrow$ 25) followed by a plateau phase (cycle 26 $\\rightarrow$ 35). B) Summary of frequencies of all classes of the `htPCR` record. negative, black; ambiguous, red; positive, green.", fig.height=5.5, fig.width=11}
+par(mfrow=c(1, 2))
 
 suppressMessages(library(qpcR))
-matplot(htPCR[, 1], htPCR[, c(552, 512, 616)], xlab="Cycle", ylab="RFU", 
-        main="htPCR data set", type="l", lty=1, lwd=2)
-legend("topleft", c(paste("negative ", colnames(htPCR)[552]), 
-                    paste("ambiguos ", colnames(htPCR)[512]), 
-                    paste("positive ", colnames(htPCR)[616])
+matplot(
+  htPCR[, 1], htPCR[, c(552, 512, 616)], xlab="Cycle", ylab="RFU",
+  main="htPCR data set", type="l", lty=1, lwd=2
+)
+legend("topleft", c(
+  paste("negative ", colnames(htPCR)[552]),
+  paste("ambiguos ", colnames(htPCR)[512]),
+  paste("positive ", colnames(htPCR)[616])
 ), col=1:3, pch=19, bty="n")
-mtext("A", cex = 2, side = 3, adj = 0, font = 2, las=0)
+mtext("A", cex=1.5, side=3, adj=0, font=2, las=0)
 
 # Plot the Frequencies of the decisions
-barplot(table(dec), xlab="Decision", ylab="Frequency", 
-        main="Amplification curves classified by humans\n htPCR data set", col=c(2,3,1))
-mtext("B", cex = 2, side = 3, adj = 0, font = 2, las=0)
+barplot(
+  table(dec), xlab="Decision", ylab="Frequency",
+  main="", col=c(2, 3, 1)
+)
+mtext("B    Classified by human", side=3, adj=0, font=2, las=0)
 ```
 
-Another usage of the ``decision_modus()`` function is by setting the `max_freq` parameter to `FALSE`. This option gives the counts of all decisions.
-
+Another usage mode ``decision_modus ()`` function is to set the parameter `max_freq=FALSE`. That option specifies the number of all classifications.
+    
 ```{r, eval=TRUE, echo=TRUE}
 # Decisions for sample P01.W06
-decision_modus(decision_res_htPCR[which(decision_res_htPCR[["sample"]] == "P01.W06"), 
-               2:4], max_freq=FALSE)
-
-# Decisions for sample P01.W13
-decision_modus(decision_res_htPCR[which(decision_res_htPCR[["sample"]] == "P01.W13"), 
-               2:4], max_freq=FALSE)
+res_dec_P01.W06 <- decision_modus(decision_res_htPCR[
+  which(decision_res_htPCR[["sample"]] == "P01.W06"),
+  2L:9
+], max_freq=FALSE)
+print(res_dec_P01.W06)
 ```
 
+This amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn into a `negative` decision.
 
-```{r, eval=TRUE, echo=TRUE}
-# Load the human classified data sets decision_res_htPCR.csv and the reevaluation 
-# decision_res_htPCR_reevaluation.csv thereof.
-# Load the decision_res_htPCR.csv data set
-filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
-decision_res_htPCR <- fread(filename, data.table = FALSE)
 
-# Load the decision_res_htPCR_reevaluation.csv data set
-filename <- system.file("decision_res_htPCR_reevaluation.csv", package="PCRedux")
-decision_res_htPCR_reevaluation <- fread(filename, data.table = FALSE)
-
-# Show the first five elements of both data sets
-head(decision_res_htPCR)
-head(decision_res_htPCR_reevaluation)
-
-# Renanme the columns to give them the same pattern
-pattern <- c("sample", "test.result.1", "test.result.2", "test.result.3", "conformity")
-colnames(decision_res_htPCR_reevaluation) <- pattern
-colnames(decision_res_htPCR) <- pattern
-
-# Merge the two data sets based on the sample name (amplification curve).
-decision_res_htPCR_merged <- merge(decision_res_htPCR[, -5], 
-                                   decision_res_htPCR_reevaluation[, -5], 
-                                   by="sample")
-
-# Show the first five elements of the merged data sets
-head(decision_res_htPCR_merged)
-
+```{r, echo=FALSE, fig.cap="\\label{htPCR_nap_all}All decisions.", fig.height=11, fig.width=11}
+# par(mfrow=c(3,3))
+# 
+# decision_plot <- function(data, name="", rating_columns=2:4){
+#     dec <- lapply(1L:nrow(data), function(i) {
+#         decision_modus(data[i, c(rating_columns)])
+#     }) %>% unlist
+#     barplot(table(dec), xlab="Decision", ylab="Frequency",
+#             main=paste("Human classified - htPCR data set",
+#                        name), col=c(2,3,1), ylim=c(0,6000))
+# }
+# decision_plot(decision_res_htPCR, name="", rating_columns=2:4)
+# # decision_plot(decision_res_htPCR_reevaluation, name="", rating_columns=2:4)
+# decision_plot(decision_res_htPCR_merged, name="merged", rating_columns=2:7)
 ```
 
-Plot everything.
-
-```{r, echo=TRUE, fig.cap="\\label{decision_plot}decision plot.", fig.height=5.5, fig.width=11}
-
-par(mfrow=c(1,3))
-
-
-data <- decision_res_htPCR_merged
-decision_plot <- function(data, name="", rating_columns=2:4){
-    dec <- lapply(1L:nrow(data), function(i) {
-        decision_modus(data[i, c(rating_columns)])
-    }) %>% unlist
-    barplot(table(dec), xlab="Decision", ylab="Frequency", 
-            main=paste("Amplification curves classified by humans\n htPCR data set", 
-                       name), col=c(2,3,1), ylim=c(0,6000))
-}
-
-decision_plot(decision_res_htPCR, name="", rating_columns=2:4)
-decision_plot(decision_res_htPCR_reevaluation, name="", rating_columns=2:4)
-decision_plot(decision_res_htPCR_merged, name="merged", rating_columns=2:7)
-```
 
 ### ``earlyreg()`` - A Function to Calculate the Slope and Intercept of Amplification Curve Data from a qPCR Experiment \label{section_earlyreg}
 
-There are numerous segments of an amplification curve, that are potentially useful to extract a feature for an amplification curve classification. Some amplification curves deviate from the curvature as expected from a sigmoid model. In particular, some amplification curves have just a positive (linear) trend without typical infliction points. Others show a step signal increase even in the background phase (cycle 1 to 10) (compare @roediger2015chippcr, Figure S12). The slope and the intercept in background region is an interesting target for a classification.
-    
-@gunay_machine_2016 used a "modified sigmoid function for CT [Cq] prediction". The fundamental assumption of this approach is, that such a model can be applied to any data set. There are several reasons to why such assumption is flawed. For example is shown in \autoref{section_hookreg} about the ``hookreg()`` and ``hookregNL()`` functions. There it becomes evident that a three parameter model fit will give wrong predictions. Moreover, non-linear function tend to fit even noise (\autoref{curve_fit_fail}).
+The use of the slope and the intercept is suggested here to distinguish the amplification curves. For this purpose, the function ``earlyreg ()`` was developed. This wrapper ffunction uses an MM-type estimator [@todorov_object-oriented_2009] for robust linear regression within a limited number of cycles. As ROI, the first six cycles were defined. This restriction is based on empirical data suggesting that during the first six cycles only a significant increase in signal strength can be measured with a few qPCRs. However, ``earlyreg ()`` ignores the first cycle, as many thermal cyclers use this cycle for sensor calibration. Extreme values are therefore limited from the very beginning. As standard, the next six amplitude values are used for robust linear regression. The number of cycles can also be adjusted via the parameter *range*. 
 
 
-```{r, echo=TRUE, fig.cap="\\label{curve_fit_fail}Sample data from the **testdat** data set (\\texttt{qpcR} package, [@Ritz2008]) with negative and positive amplification curves.", fig.height=7, fig.width=7,eval=FALSE}
+```{r, echo=TRUE, fig.cap="\\label{curve_fit_fail}Sample data from the `testdat` data set (\\texttt{qpcR} package, [@Ritz2008]) with negative and positive amplification curves.", fig.height=7, fig.width=7,eval=FALSE}
 # Load the drc package for the five-parameter log-logistic fit.
 library(drc)
 library(chipPCR)
 
-# Load the testdat data set from the qpcR package without 
+# Load the testdat data set from the qpcR package without
 # loading the entire package.
 data(testdat, package="qpcR")
 
 # Arrange graphs in an orthogonal matrix and set the plot parameters.
-par(mfrow = c(2,2))
+par(mfrow=c(2, 2))
 
 # Apply the the amptester function to all amplification curve data
 # and write the results to the main of the plots.
 
-curve_data_columns <- c(2,4,9,20)
+curve_data_columns <- c(2, 4, 9, 20)
 
-for(i in 1L:length(curve_data_columns)) {
-    res.ampt <- suppressMessages(amptester(testdat[, curve_data_columns[i]]))
-    
-    # Make a logical connection by two tests (shap.noisy, lrt.test and 
-    # tht.dec) of amptester to decide if an amplification reaction is 
-    # positive or negative.
-    decision <- ifelse(!res.ampt@decisions[1] &&
-                       res.ampt@decisions[2] && 
-                       res.ampt@decisions[4], 
-                       "positive", "negative")
-    
-    plot(testdat[, 1], testdat[, curve_data_columns[i]], 
-         xlab = "Cycle", ylab = "RFU", pch = 19, main = "")
-    mtext(LETTERS[i], cex = 2, side = 3, adj = 0, font = 2)
-    legend("bottomright", paste0(colnames(testdat)[curve_data_columns[i]], 
-                                 "\nDecision: ", decision), 
-           bty="n", cex=1.25, col="red")
-    # Use the drm function with a five-parameter log-logistic fit model.
+for (i in 1L:length(curve_data_columns)) {
+  res.ampt <- suppressMessages(amptester(testdat[, curve_data_columns[i]]))
 
+  # Make a logical connection by two tests (shap.noisy, lrt.test and
+  # tht.dec) of amptester to decide if an amplification reaction is
+  # positive or negative.
+  decision <- ifelse(!res.ampt@decisions[1] &&
+    res.ampt@decisions[2] &&
+    res.ampt@decisions[4],
+  "positive", "negative"
+  )
 
-        try(lines(predict(drm(testdat[, curve_data_columns[i]] ~ testdat[, 1], 
-                          fct = LL.4())), col = 3), silent=TRUE)
- }
+  plot(
+    testdat[, 1], testdat[, curve_data_columns[i]],
+    xlab="Cycle", ylab="RFU", pch=19, main=""
+  )
+  mtext(LETTERS[i], cex=2, side=3, adj=0, font=2)
+  legend(
+    "bottomright", paste0(
+      colnames(testdat)[curve_data_columns[i]],
+      "\nDecision: ", decision
+    ),
+    bty="n", cex=1.25, col="red"
+  )
+  # Use the drm function with a five-parameter log-logistic fit model.
+
+  try(lines(predict(drm(
+      testdat[, curve_data_columns[i]] ~ testdat[, 1],
+      fct=LL.3()
+  )), col=2), silent=TRUE)
+
+  try(lines(predict(drm(
+    testdat[, curve_data_columns[i]] ~ testdat[, 1],
+    fct=LL.4()
+  )), col=3), silent=TRUE)
+}
 ```
 
-We suggest using the slope and the intercept for the differentiation of the different amplification curves. Therefore, we developed the function ``earlyreg()``. This wrapper function uses a MM-type estimator for a robust linear regression [@todorov_object-oriented_2009].
+The following example illustrates a possible use of the function ``earlyreg ()``. For that purpose 500 amplification curves were randomly drawn from the `htPCR` data set and used for analysis. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. The figure \autoref{earlyreg_slopes}B shows only the first ten cycles.
 
-``earlyreg()`` ignores the first cycle value and includes by default the next six cycle-dependent amplitude values to perform the regression on them. The exclusion of the first values is based on empirical expert knowledge. Many qPCR system report initial values in cycle one, which largely deviate from subsequent values in the background phase. Therefore, extreme values are removed. For the analysis we used arbitrarily the first 500 amplification curves of the ``htPCR`` data set.
 
-The following example illustrates a potential use of the ``earlyreg()`` function on the **htPCR** data set. \autoref{earlyreg_slopes} A shows all amplification curves. \autoref{earlyreg_slopes} B shows the first ten cycles only.
-
-```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the **htPCR** data set (\\texttt{qpcR} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
-par(bty="o", font=2, font.axis=2, las=1, cex.axis=1.3, cex.lab=1.3, lwd=1.3, 
-#     bg="white", oma=c(.5,.5,.5,.5))
-    bg="white", oma=c(0,0,0,0))
+```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the `htPCR` data set (\\texttt{qpcR} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
+par(
+  bty="o", font=2, font.axis=2, las=1, cex.axis=1.3, cex.lab=1.3, lwd=1.3,
+  #     bg="white", oma=c(.5,.5,.5,.5))
+  bg="white", oma=c(0, 0, 0, 0)
+)
 data <- htPCR[, 1:501]
-curve_colors <- c(rainbow(ncol(data)-1, alpha=.5))
+curve_colors <- c(rainbow(ncol(data) - 1, alpha=.5))
 range <- 1:10
 
 # par(mfrow=c(1,2), las=0, bty="o", oma=c(1,1,1,1))
-par(mfrow=c(1,2), las=0, bty="o", oma=c(0,0,0,0))
+par(mfrow=c(1, 2), las=0, bty="o", oma=c(0, 0, 0, 0))
 
-matplot(data[, 1], data[, -1], col= curve_colors, pch=19, lty=1, type="l", 
-        xlab="Cycle", ylab="RFU", main="htPCR data set")
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+matplot(
+  data[, 1], data[, -1], col=curve_colors, pch=19, lty=1, type="l",
+  xlab="Cycle", ylab="RFU", main="htPCR data set"
+)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
-matplot(data[range, 1], data[range, -1], col= curve_colors, pch=19, lty=1, 
-        type="l", xlab="Cycle", ylab="RFU", 
-        main="htPCR data set\n Cycle 1 to 10")
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+matplot(
+  data[range, 1], data[range, -1], col=curve_colors, pch=19, lty=1,
+  type="l", xlab="Cycle", ylab="RFU",
+  main="htPCR data set\n Cycle 1 to 10"
+)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 ```
 
-Next we calculated of the slope and intercept with the ``earlyreg()`` function 
-for 
-the first six cycles of the qPCR data. The results were subjected to a cluster analysis by k-means clustering. For the analysis we focused on the slope, because the intercept is representing the background fluorescence in the early phase of the qPCR. As shown in \autoref{earlyreg_results}B exhibited the density function of all intercept values a mono-modal shaped bell curve. In contrast, the density function of all slope values had a bi-modal shaped bell curve (\autoref{earlyreg_results}C). Therefore, the slope appears to be an indicator for differences between the qPCR amplification curves.
+Next, the ``earlyreg ()`` function was used to determine the slope and intercept in the range of the first six PCR cycles. For the further analyses, only slope was used, because in this case  the intercept merely describes the background fluorescence within this data set. When additional datasets are included, the offset by the zero point should be used as well. The results were used in a cluster analysis using k-means clustering. As shown in Figure \autoref{earlyreg_results}B, the density function from the values of the zero shift resembles a monomodal bell curve. By contrast, the density function from the rises is rather bimodal (\autoref{earlyreg_results}C). Therefore, the increase seems to be an indicator of differences between the amplification curves.
 
-The cluster analysis by k-means (\textit{k}=3, assumed weak slope, moderate slope, strong slope) on the slope data was plotted. The clusters grouped the amplification curve data in curves with no-background region and high slope, amplification curves with no-background region and a weaker slope and amplification curves with background region and a weak slope (\autoref{earlyreg_results}D-F).
+When analyzing clusters with k-means (\textit{k}3 it was assumed that some amplification curves have a small, moderate or strong increase. After the cluster analysis this could also be observed (\autoref{earlyreg_results}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
 
-To conclude, this approach might be of use for the classification of 
-amplification curves.
-
-```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of samples according to their slope and intercept. The **htPCR** data set (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=7, fig.width=7}
-# Normalize each amplification curve to their 0.99 percentile and use the 
-# earlyreg function to determine the slope and intercept of the first 
+```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of samples according to their slope and intercept. The `htPCR` data set (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=7, fig.width=7}
+# Normalize each amplification curve to their 0.99 percentile and use the
+# earlyreg function to determine the slope and intercept of the first
 # 6 cycles
 
-res_slope_intercept <- do.call(rbind, lapply(2L:ncol(data), function(i){
-                     earlyreg(x=data[, 1], y=data[, i], range=7, normalize=TRUE)
-                    }))
+res_slope_intercept <- do.call(rbind, lapply(2L:ncol(data), function(i) {
+  earlyreg(x=data[, 1], y=data[, i], range=7, normalize=TRUE)
+}))
 # Label the sample with their original names
 rownames(res_slope_intercept) <- colnames(htPCR)[2:ncol(data)]
 # Use k-means for cluster analysis
 res_kmeans <- kmeans(res_slope_intercept[, "slope"], 3)$"cluster"
 
-par(mfrow=c(2,3))
+par(mfrow=c(2, 3))
 plot(res_slope_intercept, col=res_kmeans)
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
 plot(density(res_slope_intercept[, "intercept"]), main="Intercept")
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 
 plot(density(res_slope_intercept[, "slope"]), main="Slope")
 
-for(i in unique(res_kmeans)) {
-    abline(v=min(res_slope_intercept[res_kmeans==i, "slope"]), col=i)
+for (i in unique(res_kmeans)) {
+  abline(v=min(res_slope_intercept[res_kmeans == i, "slope"]), col=i)
 }
-mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+mtext("C", cex=1.5, side=3, adj=0, font=2)
 
-matplot(data[, 1], data[, which(res_kmeans==1)+1], col= curve_colors, pch=19, lty=1, 
- type="l", xlab="Cycle", ylab="RFU", 
- main="htPCR data set (1-500)\n Cluster 1", ylim=c(min(data[, -1]), 0.4))
-mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+matplot(
+  data[, 1], data[, which(res_kmeans == 1) + 1], col=curve_colors, pch=19, lty=1,
+  type="l", xlab="Cycle", ylab="RFU",
+  main="htPCR data set (1-500)\n Cluster 1", ylim=c(min(data[, -1]), 0.4)
+)
+mtext("D", cex=1.5, side=3, adj=0, font=2)
 
-matplot(data[, 1], data[, which(res_kmeans==2)+1], col= curve_colors, pch=19, lty=1, 
- type="l", xlab="Cycle", ylab="RFU", 
- main="htPCR data set (1-500)\n Cluster 2", ylim=c(min(data[, -1]), 0.4))
-mtext("E", cex = 2, side = 3, adj = 0, font = 2)
+matplot(
+  data[, 1], data[, which(res_kmeans == 2) + 1], col=curve_colors, pch=19, lty=1,
+  type="l", xlab="Cycle", ylab="RFU",
+  main="htPCR data set (1-500)\n Cluster 2", ylim=c(min(data[, -1]), 0.4)
+)
+mtext("E", cex=1.5, side=3, adj=0, font=2)
 
-matplot(data[, 1], data[, which(res_kmeans==3)+1], col= curve_colors, pch=19, lty=1, 
- type="l", xlab="Cycle", ylab="RFU", 
- main="htPCR data set (1-500)\n Cluster 3", ylim=c(min(data[, -1]), 0.4))
-mtext("F", cex = 2, side = 3, adj = 0, font = 2)
+matplot(
+  data[, 1], data[, which(res_kmeans == 3) + 1], col=curve_colors, pch=19, lty=1,
+  type="l", xlab="Cycle", ylab="RFU",
+  main="htPCR data set (1-500)\n Cluster 3", ylim=c(min(data[, -1]), 0.4)
+)
+mtext("F", cex=1.5, side=3, adj=0, font=2)
 ```
 
 ### ``head2tailratio()`` - A Function to Calculate the Ratio of the Head and the Tail of a Quantitative PCR Amplification Curve\label{section_head2tailratio}
@@ -834,50 +865,58 @@ mtext("F", cex = 2, side = 3, adj = 0, font = 2)
 
 The ``head2tailratio()`` function calculates the ratio of the head and the tail of a quantitative PCR amplification curve. Positive amplification curves have different slopes and intercepts at the start of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these segments are potentially useful to extract a feature for an amplification curve classification.
 
-```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) For amplification curves from each dilution (1:1, red;  1:10, green, 1:100, cyan; 1:1000, purple) of the dil4reps94 data set were selected to visualize the approach of the head2tailratio() function. B) Plot of all amplification curves from the dil4reps94 data set.", fig.height=5.5, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) For amplification curves from each dilution (1:1, red;  1:10, green, 1:100, cyan; 1:1000, purple) of the `dil4reps94` data set were selected to visualize the approach of the head2tailratio() function. B) Plot of all amplification curves from the `dil4reps94` data set.", fig.height=5.5, fig.width=11}
 suppressMessages(library(qpcR))
 
 
 colors <- c("#FF00004D", "#80FF004D", "#00FFFF4D", "#8000FF4D")
 
-data <- dil4reps94[, c(1, 2, 98, 194,290)]
+data <- dil4reps94[, c(1, 2, 98, 194, 290)]
 
 res_head2tailratio <- lapply(2L:ncol(data), function(i) {
-    head2tailratio(y=data[, i], normalize=TRUE, slope_normalizer=TRUE, 
-                   verbose=TRUE)
+  head2tailratio(
+    y=data[, i], normalize=TRUE, slope_normalizer=TRUE,
+    verbose=TRUE
+  )
 })
 
-data_normalized <- cbind(data[, 1], 
-              sapply(2L:ncol(data), function(i){
-                  data[, i] / quantile(data[, i], 0.999)
-            })
-             )
+data_normalized <- cbind(
+  data[, 1],
+  sapply(2L:ncol(data), function(i) {
+    data[, i] / quantile(data[, i], 0.999)
+  })
+)
 
 # par(mfrow=c(1,2), las=0, bty="o", oma=c(1,1,1,1))
-par(mfrow=c(1,2), las=0, bty="o", oma=c(0,0,0,0))
+par(mfrow=c(1, 2), las=0, bty="o", oma=c(0, 0, 0, 0))
 
-matplot(data_normalized[, 1], data_normalized[, -1], 
-        xlab="Cycle", ylab="normalized RFU", main="dil4reps94 data set\nsubset", 
-        type="l", lty=1, lwd=2, col=colors
-       )
-for(i in 1L:(ncol(data_normalized)-1)) {
-    points(res_head2tailratio[[i]]$x_roi, res_head2tailratio[[i]]$y_roi, 
-           col=colors[i], pch=19, cex=1.5)
-    abline(res_head2tailratio[[i]]$fit, col=colors[i], lwd=2)
+matplot(
+  data_normalized[, 1], data_normalized[, -1],
+  xlab="Cycle", ylab="normalized RFU", main="dil4reps94 data set\nsubset",
+  type="l", lty=1, lwd=2, col=colors
+)
+for (i in 1L:(ncol(data_normalized) - 1)) {
+  points(
+    res_head2tailratio[[i]]$x_roi, res_head2tailratio[[i]]$y_roi,
+    col=colors[i], pch=19, cex=1.5
+  )
+  abline(res_head2tailratio[[i]]$fit, col=colors[i], lwd=2)
 }
 
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
-colors <- c(rep("#FF00004D", 94),
-            rep("#80FF004D", 94),
-            rep("#00FFFF4D", 94),
-            rep("#8000FF4D", 94)
-            )
+colors <- c(
+  rep("#FF00004D", 94),
+  rep("#80FF004D", 94),
+  rep("#00FFFF4D", 94),
+  rep("#8000FF4D", 94)
+)
 
-matplot(dil4reps94[, 1], dil4reps94[, -1], xlab="Cycle", ylab="RFU", 
-        main="dil4reps94 data set", type="l", lty=1, lwd=2, col=colors)
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
-
+matplot(
+  dil4reps94[, 1], dil4reps94[, -1], xlab="Cycle", ylab="RFU",
+  main="dil4reps94 data set", type="l", lty=1, lwd=2, col=colors
+)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 ```
 
 ### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effekt-like Curvatures\label{section_hookreg}
@@ -899,29 +938,33 @@ suppressMessages(library(qpcR))
 library(magrittr)
 
 res_hook <- sapply(2:ncol(boggy), function(i) {
-    hookreg(x=boggy[, 1], y=boggy[, i])}) %>% t %>% 
-    data.frame(sample=colnames(boggy)[-1],.)
+  hookreg(x=boggy[, 1], y=boggy[, i])
+}) %>%
+  t() %>%
+  data.frame(sample=colnames(boggy)[-1], .)
 
 
-    data_colors <- rainbow(ncol(boggy[, -1]), alpha=0.5)
-    cl <- kmeans(na.omit(res_hook[, 2:3]), 2)$cluster
+data_colors <- rainbow(ncol(boggy[, -1]), alpha=0.5)
+cl <- kmeans(na.omit(res_hook[, 2:3]), 2)$cluster
 ```
 
 The results of the ``hookreg()`` analysis were transferred to a tabular format.
 
 ```{r, eval=TRUE, echo=TRUE, results='asis'}
 library(xtable)
-print(xtable(res_hook, caption = "Screening results for the analysis with the 
+print(xtable(
+  res_hook, caption="Screening results for the analysis with the 
              hookreg algorithm. Samples withe a value of 1 in the hook column 
              had all a hook effect like curvature. The samples F4.1, F4.2, F5.1, 
              F5.2, F6.1 and F6.2 miss entries because the hoogreg algorithm 
-             could not fit a linear model. This is an expected behavior, since these amplification curves did not have a hook effect like curvature.", 
-             label='tablehookreg'), include.rownames = FALSE)
+             could not fit a linear model. This is an expected behavior, since these amplification curves did not have a hook effect like curvature.",
+  label="tablehookreg"
+), include.rownames=FALSE)
 ```
 
 In \autoref{tablehookreg} is shown that the first amplification curves (F1.1, 
 F1.2, F2.1, F2.2, F3.1 and F3.2) appear the have a hook effect-like curvature 
-("hook" column = 1.00). The function estimate reliably the start of the 
+("hook" column=1.00). The function estimate reliably the start of the 
 hook effect-like region.
 
 The clusters for amplification curve were determined by k-means clustering in 
@@ -930,21 +973,29 @@ this example. Next we plot the results of the analysis (Figure
 the slope with the clusters as determined by k-means clustering.
 
 ```{r, echo=TRUE, fig.cap="\\label{plot_hookreg}Analysis of amplification curves for hook effect-like structures. ", fig.height=5, fig.width=7}
-    par(mfrow=c(1,2))
-    matplot(x=boggy[, 1], y=boggy[, -1], xlab="Cycle", ylab="RFU", 
-            main="boggy Data Set", type="l", lty=1, lwd=2, col=data_colors)
-    legend("topleft", as.character(res_hook$sample), pch=19, 
-           col=data_colors, bty="n")
-    mtext("A", cex = 2, side = 3, adj = 0, font = 2)
-    
-    plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
-         xlab="intercept", ylab="Slope", 
-         main="Hook Effect-like Curvature\nboggy Data Set")
-    mtext("B", cex = 2, side = 3, adj = 0, font = 2)
-    points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
-    legend("topright", c("Strong Hook effect", " Weak Hook effect"), 
-           pch=c(1,2), col=c(1,2), bty="n")
-    text(res_hook$intercept, res_hook$slope, res_hook$sample)
+par(mfrow=c(1, 2))
+matplot(
+  x=boggy[, 1], y=boggy[, -1], xlab="Cycle", ylab="RFU",
+  main="boggy data set", type="l", lty=1, lwd=2, col=data_colors
+)
+legend(
+  "topleft", as.character(res_hook$sample), pch=19,
+  col=data_colors, bty="n"
+)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
+
+plot(
+  res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
+  xlab="intercept", ylab="Slope",
+  main="Hook Effect-like Curvature\nboggy data set"
+)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
+points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
+legend(
+  "topright", c("Strong Hook effect", " Weak Hook effect"),
+  pch=c(1, 2), col=c(1, 2), bty="n"
+)
+text(res_hook$intercept, res_hook$slope, res_hook$sample)
 ```
 
 Further examples are shown in the manual for the ``hookregNL()`` function.
@@ -961,30 +1012,36 @@ region. In the example shown below, the samples "P01.W19", "P06.W35", "P33.W66",
 "P65.W90", "P71.W23" and "P87.W01" were arbitrarily selected for demonstration
 purposes \autoref{plot_mblrr}. Another example is shown in \autoref{HCU32}A. Those amplification curves have a slight negative trend in the baseline region and a positive trend in the plateau region (\autoref{section_machine_learning}).
 
-```{r, echo=TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the htPCR data set. Not the differences in slopes and intercepts (red and green lines). The mblrr() function is presumably useful for data sets which are accompanied by noise and artifacts.m, slop; n, intercept.", fig.height=7, fig.width=7}
+```{r, echo=TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the `htPCR` data set. Not the differences in slopes and intercepts (red and green lines). The mblrr() function is presumably useful for data sets which are accompanied by noise and artifacts.m, slop; n, intercept.", fig.height=7, fig.width=7}
 suppressMessages(library(qpcR))
-par(mfrow=c(3,2))
+par(mfrow=c(3, 2))
 
 # Select six amplification curves from the htPCR data set
 data <- htPCR[, c(1, 20, 500, 3000, 6000, 6500, 8000)]
-for(i in 2:ncol(data)){
-        x <- data[, 1]
-        y_tmp <- data[, i]/quantile(data[, i], 0.999)
-        res_q25 <- y_tmp < quantile(y_tmp, 0.25)
-        res_q75 <- y_tmp > quantile(y_tmp, 0.75)
-        res_q25_lm <- try(suppressWarnings(lmrob(y_tmp[res_q25] ~ x[res_q25])), 
-                          silent=TRUE)
-        res_q75_lm <- try(suppressWarnings(lmrob(y_tmp[res_q75] ~ x[res_q75])), 
-                          silent=TRUE)
+for (i in 2:ncol(data)) {
+  x <- data[, 1]
+  y_tmp <- data[, i] / quantile(data[, i], 0.999)
+  res_q25 <- y_tmp < quantile(y_tmp, 0.25)
+  res_q75 <- y_tmp > quantile(y_tmp, 0.75)
+  res_q25_lm <- try(
+    suppressWarnings(lmrob(y_tmp[res_q25] ~ x[res_q25])),
+    silent=TRUE
+  )
+  res_q75_lm <- try(
+    suppressWarnings(lmrob(y_tmp[res_q75] ~ x[res_q75])),
+    silent=TRUE
+  )
 
-        plot(x, y_tmp, xlab="Cylce", ylab="RFU (normalized)", 
-             main=colnames(data)[i], 
-             type="b", pch=19)
-        abline(res_q25_lm, col="red")
-        points(x[res_q25], y_tmp[res_q25], cex=2.5, col="red")
-        abline(res_q75_lm, col="green")
-        points(x[res_q75], y_tmp[res_q75], cex=2.5, col="green")
-    }
+  plot(
+    x, y_tmp, xlab="Cycle", ylab="RFU (normalized)",
+    main=colnames(data)[i],
+    type="b", pch=19
+  )
+  abline(res_q25_lm, col="red")
+  points(x[res_q25], y_tmp[res_q25], cex=2.5, col="red")
+  abline(res_q75_lm, col="green")
+  points(x[res_q75], y_tmp[res_q75], cex=2.5, col="green")
+}
 ```
 
 Finally, the results of the analysis were printed in a tabular format.
@@ -996,31 +1053,36 @@ library(xtable)
 # Analyze the data via the mblrr() function
 
 res_mblrr <- do.call(cbind, lapply(2L:ncol(data), function(i) {
-                suppressMessages(mblrr(x=data[, 1], y=data[, i], 
-                      normalize=TRUE)) %>% data.frame
+  suppressMessages(mblrr(
+    x=data[, 1], y=data[, i],
+    normalize=TRUE
+  )) %>% data.frame()
 }))
 colnames(res_mblrr) <- colnames(data)[-1]
 
 # Transform the data for a tabular output and assign the results to the object
 # output_res_mblrr.
 
-output_res_mblrr <- res_mblrr %>% t
+output_res_mblrr <- res_mblrr %>% t()
 
 # The output variable names of the mblrr() function are rather long. For better
-# readability the variable names were changed to "nBG" (intercept of head region), 
-# "mBG" (slope of head region), "rBG" (Pearson correlation of head region), 
-# "nTP" (intercept of tail region), "mTP" (slope of tail region), "rBG" (Pearson 
+# readability the variable names were changed to "nBG" (intercept of head region),
+# "mBG" (slope of head region), "rBG" (Pearson correlation of head region),
+# "nTP" (intercept of tail region), "mTP" (slope of tail region), "rBG" (Pearson
 # correlation of tail region)
 
-colnames(output_res_mblrr) <- c("nBG", "mBG", "rBG",
-                                "nTP", "mTP", "rTP")
+colnames(output_res_mblrr) <- c(
+  "nBG", "mBG", "rBG",
+  "nTP", "mTP", "rTP"
+)
 
-print(xtable(output_res_mblrr, caption = "mblrr text intro. nBG, intercept of 
+print(xtable(
+  output_res_mblrr, caption="mblrr text intro. nBG, intercept of 
              head region; mBG, slope of head region; rBG, Pearson 
              correlation of head region; nTP, intercept of tail region; mTP, 
-             slope of tail region; rBG, Pearson correlation of tail region", 
-             label='tablemblrrintroduction'))
-
+             slope of tail region; rBG, Pearson correlation of tail region",
+  label="tablemblrrintroduction"
+))
 ```
 
 In another example, we combined the results from the ``mblrr()`` function with the classification (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (1 – 5). In this example six features were used for the analysis.
@@ -1042,41 +1104,47 @@ In the following example we use the `testdat` data set from the \texttt{qpcR} pa
 # Load the qpcR package to get some data
 suppressMessages(library(qpcR))
 
-# Use testdat data set, which contains positive and negative amplification 
+# Use testdat data set, which contains positive and negative amplification
 # curves. Note: Noise was added to the raw data.
 
-data <- data.frame(testdat[, 1], testdat[, -1] + rnorm(nrow(testdat[, -1])*ncol(testdat[, -1]), 0, 0.2))
+data <- data.frame(testdat[, 1], testdat[, -1] + rnorm(nrow(testdat[, -1]) * ncol(testdat[, -1]), 0, 0.2))
 
 # Visualize the data
 # par(mfrow=c(1,2), las=0, bty="o", oma=c(1,1,1,1))
-par(mfrow=c(1,2), las=0, bty="o", oma=c(0,0,0,0))
-colors <- rainbow(ncol(data)-2, alpha=0.3)
-matplot(data[, 1], data[, -1], xlab="Cycle", ylab="RFU", 
-        main="testdat data set", type="l", lty=1, lwd=2, col=colors)
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+par(mfrow=c(1, 2), las=0, bty="o", oma=c(0, 0, 0, 0))
+colors <- rainbow(ncol(data) - 2, alpha=0.3)
+matplot(
+  data[, 1], data[, -1], xlab="Cycle", ylab="RFU",
+  main="testdat data set", type="l", lty=1, lwd=2, col=colors
+)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
-# Give classes to the amplification curves (positive = TRUE, negative = FALSE)
+# Give classes to the amplification curves (positive=TRUE, negative=FALSE)
 
-human_rater_classification <- c(TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE,
-                                TRUE, TRUE,
-                                FALSE, FALSE)
+human_rater_classification <- c(
+  TRUE, TRUE,
+  FALSE, FALSE,
+  TRUE, TRUE,
+  FALSE, FALSE,
+  TRUE, TRUE,
+  FALSE, FALSE,
+  TRUE, TRUE,
+  FALSE, FALSE,
+  TRUE, TRUE,
+  FALSE, FALSE,
+  TRUE, TRUE,
+  FALSE, FALSE
+)
 
 # Plot the data to see if the classification by the human is correct
 
 colors <- as.factor(human_rater_classification)
-matplot(data[, 1], data[, -1], xlab="Cycle", ylab="RFU", 
-        main="testdat data set", type="l", lty=1, lwd=2, col=colors)
+matplot(
+  data[, 1], data[, -1], xlab="Cycle", ylab="RFU",
+  main="testdat data set", type="l", lty=1, lwd=2, col=colors
+)
 
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 ```
 
 ```{r, eval=TRUE, echo=TRUE}
@@ -1086,56 +1154,67 @@ suppressMessages(library(FFTrees))
 # Analyze the testdat data via the mblrr() function
 
 res_mblrr <- do.call(cbind, lapply(2L:ncol(data), function(i) {
-    suppressMessages(mblrr(x=data[, 1], y=data[, i], 
-                           normalize=TRUE)) %>% data.frame
+  suppressMessages(mblrr(
+    x=data[, 1], y=data[, i],
+    normalize=TRUE
+  )) %>% data.frame()
 }))
 colnames(res_mblrr) <- colnames(data)[-1]
 
 # Transform the data for a tabular output and assign the results to the object
 # output_res_mblrr.
 
-output_res_mblrr <- res_mblrr %>% t
+output_res_mblrr <- res_mblrr %>% t()
 
 # The output variable names of the mblrr() function are rather long. For better
-# readability the variable names were changed to "nBG" (intercept of head region), 
-# "mBG" (slope of head region), "rBG" (Pearson correlation of head region), 
-# "nTP" (intercept of tail region), "mTP" (slope of tail region), "rBG" (Pearson 
+# readability the variable names were changed to "nBG" (intercept of head region),
+# "mBG" (slope of head region), "rBG" (Pearson correlation of head region),
+# "nTP" (intercept of tail region), "mTP" (slope of tail region), "rBG" (Pearson
 # correlation of tail region)
 
-colnames(output_res_mblrr) <- c("nBG", "mBG", "rBG",
-                                "nTP", "mTP", "rTP")
+colnames(output_res_mblrr) <- c(
+  "nBG", "mBG", "rBG",
+  "nTP", "mTP", "rTP"
+)
 
-output_res_mblrr <- data.frame(class=human_rater_classification,
-                          output_res_mblrr
-                         )
+output_res_mblrr <- data.frame(
+  class=human_rater_classification,
+  output_res_mblrr
+)
 
-output_res_mblrr.fft <- suppressMessages(FFTrees(formula = class ~., 
-                                    data = output_res_mblrr[, c(1,2,3,5,6)]))
+output_res_mblrr.fft <- suppressMessages(FFTrees(
+  formula=class ~.,
+  data=output_res_mblrr[, c(1, 2, 3, 5, 6)]
+))
 
-write.csv(output_res_mblrr, "output_res_mblrr.csv", row.names = FALSE)
+write.csv(output_res_mblrr, "output_res_mblrr.csv", row.names=FALSE)
 ``` 
 
 The \autoref{tablemblrr} output.
 
 ```{r, data=output_res_mblrr, eval=TRUE, echo=TRUE, results='asis'}
 library(xtable)
-print(xtable(output_res_mblrr, caption = "mblrr text. nBG, intercept of 
+print(xtable(
+  output_res_mblrr, caption="mblrr text. nBG, intercept of 
              head region; mBG, slope of head region; rBG, Pearson 
              correlation of head region; nTP, intercept of tail region; mTP, 
-             slope of tail region; rBG, Pearson correlation of tail region", 
-             label='tablemblrr'), include.rownames = FALSE)
+             slope of tail region; rBG, Pearson correlation of tail region",
+  label="tablemblrr"
+), include.rownames=FALSE)
 ```
 
 \autoref{plot_FFTrees} shows the Fast and Frugal Trees by using the features nBG (intercept of head region), mBG (slope of head region), rBG (Pearson correlation of head region), nTP (intercept of tail region), mTP (slope of tail region), and rBG (Pearson correlation of tail region).
 
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_FFTrees}Fast and Frugal Trees. nBG, intercept of head region; mBG, slope of head region; rBG, Pearson correlation of head region; nTP, intercept of tail region; mTP, slope of tail region; rBG, Pearson correlation of tail region.", fig.height=11, fig.width=11}
-plot(output_res_mblrr.fft, decision.lables = c("Positive", "Negative"))
+plot(output_res_mblrr.fft, decision.lables=c("Positive", "Negative"))
 ```
 
 ### ``pcrfit_single()`` - A Function to Calculate Features from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
 
 The ``pcrfit_single()`` function is a wrapper for different functions to calculate features from an amplification curve. This includes methods to detect change points or to calculate slopes in specific regions of interest (ROI) of the amplification curve. The following overview gives some comments on the internal algorithms used by the ``pcrfit_single()`` function.
+
+> Note: The ``pcrfit_single ()`` function and the ``encu ()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. They are usually automatically imputed. These two functions will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99.9% quantile. The normalization is necessary because the amplitude measurement values of amplification curves can be very different. This means that there are considerable differences in the maximum values. Therefore, users of the \texttt{PCRedux} package are advised to take a look at the data sets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermal cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g. *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99.9% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99.9% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain.
 
 * Change point analysis
     - Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of changes in a series of data points indexed in time order. A change herein refers to a statistical property. There exist several change point algorithms such as the binary segmentation algorithm [@scott_cluster_1974]. CPA is used for example in climatology, econometrics and bioinformatics. [@Killick_2014]
@@ -1163,32 +1242,31 @@ y2_range <- range(res_bcp_pos$posterior.prob, na.rm=TRUE)
 # Negative amplification curve
 res_bcp_neg <- bcp(amp_data[, 2])
 
-par(mfrow=c(1,2))
-plot(res_bcp_pos$data, axes = FALSE, xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
-axis(1, xlim=c(0,1))
-axis(2, xlim=c(0,1))
-mtext("Prob", side=4,line=4)
+par(mfrow=c(1, 2))
+plot(res_bcp_pos$data, axes=FALSE, xlab="Cycle", ylab="RFU", type="b", lwd=2, pch=19)
+axis(1, xlim=c(0, 1))
+axis(2, xlim=c(0, 1))
+mtext("Prob", side=4, line=4)
 box()
 
-
 par(new=TRUE)
-plot(res_bcp_pos$posterior.prob, axes = FALSE, xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
-axis(4, ylim=c(0,1),col="black",las=1)
-mtext("A    Positive", cex = 2, side = 3, adj = 0, font = 2)
+plot(res_bcp_pos$posterior.prob, axes=FALSE, xlab="Cycle", ylab="RFU", type="b", lwd=2, pch=19)
+axis(4, ylim=c(0, 1), col="black", las=1)
+mtext("A    Positive", cex=1.5, side=3, adj=0, font=2)
 
-#-----
+# -----
 
-plot(res_bcp_neg$data, axes = FALSE, xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
-axis(1, xlim=c(0,1))
-axis(2, ylim=c(0,1))
+plot(res_bcp_neg$data, axes=FALSE, xlab="Cycle", ylab="RFU", type="b", lwd=2, pch=19)
+axis(1, xlim=c(0, 1))
+axis(2, ylim=c(0, 1))
 mtext("Prob", side=4, line=4)
 box()
 
 
 par(new=TRUE)
-plot(res_bcp_neg$posterior.prob, axes = FALSE, xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
-axis(4, ylim=c(0,1),col="black",las=1)
-mtext("B    Negative", cex = 2, side = 3, adj = 0, font = 2)
+plot(res_bcp_neg$posterior.prob, axes=FALSE, xlab="Cycle", ylab="RFU", type="b", lwd=2, pch=19)
+axis(4, ylim=c(0, 1), col="black", las=1)
+mtext("B    Negative", cex=1.5, side=3, adj=0, font=2)
 ```
 
 * Test of an amplification reaction
@@ -1207,44 +1285,47 @@ mtext("B    Negative", cex = 2, side = 3, adj = 0, font = 2)
 # Load example data (sample F6.1) from the testdat data set
 suppressMessages(library(qpcR))
 library(magrittr)
-# Load MBmca package to calculate the minimum, and the maximum of the second 
+# Load MBmca package to calculate the minimum, and the maximum of the second
 # derivative
 
 library(MBmca)
 
-par(mfrow=c(2,2))
+par(mfrow=c(2, 2))
 
-diffQ2_slope_fun <- function(data, cyc = 1, rfu = 2) {
-    # Calculate the minimum, and the maximum of the second 
-    # derivative and assign it to the object res_diffQ2
-    
-    sample <- colnames(data)[rfu]
-    
-    data_tmp <- data.frame(cyc=data[, cyc], rfu=data[, rfu])
-    
-    res_diffQ2 <- suppressMessages(diffQ2(data_tmp, plot=FALSE, fct=min))
-    
-    # Build a linear model from der second derivative of res_diffQ2
-    
-    res_diffQ2_lm <- lm(res_diffQ2[["yTm1.2.D2"]] ~ res_diffQ2[["xTm1.2.D2"]])
-    
-    data_tmp %>% plot(., xlab="Cycle", ylab="RFU", main="", type="l", 
-                        lty=1, lwd=2, col="black")
-    abline(v=res_diffQ2[["xTm1.2.D2"]], col="grey", lwd=2)
-    mtext(paste("A", sample), side = 3, adj = 0, font = 1)
-    
-    plot(res_diffQ2[["xTm1.2.D2"]], res_diffQ2[["yTm1.2.D2"]], pch=19, cex=1.5,
-            xlab="Cycle", ylab="dd(RFU)/d(Cycle)", 
-            main="")
-    abline(res_diffQ2_lm, col="blue", lwd=2)
-    legend("topleft", paste("Slope: ", signif(coefficients(res_diffQ2_lm)[2], 4)), bty="n")
-    mtext("", side = 3, adj = 0, font = 2)
+diffQ2_slope_fun <- function(data, cyc=1, rfu=2) {
+  # Calculate the minimum, and the maximum of the second
+  # derivative and assign it to the object res_diffQ2
+
+  sample <- colnames(data)[rfu]
+
+  data_tmp <- data.frame(cyc=data[, cyc], rfu=data[, rfu])
+
+  res_diffQ2 <- suppressMessages(diffQ2(data_tmp, plot=FALSE, fct=min))
+
+  # Build a linear model from der second derivative of res_diffQ2
+
+  res_diffQ2_lm <- lm(res_diffQ2[["yTm1.2.D2"]] ~ res_diffQ2[["xTm1.2.D2"]])
+
+  data_tmp %>% plot(
+    ., xlab="Cycle", ylab="RFU", main="", type="l",
+    lty=1, lwd=2, col="black"
+  )
+  abline(v=res_diffQ2[["xTm1.2.D2"]], col="grey", lwd=2)
+  mtext(paste("A", sample), side=3, adj=0, font=1)
+
+  plot(
+    res_diffQ2[["xTm1.2.D2"]], res_diffQ2[["yTm1.2.D2"]], pch=19, cex=1.5,
+    xlab="Cycle", ylab="dd(RFU)/d(Cycle)",
+    main=""
+  )
+  abline(res_diffQ2_lm, col="blue", lwd=2)
+  legend("topleft", paste("Slope: ", signif(coefficients(res_diffQ2_lm)[2], 4)), bty="n")
+  mtext("", side=3, adj=0, font=2)
 }
 
 for (i in c(2, 4)) {
-    diffQ2_slope_fun(testdat, cyc = 1, rfu = i)
+  diffQ2_slope_fun(testdat, cyc=1, rfu=i)
 }
-
 ```
 
 * Areas, Ratios and Slopes
@@ -1265,22 +1346,22 @@ for (i in c(2, 4)) {
 
 
 ``pcrfit_single()`` is a wrapper function, which calculates more than 40 potential features from an amplification curve. This comes at a cost, since several internal functions are computational very intensive [@porzelius_easier_2009, @schmidberger_2009]. For example, ``pcrfit()`` function (\texttt{qpcR} package) in ``pcrfit_single()`` fits and optimizes eight non-linear (sigmoid) models to the amplification curve data.
- ``encu()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function.  Similarly, this function calculates numerous but with an emphasis on features extraction of large amplification curve data sets. The ``pcrfit_single()`` function is performing the analysis for a single process and the ``pblapply()`` function from the \texttt{pbapply} package is used internally to is delivers a progress bar and leverages parallel processing. Examples are given in the documentation of the ``encu()`` function.
+ ``encuf()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function.  Similarly, this function calculates numerous but with an emphasis on features extraction of large amplification curve data sets. The ``pcrfit_single()`` function is performing the analysis for a single process and the ``pblapply()`` function from the \texttt{pbapply} package is used internally to is delivers a progress bar and leverages parallel processing. Examples are given in the documentation of the ``encu()`` function.
 
 Parallel computing technologies saves scientists time in their routine tasks of analyzing experimental data. Information about parallel computing technologies in \texttt{R} are available from @eddelbuettel_cran_2017. 
 
 ```{r, eval=TRUE, echo=FALSE}
-data(testdat, package = "qpcR")
+data(testdat, package="qpcR")
 x <- testdat[, 1]
 y.pos <- testdat[, 2]
 y.neg <- testdat[, 4]
 nh <- trunc(length(x) * 0.20)
 nt <- trunc(length(x) * 0.15)
 
-y.pos.head <- head(y.pos, n = nh)
-y.neg.head <- head(y.neg, n = nh)
-y.pos.tail <- tail(y.pos, n = nt)
-y.neg.tail <- tail(y.neg, n = nt)
+y.pos.head <- head(y.pos, n=nh)
+y.neg.head <- head(y.neg, n=nh)
+y.pos.tail <- tail(y.pos, n=nt)
+y.neg.tail <- tail(y.neg, n=nt)
 
 lb.pos <- median(y.pos.head) + 2 * mad(y.pos.head)
 ub.pos <- median(y.pos.tail) - 2 * mad(y.pos.tail)
@@ -1291,97 +1372,97 @@ ub.neg <- median(y.neg.tail) - 2 * mad(y.neg.tail)
 res.shapiro.pos <- shapiro.test(y.pos)
 res.shapiro.neg <- shapiro.test(y.neg)
 
-res.wt.pos <- wilcox.test(head(y.pos, n = nh), tail(y.pos, n = nt), alternative = "less")
-res.wt.neg <- wilcox.test(head(y.neg, n = nh), tail(y.neg, n = nt), alternative = "less")
+res.wt.pos <- wilcox.test(head(y.pos, n=nh), tail(y.pos, n=nt), alternative="less")
+res.wt.neg <- wilcox.test(head(y.neg, n=nh), tail(y.neg, n=nt), alternative="less")
 
 ###
 RGt <- function(y) {
-    ws <- ceiling((15 * length(y)) / 100)
-    if (ws < 5) 
-        ws <- 5
-        if (ws > 15) 
-            ws <- 15
-            y.tmp <- na.omit(y[-c(1:5)])
-            x <- 1:length(y.tmp)
-            suppressWarnings(
-                res.reg <- sapply(1L:(length(y.tmp)), function (i)  {
-                    round(summary(lm(y.tmp[i:c(i + ws)] ~ x[i:c(i + ws)]))[["r.squared"]], 4)
-                }
-                )
-            )
-            
-            # Binarize R^2 values. Everything larger than 0.8 is positive
-            res.LRt <- res.reg
-            # Define the limits for the R^2 test
-            res.LRt[res.LRt < 0.8] <- 0
-            res.LRt[res.LRt >= 0.8] <- 1
-            # Seek for a sequence of at least six positive values (R^2 >= 0.8)
-            # The first five measuring point of the amplification curve are skipped
-            # because most technologies and probe technologies tend to overshot
-            # in the start (background) region.
-            res.out <- sapply(5L:(length(res.LRt) - 6), function(i) {
-                ifelse(sum(res.LRt[i:(i + 4)]) == 5, TRUE, FALSE)
-            }
-            )
-            out <- cbind(1L:(length(y.tmp)), res.reg)
-            #res.out
+  ws <- ceiling((15 * length(y)) / 100)
+  if (ws < 5) {
+    ws <- 5
+  }
+  if (ws > 15) {
+    ws <- 15
+  }
+  y.tmp <- na.omit(y[-c(1:5)])
+  x <- 1:length(y.tmp)
+  suppressWarnings(
+    res.reg <- sapply(1L:(length(y.tmp)), function(i) {
+      round(summary(lm(y.tmp[i:c(i + ws)] ~ x[i:c(i + ws)]))[["r.squared"]], 4)
+    })
+  )
+
+  # Binarize R^2 values. Everything larger than 0.8 is positive
+  res.LRt <- res.reg
+  # Define the limits for the R^2 test
+  res.LRt[res.LRt < 0.8] <- 0
+  res.LRt[res.LRt >= 0.8] <- 1
+  # Seek for a sequence of at least six positive values (R^2 >= 0.8)
+  # The first five measuring point of the amplification curve are skipped
+  # because most technologies and probe technologies tend to overshot
+  # in the start (background) region.
+  res.out <- sapply(5L:(length(res.LRt) - 6), function(i) {
+    ifelse(sum(res.LRt[i:(i + 4)]) == 5, TRUE, FALSE)
+  })
+  out <- cbind(1L:(length(y.tmp)), res.reg)
+  # res.out
 }
 ```
 
-```{r, fig.cap = "Figure caption Positive. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\\label{statistical_methods_positive}"}
+```{r, fig.cap="Figure caption Positive. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\\label{statistical_methods_positive}"}
 
-layout(matrix(c(1,1,2,2,1,1,3,3), 2, 4, byrow = TRUE), respect = TRUE)
+layout(matrix(c(1, 1, 2, 2, 1, 1, 3, 3), 2, 4, byrow=TRUE), respect=TRUE)
 
-plot(x, y.pos, xlim = c(1, 50), ylim = c(-0.1, 15.5), xlab = "Cycle", ylab = "RFU", main = "", type = "b", pch = 19)
-mtext("A    Positive amplification", side = 3, adj = 0, font = 2)
-abline(v = c(nh, length(x) - nt), lty = 3)
+plot(x, y.pos, xlim=c(1, 50), ylim=c(-0.1, 15.5), xlab="Cycle", ylab="RFU", main="", type="b", pch=19)
+mtext("A    Positive amplification", side=3, adj=0, font=2)
+abline(v=c(nh, length(x) - nt), lty=3)
 
-abline(h = lb.pos, lty = 2, col = "red")
-text(35, 1.5, "Noise\nmedian + 2 * MAD", col = "red", cex = 1)
+abline(h=lb.pos, lty=2, col="red")
+text(35, 1.5, "Noise\nmedian + 2 * MAD", col="red", cex=1)
 
-abline(h = ub.pos, lty = 2, col = "green")
-text(35, 10, "Signal\nmedian - 2 * MAD", col = "green", cex = 1)
+abline(h=ub.pos, lty=2, col="green")
+text(35, 10, "Signal\nmedian - 2 * MAD", col="green", cex=1)
 
-arrows(4.5, 12.5, 42.5, 12.5, length = 0.1, angle = 90, code = 3)
-text(25, 14.5, paste("W = ", signif(res.wt.pos$statistic, 3), "\np-value = ", signif(res.wt.pos$p.value, 3)))
-text(25,5, paste("Fold change: \n", round(ub.pos/lb.pos, 2)))
+arrows(4.5, 12.5, 42.5, 12.5, length=0.1, angle=90, code=3)
+text(25, 14.5, paste("W=", signif(res.wt.pos$statistic, 3), "\np-value=", signif(res.wt.pos$p.value, 3)))
+text(25, 5, paste("Fold change: \n", round(ub.pos / lb.pos, 2)))
 
-qqnorm(y.pos, pch = 19, main = "")
-legend("bottomright", paste("W = ", signif(res.shapiro.pos$statistic, 3), "\np-value = ", signif(res.shapiro.pos$p.value, 3)), bty="n")
-mtext("B", side = 3, adj = 0, font = 2)
-qqline(y.pos, col = "orange", lwd = 2)
+qqnorm(y.pos, pch=19, main="")
+legend("bottomright", paste("W=", signif(res.shapiro.pos$statistic, 3), "\np-value=", signif(res.shapiro.pos$p.value, 3)), bty="n")
+mtext("B", side=3, adj=0, font=2)
+qqline(y.pos, col="orange", lwd=2)
 
-plot(RGt(y.pos), xlab = "Cycle", ylab = expression(R^2), main = "", pch = 19, type = "b")
-mtext("C    LRt", side = 3, adj = 0, font = 2)
-abline(h = 0.8, col = "black", lty = 2)
+plot(RGt(y.pos), xlab="Cycle", ylab=expression(R ^ 2), main="", pch=19, type="b")
+mtext("C    LRt", side=3, adj=0, font=2)
+abline(h=0.8, col="black", lty=2)
 ```
 
-```{r, fig.cap = "Figure caption Negative Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\\label{statistical_methods_negative}"}
-layout(matrix(c(1,1,2,2,1,1,3,3), 2, 4, byrow = TRUE), respect = TRUE)
+```{r, fig.cap="Figure caption Negative Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\\label{statistical_methods_negative}"}
+layout(matrix(c(1, 1, 2, 2, 1, 1, 3, 3), 2, 4, byrow=TRUE), respect=TRUE)
 
-plot(x, y.neg, xlim = c(1, 50), ylim = c(-0.03, 0.07), xlab = "Cycle", ylab = "RFU", main = "", type = "b", pch = 19)
-mtext("B    Negative amplification", side = 3, adj = 0, font = 2)
-abline(v = c(nh, length(x) - nt), lty = 3)
+plot(x, y.neg, xlim=c(1, 50), ylim=c(-0.03, 0.07), xlab="Cycle", ylab="RFU", main="", type="b", pch=19)
+mtext("B    Negative amplification", side=3, adj=0, font=2)
+abline(v=c(nh, length(x) - nt), lty=3)
 
-abline(h = lb.neg, lty = 2, col = "red")
-text(10, 0.04, "Noise\nmedian + 2 * MAD", col = "red", cex = 1)
+abline(h=lb.neg, lty=2, col="red")
+text(10, 0.04, "Noise\nmedian + 2 * MAD", col="red", cex=1)
 
-abline(h = ub.neg, lty = 2, col = "green")
-text(40, -0.02, "Signal\nmedian - 2 * MAD", col = "green", cex = 1)
+abline(h=ub.neg, lty=2, col="green")
+text(40, -0.02, "Signal\nmedian - 2 * MAD", col="green", cex=1)
 
-arrows(4.5, 0.04, 42.5, 0.04, length = 0.1, angle = 90, code = 3)
-text(25, 0.06, paste("W = ", res.wt.neg$statistic, "\np-value = ", signif(res.wt.neg$p.value, 3)))
-legend("topright", paste("Fold change: \n", round(ub.neg/lb.neg, 2)), bty="n")
+arrows(4.5, 0.04, 42.5, 0.04, length=0.1, angle=90, code=3)
+text(25, 0.06, paste("W=", res.wt.neg$statistic, "\np-value=", signif(res.wt.neg$p.value, 3)))
+legend("topright", paste("Fold change: \n", round(ub.neg / lb.neg, 2)), bty="n")
 
 
-qqnorm(y.neg, pch = 19, main = "")
-legend("bottomright", paste("W = ", signif(res.shapiro.neg$statistic, 3), "\np-value = ", signif(res.shapiro.neg$p.value, 3)), bty="n")
-mtext("B", side = 3, adj = 0, font = 2)
-qqline(y.neg, col = "orange", lwd = 2)
+qqnorm(y.neg, pch=19, main="")
+legend("bottomright", paste("W=", signif(res.shapiro.neg$statistic, 3), "\np-value=", signif(res.shapiro.neg$p.value, 3)), bty="n")
+mtext("B", side=3, adj=0, font=2)
+qqline(y.neg, col="orange", lwd=2)
 
-plot(RGt(y.neg), xlab = "Cycle", ylab = expression(R^2), main = "", pch = 19, type = "b")
-mtext("C    LRt", side = 3, adj = 0, font = 2)
-abline(h = 0.8, col = "black", lty = 2)
+plot(RGt(y.neg), xlab="Cycle", ylab=expression(R ^ 2), main="", pch=19, type="b")
+mtext("C    LRt", side=3, adj=0, font=2)
+abline(h=0.8, col="black", lty=2)
 ```
 
 
@@ -1398,8 +1479,8 @@ import from the \texttt{parallel} package the ``detectCores()`` function. This f
 * The parameter `data` is the data set containing the cycles and fluorescence amplitudes.
 * The parameter `n_cores` defines the numbers of cores that should be left unused by this function. 
 
-By default, ``pcrfit_parallel()`` is using only one core (`n_cores = 1`). 
-`n_cores = "all"` uses all available cores. The output of the 
+By default, ``pcrfit_parallel()`` is using only one core (`n_cores=1`). 
+`n_cores="all"` uses all available cores. The output of the 
 ``pcrfit_parallel()`` function is similar to the ``pcrfit_single()`` function.
 
 
@@ -1409,49 +1490,53 @@ By default, ``pcrfit_parallel()`` is using only one core (`n_cores = 1`).
 library(parallel)
 library(doParallel)
 
-pcrfit_parallel <- function(data, n_cores = 1) {
-    # Determine the number of available cores and register them
-    if(n_cores == "all")
-        n_cores <- detectCores() 
-        
-        registerDoParallel(n_cores)
-        
-        # Prepare the data for further processing
-        # Normalize RFU values to the alpha percentile (0.999)
-        cycles <- data.frame(cycles=data[, 1])
-        data_RFU <- data.frame(data[, -1])
-        data_RFU_colnames <- colnames(data_RFU)
-        data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
-            data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm=TRUE)
-        })
-        colnames(data_RFU) <- data_RFU_colnames
-        
-        # just to shut RCHeck for NSE we define ith_cycle
-        ith_cycle <- 1
-        
-        run_res <- foreach::foreach(ith_cycle = 1L:ncol(data_RFU), 
-                           .packages=c("bcp", "changepoint", "chipPCR", "ecp", "MBmca",
-                                       "PCRedux", "pracma", "qpcR", "robustbase", 
-                                       "zoo"),
-                           .combine = rbind) %dopar% {
-                               suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
-                           }
-                           
-                           
-                           res <- cbind(runs = colnames(data_RFU), run_res)
-                           
-                           rownames(res) <- NULL
-                           
-                           res
-                           
+pcrfit_parallel <- function(data, n_cores=1) {
+  # Determine the number of available cores and register them
+  if (n_cores == "all") {
+    n_cores <- detectCores()
+  }
+
+  registerDoParallel(n_cores)
+
+  # Prepare the data for further processing
+  # Normalize RFU values to the alpha percentile (0.999)
+  cycles <- data.frame(cycles=data[, 1])
+  data_RFU <- data.frame(data[, -1])
+  data_RFU_colnames <- colnames(data_RFU)
+  data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
+    data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm=TRUE)
+  })
+  colnames(data_RFU) <- data_RFU_colnames
+
+  # just to shut RCHeck for NSE we define ith_cycle
+  ith_cycle <- 1
+
+  run_res <- foreach::foreach(
+    ith_cycle=1L:ncol(data_RFU),
+    .packages=c(
+      "bcp", "changepoint", "chipPCR", "ecp", "MBmca",
+      "PCRedux", "pracma", "qpcR", "robustbase",
+      "zoo"
+    ),
+    .combine=rbind
+  ) %dopar% {
+    suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
+  }
+
+
+  res <- cbind(runs=colnames(data_RFU), run_res)
+
+  rownames(res) <- NULL
+
+  res
 }
 
-# Calculate curve features of an amplification curve data. Note: Not all 
+# Calculate curve features of an amplification curve data. Note: Not all
 # CPU cores are used. If need set "all" to use all available cores.
 # In this example the testdat data set from the qpcR package is used.
-# The samples F1.1 and F1.2 are positive amplification curves. The samples 
+# The samples F1.1 and F1.2 are positive amplification curves. The samples
 # F1.3 and F1.4 are negative.
- 
+
 suppressMessages(library(qpcR))
 res_pcrfit_parallel <- pcrfit_parallel(testdat[, 1:5])
 res_pcrfit_parallel
@@ -1470,17 +1555,17 @@ Abbreviations: TP, true positive; FP, false positive; TN, true negative; FN, fal
 
 Measure                                    | Formula
 -------------------------------------------|-----------------------------------------------
-Sensitivity - TPR, true positive rate      | $TPR = \frac{TP}{TP + FN}$
-Specificity - SPC, true negative rate      | $SPC = \frac{TN}{TN + FP}$
-Precision - PPV, positive predictive value | $PPV = \frac{TP}{TP +  FP}$
-Negative predictive value - NPV            | $NPV = \frac{TN}{TN + FN}$
-Fall-out, FPR, false positive rate         | $FPR = \frac{FP}{FP + TN} = 1 - SPC$
-False negative rate - FNR                  | $FNR = \frac{FN}{TN + FN} = 1 - TPR$
-False discovery rate - FDR                 | $FDR = \frac{FP}{TP + FP} = 1 - PPV$
-Accuracy - ACC                             | $ACC =  \frac{(TP + TN)}{(TP + FP + FN + TN)}$
-F1 score - F1                              | $F1 = \frac{2TP}{(2TP + FP + FN)}$
-Matthews correlation coefficient - MCC     | $MCC = \frac{(TP*TN - FP*FN)}{\sqrt{(TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)}}$
-Likelihood ratio positive - LRp            | $LRp = \frac{TPR}{1-SPC}$
+Sensitivity - TPR, true positive rate      | $TPR=\frac{TP}{TP + FN}$
+Specificity - SPC, true negative rate      | $SPC=\frac{TN}{TN + FP}$
+Precision - PPV, positive predictive value | $PPV=\frac{TP}{TP +  FP}$
+Negative predictive value - NPV            | $NPV=\frac{TN}{TN + FN}$
+Fall-out, FPR, false positive rate         | $FPR=\frac{FP}{FP + TN}=1 - SPC$
+False negative rate - FNR                  | $FNR=\frac{FN}{TN + FN}=1 - TPR$
+False discovery rate - FDR                 | $FDR=\frac{FP}{TP + FP}=1 - PPV$
+Accuracy - ACC                             | $ACC= \frac{(TP + TN)}{(TP + FP + FN + TN)}$
+F1 score - F1                              | $F1=\frac{2TP}{(2TP + FP + FN)}$
+Matthews correlation coefficient - MCC     | $MCC=\frac{(TP*TN - FP*FN)}{\sqrt{(TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)}}$
+Likelihood ratio positive - LRp            | $LRp=\frac{TPR}{1-SPC}$
 Cohen''s kappa (binary classification)     | $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}$
 
 
@@ -1515,14 +1600,18 @@ data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
 
 Hierarchical cluster analysis is widely applied in data analysis. This method uses the elements of a proximity matrix to generate a dendrogram. The dendrogram can can be used to further analyze the clusters. Although there are methods to determine the number of clusters \textit{k} in the present workflow the number of clusters was determined visually [@cook_interactive_2007]. The results of the cluster analysis led the identical clusters for the non-smoothed (\autoref{qPCR2fdata}B) and the smoothed (\autoref{qPCR2fdata}D) amplification curves. Two large clusters are visible. A deeper inspection shows that the samples are correctly assigned to a cluster of positive or negative amplification curves. Moreover, the later increase of the fluorescence is reflected in the positive cluster.
 
-```{r, echo=TRUE, fig.cap="\\label{qPCR2fdata} Grouping of amplification curves of the testdat data set via Hausdorff distance. A) The amplification curves were converted with the qPCR2fdata() function and subsequent processed by a cluster analysis using the Hausdorff distance. C) The \\textbf{smoothed} amplification curves show fewer noised than the non-smoothed data. They were also with the qPCR2fdata() function and subsequent processed by a cluster analysis based on the Hausdorff distance.", fig.height=11, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{qPCR2fdata} Grouping of amplification curves of the `testdat` data set via Hausdorff distance. A) The amplification curves were converted with the qPCR2fdata() function and subsequent processed by a cluster analysis using the Hausdorff distance. C) The \\textbf{smoothed} amplification curves show fewer noised than the non-smoothed data. They were also with the qPCR2fdata() function and subsequent processed by a cluster analysis based on the Hausdorff distance.", fig.height=11, fig.width=11}
 # Plot the converted qPCR data
-par(mfrow=c(2,2))
-res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", type="l", 
-                   lty=1, lwd=2, col=data_colors)
-legend("topleft", as.character(res_fdata_colnames), pch=19, 
-       col=data_colors, bty="n", ncol=2)
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+par(mfrow=c(2, 2))
+res_fdata %>% plot(
+  ., xlab="Cycle", ylab="RFU", main="testdat", type="l",
+  lty=1, lwd=2, col=data_colors
+)
+legend(
+  "topleft", as.character(res_fdata_colnames), pch=19,
+  col=data_colors, bty="n", ncol=2
+)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 # Calculate the Hausdorff distance (fda.usc) package and plot the distances
 # as clustered data.
 
@@ -1531,18 +1620,22 @@ res_hclust <- hclust(as.dist(res_fdata_hclust))
 
 plot(res_hclust, main="Clusters of the amplification\n
 curves as calculated by the Hausdorff distance")
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
-rect(0.5,-3,12.25,0.5, border = "red")
+mtext("B", cex=1.5, side=3, adj=0, font=2)
+rect(0.5, -3, 12.25, 0.5, border="red")
 text(7, 1, "negative", col="red")
-rect(12.5,-3,24.5,0.5, border = "green")
+rect(12.5, -3, 24.5, 0.5, border="green")
 text(14, 1, "positive", col="green")
 
 # Repeat the plot and the cluster analysis for the preprocessed data
-res_fdata_preprocessed %>% plot(., xlab="Cycle", ylab="RFU", main="testdat", type="l", 
-                   lty=1, lwd=2, col=data_colors)
-legend("topleft", as.character(res_fdata_colnames), pch=19, 
-       col=data_colors, bty="n", ncol=2)
-mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+res_fdata_preprocessed %>% plot(
+  ., xlab="Cycle", ylab="RFU", main="testdat", type="l",
+  lty=1, lwd=2, col=data_colors
+)
+legend(
+  "topleft", as.character(res_fdata_colnames), pch=19,
+  col=data_colors, bty="n", ncol=2
+)
+mtext("C", cex=1.5, side=3, adj=0, font=2)
 # Calculate the Hausdorff distance (fda.usc) package and plot the distances
 # as clustered data from preprocessed amplification curves.
 
@@ -1551,14 +1644,14 @@ res_fdata_hclust_preprocessed <- metric.hausdorff(res_fdata_preprocessed)
 res_hclust_preprocessed <- hclust(as.dist(res_fdata_hclust_preprocessed))
 plot(res_hclust_preprocessed, main="Clusters of the preprocessed amplification\n
     curves as calculated by the Hausdorff distance")
-rect(0.5,-3,12.25,0.5, border = "red")
+rect(0.5, -3, 12.25, 0.5, border="red")
 text(7, 1, "negative", col="red")
-rect(12.5,-3,24.5,0.5, border = "green")
+rect(12.5, -3, 24.5, 0.5, border="green")
 text(14, 1, "positive", col="green")
-mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+mtext("D", cex=1.5, side=3, adj=0, font=2)
 ```
 
-As final step followed an analysis of the clusters. Since the distance based on the Hausdorff metric was already done the next steps involved the ``cutree()`` function from the \texttt{stats} package to split the dendrogram into smaller junks. A priori was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k} = 2 in the ``cutree()``. The result is shown in \autoref{tablecutreehausdorff}.
+As final step followed an analysis of the clusters. Since the distance based on the Hausdorff metric was already done the next steps involved the ``cutree()`` function from the \texttt{stats} package to split the dendrogram into smaller junks. A priori was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k}=2 in the ``cutree()``. The result is shown in \autoref{tablecutreehausdorff}.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, results='asis'}
 # Cluster of the unprocessed amplification curves
@@ -1567,15 +1660,21 @@ res_cutree <- cutree(res_hclust, k=2)
 # Cluster of the pre-processed amplification curves
 res_cutreepreprocessed <- cutree(res_hclust_preprocessed, k=2)
 
-cutree_results <- data.frame(names(res_cutree), unprocessed=res_cutree, 
-                         preprocessed=res_cutreepreprocessed)
+cutree_results <- data.frame(
+  names(res_cutree), unprocessed=res_cutree,
+  preprocessed=res_cutreepreprocessed
+)
 
-colnames(cutree_results) <- c("Sample", "Unprocessed","Pre-processed")
+colnames(cutree_results) <- c("Sample", "Unprocessed", "Pre-processed")
 
 library(xtable)
-print(xtable(cutree_results, caption = "Clusters of the amplification curves after an analysis using the Hausdorff distance. The amplification curves of the testdat data set remained as raw data or were pre-processed (smoothed). Subsequent the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to a cluster analysis (Hausdorff distance). All sample were correctly assigned to cluster 1 (positive) or cluster 2 (negative).", 
-             label='tablecutreehausdorff'), 
-      include.rownames = FALSE, caption.placement = "top")
+print(
+  xtable(
+    cutree_results, caption="Clusters of the amplification curves after an analysis using the Hausdorff distance. The amplification curves of the `testdat` data set remained as raw data or were pre-processed (smoothed). Subsequent the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to a cluster analysis (Hausdorff distance). All sample were correctly assigned to cluster 1 (positive) or cluster 2 (negative).",
+    label="tablecutreehausdorff"
+  ),
+  include.rownames=FALSE, caption.placement="top"
+)
 ```
 
 This analysis workflow can be used to cluster amplification curve data according to the shape. It is worth to mention that the calculation of the distances is a computing expensive steps that can take a lot of computing time dependent on the number of amplification curves. This workflow is a useful to form smaller groups of similar amplification curves. This step can be used to form smaller groups of amplification curves for classification tasks. Other distance metric than the Hausdorff distance should also be considered. For example, @luo_learning_2010 showed how for image data how shape models using local curve segments with multiple types of distance metrics can improve the shape classification and detection results.
@@ -1601,31 +1700,49 @@ res_4 <- cbind(runs="B04", pcrfit_single(C126EG685[, 17]))
 res <- rbind(A01=res_1, A02=res_2, A04=res_3, B04=res_4)
 ```
 
-Finally, the data were visualized with the ``visdat_pcrfit()`` function. In this example the static plot is shown (\autoref{visdat_pcrfit_plot}). It is also possible to run the function interactively by setting the parameter "interactive = TRUE". In this case starts an interactive, browser-based charting library that uses ECMA Script. The interactive plot are rendered entirely locally, through a HTML widgets framework
+Finally, the data were visualized with the ``visdat_pcrfit()`` function. In this example the static plot is shown (\autoref{visdat_pcrfit_plot}). It is also possible to run the function interactively by setting the parameter "interactive=TRUE". In this case starts an interactive, browser-based charting library that uses ECMA Script. The interactive plot are rendered entirely locally, through a HTML widgets framework
 
 ```{r, echo=TRUE, fig.cap="\\label{visdat_pcrfit_plot}Application of visdat_pcrfit() for the visualization of the data structure after an analysis by pcrfit_single().", fig.height=11, fig.width=11}
-# Show all results in a plot. Not that the interactive parameter is set to 
+# Show all results in a plot. Not that the interactive parameter is set to
 # FALSE.
 
 visdat_pcrfit(res, type="all", interactive=FALSE)
 ```
 
-# Summary and Conclusions  \label{section_Summary_and_conclusions}
-
-The \texttt{PCRedux} enables the user to extract features from amplification curve data. Numerous features can be extracted from the amplification curve. Some of them have not been described in the literature. We consider \texttt{PCRedux} as enabling technology for further research. For example, the proposed features are useable for machine learning applications or quality assessment of data.
-
-The ``pcrfit_single()`` function is a wrapper that can be extended if new features 
-emerge.
-
-Of note, we would like to emphasis that the functionality of this package is not limited to amplification curve data from qPCR experiments. As stated before, amplification curves have a sigmoid curve shape. Presumably, this can also be used for melting curve analysis.
-
 ## Examples for Machine Learning \label{section_machine_learning}
+
+### Brief Introduction to Machine Learning \label{MachineLearingPCR}
+
+Data mining algorithms and machine learning can be used for descriptive and predictive tasks in the analysis of complex data sets.  Data mining uses specific methods (statistical interference, software engineering) and domain knowledge to obtain a better understanding of the data and to extract "hidden knowledge" from the preprocessed data [@herrera_multiple_2016]. A part of the data mining process is the description of the data, the exploration of the data and the search for connections and causes. All this implies that a human being interacts with the data at different stages of the process. The human being is therefore always a part of the workflow in data mining. 
+Machine learning, on the other hand, uses instructions in computer modules to create models that can be used to make predictions. In machine learning, the human being is much less necessary in the entire process. In the ideal case, this should achieve a high degree of objectivity. It is not always possible to justify this ideal, because the algorithms as well as the human instance bring bias. 
+
+Well-known examples of machine learning technologies are Decision Trees (DT), Boosting, Random Forests (RF), Support Vector Machines (SVM), Na$\"{\i}$ve Bayes, generalized linear models (GLM), logistic regression and deep neural networks (DNN)[@lee_statistical_2010].  Recently, the topic of"Reinforcement Learning" has become more and more the focus of interest. Decision trees are a classic approach to machine learning[@quinlan_induction_1986]. Here relatively simple algorithms and simple tree structures are used to create a model. \texttt{R} offers several packages like \texttt{party}[@hothorn_unbiased_2006] and \texttt{rpart}[@rpart_2017] for creating decision trees. Graphical user interface like \texttt{Rattle} @williams_rattle:_2009] offer such tools for data mining in \texttt{R}.
+
+Note that technologies such as logistic regression are used in both data science and machine learning. Logistical regression is used in data science to gain knowledge about the relationship. It can be used e. g. for the analysis of amplification curve data from quantitative real-time PCRs to describe the relationship between the number of cycles and the emitted fluorescence (see \autoref{section_DataAnalysis}). For this purpose, a logistical function must be fitted to the data set. With the model obtained, predictions can be made. For example, the position of the maximum of the second derivation can be calculated from this.
+
+In Machine Learning, variables are features that are used to train a model [@saeys_review_2007]. The model should then be able to bring new unknown data into a meaningful context. The selected features have a significant influence on the accuracy of the model. Therefore, it is important to define a number of useful features, to test them intensively or to generate new features. With regard to amplification curves, only a few feautres have been described in the literature so far. The range of features that can be created with the algorithms of the \texttt{PCRedux} package were probably the most extensive collection at the time of first release (summer 2017). Previously, only a few characteristics of amplification curves were described in the literature. Thus, it would be too few to use them extensively for machine learning with qPCR data. An application of those for machine learning could also not be found (\autoref{chapter_Data})
+
+During machine learning, processes (algorithms) are used to create models with tunable parameters. These models automatically adapt their performance to the information (features) from the data. The three following classes of principles of machine learning are described in the literature:
+
+* *Supervised learning*: These algorithms (e. g. logistic regression, SVM, DT, RF) learn from a training data set of labelled and annotated data (e. g."positive" and "negative"). It is used for a generalized model of all data. Unlike unsupervised learning, these algorithms use error or reward signals to evaluate the quality of a solution found. [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017]
+* *Unsupervised learning*: Algorithms, such as k-means clustering, kernel density estimation, LDA or PCA learn from training data sets of unlabeled or non-annotated data to find hidden structures according to geometric or statistical criteria. [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017]
+* *Reinforcement Learning*: The algorithms learn by reinforcement from criticism. The criticisms inform the algorithm about the quality of the solution found. But the criticism says nothing about how to improve. These algorithms iteratively search the improved solution in the entire solution space. [@bischl_mlr:_2010, @igual_introduction_2017]
+
+
+The algorithms of machine learning consist of several steps including careful data pre-processing and quality management. In a first step, relatively large datasets of known characteristic vectors have to be collected, measured and calculated as raw data. In a second step, these characteristics are used to classify unknown feature vectors using the Machine Learning algorithm.
+
+The following chapter focuses on the exemplary application of feature vectors from amplification curves, which can be used for automatic classification by machine learning. 
+
+The first task of this work was to develop and define potential characteristics. This has been described in chapter \autoref{section_Functions_of_PCRedux}. These features can be extracted from virtually all gain curve data. The pre-processing of data is described in detail in chapter \autoref{section_data_sets}.
+
+The ideal machine learning algorithm for the analysis of amplification curve data was not known beforehand. For this reason, it was necessary to speculate which characteristics should be extracted by the processing algorithm and broken down into characteristic vectors.
+
 
 The amplification curves had to be divided into training data and test data from the entire data set, which were manually categorized, at random.
 
 The following example illustrates the usage for the `HCU32_aggR.csv` data set 
 from the 32 channel VideoScan heating and cooling unit. In this experiment the
-bacterial gene *aggR* from *E. coli* was amplified in 32 identical reactions.
+bacterial gene *aggR* from *E. coli* was amplified in 32 identical reactions. Details of the experiment are described in the manual of the \texttt{PCRedux} package.
 The ambition was to test if the 32 amplification curves of the qPCR reaction 
 are identical. As before, the data were processed with the ``qPCR2fdata()`` 
 function and compared by the the Hausdorff distance. Ideally, the amplification 
@@ -1643,7 +1760,7 @@ library(magrittr)
 # Convert the qPCR data set to the fdata format
 
 filename <- system.file("HCU32_aggR.csv", package="PCRedux")
-data_32HCU <- fread(filename, data.table = FALSE)
+data_32HCU <- fread(filename, data.table=FALSE)
 
 res_fdata <- qPCR2fdata(data_32HCU)
 # Extract column names and create rainbow color to label the data
@@ -1653,16 +1770,17 @@ data_colors <- rainbow(length(res_fdata_colnames), alpha=0.55)
 In advance the the Cq values were calculated by the following code:
 
 ```{r, echo=TRUE, eval=FALSE}
-# Load the qpcR package to calculate the Cq values by the second derivative 
+# Load the qpcR package to calculate the Cq values by the second derivative
 # maximum method.
 
 suppressMessages(library(qpcR))
 
-res_Cq <- sapply(2L:ncol(data_32HCU), function(i){
-    efficiency(pcrfit(data_32HCU, cyc=1, fluo=i, model=l6))
+res_Cq <- sapply(2L:ncol(data_32HCU), function(i) {
+  efficiency(pcrfit(data_32HCU, cyc=1, fluo=i, model=l6))
 })
 
-data.frame(sample=colnames(data_32HCU)[-1], Cq=unlist(res_Cq["cpD2", ]), eff=unlist(res_Cq["eff", ]))
+data.frame(sample=colnames(data_32HCU)[-1], 
+           Cq=unlist(res_Cq["cpD2", ]), eff=unlist(res_Cq["eff", ]))
 
 #        Results
 #
@@ -1685,55 +1803,71 @@ Some amplification curves (\autoref{HCU32}A) showed stronger fluctuations and th
 library(fda.usc)
 library(magrittr)
 
-calculated_Cqs <- c(14.89, 15.68, 15.63, 15.5, 15.54, 15.37, 15.78, 15.24, 15.94, 
-                    15.88, 15.91, 15.77, 15.78, 15.74, 15.84, 15.78, 15.64, 15.61, 
-                    15.66, 15.63, 15.77, 15.71, 15.7, 15.79, 15.8, 15.72, 15.7, 15.82, 
-                    15.62, 15.71, 15.7, 15.73)
+calculated_Cqs <- c(
+  14.89, 15.68, 15.63, 15.5, 15.54, 15.37, 15.78, 15.24, 15.94,
+  15.88, 15.91, 15.77, 15.78, 15.74, 15.84, 15.78, 15.64, 15.61,
+  15.66, 15.63, 15.77, 15.71, 15.7, 15.79, 15.8, 15.72, 15.7, 15.82,
+  15.62, 15.71, 15.7, 15.73
+)
 
-calculated_effs <- c(1.09296326515231, 1.11047987547324, 1.11147389307153, 1.10308929700635, 
-                     1.10012176315852, 1.09136717687619, 1.11871308210321, 1.08006168654712, 
-                     1.09500422011318, 1.1078777171126, 1.11269436700649, 1.10628580163733, 
-                     1.1082009954558, 1.11069683827291, 1.11074914659374, 1.10722949813473, 
-                     1.10754282514113, 1.10098387264025, 1.1107026749644, 1.11599641663658, 
-                     1.11388510347017, 1.11398547396991, 1.09410798249025, 1.12422338092929, 
-                     1.11977386646464, 1.11212436173214, 1.12145338871426, 1.12180879952503, 
-                     1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295)
+calculated_effs <- c(
+  1.09296326515231, 1.11047987547324, 1.11147389307153, 1.10308929700635,
+  1.10012176315852, 1.09136717687619, 1.11871308210321, 1.08006168654712,
+  1.09500422011318, 1.1078777171126, 1.11269436700649, 1.10628580163733,
+  1.1082009954558, 1.11069683827291, 1.11074914659374, 1.10722949813473,
+  1.10754282514113, 1.10098387264025, 1.1107026749644, 1.11599641663658,
+  1.11388510347017, 1.11398547396991, 1.09410798249025, 1.12422338092929,
+  1.11977386646464, 1.11212436173214, 1.12145338871426, 1.12180879952503,
+  1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295
+)
 
 # Plot the converted qPCR data
-layout(matrix(c(1,2,3,4,4,4), 2, 3, byrow = TRUE))
-res_fdata %>% plot(., xlab="Cycle", ylab="RFU", main="HCU32_aggR", type="l", 
-                   lty=1, lwd=2, col=data_colors)
-legend("topleft", as.character(res_fdata_colnames), pch=19, 
-       col=data_colors, bty="n", ncol=4)
-mtext("A", cex = 2, side = 3, adj = 0, font = 2)
+layout(matrix(c(1, 2, 3, 4, 4, 4), 2, 3, byrow=TRUE))
+res_fdata %>% plot(
+  ., xlab="Cycle", ylab="RFU", main="HCU32_aggR", type="l",
+  lty=1, lwd=2, col=data_colors
+)
+legend(
+  "topleft", as.character(res_fdata_colnames), pch=19,
+  col=data_colors, bty="n", ncol=4
+)
+mtext("A", cex=1.5, side=3, adj=0, font=2)
 
 # Plot the background and plateau phase.
 
-boxplot(data_32HCU[,-1] - apply(data_32HCU[, -1], 2, min), 
-        col=data_colors, las=2, main="Signal to noise ratio", 
-        xlab="Sample", ylab="RFU")
-mtext("B", cex = 2, side = 3, adj = 0, font = 2)
+boxplot(
+  data_32HCU[, -1] - apply(data_32HCU[, -1], 2, min),
+  col=data_colors, las=2, main="Signal to noise ratio",
+  xlab="Sample", ylab="RFU"
+)
+mtext("B", cex=1.5, side=3, adj=0, font=2)
 
 # Plot the Cqs and the amplification efficiencies.
-# Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs 
+# Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs
 # of the median or more then 0.1 Cqs of the median Cq.
 
-plot(calculated_Cqs, calculated_effs, xlab="Cq (SDM)", 
-     ylab="eff", main="Cq vs. Amplification Efficiency", 
-     type="p", pch=19, lty=1, lwd=2, col=data_colors)
+plot(
+  calculated_Cqs, calculated_effs, xlab="Cq (SDM)",
+  ylab="eff", main="Cq vs. Amplification Efficiency",
+  type="p", pch=19, lty=1, lwd=2, col=data_colors
+)
 
 median_Cq <- median(calculated_Cqs)
 abline(v=median_Cq)
 
 text(median_Cq + 0.01, 1.085, expression(paste(tilde(x))))
-labeled <- c(which(calculated_Cqs < median_Cq - 0.1),  
-             which(calculated_Cqs > median_Cq + 0.1))
+labeled <- c(
+  which(calculated_Cqs < median_Cq - 0.1),
+  which(calculated_Cqs > median_Cq + 0.1)
+)
 
-text(calculated_Cqs[labeled], calculated_effs[labeled], 
-     as.character(res_fdata_colnames)[labeled])
-mtext("C", cex = 2, side = 3, adj = 0, font = 2)
+text(
+  calculated_Cqs[labeled], calculated_effs[labeled],
+  as.character(res_fdata_colnames)[labeled]
+)
+mtext("C", cex=1.5, side=3, adj=0, font=2)
 
-# Calculate the Hausdorff distance using the fda.usc package and cluster the 
+# Calculate the Hausdorff distance using the fda.usc package and cluster the
 # the distances.
 
 res_fdata_hclust <- metric.hausdorff(res_fdata)
@@ -1744,10 +1878,19 @@ cluster <- hclust(as.dist(res_fdata_hclust))
 
 plot(cluster, main="Clusters of the amplification\n
 curves as calculated by the Hausdorff distance")
-mtext("D", cex = 2, side = 3, adj = 0, font = 2)
+mtext("D", cex=1.5, side=3, adj=0, font=2)
 ```
 
 The analysis gives an overview of the variation of the amplification curve data.
+
+# Summary and Conclusions  \label{section_Summary_and_conclusions}
+
+The \texttt{PCRedux} enables the user to extract features from amplification curve data. Numerous features can be extracted from the amplification curve. Some of them have not been described in the literature. We consider \texttt{PCRedux} as enabling technology for further research. For example, the proposed features are useable for machine learning applications or quality assessment of data.
+
+The ``pcrfit_single()`` function is a wrapper that can be extended if new features 
+emerge.
+
+Of note, we would like to emphasis that the functionality of this package is not limited to amplification curve data from qPCR experiments. As stated before, amplification curves have a sigmoid curve shape. Presumably, this can also be used for melting curve analysis.
 
 
 # References
