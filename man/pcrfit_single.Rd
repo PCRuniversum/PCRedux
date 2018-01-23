@@ -53,6 +53,7 @@ Output Description
   "mblrr_cor_more" \tab \tab numeric \cr
   "amp_cor_MIC" \tab \tab numeric \cr
   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
+  "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr

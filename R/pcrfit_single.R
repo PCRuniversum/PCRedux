@@ -74,6 +74,7 @@
 #'   "mblrr_cor_more" \tab \tab numeric \cr
 #'   "amp_cor_MIC" \tab \tab numeric \cr
 #'   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
+#'   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
 #'   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
 #'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
@@ -114,18 +115,26 @@ pcrfit_single <- function(x) {
   # inefficient kludge to find l4 model
   data("sysdata", package = "qpcR", envir = parent.frame())
 
-  res_bg.max_tmp <- chipPCR::bg.max(cycles, x)
+  res_bg.max_tmp <- try(chipPCR::bg.max(cycles, x), silent=TRUE)
+  if(class(res_bg.max_tmp) == "try-error") {
+      res_bg.max <- c(
+    bg.start = NA,
+    bg.stop = NA,
+    amp.stop = NA
+  )
+  } else {
   res_bg.max <- c(
     bg.start = res_bg.max_tmp@bg.start / length_cycle,
     bg.stop = res_bg.max_tmp@bg.stop / length_cycle,
     amp.stop = res_bg.max_tmp@amp.stop / length_cycle
   )
+  }
 
   # Determine the head to tail ratio
   res_head_tail_ratio <- PCRedux::head2tailratio(x)
 
   # Determine the slope from the cycles 2 to 11
-  res_lm_fit <- earlyreg(x = cycles, x)
+  res_lm_fit <- PCRedux::earlyreg(x = cycles, x)
 
   # Try to estimate the slope and the intercept of the tail region,
   # which might be indicative of a hook effect (strong negative slope)
@@ -216,12 +225,33 @@ pcrfit_single <- function(x) {
     res_fit_model <- NA
   }
 
-  # Determine the model for the reverse datas suggested by the
+  # Determine the model for the reverse data suggested by the
   # mselect function based on the AICc
   res_fit_model_reverse <- try(names(which(res_fit_reverse[["retMat"]][, "AICc"] == min(res_fit_reverse[["retMat"]][, "AICc"]))), silent = TRUE)
   if (class(res_fit_model_reverse) == "try-error") {
     res_fit_model_reverse <- NA
   }
+
+    if (class(res_fit_reverse)[1] != "try-error") {
+    # TakeOff Point from the reverse data
+    # Calculates the first significant cycle of the exponential region
+    #
+    #   Take Down Point tdp
+    #
+    # (takeoff point) using externally studentized residuals as described
+    # in Tichopad et al. (2003).
+    res_takeoff_reverse <- try(qpcR::takeoff(res_fit_reverse, nsig = 5), silent = TRUE)
+    res_takeoff_reverse[[1]] <- length_cycle - res_takeoff_reverse[[1]]
+    res_takeoff_reverse[[2]] <- x[res_takeoff_reverse[[1]]] -
+    res_takeoff_reverse[[2]] + min(x)
+    names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+    if (class(res_takeoff_reverse) == "try-error") {
+    res_takeoff_reverse <- list(NA, NA)
+    }
+} else {
+    res_takeoff_reverse <- list(NA, NA)
+    names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+}
 
   if (class(res_fit)[1] != "try-error") {
     # TakeOff Point
@@ -231,24 +261,6 @@ pcrfit_single <- function(x) {
     res_takeoff <- try(qpcR::takeoff(res_fit), silent = TRUE)
     if (class(res_takeoff) == "try-error") {
       res_takeoff <- list(NA, NA)
-    }
-
-    if (class(res_fit_reverse)[1] != "try-error") {
-      # TakeOff Point from the reverse data
-      # Calculates the first significant cycle of the exponential region
-      #
-      #   Take Down Point tdp
-      #
-      # (takeoff point) using externally studentized residuals as described
-      # in Tichopad et al. (2003).
-      res_takeoff_reverse <- try(qpcR::takeoff(res_fit_reverse, nsig = 5), silent = TRUE)
-      res_takeoff_reverse[[1]] <- length_cycle - res_takeoff_reverse[[1]]
-      res_takeoff_reverse[[2]] <- x[res_takeoff_reverse[[1]]] -
-        res_takeoff_reverse[[2]] + min(x)
-      names(res_takeoff_reverse) <- c("tdp", "f.tdp")
-      if (class(res_takeoff_reverse) == "try-error") {
-        res_takeoff_reverse <- list(NA, NA)
-      }
     }
 
     # LRE qPCR efficiency
@@ -310,7 +322,7 @@ pcrfit_single <- function(x) {
     res_cpDdiff <- NA
   }
 
-  res_efficiency <- data.frame(
+  all_results <- data.frame(
     eff = res_efficiency_tmp[["eff"]],
     cpD1 = res_efficiency_tmp[["cpD1"]],
     cpD2 = res_efficiency_tmp[["cpD2"]],
@@ -331,6 +343,7 @@ pcrfit_single <- function(x) {
     changepoint.e.agglo = res_changepoint_e.agglo,
     changepoint.bcp = res_bcp,
     qPCRmodel = res_fit_model[[1]],
+    qPCRmodel_reverse = res_fit_model_reverse[[1]],
     amptester_shap.noisy = res_amptester@decisions["shap.noisy"][[1]],
     amptester_lrt.test = res_amptester@decisions["lrt.test"][[1]],
     amptester_rgt.dec = res_amptester@decisions["rgt.dec"][[1]],
@@ -353,8 +366,10 @@ pcrfit_single <- function(x) {
     mblrr_cor_more = res_mblrr[6],
     amp_cor_MIC = res_amp_cor_MIC, 
     hookreg_hook = res_hookreg,
+    hookreg_hook_slope = res_hookreg_simple[["slope"]],
     mcaPeaks_minima_maxima_ratio = mcaPeaks_minima_maxima_ratio,
     diffQ2_slope = res_diffQ2_slope,
-    diffQ2_Cq_range = range_Cq
+    diffQ2_Cq_range = range_Cq, 
+    row.names = "results"
   )
 }
