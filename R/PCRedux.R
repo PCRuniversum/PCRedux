@@ -1,10 +1,10 @@
 #' PCRedux - quantitative PCR machine learning helper tool
 #'
 #' @description \code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
-#' 
+#'
 #' @section Machine learning:
 #' In machine learning and statistics, the classification should be used to identify a new unknown observation. This observation is assigned to a number of categories. One basis is training data sets containing observations with known classes. Using the example of sigmoid amplification curves, this could be an assignment to the class "negative","ambiguous" or "positive". Basically, a number of descriptors (e. g., characteristics of curvature) are required to be able to assign classes. This package contains functions for extracting characteristics. In addition, the package contains data sets of classified amplification curves.
-#' 
+#'
 #' @importFrom bcp bcp
 #' @importFrom changepoint cpt.meanvar
 #' @importFrom chipPCR amptester bg.max CPP smoother

@@ -9,17 +9,17 @@ performeR(sample, reference)
 \arguments{
 \item{sample}{is a vector with logical decisions (0, 1) of the test system.}
 
-\item{reference}{is a vector with logical decisions (0, 1) of the reference 
+\item{reference}{is a vector with logical decisions (0, 1) of the reference
 system.}
 }
 \description{
-This function performs an analysis sensitivity and specificity 
+This function performs an analysis sensitivity and specificity
 to asses the performance of a binary classification test. For further reading
-the studies by Brenner and Gefeller 1997, James 2013 by Kuhn 2008 are a good 
+the studies by Brenner and Gefeller 1997, James 2013 by Kuhn 2008 are a good
 starting point.
 }
 \details{
-TP, true positive; FP, false positive; TN, true negative; FN, false 
+TP, true positive; FP, false positive; TN, true negative; FN, false
 negative
 
 Sensitivity - TPR, true positive rate
@@ -53,11 +53,11 @@ Likelihood ratio positive - LRp
 LRp = TPR/(1-SPC)
 
 Matthews correlation coefficient (MCC)
-MCC = (TP*TN - FP*FN) / 
+MCC = (TP*TN - FP*FN) /
        sqrt(TN + FP) * sqrt(TN+FN)
       )
 
-Cohen's kappa (binary classification)     
+Cohen's kappa (binary classification)
 kappa=(p0-pc)/(1-p0)
 
 r (reference) is the trusted label and s (sample) is the predicted value
@@ -78,30 +78,30 @@ po=(a+d)/n
 # Produce some arbitrary binary decisions data
 # test_data is the new test or method that should be analyzed
 # reference_data is the reference data set that should be analyzed
-test_data <- c(0,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1) 
+test_data <- c(0,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1)
 reference_data <- c(0,0,0,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1)
 
 # Plot the data of the decisions
-plot(1:length(test_data), test_data, xlab="Sample", ylab="Decisions", 
+plot(1:length(test_data), test_data, xlab="Sample", ylab="Decisions",
      yaxt="n", pch=19)
 axis(2, at=c(0,1), labels=c("negative", "positive"), las=2)
 points(1:length(reference_data), reference_data, pch=1, cex=2, col="blue")
-legend("topleft", c("Sample", "Reference"), pch=c(19,1), 
+legend("topleft", c("Sample", "Reference"), pch=c(19,1),
         cex=c(1.5,1.5), bty="n", col=c("black","blue"))
 
 # Do the statistical analysis with the performeR function
 performeR(sample=test_data, reference=reference_data)
 }
 \references{
-H. Brenner, O. Gefeller, others, Variation of sensitivity, 
-specificity, likelihood ratios and predictive values with disease prevalence, 
+H. Brenner, O. Gefeller, others, Variation of sensitivity,
+specificity, likelihood ratios and predictive values with disease prevalence,
 \emph{Statistics in Medicine}. 16 (1997) 981--991.
 
-M. Kuhn, Building Predictive Models in R Using the caret Package, 
+M. Kuhn, Building Predictive Models in R Using the caret Package,
 \emph{Journal of Statistical Software}. 28 (2008). doi:10.18637/jss.v028.i05.
 
-G. James, D. Witten, T. Hastie, R. Tibshirani, An Introduction to Statistical 
-Learning, \emph{Springer New York, New York, NY}, (2013). 
+G. James, D. Witten, T. Hastie, R. Tibshirani, An Introduction to Statistical
+Learning, \emph{Springer New York, New York, NY}, (2013).
 doi:10.1007/978-1-4614-7138-7.
 }
 \seealso{

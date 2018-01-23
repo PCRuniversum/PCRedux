@@ -2,7 +2,7 @@
 % Please edit documentation in R/encu.R
 \name{encu}
 \alias{encu}
-\title{A function to calculate numerous features from amplification curve data 
+\title{A function to calculate numerous features from amplification curve data
 from a quantitative PCR experiment.}
 \usage{
 encu(data, detection_chemistry = NA, device = NA)
@@ -10,34 +10,34 @@ encu(data, detection_chemistry = NA, device = NA)
 \arguments{
 \item{data}{is the data set containing the cycles and fluorescence amplitudes.}
 
-\item{detection_chemistry}{contains additional meta information about the 
+\item{detection_chemistry}{contains additional meta information about the
 detection chemistry (e.g., probes, intercalating dye) that was used.}
 
-\item{device}{contains additional meta information about the qPCR system that 
+\item{device}{contains additional meta information about the qPCR system that
 was used.}
 }
 \value{
-The output of the encu function is 
+The output of the encu function is
 identical to the \code{\link[PCRedux]{pcrfit_single}} function.
 }
 \description{
-encu (ENcode CUrves) is a function to calculate numerous 
-features of a large amplification curve data set. 
-The \code{\link[PCRedux]{pcrfit_single}} is 
+encu (ENcode CUrves) is a function to calculate numerous
+features of a large amplification curve data set.
+The \code{\link[PCRedux]{pcrfit_single}} is
 performing the analysis for a single process.
 }
 \examples{
 
-# Calculate curve features of an amplification curve data. Note that not all 
+# Calculate curve features of an amplification curve data. Note that not all
 # available CPU cores are used. If need set "all" to use all available cores.
 # In this example the testdat data set from the qpcR package is used.
-# The samples F1.1 and F1.2 are positive amplification curves. The samples 
+# The samples F1.1 and F1.2 are positive amplification curves. The samples
 # F1.3 and F1.4 are negative.
 
 library(qpcR)
 res_encu <- encu(testdat[, 1:4])
 res_encu
- 
+
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

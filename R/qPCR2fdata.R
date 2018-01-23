@@ -1,46 +1,46 @@
 #' A helper function to convert amplification curve data to the fdata format.
-#' 
-#' \code{qPCR2fdata} is a helper function to convert qPCR data to the functional 
-#' \code{\link{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This 
-#' function prepares the data for further analysis with the \code{\link{fda.usc}} package, 
-#' which includes utilities for functional data analysis (e.g., Hausdorff 
+#'
+#' \code{qPCR2fdata} is a helper function to convert qPCR data to the functional
+#' \code{\link{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This
+#' function prepares the data for further analysis with the \code{\link{fda.usc}} package,
+#' which includes utilities for functional data analysis (e.g., Hausdorff
 #' distance).
-#' @param data is a data set containing the amplification cycles (1. column) 
+#' @param data is a data set containing the amplification cycles (1. column)
 #' and the fluorescence (subsequent columns).
-#' @param pre-process is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}} 
-#' function from the chipPCR package (Roediger et al. 2015) is used to pre-process 
+#' @param pre-process is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}}
+#' function from the chipPCR package (Roediger et al. 2015) is used to pre-process
 #' the data (e.g., imputation of missing values).
 #' and the fluorescence (subsequent columns).
 #' @author Stefan Roediger, Michal Burdukiewcz
-#' @references M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical 
-#' computing in functional data analysis: The R package fda.usc}, Journal of 
+#' @references M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical
+#' computing in functional data analysis: The R package fda.usc}, Journal of
 #' Statistical Software. 51 (2012) 1--28. http://www.jstatsoft.org/v51/i04/
-#' 
-#' S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to 
-#' pre-process raw data of amplification curves}, Bioinformatics. 31 (2015) 
+#'
+#' S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to
+#' pre-process raw data of amplification curves}, Bioinformatics. 31 (2015)
 #' 2900--2902. doi:10.1093/bioinformatics/btv205.
 #' @keywords fdata
 #' @examples
-#' 
+#'
 #' # Calculate slope and intercept on noise (negative) amplification curve data
 #' # for the last eight cycles.
 #' # Load additional packages for data and pipes.
 #' library(qpcR)
 #' library(fda.usc)
 #' library(magrittr)
-#' 
+#'
 #' # Convert the qPCR data set to the fdata format
 #' res_fdata <- qPCR2fdata(testdat)
 #'
 #' # Extract column names and create rainbow color to label the data
 #' res_fdata_colnames <- testdat[-1] %>% colnames()
 #' data_colors <- rainbow(length(res_fdata_colnames), alpha=0.5)
-#' 
+#'
 #' # Plot the converted qPCR data
 #' par(mfrow=c(1,2))
-#' res_fdata %>% plot(., xlab="cycles", ylab="RFU", main="testdat", type="l", 
+#' res_fdata %>% plot(., xlab="cycles", ylab="RFU", main="testdat", type="l",
 #'                    lty=1, lwd=2, col=data_colors)
-#' legend("topleft", as.character(res_fdata_colnames), pch=19, 
+#' legend("topleft", as.character(res_fdata_colnames), pch=19,
 #'          col=data_colors, bty="n", ncol=2)
 #'
 #' # Calculate the Hausdorff distance (fda.usc) package and plot the distances
@@ -48,18 +48,18 @@
 #'
 #' res_fdata_hclust <- metric.hausdorff(res_fdata)
 #' plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
-#'    curves as calculated by the Hausdorff distance") 
-#'  
+#'    curves as calculated by the Hausdorff distance")
+#'
 #' @export qPCR2fdata
 
 qPCR2fdata <- function(data, preprocess=FALSE) {
-            data_colnames <- colnames(data)
-            if(preprocess){
-                data_tmp <- do.call(cbind, lapply(2L:ncol(data), function(i){
-                    CPP(data[, 1], data[, i], bg.outliers=TRUE)$y.norm
-                }))
-                data <- cbind(data[, 1], data_tmp)
-                colnames(data) <- data_colnames
-            }
-            fdata(t(data[, -1]), argvals=data[, 1], rangeval=range(data[, 1]))
+  data_colnames <- colnames(data)
+  if (preprocess) {
+    data_tmp <- do.call(cbind, lapply(2L:ncol(data), function(i) {
+      CPP(data[, 1], data[, i], bg.outliers = TRUE)$y.norm
+    }))
+    data <- cbind(data[, 1], data_tmp)
+    colnames(data) <- data_colnames
+  }
+  fdata(t(data[, -1]), argvals = data[, 1], rangeval = range(data[, 1]))
 }

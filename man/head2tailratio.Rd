@@ -2,7 +2,7 @@
 % Please edit documentation in R/head2tailratio.R
 \name{head2tailratio}
 \alias{head2tailratio}
-\title{A function to calculate to head to tail ratio of amplification curve data 
+\title{A function to calculate to head to tail ratio of amplification curve data
 from a quantitative PCR experiment}
 \usage{
 head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE,
@@ -13,16 +13,16 @@ head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE,
 
 \item{normalize}{is a logical parameter, which indicates if the amplification curve.}
 
-\item{slope_normalizer}{is a logical parameter, which indicates if the 
+\item{slope_normalizer}{is a logical parameter, which indicates if the
 head2tailratio should be normalized to the slope of the ROI.}
 
-\item{verbose}{is a logical parameter, which indicates if all the values, 
+\item{verbose}{is a logical parameter, which indicates if all the values,
 parameters and coefficients of the analysis should be shown.}
 }
 \description{
 \code{head2tailratio} is a function to calculate the ratio of the head and the
-tail of a quantitative PCR amplification curve. In this test, only the head 
-(first six cycles) and the tail (last six cycles) form the region of interest 
+tail of a quantitative PCR amplification curve. In this test, only the head
+(first six cycles) and the tail (last six cycles) form the region of interest
 (ROI).
 }
 \examples{
@@ -37,7 +37,7 @@ res_head2tailratio <- sapply(2:ncol(competimer), function(i) {
 
 res_head2tailratio_cluster <- kmeans(res_head2tailratio, 3)$cluster
 
-matplot(competimer[, 1], competimer[, -1], xlab="Cycle", ylab="RFU", 
+matplot(competimer[, 1], competimer[, -1], xlab="Cycle", ylab="RFU",
         main="competimer data set", type="l", lty=1, col=res_head2tailratio_cluster, lwd=2)
 
 }

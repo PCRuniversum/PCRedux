@@ -16,24 +16,24 @@ hookregNL(x, y, plot = FALSE, level = 0.99, simple = TRUE,
 
 \item{level}{the confidence level required, Default: 0.99.}
 
-\item{simple}{is a logical parameter. If TRUE (default) only the slope, 
+\item{simple}{is a logical parameter. If TRUE (default) only the slope,
 confidence interval and decisions are shown as output}
 
-\item{manualtrim}{is the number of cycles that should be reomoved from the 
+\item{manualtrim}{is the number of cycles that should be reomoved from the
 background.
-(\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}} 
+(\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}}
 including the 6-parameter model is the output.}
 }
 \description{
 \code{hookregNL} is a function to calculate the slope and intercept of an
-amplification curve from a quantitative PCR experiment. The idea is that a 
-strong negative slope at the end of an amplification curve is indicative for a 
-hook effect (see Barratt and Mackay 2002). In contrast to 
-\code{\link[PCRedux]{hookreg}} fits this function a sex-parameter model to the 
+amplification curve from a quantitative PCR experiment. The idea is that a
+strong negative slope at the end of an amplification curve is indicative for a
+hook effect (see Barratt and Mackay 2002). In contrast to
+\code{\link[PCRedux]{hookreg}} fits this function a sex-parameter model to the
 amplification curve and extracts the coefficient, which describes the slope.
 }
 \examples{
-# Analyze data from the boggy data set for potential hook effect like 
+# Analyze data from the boggy data set for potential hook effect like
 # curvature
 library(qpcR)
 # has hook
@@ -45,8 +45,8 @@ res <- hookregNL(boggy[, 1], boggy[, 12])
 res
 }
 \references{
-K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
-Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
+K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping
+Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572.
 doi:10.1128/JCM.40.4.1571-1572.2002.
 }
 \seealso{

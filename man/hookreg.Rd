@@ -2,7 +2,7 @@
 % Please edit documentation in R/hookreg.R
 \name{hookreg}
 \alias{hookreg}
-\title{A function to calculate the slope and intercept of an amplification curve data 
+\title{A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment at the end of the data stream.}
 \usage{
 hookreg(x, y, normalize = TRUE, sig.level = 0.005, CI.level = 0.995,
@@ -13,19 +13,19 @@ hookreg(x, y, normalize = TRUE, sig.level = 0.005, CI.level = 0.995,
 
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
-\item{normalize}{is a logical parameter indicating if the data should be 
+\item{normalize}{is a logical parameter indicating if the data should be
 normalized to the 0.999 quantile}
 
-\item{sig.level}{defines the significance level to test for a significant 
+\item{sig.level}{defines the significance level to test for a significant
 regression}
 
 \item{CI.level}{confidence level required for the slope}
 
-\item{robust}{is a logical parameter indicating if the data should be 
+\item{robust}{is a logical parameter indicating if the data should be
 analyzed be a robust linear regression (\code{lmrob}).}
 }
 \description{
-\code{hookreg} is a function to calculate the slope and intercept of an 
+\code{hookreg} is a function to calculate the slope and intercept of an
 amplification curve data from a quantitative PCR experiment. The idea is that
 a strong negative slope at the end of an amplification curve is indicative for
 a hook effect (see Barratt and Mackay 2002).
@@ -39,7 +39,7 @@ library(qpcR)
 library(magrittr)
 
  res_hook <- sapply(2:ncol(boggy), function(i) {
-     hookreg(x=boggy[, 1], y=boggy[, i])}) \%>\% t \%>\% 
+     hookreg(x=boggy[, 1], y=boggy[, i])}) \%>\% t \%>\%
      data.frame(sample=colnames(boggy)[-1],.)
 res_hook
 
@@ -47,22 +47,22 @@ data_colors <- rainbow(ncol(boggy[, -1]), alpha=0.5)
 cl <- kmeans(na.omit(res_hook[, 2:3]), 2)$cluster
 
 par(mfrow=c(1,2))
-matplot(x=boggy[, 1], y=boggy[, -1], xlab="Cycle", ylab="RFU", 
+matplot(x=boggy[, 1], y=boggy[, -1], xlab="Cycle", ylab="RFU",
  main="boggy Data Set", type="l", lty=1, lwd=2, col=data_colors)
- legend("topleft", as.character(res_hook$sample), pch=19, 
+ legend("topleft", as.character(res_hook$sample), pch=19,
          col=data_colors, bty="n")
 
 plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
- xlab="intercept", ylab="Slope", 
+ xlab="intercept", ylab="Slope",
  main="Clusters of Amplification Curves with an Hook Effect-like Curvature\\nboggy Data Set")
  points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
  text(res_hook$intercept, res_hook$slope, res_hook$sample)
- 
+
 }
 \references{
-K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping 
-Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572. 
+K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping
+Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572.
 doi:10.1128/JCM.40.4.1571-1572.2002.
 }
 \author{

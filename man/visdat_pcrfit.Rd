@@ -9,22 +9,22 @@ visdat_pcrfit(data, type = "all", interactive = TRUE)
 \arguments{
 \item{data}{contains the result from an analysis with the \link[PCRedux]{pcrfit_single} function}
 
-\item{type}{specifies of all or only a subset of results should be shown, 
+\item{type}{specifies of all or only a subset of results should be shown,
 Default: 'all'. Alternatives 'qpcR' or 'amptester'}
 
-\item{interactive}{is a logical parameter, which indicates if the plot 
+\item{interactive}{is a logical parameter, which indicates if the plot
 should be interactive, Default: TRUE}
 }
 \description{
 gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the \link[visdat]{vis_dat} function by Tierney (2017). The colored indicators show the class (e.g., missing values, factors).
 }
 \details{
-type 'all' shows all results from the analysis by the 
+type 'all' shows all results from the analysis by the
 \link[PCRedux]{pcrfit_single} function.
 }
 \examples{
 
-# Calculate curve features of an amplification curve data. Note that not all 
+# Calculate curve features of an amplification curve data. Note that not all
 # available CPU cores are used. If need set "all" to use all available cores.
 library(qpcR)
 # take the samples F1.1 (positive) and F1.3 (negative) for this example.
@@ -33,9 +33,9 @@ test_data <- testdat[, c(1,2,4)]
 
 # Plot the amplification curves
 
-matplot(test_data[, 1], test_data[, -1], xlab="Cycle", ylab="RFU", 
+matplot(test_data[, 1], test_data[, -1], xlab="Cycle", ylab="RFU",
         main="testdat data set", type="l", lty=1, lwd=2, col=1:2)
-legend("topleft", paste(colnames(test_data)[-1], c("pos", "neg")), 
+legend("topleft", paste(colnames(test_data)[-1], c("pos", "neg")),
        pch=19, col=1:2)
 
 # Analyze the amplification curves with the pcrfit_single function
@@ -47,7 +47,7 @@ res <- rbind(F1.1=res_1, F1.3=res_2)
 visdat_pcrfit(res)
 }
 \references{
-N. Tierney, visdat: Visualising Whole Data Frames, \emph{The 
+N. Tierney, visdat: Visualising Whole Data Frames, \emph{The
 Journal of Open Source Software}. 2 (2017). doi:10.21105/joss.00355.
 }
 \seealso{

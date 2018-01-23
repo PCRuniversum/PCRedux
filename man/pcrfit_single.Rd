@@ -58,9 +58,9 @@ Output Description
 }
 }
 \description{
-The pcrfit_single is responsible for the 
+The pcrfit_single is responsible for the
 extraction of features from amplification curve data. The function can be used
-for custom functions for a paralleled analysis of amplification curve data. 
+for custom functions for a paralleled analysis of amplification curve data.
 An example is given in the vignette.
 }
 \details{
@@ -73,30 +73,30 @@ library(chipPCR)
 res <- pcrfit_single(C126EG685[, 2])
 }
 \references{
-M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical 
-computing in functional data analysis: The R package fda.usc}, Journal of 
+M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical
+computing in functional data analysis: The R package fda.usc}, Journal of
 Statistical Software. 51 (2012) 1--28. http://www.jstatsoft.org/v51/i04/
 
-A.-N. Spiess, C. Deutschmann, M. Burdukiewicz, R. Himmelreich, K. Klat, P. 
-Schierack, S. Roediger, Impact of Smoothing on Parameter Estimation in 
-Quantitative DNA Amplification Experiments, Clinical Chemistry. 61 (2015) 
+A.-N. Spiess, C. Deutschmann, M. Burdukiewicz, R. Himmelreich, K. Klat, P.
+Schierack, S. Roediger, Impact of Smoothing on Parameter Estimation in
+Quantitative DNA Amplification Experiments, Clinical Chemistry. 61 (2015)
 379--388. doi:10.1373/clinchem.2014.230656.
 
-S. Roediger, A. Boehm, I. Schimke, Surface Melting Curve Analysis with R, 
-\emph{The R Journal}. 5 (2013) 37--53. 
+S. Roediger, A. Boehm, I. Schimke, Surface Melting Curve Analysis with R,
+\emph{The R Journal}. 5 (2013) 37--53.
 http://journal.r-project.org/archive/2013-2/roediger-bohm-schimke.pdf.
 
-S. Roediger, M. Burdukiewicz, K.A. Blagodatskikh, P. Schierack, R as an 
-Environment for the Reproducible Analysis of DNA Amplification Experiments, 
-\emph{The R Journal}. 7 (2015) 127--150. 
+S. Roediger, M. Burdukiewicz, K.A. Blagodatskikh, P. Schierack, R as an
+Environment for the Reproducible Analysis of DNA Amplification Experiments,
+\emph{The R Journal}. 7 (2015) 127--150.
 http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf.
 
-S. Pabinger, S. Roediger, A. Kriegner, K. Vierlinger, A. Weinhauusel, A 
-survey of tools for the analysis of quantitative PCR (qPCR) data, \emph{Biomolecular 
+S. Pabinger, S. Roediger, A. Kriegner, K. Vierlinger, A. Weinhauusel, A
+survey of tools for the analysis of quantitative PCR (qPCR) data, \emph{Biomolecular
 Detection and Quantification}. 1 (2014) 23--33. doi:10.1016/j.bdq.2014.08.002.
 
-S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to 
-pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015) 
+S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to
+pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
 2900--2902. doi:10.1093/bioinformatics/btv205.
 }
 \seealso{

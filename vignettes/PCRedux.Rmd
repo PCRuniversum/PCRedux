@@ -213,7 +213,7 @@ Table_human_rated.xlsx
 
 \newpage
 
-## Analysis of Simgmoid Shaped Curves – or the Analysis of Amplification Curve Data from Quantitative real-time PCR Experiments \label{section_introduction}
+## Analysis of Simgmoid Shaped Curves - or the Analysis of Amplification Curve Data from Quantitative real-time PCR Experiments \label{section_introduction}
 
 \texttt{PCRedux} is an \texttt{R} package that was developed for the analysis of sigmoid curves.  Sigmoid curves are common in many biological assays. A widely used bioanalytical method is the quantitative real-time PCR (qPCR). For example, qPCR are applied in human diagnostics and forensics  [@martins_dna_2015, @sauer_differentiation_2016]. qPCRs are performed in thermo-cyclers. There are numerous manufactures, which produce thermal cyclers as commercial products or as part of scientific projects. An example a thermal cycler form an scientific project is the VideoScan technology [@roediger_highly_2013].
 
@@ -424,7 +424,7 @@ mtext("C    boggy data set", cex=1, side=3, adj=0, font=2)
 ```
 
 
-The most important measurement from qPCRs is the cycle of quantification (Cq), which signifies at which PCR cycle the fluorescence exceeds a “threshold value”. There is an ongoing debate as to what a significant and robust threshold value is since there are several mathematical methods to calculate the Cq. The classical threshold value (cycle threshold, Ct) is a straight horizontal line, which intersects with the quasi-linear phase in the exponential amplification phase of the PCR. Another Cq method uses the maximum of second derivative (SDM)[@roediger2015r]. More details will be given in \autoref{}. A good overview and performance comparison is given in @ruijter_evaluation_2013.
+The most important measurement from qPCRs is the cycle of quantification (Cq), which signifies at which PCR cycle the fluorescence exceeds a ``threshold value``. There is an ongoing debate as to what a significant and robust threshold value is since there are several mathematical methods to calculate the Cq. The classical threshold value (cycle threshold, Ct) is a straight horizontal line, which intersects with the quasi-linear phase in the exponential amplification phase of the PCR. Another Cq method uses the maximum of second derivative (SDM)[@roediger2015r]. More details will be given in \autoref{}. A good overview and performance comparison is given in @ruijter_evaluation_2013.
 
 In all cases the Cq can be used to calculate the concentration of target sequence in a sample (low Cq \textrightarrow high target concentration).
 
@@ -481,7 +481,7 @@ y=c + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 \end{equation}
 
 
-```{r, echo=FALSE, results='hide',message=FALSE, fig.cap="Commonly used methods for the analysis of quantification points. A) Linear plot of an amplification curve with a typical sigmoid shape. The Grey horizontal line is the threshold as determined by the \\textit{68–95–99.7 rule} from the fluoresce emission of cycle 1 to 10. The red horizontal line is the user defined threshold in the log-linear range of the amplification curve. The Ct is calculated from the intersection of the horizontal line and a quadratic polynomial fitted in to the amplification curve (see @roediger2015chippcr for details). B) The Amplification curve plot with a logarithmic ordinate visualizes the linear phase. C) Analysis of the amplification curve by fitting with a five parameter model (Equation \\ref{eq_Richards}). \\label{figure_quntifcation_points}", fig.height=8, fig.width=8} 
+```{r, echo=FALSE, results='hide',message=FALSE, fig.cap="Commonly used methods for the analysis of quantification points. A) Linear plot of an amplification curve with a typical sigmoid shape. The Grey horizontal line is the threshold as determined by the \\textit{68-95-99.7 rule} from the fluoresce emission of cycle 1 to 10. The red horizontal line is the user defined threshold in the log-linear range of the amplification curve. The Ct is calculated from the intersection of the horizontal line and a quadratic polynomial fitted in to the amplification curve (see @roediger2015chippcr for details). B) The Amplification curve plot with a logarithmic ordinate visualizes the linear phase. C) Analysis of the amplification curve by fitting with a five parameter model (Equation \\ref{eq_Richards}). \\label{figure_quntifcation_points}", fig.height=8, fig.width=8} 
 suppressMessages(library(qpcR))
 library(chipPCR)
 library(magrittr)
@@ -785,6 +785,9 @@ The following example illustrates a possible use of the function ``earlyreg()``.
 
 
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the `htPCR` data set (\\texttt{qpcR} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
+
+suppressMessages(library(qpcR))
+
 par(
   bty="o", font=2, font.axis=2, las=1, cex.axis=1.3, cex.lab=1.3, lwd=1.3,
   #     bg="white", oma=c(.5,.5,.5,.5))
@@ -815,11 +818,15 @@ Next, the ``earlyreg()`` function was used to determine the slope and intercept 
 
 When analyzing clusters with k-means (\textit{k}3 it was assumed that some amplification curves have a small, moderate or strong increase. After the cluster analysis this could also be observed (\autoref{earlyreg_results}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
 
-```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of samples according to their slope and intercept. The `htPCR` data set (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=7, fig.width=7} 
+```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of samples according to their slope and intercept. The `htPCR` data set (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=10, fig.width=10} 
 
 # Normalize each amplification curve to their 0.99 percentile and use the
 # earlyreg function to determine the slope and intercept of the first
 # 6 cycles
+
+suppressMessages(library(qpcR))
+
+data <- htPCR[, 1:501]
 
 res_slope_intercept <- do.call(rbind, lapply(2L:ncol(data), function(i) {
   earlyreg(x=data[, 1], y=data[, i], range=7, normalize=TRUE)
@@ -846,23 +853,24 @@ mtext("C", cex=1.5, side=3, adj=0, font=2)
 matplot(
   data[, 1], data[, which(res_kmeans == 1) + 1], col=curve_colors, pch=19, lty=1,
   type="l", xlab="Cycle", ylab="RFU",
-  main="htPCR data set (1-500)\n Cluster 1", ylim=c(min(data[, -1]), 0.4)
+  main="htPCR data set (1-500)\n Cluster 1", ylim=c(min(data[, -1], na.rm=TRUE), 0.4)
 )
 mtext("D", cex=1.5, side=3, adj=0, font=2)
 
 matplot(
   data[, 1], data[, which(res_kmeans == 2) + 1], col=curve_colors, pch=19, lty=1,
   type="l", xlab="Cycle", ylab="RFU",
-  main="htPCR data set (1-500)\n Cluster 2", ylim=c(min(data[, -1]), 0.4)
+  main="htPCR data set (1-500)\n Cluster 2", ylim=c(min(data[, -1], na.rm=TRUE), 0.4)
 )
 mtext("E", cex=1.5, side=3, adj=0, font=2)
 
 matplot(
   data[, 1], data[, which(res_kmeans == 3) + 1], col=curve_colors, pch=19, lty=1,
   type="l", xlab="Cycle", ylab="RFU",
-  main="htPCR data set (1-500)\n Cluster 3", ylim=c(min(data[, -1]), 0.4)
+  main="htPCR data set (1-500)\n Cluster 3", ylim=c(min(data[, -1], na.rm=TRUE), 0.4)
 )
 mtext("F", cex=1.5, side=3, adj=0, font=2)
+
 ```
 
 ### ``head2tailratio()`` - A Function to Calculate the Ratio of the Head and the Tail of a Quantitative PCR Amplification Curve\label{section_head2tailratio}
@@ -1090,7 +1098,7 @@ print(xtable(
 ))
 ```
 
-In another example, we combined the results from the ``mblrr()`` function with the classification (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (1 – 5). In this example six features were used for the analysis.
+In another example, we combined the results from the ``mblrr()`` function with the classification (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (1 - 5). In this example six features were used for the analysis.
 
 The \texttt{FFTrees} package [@FFTrees_package] provides an implementation for the 
 \texttt{R} statistical computing language. All that is needed for the present example 
