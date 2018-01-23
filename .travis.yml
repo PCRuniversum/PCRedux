@@ -11,6 +11,10 @@ r:
 r_github_packages:
   - jimhester/covr
 
+sudo: required
+dist: trusty
+group: deprecated-2017Q4
+
 before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
