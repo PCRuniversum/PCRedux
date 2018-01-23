@@ -33,30 +33,37 @@
 
 encu <- function(data, detection_chemistry = NA, device = NA) {
   # Determine the number of available cores and register them
-  
+
   # Prepare the data for further processing
   # Normalize RFU values to the alpha quantiles (0.999)
-  cycles <- data.frame(cycles=data[, 1])
+  cycles <- data.frame(cycles = data[, 1])
   data_RFU <- data.frame(data[, -1])
   ncol_data_RFU <- ncol(data_RFU)
   data_RFU_colnames <- colnames(data_RFU)
   data_RFU <- sapply(1L:ncol_data_RFU, function(i) {
-    data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm=TRUE)
+    data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm = TRUE)
   })
   colnames(data_RFU) <- data_RFU_colnames
-  
+
   # just to shut RCHeck for NSE we define ith_cycle
   ith_cycle <- 1
-  
-  run_res <- do.call(cbind,
-                     pblapply(1L:ncol_data_RFU, function(ith_run) pcrfit_single(data_RFU[, ith_run])))
-  
-  res <- cbind(runs = colnames(data_RFU), run_res, 
-               detection_chemistry = detection_chemistry,
-               device = device)
-  
+
+  run_res <- pblapply(1L:ncol_data_RFU, function(ith_run) pcrfit_single(data_RFU[, ith_run]))
+
+  run_res_as_columns <- do.call(
+    rbind,
+    lapply(1L:ncol_data_RFU, function(i) {
+      tmp <- run_res[[i]]
+    })
+  )
+
+  res <- cbind(
+    runs = colnames(data_RFU), run_res_as_columns,
+    detection_chemistry = detection_chemistry,
+    device = device
+  )
+
   rownames(res) <- NULL
-  
+
   res
-  
 }
