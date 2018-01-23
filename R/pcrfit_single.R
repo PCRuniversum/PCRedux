@@ -72,6 +72,7 @@
 #'   "mblrr_intercept_more" \tab \tab numeric \cr
 #'   "mblrr_slope_more" \tab \tab numeric \cr
 #'   "mblrr_cor_more" \tab \tab numeric \cr
+#'   "amp_cor_MIC" \tab \tab numeric \cr
 #'   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
 #'   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
@@ -89,7 +90,7 @@
 #'  \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
 #'  \code{\link[ecp]{e.agglo}}
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
-#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
+#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}},\code{\link[minerva]{mine}}
 #'  \code{\link[pracma]{polyarea}}
 #'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
 #'  \code{\link[base]{diff}}
@@ -186,6 +187,13 @@ pcrfit_single <- function(x) {
 
   # Perform an autocorrelation analysis
   res_autocorrelation <- PCRedux::autocorrelation_test(y = x)
+  
+  # Perform an correlation analysis with the 
+  res_amp_cor_MIC <- try(suppressWarnings(minerva::mine(cycles, y=x)$MIC), silent = TRUE)
+  if (class(res_amp_cor_MIC) == "try-error") {
+    res_amp_cor_MIC <- c(NA)
+    names(res_amp_cor_MIC) <- "MIC"
+  }
 
   # Fit sigmoidal models to curve data
 
@@ -343,6 +351,7 @@ pcrfit_single <- function(x) {
     mblrr_intercept_more = res_mblrr[4],
     mblrr_slope_more = res_mblrr[5],
     mblrr_cor_more = res_mblrr[6],
+    amp_cor_MIC = res_amp_cor_MIC, 
     hookreg_hook = res_hookreg,
     mcaPeaks_minima_maxima_ratio = mcaPeaks_minima_maxima_ratio,
     diffQ2_slope = res_diffQ2_slope,

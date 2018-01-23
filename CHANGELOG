@@ -3,6 +3,7 @@ Version 0.2.6 [January 2018]
 * New feature in pcrfit_single ("take down point")
 * Curated classifications
 * Unit tests for encu
+* New amplification curve data set (thanks Roy-Arne)
 * Improved performR (thanks to vondoRishi)
 * added Maximal Information Coefficient as feature
 
