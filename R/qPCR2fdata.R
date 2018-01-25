@@ -7,7 +7,7 @@
 #' distance).
 #' @param data is a data set containing the amplification cycles (1. column)
 #' and the fluorescence (subsequent columns).
-#' @param pre-process is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}}
+#' @param preprocess is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}}
 #' function from the chipPCR package (Roediger et al. 2015) is used to pre-process
 #' the data (e.g., imputation of missing values).
 #' and the fluorescence (subsequent columns).
