@@ -38,7 +38,6 @@ Suggests:
     drc,
     dplyr,
     knitr,
-    pinp,
     RDML,
     readxl,
     rmarkdown,
