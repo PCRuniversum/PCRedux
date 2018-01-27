@@ -148,6 +148,16 @@ The further processing of the amplification data took place as described in @roe
 
 For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This tool to assist the human expert during the classification of amplification curves and melting curves. The human expert has to define classes (e.g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions.  ``humanrater()`` was set to randomly select individual amplification curves. All classifications were done in at least three repeats. The classification of the `htPCR` data set was done in total eight times because most of the amplification curves are neither unequivocal classifiable as positive or negative (see \autoref{samples_of_qPCRs}B).
 
+```{r, echo=TRUE, }
+options(warn = -1)
+library(PCRedux)
+library(data.table)
+filename <- system.file("decision_res_competimer.csv", package="PCRedux")
+res_competimer <- fread(filename, data.table=FALSE)
+head(res_competimer)
+```
+
+
 \begin{table}[]
 \centering
 \caption{My caption}
@@ -174,6 +184,7 @@ decision\_res\_dil4reps94.csv                    & dil4reps94                  &
 decision\_res\_guescini1.csv                     & guescini1                   & \texttt{qpcR}    \\
 decision\_res\_guescini2.csv                     & guescini2                   & \texttt{qpcR}    \\
 decision\_res\_htPCR.csv                         & htPCR                       & \texttt{qpcR}    \\
+decision\_HCU32\_aggR.csv                        & HCU32\_aggR.csv             & \texttt{PCRedux} \\
 decision\_res\_karlen1.csv                       & karlen1                     & \texttt{qpcR}    \\
 decision\_res\_karlen2.csv                       & karlen2                     & \texttt{qpcR}    \\
 decision\_res\_karlen3.csv                       & karlen3                     & \texttt{qpcR}    \\
@@ -204,7 +215,6 @@ RDML data file           | Device    | Target gene           | Detection chemist
 RAS002.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
 RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
 hookreg.rdml             | Bio-Rad   | various               | Taqman, intercalating dyes
-HCU32_aggR.rdml          | 32HCU     | various               | intercalating dye (EvaGreen)
 
 32HCU: VideoScan (Attomol GmbH), CFX96: Bio-Rad.
 
@@ -265,9 +275,9 @@ The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if
 In contrast, the example in \autoref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple visual inspection. The data originate from a high-throughput experiment encompasses in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a manual analysis of the data is time-consuming and prone to errors.
 
 ```{r, echo=FALSE, fig.cap="\\label{samples_of_qPCRs}Amplification curve data from an iQ5 (Bio-Rad) thermal cycler and a high throughput experiment in the Biomark HD (Fluidigm). A) The `C127EGHP` data set (\\texttt{chipPCR} package, [@roediger2015chippcr]) with 64 amplification curves was produced in conventional thermal cycler with a 8 x 12 PCR grid. B) The `htPCR` data set (\\texttt{qpcR} package, [@Ritz2008]), which contains 8858 amplification curves, was produced in a 95 x 96 PCR grid. Only 2000 amplification curves are shown.", fig.height=5.5, fig.width=11}
-
+options(warn = -1)
 library(chipPCR)
-suppressMessages(library(qpcR))
+library(qpcR)
 
 
 # par(mfrow=c(1,2), las=0, bty="o", oma=c(1,1,1,1))
@@ -328,8 +338,8 @@ Such phases can be roughly considered as regions of interest (ROI). As an exampl
 
 
 ```{r, echo=FALSE, fig.cap="Graphical representation of qPCR amplification curves. The fluorescence emitted by the reporter dye (e.g, SYBR Green, EvaGreen) is plotted against cycle number. Data were taken from the `testdat` data set from the \\texttt{qpcR} package. \\label{amplification_curve_ROI}", fig.height=8, fig.width=8}
-
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 library(PCRedux)
 
 colors <- rainbow(10, alpha=0.15)
@@ -432,7 +442,8 @@ In contrast, negative or ambiguous amplification curves loosely resemble noise. 
 
 
 ```{r, echo=FALSE, fig.cap="Amplification curve shapes. \\label{amplification_curve_shapes}", fig.height=5}
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 library(PCRedux)
 library(data.table)
 filename <- system.file("decision_res_competimer.csv", package="PCRedux")
@@ -482,7 +493,8 @@ y=c + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 
 
 ```{r, echo=FALSE, results='hide',message=FALSE, fig.cap="Commonly used methods for the analysis of quantification points. A) Linear plot of an amplification curve with a typical sigmoid shape. The Grey horizontal line is the threshold as determined by the \\textit{68-95-99.7 rule} from the fluoresce emission of cycle 1 to 10. The red horizontal line is the user defined threshold in the log-linear range of the amplification curve. The Ct is calculated from the intersection of the horizontal line and a quadratic polynomial fitted in to the amplification curve (see @roediger2015chippcr for details). B) The Amplification curve plot with a logarithmic ordinate visualizes the linear phase. C) Analysis of the amplification curve by fitting with a five parameter model (Equation \\ref{eq_Richards}). \\label{figure_quntifcation_points}", fig.height=8, fig.width=8} 
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 library(chipPCR)
 library(magrittr)
 
@@ -544,8 +556,9 @@ The ``autocorrelation_test()`` function coercers the amplification curve data to
 ```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the `testdat` data set (\\texttt{qpcR} package, [@Ritz2008]). A) All amplification curves of the `testdat` data set. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
 # Test for autocorrelation in amplification curve data
 # Load the libraries magrittr for pipes and qpcR for the data
+options(warn = -1)
 library(magrittr)
-suppressMessages(library(qpcR))
+library(qpcR)
 library(PCRedux)
 # Test for autocorrelation in the testdat data set
 res_ac <- sapply(2:ncol(testdat), function(i) {
@@ -619,9 +632,10 @@ For example, the amplification curves in (\autoref{htPCR_nap}) were taken from t
 Table \autoref{tableheaddecision} shows from a total of `r ncol (qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive.  In total, the curves were classified eight times (`Test Score. 1` $\ldots$ `Test Score. 8`), resulting in a whole of 70864 individually analyzed amplification curves for this data set. All the raw data is included in the CSV file. 
 
 ```{r, eval=TRUE, echo=TRUE, results='asis'}
+options(warn = -1)
 library(PCRedux)
 library(xtable)
-suppressMessages(library(data.table))
+library(data.table)
 library(magrittr)
 
 filename <- system.file("decision_res_htPCR.csv", package="PCRedux")
@@ -634,8 +648,8 @@ print(
       head(subset(decision_res_htPCR, conformity == TRUE), 25)
     ), caption=".",
     label="tableheaddecision"
-  ), include.rownames=FALSE,
-  caption.placement="top", size="\\tiny"
+  ), include.rownames=FALSE, caption.placement="top", 
+  size="\\tiny", comment=FALSE
 )
 ```
 
@@ -664,9 +678,10 @@ summary(dec)
 ```
 
 ```{r, echo=FALSE, fig.cap="\\label{htPCR_nap}A) Comparison of amplification curves. Examples of a negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` data set (\\texttt{qpcR} package, @Ritz2008). The negative gain curve is not sigmoid and shows a strong positive trend. The ambiguous amplification curve approaches a sigmoid from, but shows a positive slope in the background (cycle 1 $\\rightarrow$ 5). The positive amplification curve is sigmoid. It begins in the background phase (cycle 1 $\\rightarrow$ 5) with a flat baseline, and shortly thereafter the exponential phase follows (cycle 5 $\\rightarrow$ 25) followed by a plateau phase (cycle 26 $\\rightarrow$ 35). B) Summary of frequencies of all classes of the `htPCR` record. negative, black; ambiguous, red; positive, green.", fig.height=5.5, fig.width=11}
+options(warn = -1)
 par(mfrow=c(1, 2))
 
-suppressMessages(library(qpcR))
+library(qpcR)
 matplot(
   htPCR[, 1], htPCR[, c(552, 512, 616)], xlab="Cycle", ylab="RFU",
   main="htPCR data set", type="l", lty=1, lwd=2
@@ -785,8 +800,8 @@ The following example illustrates a possible use of the function ``earlyreg()``.
 
 
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the `htPCR` data set (\\texttt{qpcR} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
-
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 
 par(
   bty="o", font=2, font.axis=2, las=1, cex.axis=1.3, cex.lab=1.3, lwd=1.3,
@@ -823,8 +838,8 @@ When analyzing clusters with k-means (\textit{k}3 it was assumed that some ampli
 # Normalize each amplification curve to their 0.99 percentile and use the
 # earlyreg function to determine the slope and intercept of the first
 # 6 cycles
-
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 
 data <- htPCR[, 1:501]
 
@@ -879,7 +894,8 @@ mtext("F", cex=1.5, side=3, adj=0, font=2)
 The ``head2tailratio()`` function calculates the ratio of the head and the tail of a quantitative PCR amplification curve. Positive amplification curves have different slopes and intercepts at the start of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these segments are potentially useful to extract a feature for an amplification curve classification.
 
 ```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) For amplification curves from each dilution (1:1, red;  1:10, green, 1:100, cyan; 1:1000, purple) of the `dil4reps94` data set were selected to visualize the approach of the head2tailratio() function. B) Plot of all amplification curves from the `dil4reps94` data set.", fig.height=5.5, fig.width=11}
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 
 
 colors <- c("#FF00004D", "#80FF004D", "#00FFFF4D", "#8000FF4D")
@@ -947,7 +963,8 @@ negative trend in the late phase of the amplification reaction
 ```{r, eval=TRUE, echo=TRUE}
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the last eight cycles.
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 library(magrittr)
 
 res_hook <- sapply(2:ncol(boggy), function(i) {
@@ -972,7 +989,7 @@ print(xtable(
              F5.2, F6.1 and F6.2 miss entries because the hoogreg algorithm 
              could not fit a linear model. This is an expected behavior, since these amplification curves did not have a hook effect like curvature.",
   label="tablehookreg"
-), include.rownames=FALSE)
+), include.rownames=FALSE, comment=FALSE)
 ```
 
 In \autoref{tablehookreg} is shown that the first amplification curves (F1.1, 
@@ -1026,7 +1043,8 @@ region. In the example shown below, the samples "P01.W19", "P06.W35", "P33.W66",
 purposes \autoref{plot_mblrr}. Another example is shown in \autoref{HCU32}A. Those amplification curves have a slight negative trend in the baseline region and a positive trend in the plateau region (\autoref{section_machine_learning}).
 
 ```{r, echo=TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the `htPCR` data set. Not the differences in slopes and intercepts (red and green lines). The mblrr() function is presumably useful for data sets which are accompanied by noise and artifacts.m, slop; n, intercept.", fig.height=7, fig.width=7}
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 par(mfrow=c(3, 2))
 
 # Select six amplification curves from the htPCR data set
@@ -1095,7 +1113,7 @@ print(xtable(
              correlation of head region; nTP, intercept of tail region; mTP, 
              slope of tail region; rBG, Pearson correlation of tail region",
   label="tablemblrrintroduction"
-))
+), comment=FALSE)
 ```
 
 In another example, we combined the results from the ``mblrr()`` function with the classification (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (1 - 5). In this example six features were used for the analysis.
@@ -1115,7 +1133,8 @@ In the following example we use the `testdat` data set from the \texttt{qpcR} pa
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_raw_data_FFTrees}Fast and Frugal Trees.", fig.height=5.5, fig.width=11}
 # Load the qpcR package to get some data
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 
 # Use testdat data set, which contains positive and negative amplification
 # curves. Note: Noise was added to the raw data.
@@ -1162,7 +1181,8 @@ mtext("B", cex=1.5, side=3, adj=0, font=2)
 
 ```{r, eval=TRUE, echo=TRUE}
 # Load the library xtable for an appealing table output
-suppressMessages(library(FFTrees))
+options(warn = -1)
+library(FFTrees)
 
 # Analyze the testdat data via the mblrr() function
 
@@ -1213,7 +1233,7 @@ print(xtable(
              correlation of head region; nTP, intercept of tail region; mTP, 
              slope of tail region; rBG, Pearson correlation of tail region",
   label="tablemblrr"
-), include.rownames=FALSE)
+), include.rownames=FALSE, comment=FALSE)
 ```
 
 \autoref{plot_FFTrees} shows the Fast and Frugal Trees by using the features nBG (intercept of head region), mBG (slope of head region), rBG (Pearson correlation of head region), nTP (intercept of tail region), mTP (slope of tail region), and rBG (Pearson correlation of tail region).
@@ -1238,9 +1258,10 @@ In this study CPA was hypothesized that the number of change points differs betw
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_bcp}Test.", fig.height=6}
 # Analyze amplification curves from the testdat data set for changepoints
+options(warn = -1)
 
 library(bcp)
-suppressMessages(library(qpcR))
+library(qpcR)
 
 x_range <- 1L:35
 
@@ -1296,7 +1317,8 @@ mtext("B    Negative", cex=1.5, side=3, adj=0, font=2)
     
 ```{r, echo=TRUE, fig.cap="\\label{diffQ2_slope}Analysis of the amplification curve via diffQ2()."}
 # Load example data (sample F6.1) from the testdat data set
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 library(magrittr)
 # Load MBmca package to calculate the minimum, and the maximum of the second
 # derivative
@@ -1549,8 +1571,8 @@ pcrfit_parallel <- function(data, n_cores=1) {
 # In this example the testdat data set from the qpcR package is used.
 # The samples F1.1 and F1.2 are positive amplification curves. The samples
 # F1.3 and F1.4 are negative.
-
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 res_pcrfit_parallel <- pcrfit_parallel(testdat[, 1:5])
 res_pcrfit_parallel
 ```
@@ -1594,7 +1616,8 @@ The following example illustrates the usage for the `testdat` data set.
 # Calculate the Hausdorff distance of the amplification curves
 # cluster the curves.
 # Load additional packages for data and pipes.
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 library(chipPCR)
 library(fda.usc)
 library(magrittr)
@@ -1686,7 +1709,7 @@ print(
     cutree_results, caption="Clusters of the amplification curves after an analysis using the Hausdorff distance. The amplification curves of the `testdat` data set remained as raw data or were pre-processed (smoothed). Subsequent the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to a cluster analysis (Hausdorff distance). All sample were correctly assigned to cluster 1 (positive) or cluster 2 (negative).",
     label="tablecutreehausdorff"
   ),
-  include.rownames=FALSE, caption.placement="top"
+  include.rownames=FALSE, caption.placement="top", comment=FALSE
 )
 ```
 
@@ -1765,7 +1788,8 @@ curves form only few clusters.
 # Calculate slope and intercept on positive amplification curve data from the
 # VideoScan 32 cavity real-time PCR device.
 # Load additional packages for data and pipes.
-suppressMessages(library(data.table))
+options(warn = -1)
+library(data.table)
 library(fda.usc)
 library(magrittr)
 
@@ -1785,8 +1809,8 @@ In advance the the Cq values were calculated by the following code:
 ```{r, echo=TRUE, eval=FALSE}
 # Load the qpcR package to calculate the Cq values by the second derivative
 # maximum method.
-
-suppressMessages(library(qpcR))
+options(warn = -1)
+library(qpcR)
 
 res_Cq <- sapply(2L:ncol(data_32HCU), function(i) {
   efficiency(pcrfit(data_32HCU, cyc=1, fluo=i, model=l6))
