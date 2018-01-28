@@ -11,12 +11,8 @@ Quantitative PCR Machine Learning Helper Tool
 ## Installation
 
 *PCRedux* is available [on CRAN](https://cran.r-project.org/package=PCRedux). However, you 
-can install the latest development version of the code using the [devtools](https://cran.r-project.org/package=devtools) R package.
+can install the latest development version of the code using the following code:
 
 ```R
-# Install devtools, if you haven't already.
-install.packages("devtools")
-
-library(devtools)
-install_github("devSJR/PCRedux")
+source("https://install-github.me/devSJR/PCRedux")
 ```
