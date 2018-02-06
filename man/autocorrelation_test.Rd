@@ -5,12 +5,10 @@
 \title{A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment}
 \usage{
-autocorrelation_test(y, n = 3, sig.level = 0.01)
+autocorrelation_test(y, sig.level = 0.01)
 }
 \arguments{
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
-
-\item{n}{is the number of lagged cycles.}
 
 \item{sig.level}{is the significance level for the correlation test.,
 Default: 0.01}

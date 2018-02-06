@@ -27,9 +27,11 @@ vignette: >
 
 Reproducibility is a foundation of research. All technical and experimental aspects should be performed under principles that follow good practices of reproducible research. Numerous authors addressed the matter for experimental design and data report. Examples are the *Minimum Information for Publication of Quantitative PCR Experiments* guidelines (MIQE) and the *Real-time PCR Data Markup Language* (RDML). MIQE is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines and RDML is a data exchange format [@bustin_reproducibility_2014, @bustin_continuing_2017, @roediger2015r, @roediger_enabling_2017, @wilson_good_2016]. Both MIQE and RDML, are widely used to preform quantitative real-time PCRs [@pabinger_2014].
 
-The development of scientific software is a complex process. In particular, if the development is carried out by teams who work in different time zones and where no face-to-face meetings a possible. End users need releases with stable software that delivers reproducible results. Developers need well documented software the adopt the software according to their needs. Under the umbrella \textit{Agile Software Development} and \textit{Extreme Programming}, several principles were proposed to deliver high quality software, which meet the needs of end useres and developers. This includes version control, collaborative editing, unit testing and continuous integration[@lanubile_collaboration_2010, @myers_art_2004, @roediger2015r]. The following paragraphs describe methods implemented in the PCRedux package to ensure high software quality.
+The development of scientific software is a complex process. In particular, if the development is carried out by teams who work in different time zones and where no face-to-face meetings a possible. End users need releases with stable software that delivers reproducible results. Developers need well documented software the adopt the software according to their needs. Under the umbrella \textit{Agile Software Development} and \textit{Extreme Programming}, several principles were proposed to deliver high quality software, which meet the needs of end users and developers. This includes version control, collaborative editing, unit testing and continuous integration[@lanubile_collaboration_2010, @myers_art_2004, @roediger2015r]. The following paragraphs describe methods implemented in the PCRedux package to ensure high software quality.
 
-The development of the \texttt{PCRedux} package started with the submission of a functional, yet immature code, to GitHub (GitHub, Inc.). GitHub is a web-based version control repository hosting service. Both distributed version control and source code management are based on Git. [@lanubile_collaboration_2010].  Additional functionality of GitHub includes the administration of access management, bug tracking, moderation of feature requests, task management, some metrics for the software development, and wikis. The source code of \texttt{PCRedux} is available at:
+### Version Control and Continuous Integration \label{section_Version_Control_and_Continuous_Integration}
+
+The development of the \texttt{PCRedux} package started 2017 with the submission of a functional, yet immature source code, to GitHub (GitHub, Inc.). GitHub is a web-based version control repository hosting service. Both distributed version control and source code management are based on Git. [@lanubile_collaboration_2010].  Additional functionality of GitHub includes the administration of access management, bug tracking, moderation of feature requests, task management, some metrics for the software development, and wikis. The source code of \texttt{PCRedux} is available at:
 
 > \url{https://github.com/devSJR/PCRedux/}
 
@@ -39,11 +41,15 @@ TrivsCI was chosen as continues integration service for \texttt{PCRedux}. The Tr
 
 > \url{https://travis-ci.org/devSJR/PCRedux}
 
+### Naming Convention and Literate Programming \label{section_Naming_Convention_and_Literate_Programming}
+
 The \texttt{PCRedux} software is provided as an \text{R} ($\geq$ v. 3.3.3) package.  \texttt{PCRedux} is written as \textit{S3} object system. \textit{S3} has characteristics of object orientated programming but eases the development due to the use of the naming conventions [@noauthor_compstat_2008]. In most places function and parameter names are written as underscore separated (underscore$\_$sep), which is a widely used style in \texttt{R} packages [@Baaaath_2012]. This convention had to be violated in coding sections where functionality from other packages was used.
 
 Literate programming, as proposed by @knuth_literate_1984, is a concept where the logic of the source code and documentation is integrated in a single file. Markup conventions (e.g., '#') tell in literate programming how to typeset the documentation. This produces outputs in a typesetting language such as the lightweight markup language **Markdown**, or the document preparation system  \LaTeX. 
 
 The \texttt{roxygen2}, \texttt{rmarkdown} and \texttt{knitr} packages were used to write the documentation in-line with code for the \texttt{PCRedux} package.
+
+### Installation of the \texttt{PCRedux} Package \label{section_Installation_of_the_PCRedux_Package}
 
 The development version of the package can be installed using the The developer version of the package can be installed using the \texttt{devtools} package.
 
@@ -78,7 +84,10 @@ Results from CRAN check can be found at
 
 > \url{http://cran.us.r-project.org/web/checks/check_results_PCRedux.html}.
 
-Modules testing, better known as unit testing, is an approach to simplify the refactoring of source code during software development. The goal is to minimize errors and regressions. It is also intended to ensure that the numerical results from the calculations are reproducible and of high quality. An unintended behaviour of the software should be detected at the latest during the package building process. Please note that Unit Testing is not a guarantee for error-free software [@myers_art_2004].
+
+### Unit Testing of the \texttt{PCRedux} Package \label{section_Unit_Testing_of_the_PCRedux_Package}
+
+Modules testing, better known as unit testing, is an approach to simplify the refactoring of source code during software development. The goal is to minimize errors and regressions. It is also intended to ensure that the numerical results from the calculations are reproducible and of high quality. An unintended behavior of the software should be detected at the latest during the package building process. Please note that Unit Testing is not a guarantee for error-free software [@myers_art_2004].
 
 The basic concept is to use checkpoints to check whether the software performs calculations and data transformations correctly for all builds. For this, numerous (logical) queries have to be defined by the developer in advance. They are refereed to \textit{expectations}. It should be ensured that as many errors as possible are covered. A logical query can be, for example, whether the calculation has a numeric or Boolean value as output. If the data type is incorrect during output, this is a sufficient termination criterion. Or it can be checked whether the length of the result vector is correct after the calculation. There are different approaches for unit tests in \texttt{R}. This also includes testing of units from the packages \texttt{RUnit}, \texttt{covr}, \texttt{svUnit} and \texttt{testthat}. (@wickham_testthat_2011).
 
@@ -87,7 +96,7 @@ The package \texttt{testthat} was used in \texttt{PCRedux} because it could be w
 * an object of the class *fdata* is created (see @Febrero_Bande_2012 for details of the class *fdata*),
 * the parameter *rangeval* has a length of two,
 * is the second value of parameter *Rangeval* 49 (last cycle number) and 
-*whether the object structure of the function ``qPCR2fdata()` does not change if the parameter \textit{preprocess=TRUE} is set.
+*whether the object structure of the function ``qPCR2fdata()`` does not change if the parameter \textit{preprocess=TRUE} is set.
 
 ```{r, eval=FALSE, echo=TRUE}
 library(PCRedux)
@@ -113,7 +122,7 @@ Similar unit tests were implemented for all functions of the \texttt{PCRedux} pa
 
 > \url{https://codecov.io/gh/devSJR/PCRedux/list/master/}.
 
-### Data Sets of Amplification Curves and Classification\label{s}
+## Data Sets of Amplification Curves and Classification\label{s}
 
 An extensive literature research showed that in the field of qPCR there are no openly accessible data sets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014]. Furthermore, only a few attributes of amplification curves are described in the literature (see \autoref{amplification_curve_forms}). That includes them:
 
@@ -122,17 +131,39 @@ An extensive literature research showed that in the field of qPCR there are no o
 * the Cq value and amplification efficiency, and 
 * the signal level including the slope of the plateau phase (Slope, Intercept).
 
-However, these alone are not enough to describe amplification curves sufficiently. Furthermore, there are no references to further algorithms that can be used to calculate additional features from amplification curves. All these facts make further studies on machine learning and modelling difficult. 
+However, these alone are presumably not enough to describe amplification curves sufficiently. Furthermore, there are no references to further algorithms that can be used to calculate additional features from amplification curves. All these facts make further studies on machine learning and modeling difficult. A feature can be described as an entity that characterizes an object. The number of features should be large enough to describe the object accurately and small enough not to interfere with the learning process with redundant or information. 
+
+Bellman coined the so-called *Curse of Dimensionality* in 1961, when he dealt with adaptive control processes. It vague describes the practical difficulties encountered in high-dimensional analysis and estimation.  It states that for a given sample size, there is a maximum number of features from which the performance of an algorithm degrades rather than improves. 
+As a consequence, many data mining algorithms fail when the dimensionality is high, because the data points are sparsely populated and far apart [@herrera_multiple_2016].
 
 Therefore, a large number of records with amplification curves and their classification (negative, ambiguous, positive) were included in the \texttt{PCRedux} package. Another objective was the development of new algorithms and the transfer of algorithms from other domains (e.g., from digital image processing) to qPCR data sets.  A central goal was therefore to develop attributes to enable the classification of amplification curves in categories such as positive, negative and ambiguous.
 
 Initially, amplification curves from different sources had to be analyzed manually. From the \texttt{qpcR}, \texttt{chipPCR} and \texttt{PCRedux} packages, the amplification curves were classified with the ``humanrater()`` function from the \texttt{chipPCR} package. This step is briefly outlined in the chapter \autoref{humanrater}. This step is not to be discussed here. 
 
-Data preparation is an important step. This includes the steps involved in data cleansing, data transformation and data integration[@herrera_multiple_2016]. The \texttt{xray} package[@Seibelt_xray] was used to analyze the distribution form and variables in records for anomalies such as missing values, zeros, infinite values and their categories. 
+Data preparation is an important step. This includes the steps involved in data cleansing, data transformation and data integration[@herrera_multiple_2016]. The \texttt{xray} package [@Seibelt_xray] was used to analyze the distribution form and variables in records for anomalies such as missing values, zeros, infinite values and their categories. The ``anomalies()`` function from the \texttt{xray} package can be used to search for anomalies (including missing values (NA), zero values (Zero), blank strings (Blank) and infinite numbers (Inf)). The results of all  analysis are reported in columns prefixed by *q* for quantity and *p* for percentage. The later indicates the percent of total rows with the anomaly. Here the `decision_res_htPCR.csv` data set was analyzed to get an overview about a fairly large data set from `r ncol(qpcR:: htPCR)-1` amplification curves. This data set contains the sample names, eight columns of classifications (`test.result.1` $\ldots$ `test.result.8`) and a column about the conformity of all classifications.
 
-Note: All users of the \texttt{PCRedux} package should use such tools before continuing to work with the records. Although most records in the \texttt{PCRedux} package have the same data structure, some records contain missing values or have different dimensions (compare data from \autoref{samples_of_qPCRs}). For example, the data set `C127EGHP` spans a matrix of `r data_dim <- dim (chipPCR::C127EGHP); paste0(data_dim[1],"x", data_dim[2])`, while the `htPCR` data set comprises a matrix of `r data_dim <- dim (qpcR:: htPCR); paste0 (data_dim[1]," x ", data_dim[2])`.
+```{r, echo=TRUE, fig.cap="\\label{figure_xray} Cleansing of data.", fig.height=8}
+# Suppress messages and load the packages for reading the data and
+# the analysis of anomalies.
+options(warn = -1)
+suppressMessages(library(data.table))
+library(PCRedux)
+library(xray)
 
-Raw data were exported as comma separated values from the thermal cyclers. Some records have been exported from the devices using the \texttt{RDML} package and transformed into RDML format. A detailed description can be found in @roediger_enabling_2017. The Real-time PCR Data Markup Language (RDML) is data exchange format for quantitative Real-Time PCR Experiments. RDML is a human readable file format and is based on XML (eXtensible Markup Language) and was created to enable the exchange of data across different information systems [@lefever_rdml_2009]. The following code section describes the import of an RDML file from the `PCRedux` package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
+# Load the decision_res_htPCR.csv data set from a csv file.
+filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
+decision_htPCR <- fread(filename, data.table = FALSE)
+
+# Analyze the data set for missing values, zero values, blank strings and 
+# infinite numbers.
+anomalies(decision_htPCR, anomaly_threshold = 0.5, distinct_threshold = 1)
+```
+
+The results indicate the the *conformity* column contains in 94.54% identical values, with two distinct categories (*qDistinct*). There are no missing values, no zero values, blank strings and no infinite numbers in this data set.
+
+**Note**: All users of the \texttt{PCRedux} package should use such tools before continuing to work with the records. Although most records in the \texttt{PCRedux} package have the same data structure, some records contain missing values or have different dimensions (compare data from \autoref{samples_of_qPCRs}). For example, the data set `C127EGHP` spans a matrix of `r data_dim <- dim (chipPCR::C127EGHP); paste0(data_dim[1]," x ", data_dim[2])`, while the `htPCR` data set comprises a matrix of `r data_dim <- dim (qpcR:: htPCR); paste0 (data_dim[1]," x ", data_dim[2])`.
+
+Raw data were exported as comma separated values from the thermal cyclers. Some records have been exported from the devices using the \texttt{RDML} package and transformed into RDML format. A detailed description can be found in @roediger_enabling_2017. The Real-time PCR Data Markup Language (RDML) is data exchange format for quantitative Real-Time PCR Experiments. RDML is a human readable file format and is based on XML (eXtensible Markup Language) and was created to enable the exchange of data across different information systems [@lefever_rdml_2009]. The following code section describes the import of an RDML file from the \texttt{PCRedux} package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
 
 ```{r, echo=TRUE, eval=FALSE}
 library(RDML)
@@ -144,11 +175,35 @@ raw_data <- RDML$new(filename = filename)
 ```
 The further processing of the amplification data took place as described in @roediger2015chippcr, @roediger2015r, @spiess_impact_2015 and @spiess_system-specific_2016. An introduction to the use of \texttt{R} for the analysis of melting curves (\texttt{MBmca} package, [@roediger_RJ_2013]) and the calculation of Cq values (\texttt{chipPCR} package, [@roediger2015chippcr]) is shown in detail in @roediger2015r. Unless otherwise stated, the Cq values were determined using the second maximum derivative method.
 
-### Classified Data Sets \label{chapter_humanrater}
+### Classified Amplification Curve Data Sets \label{chapter_humanrater}
 
-For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This tool to assist the human expert during the classification of amplification curves and melting curves. The human expert has to define classes (e.g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions.  ``humanrater()`` was set to randomly select individual amplification curves. All classifications were done in at least three repeats. The classification of the `htPCR` data set was done in total eight times because most of the amplification curves are neither unequivocal classifiable as positive or negative (see \autoref{samples_of_qPCRs}B).
+For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This tool to assist the human expert during the classification of amplification curves and melting curves. The human expert has to define classes (e.g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions.  ``humanrater()`` was set to randomly select individual amplification curves. All classifications were done in at least three repeats. The classification of the `htPCR` data set was done in total eight times  (see \autoref{figure_curve_classification}) because most of the amplification curves are neither unequivocal classifiable as positive or negative (see \autoref{samples_of_qPCRs}B).
 
-```{r, echo=TRUE, }
+```{r, echo=TRUE, eval=TRUE, fig.cap="\\label{figure_curve_classification} Class frequency. Amplification curves from the `htPCR` data set (\\texttt{qpcR} package, [@Ritz2008]) were classified by a human eight times with the classes ambiguous (a), positive (y) or negative (n)."}
+# Suppress messages and load the packages for reading the data of the classified
+# amplification curves.
+options(warn = -1)
+library(PCRedux)
+suppressMessages(library(data.table))
+
+# Load the decision_res_htPCR.csv data set from a csv file.
+filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
+decision_htPCR <- fread(filename, data.table = FALSE)
+
+# 
+par(mfrow=c(2,4))
+for(i in 2L:9) {
+data_tmp <- table(as.factor(decision_htPCR[, i]))
+
+barplot(data_tmp)
+text(c(0.7, 1.9, 3.1), rep(quantile(data_tmp, 0.25), 3), data_tmp, srt=90)
+mtext(LETTERS[i - 1], cex = 1.5, side = 3, adj = 0, font = 2)
+}
+```
+
+
+
+```{r, echo=TRUE}
 options(warn = -1)
 library(PCRedux)
 library(data.table)
@@ -160,18 +215,19 @@ head(res_competimer)
 
 \begin{table}[]
 \centering
-\caption{My caption}
+\caption{Classified amplification curve data sets.}
 \label{table-datasets}
 \begin{tabular}{lll}
 \hline
 Decision Data Sets in PCRedux                    & qPCR Data Set               & Package       \\ \hline
-decision\_res\_2017\_08\_07\_\_RAS002.csv        & 2017\_08\_07\_\_RAS002.rdml & \texttt{PCRedux} \\
-decision\_res\_2017\_08\_11\_\_RAS003.csv        & 2017\_08\_11\_\_RAS003.rdml & \texttt{PCRedux} \\
+decision\_res\_RAS002.csv                        & RAS002.rdml                 & \texttt{PCRedux} \\
+decision\_res\_RAS003.csv                        & RAS003.rdml                 & \texttt{PCRedux} \\
 decision\_res\_batsch1.csv                       & batsch1                     & \texttt{qpcR}    \\
 decision\_res\_batsch2.csv                       & batsch2                     & \texttt{qpcR}    \\
 decision\_res\_batsch3.csv                       & batsch3                     & \texttt{qpcR}    \\
 decision\_res\_batsch4.csv                       & batsch4                     & \texttt{qpcR}    \\
 decision\_res\_batsch5.csv                       & batsch5                     & \texttt{qpcR}    \\
+decision\_res\_lc96\_bACTXY.csv                  & lc96\_bACTXY.rdml           & \texttt{RDML}    \\
 decision\_res\_boggy.csv                         & boggy                       & \texttt{qpcR}    \\
 decision\_res\_C126EG595.csv                     & C126EG595                   & \texttt{chipPCR} \\
 decision\_res\_C127EGHP.csv                      & C127EGHP                    & \texttt{chipPCR} \\
@@ -196,7 +252,7 @@ decision\_res\_reps2.csv                         & reps2                       &
 decision\_res\_reps3.csv                         & reps3                       & \texttt{qpcR}    \\
 decision\_res\_reps384.csv                       & reps384                     & \texttt{qpcR}    \\
 decision\_res\_rutledge.csv                      & rutledge                    & \texttt{qpcR}    \\
-decision\_res\_stepone\_std.csv                  & stepone\_std                & \texttt{qpcR}    \\
+decision\_res\_stepone\_std.csv                  & stepone\_std                & \texttt{RDML}    \\
 decision\_res\_testdat.csv                       & testdat                     & \texttt{qpcR}    \\
 decision\_res\_vermeulen1.csv                    & vermeulen1                  & \texttt{qpcR}    \\
 decision\_res\_vermeulen2.csv                    & vermeulen2                  & \texttt{qpcR}    \\
@@ -205,7 +261,7 @@ decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                &
 \end{table}
 
 
-**Amplification Curve Data in the `RDML` Format**
+### Amplification Curve Data in the `RDML` Format \label{section_Amplification_Curve_Data_in_the_RDML_Format}
 
 Selected amplification cure data sets were stored in the RDML format as 
 described in [@roediger2015r, @roediger_enabling_2017].
@@ -218,6 +274,15 @@ hookreg.rdml             | Bio-Rad   | various               | Taqman, intercala
 
 32HCU: VideoScan (Attomol GmbH), CFX96: Bio-Rad.
 
+```{r, echo=TRUE, eval=TRUE, fig.cap="\\label{figure_RAS002} RAS003 data set.", fig.height=4}
+options(warn = -1)
+library(PCRedux)
+library(RDML)
+RAS002 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData())
+colors <- rainbow(ncol(RAS002) -1, alpha = 0.3)
+matplot(RAS002[, 1], RAS002[, -1], xlab = "Cycle", ylab = "RFU", 
+        main = "RAS002 data set", type = "l", lty = 1, lwd = 2, col = colors)
+```
 
 Table_human_rated.xlsx
 
@@ -272,7 +337,7 @@ mtext("D", cex = 1.5, side = 3, adj = 0, font = 2)
 
 The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if the volume of data is low, or dedicated software is available for the analysis thereof. An example such a scenario (low number of amplification curves) is shown in \autoref{samples_of_qPCRs}A. All `r ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape.
 
-In contrast, the example in \autoref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple visual inspection. The data originate from a high-throughput experiment encompasses in total `r ncol(qpcR::htPCR)-1` amplification curves. Similarly, a manual analysis of the data is time-consuming and prone to errors.
+In contrast, the example in \autoref{samples_of_qPCRs}B is not manageable with a reasonable effort by simple visual inspection. The data originate from a high-throughput experiment encompasses in total `r suppressMessages(ncol(qpcR::htPCR))-1` amplification curves. Similarly, a manual analysis of the data is time-consuming and prone to errors.
 
 ```{r, echo=FALSE, fig.cap="\\label{samples_of_qPCRs}Amplification curve data from an iQ5 (Bio-Rad) thermal cycler and a high throughput experiment in the Biomark HD (Fluidigm). A) The `C127EGHP` data set (\\texttt{chipPCR} package, [@roediger2015chippcr]) with 64 amplification curves was produced in conventional thermal cycler with a 8 x 12 PCR grid. B) The `htPCR` data set (\\texttt{qpcR} package, [@Ritz2008]), which contains 8858 amplification curves, was produced in a 95 x 96 PCR grid. Only 2000 amplification curves are shown.", fig.height=5.5, fig.width=11}
 options(warn = -1)
@@ -441,7 +506,7 @@ In all cases the Cq can be used to calculate the concentration of target sequenc
 In contrast, negative or ambiguous amplification curves loosely resemble noise. This noise may appear linear or exhibit a curvature (Figure \ref{amplification_curve_shapes}). Many factors, such as the sample quality, qPCR chemistry, and technical problems (e.g., sensor errors) contribute to various curve shapes. A common phenomenon of amplification curve shapes is the 'hook effect' [@barratt_improving_2002, @ruijter_2014]. This however, may result in faulty interpretation of the amplification curves. Remarkable progress has been made in qPCR data analysis, primarily due to the availability of sophisticated data analysis pipelines (e.g., @ruijter_evaluation_2013, @ruijter_removal_2015, @roediger2015r, @spiess_impact_2015, @spiess_system-specific_2016). However, the availability of comprehensively annotated data sets of amplification curves remains a challenge.
 
 
-```{r, echo=FALSE, fig.cap="Amplification curve shapes. \\label{amplification_curve_shapes}", fig.height=5}
+```{r, echo=FALSE, fig.cap="Amplification curve shapes. \\label{amplification_curve_shapes}", fig.height=3}
 options(warn = -1)
 library(qpcR)
 library(PCRedux)
@@ -474,13 +539,6 @@ A typical situation is that results samples may positive, negative or ambiguous.
 A threshold based method is a simple yet effective approach. This method requires that amplification curves are properly base-lined prior to the analysis. This is not always desirable. Methods of ``amptester()`` function are more sophisticated and are targeted at two user groups. The first covers developers who wish to implement their own routines. The second covers users who wish to include an initial quality control.
 
 Provided that the rules are strict and transparent, such a routine can be used for quality management. This is also in conformance with the philosophy that software in research and diagnostics should be a foundation for reproducible research [@roediger2015r].
-
-
-@liu_direct_2014
-
-
-Statistical reasoning and computation have important roles in forensic sciences [@curran_statistics_2009].
-
 
 The Ct method appears to be the most widely used method despite the fact that this method was shown to be unreliable [@ruijter_evaluation_2013, @spiess_impact_2015, @spiess_system-specific_2016]. Presumably this due to the familiarity of users with this approach since it is also known from chemical analysis procedures or basic calculus.  Another reason might be that the Ct method is easy to implement and to understand. The calculation is strongly dependent on the user, who has to adjust the threshold level manually. Thus, the Ct method is not stable in predictions if several users are given the same data set to be analyzed. Moreover, the Ct method makes the assumption that the amplification efficiency (~ slope in the log-linear phase) is equal across all amplification curves compared [@ruijter_evaluation_2013]. Evidently, this is not always case as exemplified in \autoref{amplification_curve_ROI}C.
 
@@ -629,7 +687,7 @@ Many approaches to machine learning exist. The subject is very rich. One method 
 
 For example, the amplification curves in (\autoref{htPCR_nap}) were taken from the `htPCR` data set (see \autoref{samples_of_qPCRs}B). Assuming that the classification of the amplification curves is delegated to different users, it is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) will be considered ambiguous or even positive ($\leftrightarrow$ positive ambivalent) by the users. A classification experiment was carried out for the complete `htPCR` data set. For this purpose, the amplification curves were classified at different time points as described in @roediger2015chippcr.
 
-Table \autoref{tableheaddecision} shows from a total of `r ncol (qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive.  In total, the curves were classified eight times (`Test Score. 1` $\ldots$ `Test Score. 8`), resulting in a whole of 70864 individually analyzed amplification curves for this data set. All the raw data is included in the CSV file. 
+\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive.  In total, the curves were classified eight times (`Test Score. 1` $\ldots$ `Test Score. 8`), resulting in a whole of 70864 individually analyzed amplification curves for this data set. All the raw data is included in the CSV file. 
 
 ```{r, eval=TRUE, echo=TRUE, results='asis'}
 options(warn = -1)
@@ -701,36 +759,19 @@ barplot(
 mtext("B    Classified by human", side = 3, adj = 0, font = 2, las = 0)
 ```
 
-Another usage mode ``decision_modus ()`` function is to set the parameter `max_freq=FALSE`. That option specifies the number of all classifications.
-    
+Another usage mode ``decision_modus()`` function is to set the parameter `max_freq=FALSE`. That option specifies the number of all classifications.
+
 ```{r, eval=TRUE, echo=TRUE}
+library(PCRedux)
 # Decisions for sample P01.W06
 res_dec_P01.W06 <- decision_modus(decision_res_htPCR[
-  which(decision_res_htPCR[["sample"]] == "P01.W06"),
+    which(decision_res_htPCR[["htPCR"]] == "P01.W06"),
   2L:9
 ], max_freq = FALSE)
 print(res_dec_P01.W06)
 ```
 
 This amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn into a `negative` decision.
-
-
-```{r, echo=FALSE, fig.cap="\\label{htPCR_nap_all}All decisions.", fig.height=11, fig.width=11}
-# par(mfrow=c(3,3))
-#
-# decision_plot <- function(data, name="", rating_columns=2:4){
-#     dec <- lapply(1L:nrow(data), function(i) {
-#         decision_modus(data[i, c(rating_columns)])
-#     }) %>% unlist
-#     barplot(table(dec), xlab="Decision", ylab="Frequency",
-#             main=paste("Human classified - htPCR data set",
-#                        name), col=c(2,3,1), ylim=c(0,6000))
-# }
-# decision_plot(decision_res_htPCR, name="", rating_columns=2:4)
-# # decision_plot(decision_res_htPCR_reevaluation, name="", rating_columns=2:4)
-# decision_plot(decision_res_htPCR_merged, name="merged", rating_columns=2:7)
-```
-
 
 ### ``earlyreg()`` - A Function to Calculate the Slope and Intercept of Amplification Curve Data from a qPCR Experiment \label{section_earlyreg}
 
@@ -1117,7 +1158,7 @@ print(xtable(
 ), comment = FALSE, caption.placement = "top")
 ```
 
-In another example, we combined the results from the ``mblrr()`` function with the classification (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (1 - 5). In this example six features were used for the analysis.
+In another example, the results from the ``mblrr()`` function were combined with the classifications (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (1 - 5). In this example six features were used for the analysis.
 
 The \texttt{FFTrees} package [@FFTrees_package] provides an implementation for the 
 \texttt{R} statistical computing language. All that is needed for the present example 
@@ -1130,7 +1171,7 @@ are:
 The function ``FFTrees()`` returns a fast and frugal tree object. This rich object contains the underlying trees and many classification statistics (similar to 
 \autoref{section_performeR}).
 
-In the following example we use the `testdat` data set from the \texttt{qpcR} package. The show the usefulness and robustness of the ``mblrr()`` function we replicated the `testdat` with an additional noise source (normal distribution, mean=0, standard deviation=1).
+In the following example, the `testdat` data set from the \texttt{qpcR} package was used. Noise (normal distribution, mean=0, standard deviation=1) was added to the `testdat` data set to show the usefulness and robustness of the ``mblrr()`` function.
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_raw_data_FFTrees}Fast and Frugal Trees.", fig.height=5.5, fig.width=11}
 # Load the qpcR package to get some data
@@ -1245,7 +1286,7 @@ plot(output_res_mblrr.fft, decision.lables = c("Positive", "Negative"))
 
 The ``pcrfit_single()`` function is a wrapper for different functions to calculate features from an amplification curve. This includes methods to detect change points or to calculate slopes in specific regions of interest (ROI) of the amplification curve. The following overview gives some comments on the internal algorithms used by the ``pcrfit_single()`` function.
 
-> Note: The ``pcrfit_single ()`` function and the ``encu ()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. They are usually automatically imputed. These two functions will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99.9% quantile. The normalization is necessary because the amplitude measurement values of amplification curves can be very different. This means that there are considerable differences in the maximum values. Therefore, users of the \texttt{PCRedux} package are advised to take a look at the data sets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermal cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g. *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99.9% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99.9% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain.
+> Note: The ``pcrfit_single()`` function and the ``encu()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. They are usually automatically imputed. These two functions will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99.9% quantile. The normalization is necessary because the amplitude measurement values of amplification curves can be very different. This means that there are considerable differences in the maximum values. Therefore, users of the \texttt{PCRedux} package are advised to take a look at the data sets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermal cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g. *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99.9% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99.9% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain.
 
 * Change point analysis
     - Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of changes in a series of data points indexed in time order. A change herein refers to a statistical property. There exist several change point algorithms such as the binary segmentation algorithm [@scott_cluster_1974]. CPA is used for example in climatology, econometrics and bioinformatics. [@Killick_2014]
@@ -1449,7 +1490,8 @@ RGt <- function(y) {
 
 layout(matrix(c(1, 1, 2, 2, 1, 1, 3, 3), 2, 4, byrow = TRUE), respect = TRUE)
 
-plot(x, y.pos, xlim = c(1, 50), ylim = c(-0.1, 15.5), xlab = "Cycle", ylab = "RFU", main = "", type = "b", pch = 19)
+plot(x, y.pos, xlim = c(1, 50), ylim = c(-0.1, 15.5), xlab = "Cycle", 
+     ylab = "RFU", main = "", type = "b", pch = 19)
 mtext("A    Positive amplification", side = 3, adj = 0, font = 2)
 abline(v = c(nh, length(x) - nt), lty = 3)
 
@@ -1464,11 +1506,13 @@ text(25, 14.5, paste("W=", signif(res.wt.pos$statistic, 3), "\np-value=", signif
 text(25, 5, paste("Fold change: \n", round(ub.pos / lb.pos, 2)))
 
 qqnorm(y.pos, pch = 19, main = "")
-legend("bottomright", paste("W=", signif(res.shapiro.pos$statistic, 3), "\np-value=", signif(res.shapiro.pos$p.value, 3)), bty = "n")
+legend("bottomright", paste("W=", signif(res.shapiro.pos$statistic, 3), 
+                            "\np-value=", signif(res.shapiro.pos$p.value, 3)), bty = "n")
 mtext("B", side = 3, adj = 0, font = 2)
 qqline(y.pos, col = "orange", lwd = 2)
 
-plot(RGt(y.pos), xlab = "Cycle", ylab = expression(R ^ 2), main = "", pch = 19, type = "b")
+plot(RGt(y.pos), xlab = "Cycle", ylab = expression(R ^ 2), main = "", pch = 19, 
+     type = "b")
 mtext("C    LRt", side = 3, adj = 0, font = 2)
 abline(h = 0.8, col = "black", lty = 2)
 ```
@@ -1507,8 +1551,8 @@ abline(h = 0.8, col = "black", lty = 2)
 To process high data volumes and to deal with speed issues several \texttt{R} packages for parallelization were evaluated [@vera_r_parallel_2008, @porzelius_easier_2009, @boehringer_dynamic_2013]. For the calculation of the curve parameters the custom-made function *pcrfit_parallel* was developed (see \autoref{pcrfit_parallel}). In particular, to benchmark and evaluate the performance of multiple learners on multiple tasks studies quickly become resource-demanding. Therefore, packages such as **mlr** support natively parallelization [@bischl_mlr:_2010].
 
 The code block below shows an example for a parallelized version of ``pcrfit_single()``. This function is called ``pcrfit_parallel()``, which is intended for users who wish to calculate the features of a large amplification 
-curve data set. We found that this function works on Linux systems. On Windows 
-systems we received selectively error messages. ``pcrfit_parallel()`` makes use of 
+curve data set. This function appears to be works on Linux systems. On Windows 
+systems error messages were reported. ``pcrfit_parallel()`` makes use of 
 parallelized code to make use of multi-core architectures. In this function we 
 import from the \texttt{parallel} package the ``detectCores()`` function. This function determines the number of available cores. Function from the \texttt{foreach} package (e.g., ``%dopar%``, ``foreach()``) are used for the further organization of the CPU usage. The ``pcrfit_single()`` performs the analysis for a single process.
 
@@ -1720,7 +1764,7 @@ print(
 )
 ```
 
-This analysis workflow can be used to cluster amplification curve data according to the shape. It is worth to mention that the calculation of the distances is a computing expensive steps that can take a lot of computing time dependent on the number of amplification curves. This workflow is a useful to form smaller groups of similar amplification curves. This step can be used to form smaller groups of amplification curves for classification tasks. Other distance metric than the Hausdorff distance should also be considered. For example, @luo_learning_2010 showed how for image data how shape models using local curve segments with multiple types of distance metrics can improve the shape classification and detection results.
+This analysis workflow can be used to cluster amplification curve data according to the shape. It is worth to mention that the calculation of the distances is a computing expensive steps that can take a lot of computing time dependent on the number of amplification curves. This workflow is useful to form smaller groups of similar amplification curves. This step can be used to form smaller groups of amplification curves for classification tasks. Other distance metric than the Hausdorff distance should also be considered. For example, @luo_learning_2010 showed how for image data how shape models using local curve segments with multiple types of distance metrics can improve the shape classification and detection results.
 
 
 ### ``visdat_pcrfit()`` - A Function to Visualize the Content of Data From an Analysis with the ``pcrfit_single()`` Function \label{section_visdat_pcrfit_parallel}

@@ -69,10 +69,10 @@
 #' axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 
 
-autocorrelation_test <- function(y, n = 3, sig.level = 0.01) {
+autocorrelation_test <- function(y, n = 12, sig.level = 0.01) {
   # Coercing object to class "zoo".
   cycle_RFU <- try(zoo::as.zoo(y), silent = TRUE)
-
+  
   if (class(cycle_RFU) == "zoo") {
     # Compute a lagged version of the cycle, shifting the cycle (time) base
     # back by a given number of observations
@@ -86,7 +86,8 @@ autocorrelation_test <- function(y, n = 3, sig.level = 0.01) {
     if (res_autocorrelation$p.value <= sig.level) {
       res_autocorrelation <- res_autocorrelation$estimate
     } else {
-      res_autocorrelation <- "n.s."
+#       res_autocorrelation <- "n.s."
+      res_autocorrelation <- 0
     }
   } else {
     res_autocorrelation <- NA

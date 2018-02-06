@@ -33,6 +33,7 @@ Imports:
     testthat,
     utils,
     visdat,
+    xray,
     zoo
 Suggests:
     data.table,
