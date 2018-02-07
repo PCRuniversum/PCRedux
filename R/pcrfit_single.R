@@ -45,6 +45,9 @@
 #'   "f.tdp" \tab fluorescence at tdp point \tab  numeric \cr
 #'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
 #'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
+#'   "b_slope" \tab Is the slope of seven parameter model \cr
+#'   "f_asymmetry" \tab Is the asymmetry of the seven parameter model \cr
+#'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
 #'   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
 #'   "slope_background" \tab slope of the first cycles \tab numeric \cr
 #'   "intercept_background" \tab intercept of the first cycles \tab numeric \cr
@@ -206,7 +209,19 @@ pcrfit_single <- function(x) {
 
   # Fit sigmoidal models to curve data
 
-  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2), silent = TRUE)
+  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2, model=l7), silent = TRUE)
+  
+  res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
+  if (class(res_coef) == "try-error") {
+    res_coef <- c(b=NA, f=NA)
+  }
+  
+
+  res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
+  if (class(res_convInfo_iteratons) == "try-error") {
+    res_convInfo_iteratons <- NA
+  }
+  
   pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent = TRUE)
 
   res_fit <- try(qpcR::mselect(
@@ -335,6 +350,9 @@ pcrfit_single <- function(x) {
     f.tdp = res_takeoff_reverse[[2]],
     resLRE = res_LRE[1],
     ressliwin = res_sliwin[[1]],
+    b_slope = res_coef[["b"]],
+    f_asymmetry = res_coef[["f"]],
+    convInfo_iteratons = res_convInfo_iteratons,
     cpDdiff = res_cpDdiff,
     slope_background = res_lm_fit[["slope"]],
     intercept_background = res_lm_fit[["intercept"]],

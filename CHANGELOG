@@ -1,4 +1,4 @@
-Version 0.2.6 [January 2018]
+Version 0.2.6 [February 2018]
 * Largely extended documentation
 * New feature in pcrfit_single ("take down point")
 * Curated classifications
@@ -6,6 +6,7 @@ Version 0.2.6 [January 2018]
 * New amplification curve data set (thanks Roy-Arne)
 * Improved performR (thanks to vondoRishi)
 * added Maximal Information Coefficient as feature
+* added slope, asymmetry and number of iterations as additional features
 
 Version 0.2.5-1 [November 2017]
 * improvements to documentation
