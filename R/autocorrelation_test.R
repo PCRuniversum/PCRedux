@@ -4,15 +4,17 @@
 #' \code{autocorrelation_test} is a function for an autocorrelation analysis
 #' from a quantitative PCR experiment. The result of the function is either
 #' a correlation coefficient in case the result is significant at a given
-#' significance level, or a "n.s." (non-significant) of no correlation could
+#' significance level, or a "n.s." (non-significant) if no correlation could
 #' be determined.
 #' Noise (negative) amplification curves usually do not exhibit any
 #' autocorrelation and will therefore be "n.s.".
 #'
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
-#' @param n is the number of lagged cycles.
+#' @param n is the number of lagged cycles (default 12).
 #' @param sig.level is the significance level for the correlation test.,
 #' Default: 0.01
+#' @param ns_2_numeric, is a logical parameter. If set TRUE, all
+#' "n.s." results will be
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords autocorrelation
 #' @rdname autocorrelation_test
@@ -69,10 +71,10 @@
 #' axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 
 
-autocorrelation_test <- function(y, n = 12, sig.level = 0.01) {
+autocorrelation_test <- function(y, n = 12, sig.level = 0.01, ns_2_numeric=FALSE) {
   # Coercing object to class "zoo".
   cycle_RFU <- try(zoo::as.zoo(y), silent = TRUE)
-  
+
   if (class(cycle_RFU) == "zoo") {
     # Compute a lagged version of the cycle, shifting the cycle (time) base
     # back by a given number of observations
@@ -86,8 +88,11 @@ autocorrelation_test <- function(y, n = 12, sig.level = 0.01) {
     if (res_autocorrelation$p.value <= sig.level) {
       res_autocorrelation <- res_autocorrelation$estimate
     } else {
-#       res_autocorrelation <- "n.s."
-      res_autocorrelation <- 0
+      if (ns_2_numeric) {
+        res_autocorrelation <- 0
+      } else {
+        res_autocorrelation <- "n.s."
+      }
     }
   } else {
     res_autocorrelation <- NA

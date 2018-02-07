@@ -261,6 +261,64 @@ decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                &
 \end{table}
 
 
+The `RAS002.rdml` and `RAS003.rdml` data sets were exported from the RDML format to the csv format and merged into a single file called `RAS002_RAS003_amp.csv`. In addition, the the decisions be the human expert were analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
+
+```{r, echo=TRUE, eval=FALSE}
+# Export the RDML data from the PCRedux package as the objects RAS002 and RAS003.
+library(RDML)
+library(PCRedux)
+
+RAS002 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData())
+RAS003 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS003.rdml"))$GetFData())
+
+# Bind the the RAS002 and RAS003 objects as object dat.
+# Note: From the object RAS003 the first column, which contains the cycle 
+# numbers was removed to avid  duplication.
+dat <- cbind(RAS002, RAS003[, -1])
+
+# The obbject dat was finally stored in the working directory as CSV file with 
+# the name RAS002_RAS003_amp.csv.
+write.csv(dat, "RAS002_RAS003_amp.csv", row.names=FALSE)
+
+
+# Helper function to determine the modus from all decisions from the 
+# decision_res_RAS002.csv and decision_res_RAS003.csv files.
+decider <- function(name) {
+    filename <- system.file(name, package = "PCRedux")
+    data_tmp <- fread(filename, data.table = FALSE)
+    data_tmp[data_tmp == "a"] <- "n"
+    sapply(1L:nrow(data_tmp), function(i) {
+        res <- decision_modus(data_tmp[i, 2L:(ncol(data_tmp)-1)])
+        if(length(res) > 1) res[[1]] <- "n"
+            res[[1]]
+    }) %>% unlist()
+}
+
+get_current_wd <- getwd()
+
+setwd(paste0(path.package("PCRedux"), "/"))
+
+decision_files <- c(
+    "decision_res_RAS002.csv",
+    "decision_res_RAS003.csv"
+    
+)
+
+all_decision_test <- unlist(sapply(1L:length(decision_files), function(i) {
+    decider(decision_files[i])
+}
+))
+
+decs <- as.factor(c(all_decision_test[, 1], all_decision_test[, 2]))
+
+setwd(get_current_wd)
+
+# The obbject dat was finally stored in the working directory as CSV file with 
+# the name RAS002_RAS003_decs.csv.
+write.csv(decs, "RAS002_RAS003_decs.csv", row.names=FALSE)
+```
+
+
 ### Amplification Curve Data in the `RDML` Format \label{section_Amplification_Curve_Data_in_the_RDML_Format}
 
 Selected amplification cure data sets were stored in the RDML format as 
@@ -609,71 +667,121 @@ The function described following are aimed for experimental studies. It is impor
 
 Autocorrelation analysis is a technique that is used in the field of time series analysis. It can be used to reveal regularly occurring patterns in one-dimensional data [@spiess_system-specific_2016]. The autocorrelation measures the correlation of a signal $f(t)$ with itself shifted by some time delay $f(t - \tau)$.
 
-The ``autocorrelation_test()`` function coercers the amplification curve data to an object of the class "zoo" (\texttt{zoo} package) as indexed totally ordered observations. Next follows the computation of a lagged version of the amplification curve data. The shifting the amplification curve data is based back by a given number of observations (default $\tau=3$). Then follows a significance test for correlation between paired samples (amplification curve data & lagged amplification curve data). The hypothesis is that the paired sample of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example. 
+The ``autocorrelation_test()`` function coercers the amplification curve data to an object of the class "zoo" (\texttt{zoo} package) as indexed totally ordered observations. Next follows the computation of a lagged version of the amplification curve data. The shifting the amplification curve data is based back by a given number of observations (default $\tau=12$).
 
-```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the `testdat` data set (\\texttt{qpcR} package, [@Ritz2008]). A) All amplification curves of the `testdat` data set. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
-# Test for autocorrelation in amplification curve data
-# Load the libraries magrittr for pipes and qpcR for the data
-options(warn = -1)
-library(magrittr)
-library(qpcR)
+```{r, echo=TRUE, fig.cap="\\label{figure_autocorrelation_tay} Effect of tau.", fig.height=8}
 library(PCRedux)
-# Test for autocorrelation in the testdat data set
-res_ac <- sapply(2:ncol(testdat), function(i) {
-  autocorrelation_test(testdat[, i])
+amp_data <- fread(system.file("RAS002_RAS003_amp.csv", package = "PCRedux"), 
+                  data.table = FALSE)
+
+tau <- seq(1,25,1)
+
+par(mfrow=c(2,2))
+
+plot(amp_data[, 1], amp_data[, 10])
+mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
+
+ac_pos <- sapply(1L:length(tau), function(i) {
+      autocorrelation_test(amp_data[, 10], n=tau[i])
+  })
+    
+ac_pos == min(ac_pos)
+
+plot(tau, ac_pos, ylim=c(0,1), pch=19)
+points(tau[ac_pos == min(ac_pos)], ac_pos[ac_pos == min(ac_pos)], pch=1, cex=2, col="red")
+legend("bottomleft", paste("tau: ",  tau[ac_pos == min(ac_pos)], "\nAC: ", signif(ac_pos[ac_pos == min(ac_pos)])), bty="n")
+mtext("B", cex = 1.5, side = 3, adj = 0, font = 2)
+
+plot(amp_data[, 1], amp_data[, 15])
+mtext("C", cex = 1.5, side = 3, adj = 0, font = 2)
+
+ac_neg <- sapply(1L:length(tau), function(i) {
+    autocorrelation_test(amp_data[, 15], n=tau[i])
 })
 
-# Plot curve data as overview
-# Define the colors for the amplification curves
-colors <- rainbow(ncol(testdat) - 1, alpha = 0.3)
-# Names of the samples
-samples <- colnames(testdat)[-1]
-layout(matrix(c(1, 2, 1, 3), 2, 2, byrow = TRUE))
-matplot(
-  testdat[, 1], testdat[, -1], xlab = "Cycle", ylab = "RFU",
-  main = "testdat data set", type = "l", lty = 1, col = colors, lwd = 2
-)
-legend("topleft", samples, pch = 19, col = colors, ncol = 2, bty = "n")
-mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
+plot(tau, ac_neg, ylim=c(0,1), pch=19)
+
+mtext("D", cex = 1.5, side = 3, adj = 0, font = 2)
+
+```
+
+Then follows a significance test for correlation between paired samples (amplification curve data & lagged amplification curve data). The hypothesis is that the paired sample of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example.
+
+Note: The amplification curve data and the decision data were taken from the `RAS002_RAS003_amp.csv` and the `RAS002_RAS003_decs.csv` files. The preparation of the data is described in \autoref{chapter_humanrater}.
+
+```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the `RAS002` and `RAS003` data sets (\\texttt{PCRedux} package). A) All amplification curves of the `RAS002` and `RAS003` data sets. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
+# Test for autocorrelation in amplification curve data
+# Load the libraries magrittr for pipes and the amplification curve the data
+# Note: The amplification curve data from the `RAS002` and `RAS003` data sets
+# were exported from the RDML format to the CSV format and combined in a single
+# file called RAS002_RAS003_amp.csv
+# The data.table package was used for fast import of the csv data
+options(warn = -1)
+library(magrittr)
+library(PCRedux)
+suppressMessages(library(data.table))
+
+amp_data <- fread(system.file("RAS002_RAS003_amp.csv", package = "PCRedux"), 
+                  data.table = FALSE)
+
+# Test for autocorrelation in the RAS002 and RAS003 data sets
+res_ac <- sapply(2:ncol(amp_data), function(i) {
+    autocorrelation_test(amp_data[, i], ns_2_numeric=TRUE)
+})
 
 # Curves classified by a human after analysis of the overview. 1=positive,
 # 0=negative
-human_rating <- c(
-  1, 1, 0, 0, 1, 1, 0, 0,
-  1, 1, 0, 0, 1, 1, 0, 0,
-  1, 1, 0, 0, 1, 1, 0, 0
+
+human_classification <- fread(system.file("RAS002_RAS003_decs.csv", package = "PCRedux"), 
+                       data.table = FALSE) %>% unlist
+
+head(human_classification)
+
+
+# Plot curve data as overview
+# Names of the samples
+par(las = 2)
+layout(matrix(c(1, 2, 1, 3), 2, 2, byrow = TRUE))
+matplot(
+  amp_data[, 1], amp_data[, -1], xlab = "Cycle", ylab = "RFU",
+  main = "RAS002 and RAS003 data sets", type = "l", lty = 1, col = as.factor(human_classification), lwd = 2
 )
+legend("topleft", c("negative", "positive"), pch = 19, col = c(1,2), bty = "n")
+mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
+
 
 # Convert the n.s. (not significant) in 0 and others to 1.
 # Combine the results of the aromatic autocorrelation_test as variable "ac",
-# the human classified values as variable "hr" in a new data frame (res_ac_hr).
-res_ac_hr <- data.frame(
-  ac = ifelse(res_ac == "n.s.", 0, 1),
-  hr = human_rating
+# the human classified values as variable "hc" in a new data frame (res_ac_hc).
+res_ac_hc <- data.frame(
+  ac = ifelse(res_ac > 0.8, 0, 1),
+  hc = as.numeric(as.factor(human_classification))-1
 ) %>% as.matrix()
-res_performeR <- performeR(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
+res_performeR <- performeR(res_ac_hc[, "ac"], res_ac_hc[, "hc"])
 
 # Add ratings by human and autocorrelation_test to the plot
 par(las = 2)
-plot(
-  1:nrow(res_ac_hr), res_ac_hr[, "hr"], xlab = "Sample",
-  ylab = "Decisions", xaxt = "n", yaxt = "n", pch = 19
-)
-axis(2, at = c(0, 1), labels = c("negative", "positive"), las = 2)
-axis(1, at = 1:nrow(res_ac_hr), labels = colnames(testdat)[-1], las = 2)
-points(
-  1:nrow(res_ac_hr), res_ac_hr[, "ac"], pch = 1, cex = 2,
-  col = "red"
-)
-legend(
-  "topleft", c("Human", "autocorrelation_test"), pch = c(19, 1),
-  bty = "n", col = c("black", "red")
-)
+# plot(
+#   1:nrow(res_ac_hc), res_ac_hc[, "hc"], xlab = "Sample",
+#   ylab = "Decisions", xaxt = "n", yaxt = "n", pch = 19
+# )
+# axis(2, at = c(0, 1), labels = c("negative", "positive"), las = 2)
+# axis(1, at = 1:nrow(res_ac_hc), labels = colnames(amp_data)[-1], las = 2)
+# points(
+#   1:nrow(res_ac_hc), res_ac_hc[, "ac"], pch = 1, cex = 2,
+#   col = "red"
+# )
+# legend(
+#   "topleft", c("Human", "autocorrelation_test"), pch = c(19, 1),
+#   bty = "n", col = c("black", "red")
+# )
+
+cdplot(as.factor(human_classification) ~ res_ac, xlab="Autocorrelation", ylab="Decision")
 mtext("B", cex = 1.5, side = 3, adj = 0, font = 2, las = 0)
 
 barplot(
-  as.matrix(res_performeR[, c(1:10, 12)]), yaxt = "n", ylab = "",
-  main = "Performance of autocorrelation_test"
+    as.matrix(res_performeR[, c(1:10, 12)]), yaxt = "n", ylab = "",
+        main = "Performance of autocorrelation_test"
 )
 axis(2, at = c(0, 1), labels = c("0", "1"), las = 2)
 mtext("C", cex = 1.5, side = 3, adj = 0, font = 2, las = 0)

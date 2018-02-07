@@ -115,19 +115,19 @@ pcrfit_single <- function(x) {
   # inefficient kludge to find l4 model
   data("sysdata", package = "qpcR", envir = parent.frame())
 
-  res_bg.max_tmp <- try(chipPCR::bg.max(cycles, x), silent=TRUE)
-  if(class(res_bg.max_tmp) == "try-error") {
-      res_bg.max <- c(
-    bg.start = NA,
-    bg.stop = NA,
-    amp.stop = NA
-  )
+  res_bg.max_tmp <- try(chipPCR::bg.max(cycles, x), silent = TRUE)
+  if (class(res_bg.max_tmp) == "try-error") {
+    res_bg.max <- c(
+      bg.start = NA,
+      bg.stop = NA,
+      amp.stop = NA
+    )
   } else {
-  res_bg.max <- c(
-    bg.start = res_bg.max_tmp@bg.start / length_cycle,
-    bg.stop = res_bg.max_tmp@bg.stop / length_cycle,
-    amp.stop = res_bg.max_tmp@amp.stop / length_cycle
-  )
+    res_bg.max <- c(
+      bg.start = res_bg.max_tmp@bg.start / length_cycle,
+      bg.stop = res_bg.max_tmp@bg.stop / length_cycle,
+      amp.stop = res_bg.max_tmp@amp.stop / length_cycle
+    )
   }
 
   # Determine the head to tail ratio
@@ -196,9 +196,9 @@ pcrfit_single <- function(x) {
 
   # Perform an autocorrelation analysis
   res_autocorrelation <- PCRedux::autocorrelation_test(y = x)
-  
-  # Perform an correlation analysis with the 
-  res_amp_cor_MIC <- try(suppressWarnings(minerva::mine(cycles, y=x)$MIC), silent = TRUE)
+
+  # Perform an correlation analysis with the
+  res_amp_cor_MIC <- try(suppressWarnings(minerva::mine(cycles, y = x)$MIC), silent = TRUE)
   if (class(res_amp_cor_MIC) == "try-error") {
     res_amp_cor_MIC <- c(NA)
     names(res_amp_cor_MIC) <- "MIC"
@@ -232,7 +232,7 @@ pcrfit_single <- function(x) {
     res_fit_model_reverse <- NA
   }
 
-    if (class(res_fit_reverse)[1] != "try-error") {
+  if (class(res_fit_reverse)[1] != "try-error") {
     # TakeOff Point from the reverse data
     # Calculates the first significant cycle of the exponential region
     #
@@ -243,15 +243,15 @@ pcrfit_single <- function(x) {
     res_takeoff_reverse <- try(qpcR::takeoff(res_fit_reverse, nsig = 5), silent = TRUE)
     res_takeoff_reverse[[1]] <- length_cycle - res_takeoff_reverse[[1]]
     res_takeoff_reverse[[2]] <- x[res_takeoff_reverse[[1]]] -
-    res_takeoff_reverse[[2]] + min(x)
+      res_takeoff_reverse[[2]] + min(x)
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
     if (class(res_takeoff_reverse) == "try-error") {
-    res_takeoff_reverse <- list(NA, NA)
+      res_takeoff_reverse <- list(NA, NA)
     }
-} else {
+  } else {
     res_takeoff_reverse <- list(NA, NA)
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
-}
+  }
 
   if (class(res_fit)[1] != "try-error") {
     # TakeOff Point
@@ -364,12 +364,12 @@ pcrfit_single <- function(x) {
     mblrr_intercept_more = res_mblrr[4],
     mblrr_slope_more = res_mblrr[5],
     mblrr_cor_more = res_mblrr[6],
-    amp_cor_MIC = res_amp_cor_MIC, 
+    amp_cor_MIC = res_amp_cor_MIC,
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     mcaPeaks_minima_maxima_ratio = mcaPeaks_minima_maxima_ratio,
     diffQ2_slope = res_diffQ2_slope,
-    diffQ2_Cq_range = range_Cq, 
+    diffQ2_Cq_range = range_Cq,
     row.names = "results"
   )
 }

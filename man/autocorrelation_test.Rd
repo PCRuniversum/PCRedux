@@ -5,19 +5,24 @@
 \title{A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment}
 \usage{
-autocorrelation_test(y, sig.level = 0.01)
+autocorrelation_test(y, n = 12, sig.level = 0.01, ns_2_numeric = FALSE)
 }
 \arguments{
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
+\item{n}{is the number of lagged cycles (default 12).}
+
 \item{sig.level}{is the significance level for the correlation test.,
 Default: 0.01}
+
+\item{ns_2_numeric, }{is a logical parameter. If set TRUE, all
+"n.s." results will be}
 }
 \description{
 \code{autocorrelation_test} is a function for an autocorrelation analysis
 from a quantitative PCR experiment. The result of the function is either
 a correlation coefficient in case the result is significant at a given
-significance level, or a "n.s." (non-significant) of no correlation could
+significance level, or a "n.s." (non-significant) if no correlation could
 be determined.
 Noise (negative) amplification curves usually do not exhibit any
 autocorrelation and will therefore be "n.s.".
