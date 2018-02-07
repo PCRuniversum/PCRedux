@@ -9,6 +9,8 @@ Authors@R: c(person("Stefan", "Roediger", email = "stefan.roediger@b-tu.de", rol
              person("Konstantin A.", "Blagodatskikh", email = "k.blag@yandex.ru", role = c("aut")))
 Description: Extracts features from amplification curve data of quantitative Polymerase Chain Reactions (qPCR) (Pabinger, Stephan, Stefan Roediger, Albert Kriegner, Klemens Vierlinger, and Andreas Weinhauusel (2014) <doi:10.1016/j.bdq.2014.08.002>) for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg() and hookregNL() functions can be used to predict amplification curves with an hook effect-like curvature. The pcrfit_single() function can be used to extract features from an amplification curve.
 License: MIT + file LICENSE
+LazyLoad: yes
+LazyData: yes
 URL: https://github.com/devSJR/PCRedux
 BugReports: https://github.com/devSJR/PCRedux/issues
 Depends:

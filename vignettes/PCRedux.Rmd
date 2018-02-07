@@ -671,10 +671,9 @@ The ``autocorrelation_test()`` function coercers the amplification curve data to
 
 ```{r, echo=TRUE, fig.cap="\\label{figure_autocorrelation_tau} Effect of tau.", fig.height=8}
 library(PCRedux)
-suppressMessages(library(data.table))
+data(RAS002_RAS003_amp)
 
-amp_data <- fread(system.file("RAS002_RAS003_amp.csv", package = "PCRedux"), 
-                  data.table = FALSE)
+amp_data <- RAS002_RAS003_amp
 
 tau <- seq(1,25,1)
 
