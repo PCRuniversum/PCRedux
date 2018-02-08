@@ -7,6 +7,7 @@ Version 0.2.6 [February 2018]
 * Improved performR (thanks to vondoRishi)
 * added Maximal Information Coefficient as feature
 * added slope, asymmetry and number of iterations as additional features
+* new function tReem
 
 Version 0.2.5-1 [November 2017]
 * improvements to documentation
