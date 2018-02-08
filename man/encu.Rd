@@ -35,7 +35,7 @@ performing the analysis for a single process.
 # F1.3 and F1.4 are negative.
 
 library(qpcR)
-res_encu <- encu(testdat[, 1:4])
+res_encu <- encu(testdat[, 1:3])
 res_encu
 
 }
