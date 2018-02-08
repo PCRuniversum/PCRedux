@@ -261,63 +261,21 @@ decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                &
 \end{table}
 
 
-The `RAS002.rdml` and `RAS003.rdml` data sets were exported from the RDML format to the csv format and merged into a single file called `RAS002_RAS003_amp.csv`. In addition, the the decisions be the human expert were analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
+The following example shows the export of the `RAS002.rdml` file from the RDML format to the csv format.
 
 ```{r, echo=TRUE, eval=FALSE}
 # Export the RDML data from the PCRedux package as the objects RAS002 and RAS003.
 library(RDML)
 library(PCRedux)
+library(magrittr)
+suppressMessages(library(data.table))
 
 RAS002 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData())
-RAS003 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS003.rdml"))$GetFData())
 
-# Bind the the RAS002 and RAS003 objects as object dat.
-# Note: From the object RAS003 the first column, which contains the cycle 
-# numbers was removed to avid  duplication.
-dat <- cbind(RAS002, RAS003[, -1])
-
-# The obbject dat was finally stored in the working directory as CSV file with 
-# the name RAS002_RAS003_amp.csv.
-write.csv(dat, "RAS002_RAS003_amp.csv", row.names=FALSE)
-
-
-# Helper function to determine the modus from all decisions from the 
-# decision_res_RAS002.csv and decision_res_RAS003.csv files.
-decider <- function(name) {
-    filename <- system.file(name, package = "PCRedux")
-    data_tmp <- fread(filename, data.table = FALSE)
-    data_tmp[data_tmp == "a"] <- "n"
-    sapply(1L:nrow(data_tmp), function(i) {
-        res <- decision_modus(data_tmp[i, 2L:(ncol(data_tmp)-1)])
-        if(length(res) > 1) res[[1]] <- "n"
-            res[[1]]
-    }) %>% unlist()
-}
-
-get_current_wd <- getwd()
-
-setwd(paste0(path.package("PCRedux"), "/"))
-
-decision_files <- c(
-    "decision_res_RAS002.csv",
-    "decision_res_RAS003.csv"
-    
-)
-
-all_decision_test <- unlist(sapply(1L:length(decision_files), function(i) {
-    decider(decision_files[i])
-}
-))
-
-decs <- as.factor(c(all_decision_test[, 1], all_decision_test[, 2]))
-
-setwd(get_current_wd)
-
-# The obbject dat was finally stored in the working directory as CSV file with 
-# the name RAS002_RAS003_decs.csv.
-write.csv(decs, "RAS002_RAS003_decs.csv", row.names=FALSE)
+# The obbject RAS002 can be stored in the working directory as CSV file with 
+# the name RAS002_amp.csv.
+write.csv(RAS002, "RAS002_amp.csv", row.names=FALSE)
 ```
-
 
 ### Amplification Curve Data in the `RDML` Format \label{section_Amplification_Curve_Data_in_the_RDML_Format}
 
@@ -331,16 +289,6 @@ RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
 hookreg.rdml             | Bio-Rad   | various               | Taqman, intercalating dyes
 
 32HCU: VideoScan (Attomol GmbH), CFX96: Bio-Rad.
-
-```{r, echo=TRUE, eval=TRUE, fig.cap="\\label{figure_RAS002} RAS003 data set.", fig.height=4}
-options(warn = -1)
-library(PCRedux)
-library(RDML)
-RAS002 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData())
-colors <- rainbow(ncol(RAS002) -1, alpha = 0.3)
-matplot(RAS002[, 1], RAS002[, -1], xlab = "Cycle", ylab = "RFU", 
-        main = "RAS002 data set", type = "l", lty = 1, lwd = 2, col = colors)
-```
 
 Table_human_rated.xlsx
 
@@ -389,7 +337,7 @@ plot(x_val, y_val_slope_quadratic_noise, type = "l", xlab = "x", ylab = "f(x)", 
 abline(h = 0, col = "grey")
 legend("topleft", expression(y == frac(1, (1 + e ^ {
   -x
-})) + m * x ^ 2 + n + N(mu, sigma ^ 2)), bty = "n", cex = 0.9)
+})) + m * x ^ 2 + n + epsilon, epsilon %~% N(0, sigma)), bty = "n", cex = 0.9)
 mtext("D", cex = 1.5, side = 3, adj = 0, font = 2)
 ```
 
@@ -671,9 +619,9 @@ The ``autocorrelation_test()`` function coercers the amplification curve data to
 
 ```{r, echo=TRUE, fig.cap="\\label{figure_autocorrelation_tau} Effect of tau.", fig.height=8}
 library(PCRedux)
-data(RAS002_RAS003_amp)
+library(RDML)
 
-amp_data <- RAS002_RAS003_amp
+amp_data <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData())
 
 tau <- seq(1,25,1)
 
@@ -683,12 +631,12 @@ plot(amp_data[, 1], amp_data[, 10], xlab = "Cycle", ylab = "RFU", pch=19)
 mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
 
 ac_pos <- sapply(1L:length(tau), function(i) {
-      autocorrelation_test(amp_data[, 10], n=tau[i])
+      autocorrelation_test(amp_data[, 2], n=tau[i], ns_2_numeric=TRUE)
   })
 
 plot(tau, ac_pos, ylim=c(0,1), pch=19)
 points(tau[ac_pos == min(ac_pos)], ac_pos[ac_pos == min(ac_pos)], pch=1, cex=2, col="red")
-legend("bottomleft", paste("tau: ",  tau[ac_pos == min(ac_pos)], 
+legend("bottomleft", paste("tau: ",  tau[ac_pos == min(ac_pos)],
                            "\nAC: ", signif(ac_pos[ac_pos == min(ac_pos)])), bty="n")
 mtext("B", cex = 1.5, side = 3, adj = 0, font = 2)
 
@@ -702,40 +650,45 @@ ac_neg <- sapply(1L:length(tau), function(i) {
 plot(tau, ac_neg, ylim=c(0,1), pch=19)
 
 mtext("D", cex = 1.5, side = 3, adj = 0, font = 2)
-
 ```
 
 Then follows a significance test for correlation between paired samples (amplification curve data & lagged amplification curve data). The hypothesis is that the paired sample of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example.
 
-Note: The amplification curve data and the decision data were taken from the `RAS002_RAS003_amp.csv` and the `RAS002_RAS003_decs.csv` files. The preparation of the data is described in \autoref{chapter_humanrater}.
+In addition, the the decisions file `decision_res_RAS002.csv` from the human expert was analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
 
-```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the `RAS002` and `RAS003` data sets (\\texttt{PCRedux} package). A) All amplification curves of the `RAS002` and `RAS003` data sets. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{autocorrelation}Autocorrelation analysis for amplification curves of the `RAS002` data set (\\texttt{PCRedux} package). A) All amplification curves of the `RAS002` data set. B) Positive curves and negative curves as determined by the `autocorrelation_test()` and a human expert. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details).", fig.height=5.5, fig.width=11}
 # Test for autocorrelation in amplification curve data
 # Load the libraries magrittr for pipes and the amplification curve the data
-# Note: The amplification curve data from the `RAS002` and `RAS003` data sets
-# were exported from the RDML format to the CSV format and combined in a single
-# file called RAS002_RAS003_amp.csv
+# The amplification curve data from the `RAS002` data set
+# was imported from the RDML format.
 # The data.table package was used for fast import of the csv data
 options(warn = -1)
 library(magrittr)
 library(PCRedux)
 suppressMessages(library(data.table))
 
-amp_data <- fread(system.file("RAS002_RAS003_amp.csv", package = "PCRedux"), 
-                  data.table = FALSE)
+RAS002 <- data.frame(RDML$new(paste0(path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData())
 
-# Test for autocorrelation in the RAS002 and RAS003 data sets
-res_ac <- sapply(2:ncol(amp_data), function(i) {
-    autocorrelation_test(amp_data[, i], ns_2_numeric=TRUE)
+# Test for autocorrelation in the RAS002 data set
+
+res_ac <- sapply(2:ncol(RAS002), function(i) {
+    autocorrelation_test(RAS002[, i], ns_2_numeric=TRUE)
 })
 
 # Curves classified by a human after analysis of the overview. 1=positive,
 # 0=negative
 
-human_classification <- fread(system.file("RAS002_RAS003_decs.csv", package = "PCRedux"), 
-                       data.table = FALSE) %>% unlist
+human_classification <- fread(system.file("decision_res_RAS002.csv", 
+                                          package = "PCRedux"))
 
 head(human_classification)
+
+
+decs <- sapply(1L:nrow(human_classification), function(i) {
+    res <- decision_modus(human_classification[i, 2L:(ncol(human_classification)-1)])
+    if(length(res) > 1) res[[1]] <- "n"
+        res[[1]]
+}) %>% unlist()
 
 
 # Plot curve data as overview
@@ -743,11 +696,11 @@ head(human_classification)
 
 layout(matrix(c(1, 2, 1, 3), 2, 2, byrow = TRUE))
 matplot(
-  amp_data[, 1], amp_data[, -1], xlab = "Cycle", ylab = "RFU",
+  RAS002[, 1], RAS002[, -1], xlab = "Cycle", ylab = "RFU",
   main = "RAS002 and RAS003 data sets", type = "l", lty = 1, 
-  col = as.factor(human_classification), lwd = 2
+  col = decs, lwd = 2
 )
-legend("topleft", c("negative", "positive"), pch = 19, col = c(1,2), bty = "n")
+legend("topleft", c("positive", "negative"), pch = 19, col = c(1,2), bty = "n")
 mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
 
 
@@ -755,29 +708,13 @@ mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
 # Combine the results of the aromatic autocorrelation_test as variable "ac",
 # the human classified values as variable "hc" in a new data frame (res_ac_hc).
 res_ac_hc <- data.frame(
-  ac = ifelse(res_ac > 0.8, 0, 1),
-  hc = as.numeric(as.factor(human_classification))-1
+  ac = ifelse(res_ac > 0.8, 1, 0),
+  hc = as.numeric(as.factor(decs))-1
 ) %>% as.matrix()
 res_performeR <- performeR(res_ac_hc[, "ac"], res_ac_hc[, "hc"])
 
-# Add ratings by human and autocorrelation_test to the plot
-par(las = 2)
-# plot(
-#   1:nrow(res_ac_hc), res_ac_hc[, "hc"], xlab = "Sample",
-#   ylab = "Decisions", xaxt = "n", yaxt = "n", pch = 19
-# )
-# axis(2, at = c(0, 1), labels = c("negative", "positive"), las = 2)
-# axis(1, at = 1:nrow(res_ac_hc), labels = colnames(amp_data)[-1], las = 2)
-# points(
-#   1:nrow(res_ac_hc), res_ac_hc[, "ac"], pch = 1, cex = 2,
-#   col = "red"
-# )
-# legend(
-#   "topleft", c("Human", "autocorrelation_test"), pch = c(19, 1),
-#   bty = "n", col = c("black", "red")
-# )
 
-cdplot(as.factor(human_classification) ~ res_ac, xlab="Autocorrelation", 
+cdplot(as.factor(decs) ~ res_ac, xlab="Autocorrelation", 
        ylab="Decision")
 mtext("B", cex = 1.5, side = 3, adj = 0, font = 2, las = 0)
 
