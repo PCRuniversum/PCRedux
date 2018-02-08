@@ -209,19 +209,19 @@ pcrfit_single <- function(x) {
 
   # Fit sigmoidal models to curve data
 
-  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2, model=l7), silent = TRUE)
-  
+  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
+
   res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
   if (class(res_coef) == "try-error") {
-    res_coef <- c(b=NA, f=NA)
+    res_coef <- c(b = NA, f = NA)
   }
-  
+
 
   res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
   if (class(res_convInfo_iteratons) == "try-error") {
     res_convInfo_iteratons <- NA
   }
-  
+
   pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent = TRUE)
 
   res_fit <- try(qpcR::mselect(
