@@ -60,6 +60,7 @@ Output Description
   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+  "sd_ground_phase \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
 }
 }
 \description{

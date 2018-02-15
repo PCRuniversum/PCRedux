@@ -24,7 +24,6 @@
 #' @importFrom utils head tail
 #' @importFrom utils data
 #' @importFrom visdat vis_dat
-#' @importFrom xray anomalies
 #' @importFrom zoo as.zoo
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 #' @docType package
