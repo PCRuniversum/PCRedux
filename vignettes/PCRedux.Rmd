@@ -142,26 +142,7 @@ It is worth noting that the classifications of amplification curves in \autoref{
 
 Amplification curves from different sources had to be classified manually. Amplification curves from the \texttt{qpcR}, \texttt{chipPCR}, \texttt{PCRedux} and \texttt{RDML} packages were classified with the ``humanrater()``, as described in @roediger2015chippcr and with the ``tReem()`` function from the \texttt{PCRedux} package. This step is briefly outlined in the chapter \autoref{humanrater}.
 
-Data preparation is an important step. This includes the steps involved in data cleansing, data transformation and data integration[@herrera_multiple_2016]. The \texttt{xray} package [@Seibelt_xray] was used to analyze the distribution form and variables in records for anomalies such as missing values, zeros, infinite values and their categories. The ``anomalies()`` function from the \texttt{xray} package can be used to search for anomalies (including missing values (NA), zero values (Zero), blank strings (Blank) and infinite numbers (Inf)). The results of all  analysis are reported in columns prefixed by *q* for quantity and *p* for percentage. The later indicates the percent of total rows with the anomaly. Here the `decision_res_htPCR.csv` data set was analyzed to get an overview about a fairly large data set from `r ncol(qpcR:: htPCR)-1` amplification curves. This data set contains the sample names, eight columns of classifications (`test.result.1` $\ldots$ `test.result.8`) and a column about the conformity of all classifications.
-
-```{r, echo=TRUE, fig.cap="\\label{figure_xray} Cleansing of data.", fig.height=8}
-# Suppress messages and load the packages for reading the data and
-# the analysis of anomalies.
-options(warn = -1)
-suppressMessages(library(data.table))
-library(PCRedux)
-library(xray)
-
-# Load the decision_res_htPCR.csv data set from a csv file.
-filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
-decision_htPCR <- fread(filename, data.table = FALSE)
-
-# Analyze the data set for missing values, zero values, blank strings and 
-# infinite numbers.
-anomalies(decision_htPCR, anomaly_threshold = 0.5, distinct_threshold = 1)
-```
-
-The results indicate the the *conformity* column contains in 94.54% identical values, with two distinct categories (*qDistinct*). There are no missing values, no zero values, blank strings and no infinite numbers in this data set.
+Data preparation is an important step. This includes the steps involved in data cleansing, data transformation and data integration[@herrera_multiple_2016]. The \texttt{xray} package [@Seibelt_xray] can used to analyze the distribution form and variables in records for anomalies such as missing values, zeros, infinite values and their categories. The ``anomalies()`` function from the \texttt{xray} package can be used to search for anomalies (including missing values (NA), zero values (Zero), blank strings (Blank) and infinite numbers (Inf)). 
 
 **Note**: All users of the \texttt{PCRedux} package should use such tools before continuing to work with the records. Although most records in the \texttt{PCRedux} package have the same data structure, some records contain missing values or have different dimensions (compare data from \autoref{samples_of_qPCRs}). For example, the data set `C127EGHP` spans a matrix of `r data_dim <- dim (chipPCR::C127EGHP); paste0(data_dim[1]," x ", data_dim[2])`, while the `htPCR` data set comprises a matrix of `r data_dim <- dim (qpcR:: htPCR); paste0 (data_dim[1]," x ", data_dim[2])`.
 
