@@ -263,7 +263,11 @@ pcrfit_single <- function(x) {
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to the takeoff point
-    sd_ground_phase <- sd(x[2L:res_takeoff_reverse[[1]]])
+    if (!is.na(res_takeoff_reverse[[1]])) {
+      sd_ground_phase <- try(sd(x[2L:res_takeoff_reverse[[1]]]), silent = TRUE)
+    } else {
+      sd_ground_phase <- sd(x[2L:8])
+    }
     if (class(res_takeoff_reverse) == "try-error") {
       res_takeoff_reverse <- list(NA, NA)
     }
