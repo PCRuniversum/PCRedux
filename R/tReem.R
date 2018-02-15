@@ -29,9 +29,12 @@
 #' }
 
 tReem <- function(data, cor = TRUE, k = 2) {
-
-  if(is.integer(k) == FALSE) {k <- round(k)}
-  if(k < 2) {k <- 2}
+  if (is.integer(k) == FALSE) {
+    k <- round(k)
+  }
+  if (k < 2) {
+    k <- 2
+  }
   y_lim <- range(data[, -1])
   y_quantile <- quantile(unlist(data[, -1]), c(0.25, 0.5, .75))
 
