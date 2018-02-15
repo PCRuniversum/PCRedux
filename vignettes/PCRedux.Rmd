@@ -1017,12 +1017,9 @@ mtext("F", cex = 1.5, side = 3, adj = 0, font = 2)
 
 The ``head2tailratio()`` function calculates the ratio of the head and the tail of a quantitative PCR amplification curve. Positive amplification curves have different slopes and intercepts at the start of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these segments are potentially useful to extract a feature for an amplification curve classification.
 
-```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) For amplification curves from each dilution (1:1, red;  1:10, green, 1:100, cyan; 1:1000, purple) of the `dil4reps94` data set were selected to visualize the approach of the head2tailratio() function. B) Plot of all amplification curves from the `dil4reps94` data set.", fig.height=5.5, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{dil4reps94_head2tailratio}Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) Plot of all amplification curves from the `dil4reps94` data set. B) For amplification curves from each dilution (1:1, red;  1:10, green, 1:100, cyan; 1:1000, purple) of the `dil4reps94` data set were selected to visualize the approach of the head2tailratio() function.", fig.height=5.5, fig.width=11}
 options(warn = -1)
 library(qpcR)
-
-
-colors <- c("#FF00004D", "#80FF004D", "#00FFFF4D", "#8000FF4D")
 
 data <- dil4reps94[, c(1, 2, 98, 194, 290)]
 
@@ -1043,6 +1040,21 @@ data_normalized <- cbind(
 # par(mfrow=c(1,2), las=0, bty="o", oma=c(1,1,1,1))
 par(mfrow = c(1, 2), las = 0, bty = "o", oma = c(0, 0, 0, 0))
 
+colors <- c(
+    rep("#FF00004D", 94),
+    rep("#80FF004D", 94),
+    rep("#00FFFF4D", 94),
+    rep("#8000FF4D", 94)
+)
+
+matplot(
+    dil4reps94[, 1], dil4reps94[, -1], xlab = "Cycle", ylab = "RFU",
+    main = "dil4reps94 data set", type = "l", lty = 1, lwd = 2, col = colors
+)
+mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
+
+colors <- c("#FF00004D", "#80FF004D", "#00FFFF4D", "#8000FF4D")
+
 matplot(
   data_normalized[, 1], data_normalized[, -1],
   xlab = "Cycle", ylab = "normalized RFU", main = "dil4reps94 data set\nsubset",
@@ -1056,19 +1068,6 @@ for (i in 1L:(ncol(data_normalized) - 1)) {
   abline(res_head2tailratio[[i]]$fit, col = colors[i], lwd = 2)
 }
 
-mtext("A", cex = 1.5, side = 3, adj = 0, font = 2)
-
-colors <- c(
-  rep("#FF00004D", 94),
-  rep("#80FF004D", 94),
-  rep("#00FFFF4D", 94),
-  rep("#8000FF4D", 94)
-)
-
-matplot(
-  dil4reps94[, 1], dil4reps94[, -1], xlab = "Cycle", ylab = "RFU",
-  main = "dil4reps94 data set", type = "l", lty = 1, lwd = 2, col = colors
-)
 mtext("B", cex = 1.5, side = 3, adj = 0, font = 2)
 ```
 
@@ -1112,9 +1111,11 @@ print(xtable(
              had all a hook effect like curvature. The samples F4.1, F4.2, F5.1, 
              F5.2, F6.1 and F6.2 miss entries because the hoogreg algorithm 
              could not fit a linear model. This is an expected behavior, since 
-             these amplification curves did not have a hook effect like curvature.",
+             these amplification curves did not have a hook effect like 
+             curvature.",
   label = "tablehookreg"
-), include.rownames = FALSE, comment = FALSE, caption.placement = "top", size = "\\tiny")
+), include.rownames = FALSE, comment = FALSE, caption.placement = "top", 
+    size = "\\tiny")
 ```
 
 In \autoref{tablehookreg} is shown that the first amplification curves (F1.1, 

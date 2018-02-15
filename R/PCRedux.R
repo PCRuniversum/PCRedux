@@ -11,7 +11,7 @@
 #' @importFrom ecp e.agglo
 #' @importFrom fda.usc fdata metric.hausdorff
 #' @importFrom FFTrees FFTrees
-#' @importFrom graphics matplot par
+#' @importFrom graphics abline matplot par
 #' @importFrom grDevices rainbow
 #' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
@@ -19,7 +19,7 @@
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
-#' @importFrom stats coefficients confint cor.test cutree hclust dist lag lm median na.omit quantile
+#' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm median na.omit quantile sd
 #' @importFrom testthat context test_that
 #' @importFrom utils head tail
 #' @importFrom utils data

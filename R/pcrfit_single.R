@@ -81,6 +81,7 @@
 #'   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
 #'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+#'   "sd_ground_phase \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
 #' }
 #' @details Details can be found in the vignette.
 #' @importFrom qpcR pcrfit
@@ -260,12 +261,19 @@ pcrfit_single <- function(x) {
     res_takeoff_reverse[[2]] <- x[res_takeoff_reverse[[1]]] -
       res_takeoff_reverse[[2]] + min(x)
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+    # Calculate the standard deviation of the fluorescence starting from
+    # cylce 2 to the takeoff point
+    sd_ground_phase <- sd(x[2L:res_takeoff_reverse[[1]]])
     if (class(res_takeoff_reverse) == "try-error") {
       res_takeoff_reverse <- list(NA, NA)
     }
   } else {
     res_takeoff_reverse <- list(NA, NA)
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+    # Calculate the standard deviation of the fluorescence starting from
+    # cylce 2 to cycle 8 if the the takeoff point cannot be
+    # determined
+    sd_ground_phase <- sd(x[2L:8])
   }
 
   if (class(res_fit)[1] != "try-error") {
@@ -388,6 +396,7 @@ pcrfit_single <- function(x) {
     mcaPeaks_minima_maxima_ratio = mcaPeaks_minima_maxima_ratio,
     diffQ2_slope = res_diffQ2_slope,
     diffQ2_Cq_range = range_Cq,
+    sd_ground_phase = sd_ground_phase,
     row.names = "results"
   )
 }

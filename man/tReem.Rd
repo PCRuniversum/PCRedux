@@ -9,17 +9,20 @@ tReem(data, cor = TRUE, k = 2)
 \arguments{
 \item{data}{is the cycle dependent fluorescence amplitude (y-axis).}
 
-\item{cor}{is a logical parameter. If set true, the Pearson 
-correlation is used as distance measure. If set FALSE the 
+\item{cor}{is a logical parameter. If set true, the Pearson
+correlation is used as distance measure. If set FALSE the
 Hausdorff distance will be used.}
 
 \item{k}{an integer scalar or vector with the desired number of groups.}
 }
 \description{
-\code{tReem} is a function to group amplification curves 
+\code{tReem} is a function to group amplification curves
 from a quantitative PCR experiment according to their shape.
-Either the Pearson correlation coefficient or the Hausdorff 
-distance is used as measure.
+Either the Pearson correlation coefficient or the Hausdorff
+distance is used as measure. In most cases the grouping based
+on the Pearson correlation coefficient is sufficient. The
+grouping based on the Hausdorff distance can be very slow
+for large data sets.
 }
 \examples{
 # Classify amplification curve data by Hausdorff distance
@@ -30,7 +33,7 @@ tReem(testdat[, 1:5])
 }
 \seealso{
 \code{\link[fda.usc]{metric.hausdorff}}, \code{\link[stats]{cutree}},
- \code{\link[PCRedux]{qPCR2fdata}}, \code{\link[stats]{hclust}}, 
+ \code{\link[PCRedux]{qPCR2fdata}}, \code{\link[stats]{hclust}},
  \code{\link[stats]{cor}}
 }
 \author{
