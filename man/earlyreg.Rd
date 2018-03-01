@@ -5,7 +5,7 @@
 \title{A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment.}
 \usage{
-earlyreg(x, y, range = 6, normalize = FALSE)
+earlyreg(x, y, range = 10, normalize = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
