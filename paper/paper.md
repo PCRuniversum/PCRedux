@@ -9,7 +9,7 @@ tags:
 authors:
   - name: "Stefan Rödiger"
     orcid: 0000-0002-1441-6512
-    affiliation: 1
+    affiliation: "1, 5"
   - name: "Michał Burdukiewicz"
     orcid: 0000-0001-8926-582X
     affiliation: 2
@@ -22,11 +22,14 @@ authors:
   - name: "Roy-Arne Senkel"
     orcid: 0000-0001-6139-9471
     affiliation: 1
-  - name: "Peter Schierack"
-    orcid: 0000-0002-6445-3506
-    affiliation: 1
+  - name: "Jim Huggett"
+    orcid: 0000-0002-0945-1911
+    affiliation: 5
   - name: "Thomas Fischer"
     orcid: 0000-0001-6235-2261
+    affiliation: 1
+  - name: "Peter Schierack"
+    orcid: 0000-0002-6445-3506
     affiliation: 1
 affiliations:
   - name: "Brandenburg University of Technology Cottbus-Senftenberg, Germany"
@@ -37,6 +40,8 @@ affiliations:
     index: 3
   - name: "Evrogen JSC, Moscow, Russia"
     index: 4
+  - name: "University of Surrey: Guildford, Surrey, United Kingdom"
+    index: 5
 date: "31 February 2018"
 bibliography: literature.bib
 output:
