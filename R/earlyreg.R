@@ -36,7 +36,7 @@
 #' res
 #' @export earlyreg
 
-earlyreg <- function(x, y, range=6, normalize=FALSE) {
+earlyreg <- function(x, y, range=10, normalize=FALSE) {
   data <- na.omit(cbind(x = x, y = y))
 
   x <- data[, "x"]
@@ -57,7 +57,7 @@ earlyreg <- function(x, y, range=6, normalize=FALSE) {
     y <- y / quantile(y, 0.999)
   }
 
-  range_ht <- head(x[-1], range)
+  range_ht <- head(x, range)
 
   res_lm_fit <- try(suppressWarnings(
     coefficients(
@@ -66,12 +66,12 @@ earlyreg <- function(x, y, range=6, normalize=FALSE) {
   ), silent = TRUE)
 
   if (class(res_lm_fit) == "try-error") {
-    res_lm_fit <- c(NA, NA)
+    res_lm_fit <- c(0, 0)
   }
 
   res_mine <- try(suppressWarnings(minerva::mine(x[range_ht], y[range_ht])$MIC), silent = TRUE)
   if (class(res_mine) == "try-error") {
-    res_mine <- c(NA)
+    res_mine <- c(0)
   }
 
   res_lm_fit <- c(res_lm_fit, res_mine[1])

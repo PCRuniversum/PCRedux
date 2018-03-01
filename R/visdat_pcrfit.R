@@ -47,7 +47,8 @@
 visdat_pcrfit <- function(data, type="all", interactive=TRUE) {
   fetch_all <- c(
     "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
-    "f.top", "resLRE", "ressliwin", "cpDdiff", "slope_background",
+#    "f.top", "resLRE", "ressliwin", "cpDdiff", "slope_background",
+    "f.top", "ressliwin", "cpDdiff", "slope_background",
     "intercept_background", "polyarea", "changepoint.e.agglo", "changepoint.bcp",
     "qPCRmodel", "amptester_shap.noisy", "amptester_lrt.test", "amptester_rgt.dec",
     "amptester_tht.dec", "amptester_slt.dec", "amptester_polygon",
@@ -62,7 +63,8 @@ visdat_pcrfit <- function(data, type="all", interactive=TRUE) {
 
   fetch_qpcR <- c(
     "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
-    "f.top", "resLRE", "ressliwin", "cpDdiff", "qPCRmodel"
+#    "f.top", "resLRE", "ressliwin", "cpDdiff", "qPCRmodel"
+    "f.top", "ressliwin", "cpDdiff", "qPCRmodel"
   )
 
   fetch_amptester <- c(

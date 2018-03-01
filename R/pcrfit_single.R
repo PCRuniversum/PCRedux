@@ -39,11 +39,10 @@
 #'   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
 #'   "init1" \tab initial template fluorescence from the sigmoidal model \tab numeric \cr
 #'   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
-#'   "top" \tab takeoff point \tab numeric \cr
-#'   "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
-#'   "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp) \tab numeric \cr
-#'   "f.tdp" \tab fluorescence at tdp point \tab  numeric \cr
-#'   "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
+#'   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
+#'   "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
+#'   "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
+#'   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
 #'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
 #'   "b_slope" \tab Is the slope of seven parameter model \cr
 #'   "f_asymmetry" \tab Is the asymmetry of the seven parameter model \cr
@@ -97,7 +96,7 @@
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
 #'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}},\code{\link[minerva]{mine}}
 #'  \code{\link[pracma]{polyarea}}
-#'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
+#'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
 #'  \code{\link[base]{diff}}
 #'  \code{\link[stats]{quantile}}
 #'
@@ -110,6 +109,14 @@ pcrfit_single <- function(x) {
   x <- x / quantile(x, 0.999, na.rm = TRUE)
   length_cycle <- length(x)
   cycles <- 1L:length_cycle
+  
+  # Smooth data with moving average for other data
+  # analysis steps.
+  dat_smoothed <- chipPCR::smoother(cycles, x)
+  
+  # Calculate the first derivative
+  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles, dat_smoothed), verbose = TRUE)$xy)
+  
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm = TRUE)
 
@@ -122,9 +129,9 @@ pcrfit_single <- function(x) {
   res_bg.max_tmp <- try(chipPCR::bg.max(cycles, x), silent = TRUE)
   if (class(res_bg.max_tmp) == "try-error") {
     res_bg.max <- c(
-      bg.start = NA,
-      bg.stop = NA,
-      amp.stop = NA
+      bg.start = 0,
+      bg.stop = 0,
+      amp.stop = 0
     )
   } else {
     res_bg.max <- c(
@@ -150,34 +157,35 @@ pcrfit_single <- function(x) {
   # Calculates the area of the amplification curve
   res_polyarea <- try(pracma::polyarea(cycles, x), silent = TRUE)
   if (class(res_polyarea) == "try-error") {
-    res_polyarea <- NA
+#     res_polyarea <- NA
+    res_polyarea <- 0
   }
 
   # Calculate change points
-  # Agglomerative hierarchical estimation algorithm for multiple change point analysis
   res_changepoint_e.agglo <- try(length(ecp::e.agglo(as.matrix(x))$estimates), silent = TRUE)
+  res_changepoint_e.agglo <- try(length(ecp::e.agglo(as.matrix(res_diffQ[["d(F) / dT"]]))$estimates), silent = TRUE)
   if (class(res_changepoint_e.agglo) == "try-error") {
-    res_changepoint_e.agglo <- NA
+    res_changepoint_e.agglo <- length_cycle
   }
 
   # Bayesian analysis of change points
-  res_bcp_tmp <- bcp::bcp(x)
-  res_bcp_tmp <- res_bcp_tmp$posterior.prob > 0.45
+  res_bcp_tmp <- bcp::bcp(res_diffQ[["d(F) / dT"]])
+  res_bcp_tmp <- res_bcp_tmp$posterior.prob >= 0.6
   res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length()))
   if (class(res_bcp) == "try-error") {
-    res_bcp <- NA
+    res_bcp <- 0
   }
 
   # Median based local robust regression (mblrr)
   res_mblrr <- PCRedux::mblrr(cycles, x)
+  
+  
 
   # Calculate amptester results
   res_amptester <- suppressMessages(try(chipPCR::amptester(x)))
 
   # Estimate the spread of the approximate local minima and maxima of the curve data
-  dat_smoothed <- chipPCR::smoother(cycles, x)
 
-  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles, dat_smoothed), verbose = TRUE)$xy)
   res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
   mcaPeaks_minima_maxima_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
   if (is.infinite(mcaPeaks_minima_maxima_ratio)) {
@@ -214,38 +222,39 @@ pcrfit_single <- function(x) {
 
   res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
   if (class(res_coef) == "try-error") {
-    res_coef <- c(b = NA, f = NA)
+#     res_coef <- c(b = NA, f = NA)
+    res_coef <- c(b = 0, f = 0)
   }
 
 
   res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
   if (class(res_convInfo_iteratons) == "try-error") {
-    res_convInfo_iteratons <- NA
+    res_convInfo_iteratons <- 5000
   }
 
   pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent = TRUE)
 
   res_fit <- try(qpcR::mselect(
     pcrfit_startmodel,
-    verbose = FALSE, do.all = TRUE
+    verbose = FALSE, fctList = list(l4, l5, l6, l7)
   ), silent = TRUE)
 
   res_fit_reverse <- try(qpcR::mselect(
     pcrfit_startmodel_reverse,
-    verbose = FALSE, do.all = TRUE
+    verbose = FALSE, fctList = list(l4, l5, l6, l7)
   ), silent = TRUE)
 
   # Determine the model suggested by the mselect function based on the AICc
   res_fit_model <- try(names(which(res_fit[["retMat"]][, "AICc"] == min(res_fit[["retMat"]][, "AICc"]))), silent = TRUE)
   if (class(res_fit_model) == "try-error") {
-    res_fit_model <- NA
+    res_fit_model <- as.factor("l0")
   }
 
   # Determine the model for the reverse data suggested by the
   # mselect function based on the AICc
   res_fit_model_reverse <- try(names(which(res_fit_reverse[["retMat"]][, "AICc"] == min(res_fit_reverse[["retMat"]][, "AICc"]))), silent = TRUE)
   if (class(res_fit_model_reverse) == "try-error") {
-    res_fit_model_reverse <- NA
+    res_fit_model_reverse <- as.factor("l0")
   }
 
   if (class(res_fit_reverse)[1] != "try-error") {
@@ -260,7 +269,9 @@ pcrfit_single <- function(x) {
     res_takeoff_reverse[[1]] <- length_cycle - res_takeoff_reverse[[1]]
     res_takeoff_reverse[[2]] <- x[res_takeoff_reverse[[1]]] -
       res_takeoff_reverse[[2]] + min(x)
-    names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+    if (is.na(res_takeoff_reverse[[1]])) {
+      res_takeoff_reverse <- list(length_cycle, x[length_cycle])
+    }
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to the takeoff point
     if (!is.na(res_takeoff_reverse[[1]])) {
@@ -269,16 +280,20 @@ pcrfit_single <- function(x) {
       sd_ground_phase <- sd(x[2L:8])
     }
     if (class(res_takeoff_reverse) == "try-error") {
-      res_takeoff_reverse <- list(NA, NA)
+      #       res_takeoff_reverse <- list(NA, NA)
+      #       res_takeoff_reverse <- list(length_cycle, x[length_cycle])
+      res_takeoff_reverse <- list(length_cycle, 1)
     }
   } else {
-    res_takeoff_reverse <- list(NA, NA)
-    names(res_takeoff_reverse) <- c("tdp", "f.tdp")
+    #     res_takeoff_reverse <- list(100, 1)
+    #     res_takeoff_reverse <- list(length_cycle, x[length_cycle])
+    res_takeoff_reverse <- list(length_cycle, 1)
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to cycle 8 if the the takeoff point cannot be
     # determined
     sd_ground_phase <- sd(x[2L:8])
   }
+    names(res_takeoff_reverse) <- c("tdp", "f.tdp")
 
   if (class(res_fit)[1] != "try-error") {
     # TakeOff Point
@@ -287,17 +302,13 @@ pcrfit_single <- function(x) {
     # in Tichopad et al. (2003).
     res_takeoff <- try(qpcR::takeoff(res_fit), silent = TRUE)
     if (class(res_takeoff) == "try-error") {
-      res_takeoff <- list(NA, NA)
+#       res_takeoff <- list(NA, NA)
+      res_takeoff <- list(1, x[1])
     }
-
-    # LRE qPCR efficiency
-    # Calculation of qPCR efficiency by the 'linear regression of
-    # efficiency' method
-
-    res_LRE <- try(qpcR::LRE(res_fit, plot = FALSE, verbose = FALSE)$eff, silent = TRUE)
-    if (class(res_LRE) == "try-error") {
-      res_LRE <- NA
+    if (is.na(res_takeoff[[1]])) {
+      res_takeoff <- list(1, x[1])
     }
+    names(res_takeoff) <- c("top", "f.top")
 
     # sliwin qPCR efficiency
     # Calculation of the qPCR efficiency by the 'window-of-linearity' method
@@ -306,7 +317,8 @@ pcrfit_single <- function(x) {
       silent = TRUE
     )
     if (class(res_sliwin) == "try-error") {
-      res_sliwin <- NA
+#       res_sliwin <- NA
+      res_sliwin <- 0
     }
 
     # Cq of the amplification curve
@@ -324,29 +336,28 @@ pcrfit_single <- function(x) {
       res_cpDdiff <- try(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
     } else {
       res_efficiency_tmp <- list(
-        eff = NA,
-        cpD1 = NA,
-        cpD2 = NA,
-        fluo = NA,
-        init1 = NA,
-        init2 = NA
+        eff = 0,
+        cpD1 = 0,
+        cpD2 = 0,
+        fluo = 1,
+        init1 = 0,
+        init2 = 1
       )
-      res_cpDdiff <- NA
+      res_cpDdiff <- length_cycle
     }
   } else {
     res_efficiency_tmp <- list(
-      eff = NA,
-      cpD1 = NA,
-      cpD2 = NA,
-      fluo = NA,
-      init1 = NA,
-      init2 = NA
+      eff = 0,
+      cpD1 = 0,
+      cpD2 = 0,
+      fluo = 1,
+      init1 = 0,
+      init2 = 1
     )
-    res_takeoff <- list(NA, NA)
-    res_takeoff_reverse <- list(NA, NA)
-    res_LRE <- NA
-    res_sliwin <- NA
-    res_cpDdiff <- NA
+    res_takeoff <- list(1, x[1])
+    res_takeoff_reverse <- list(length_cycle, 1)
+    res_sliwin <- 0
+    res_cpDdiff <- length_cycle
   }
 
   all_results <- data.frame(
@@ -360,7 +371,6 @@ pcrfit_single <- function(x) {
     f.top = res_takeoff[[2]],
     tdp = res_takeoff_reverse[[1]],
     f.tdp = res_takeoff_reverse[[2]],
-    resLRE = res_LRE[1],
     ressliwin = res_sliwin[[1]],
     b_slope = res_coef[["b"]],
     f_asymmetry = res_coef[["f"]],
@@ -380,7 +390,7 @@ pcrfit_single <- function(x) {
     amptester_tht.dec = res_amptester@decisions["tht.dec"][[1]],
     amptester_slt.dec = res_amptester@decisions["slt.dec"][[1]],
     amptester_polygon = res_amptester@"polygon",
-    amptester_slope.ratio = res_amptester@"slope.ratio",
+    amptester_slope.ratio = ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
     minRFU = fluo_range[[1]],
     maxRFU = fluo_range[[2]],
     bg.start_normalized = res_bg.max[1],
@@ -397,6 +407,7 @@ pcrfit_single <- function(x) {
     amp_cor_MIC = res_amp_cor_MIC,
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
+    hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
     mcaPeaks_minima_maxima_ratio = mcaPeaks_minima_maxima_ratio,
     diffQ2_slope = res_diffQ2_slope,
     diffQ2_Cq_range = range_Cq,
