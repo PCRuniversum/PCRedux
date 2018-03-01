@@ -8,6 +8,12 @@ Version 0.2.6 [February 2018]
 * added Maximal Information Coefficient as feature
 * added slope, asymmetry and number of iterations as additional features
 * new function tReem
+* pcrfit_single (encu) tests from now on l4, l5, l6 and l7 models only (-> faster analysis)
+* most outputs no longer reports NAs if nothing could be calculated but extreme values
+* more examples and improved vignette
+* improved change point testing be using the derivative instead of the amplification curve
+* removed drc dependency
+* feature resLRE removed (no significant difference between positive and negative curves)
 
 Version 0.2.5-1 [November 2017]
 * improvements to documentation
