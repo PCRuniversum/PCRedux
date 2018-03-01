@@ -1028,7 +1028,7 @@ The intent of @gunay_machine_2016 was to improve the determination of the Cq val
 There are several reasons why such an assumption is not universally valid. In the chapters \autoref{section_hookreg}, for example, the functions ``hookreg()`` and ``hookregNL()`` are briefly displayed. These amplification curves deviate significantly from a five-parameter model. In addition, non-linear functions also tend to fit models to noise (\autoref{curve_fit_fail}). 
 
 
-```{r, echo=TRUE, fig.cap="\\label{curve_fit_fail}Sample data from the `testdat` data set (\\texttt{qpcR} package, [@Ritz2008]) with negative and positive amplification curves.", fig.height=7, fig.width=7}
+```{r, echo=TRUE, fig.cap="\\label{curve_fit_fail}Sample data from the `RAS002` dataset with negative and positive amplification curves.", fig.height=7, fig.width=7}
 # Load the qpcR package for the model fit.
 # suppressMessages(library(qpcR))
 library(chipPCR)
