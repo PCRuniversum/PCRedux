@@ -18,11 +18,10 @@ Output Description
   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
   "init1" \tab initial template fluorescence from the sigmoidal model \tab numeric \cr
   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
-  "top" \tab takeoff point \tab numeric \cr
-  "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
-  "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp) \tab numeric \cr
-  "f.tdp" \tab fluorescence at tdp point \tab  numeric \cr
-  "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
+  "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
+  "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
+  "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
+  "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
   "b_slope" \tab Is the slope of seven parameter model \cr
   "f_asymmetry" \tab Is the asymmetry of the seven parameter model \cr
@@ -112,7 +111,7 @@ pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}},\code{\link[minerva]{mine}}
  \code{\link[pracma]{polyarea}}
- \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
+ \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
  \code{\link[base]{diff}}
  \code{\link[stats]{quantile}}
 }
