@@ -51,7 +51,7 @@ The algorithms of machine learning consist of several steps including careful da
 
 The amplification curves had to be divided into training data and test data from the entire data set, which were manually categorized, at random. The following chapter focuses on the exemplary application of feature vectors from amplification curves, which can be used for automatic classification by machine learning. 
 
-The first task of this work was to develop and define potential characteristics. This has been described in chapter \autoref{section_Functions_of_PCRedux}. These features can be extracted from virtually all amplification curve data. The pre-processing of data is described in detail in chapter \autoref{section_data_sets}.
+The first task of this work was to develop and define potential characteristics. This has been described in \autoref{section_Functions_of_PCRedux}. These features can be extracted from virtually all amplification curve data. The pre-processing of data is described in detail in chapter \autoref{section_data_sets}.
 
 The ideal machine learning algorithm for the analysis of amplification curve data was not known beforehand. For this reason, it was necessary to speculate which characteristics should be extracted by the processing algorithm and broken down into characteristic vectors.
 
@@ -162,7 +162,7 @@ At this level all software assumes that the amplification resemble a sigmoid cur
 
 Most software packages do not make a classification if an amplification curve. For example, a classification could be if the amplification curve is negative or positive. An other classification could indicate whether the quality of the amplification curve is poor (much noise) or good (low noise). However, this is a needed information for the human working with the data in later steps and also for some algorithms. For example, the \texttt{linreg} method by @ruijter_amplification_2009 requires a decision, if an amplification curve is positive or negative. 
 
-Sometimes it is difficult even for a human expert to classify the amplification curves unambiguously and reproducible. To illustrate this matter an example for the analysis and classification of the `htPCR` data set is given in \autoref{section_decision_mode}.
+Sometimes it is difficult even for a human expert to classify the amplification curves unambiguously and reproducible. To illustrate this an example for the analysis and classification of the `htPCR` data set is given in \autoref{figure_curve_classification}.
 
 A bottleneck of qPCR data analysis is the lack of features that can be used to build classifiers for amplification curve data. A classifier herein refer to a vector of features that can be used to distinguish the amplification curves by their shape only.
 
@@ -802,7 +802,7 @@ data.frame(
 # 32     H4 15.73 1.117827
 ```
 
-Next, the amplification curves (\autoref{HCU32}A), the differences between baseline region and plateau region (\autoref{HCU32}B), the correlation between the Cq value and amplification efficiency (\autoref{HCU32}C) and the clusters based on the Hausdorff distance (Figure \autoref{HCU32} were taken into account. In total, 32 real-time PCR reactions for the bacterial gen \textit{aggR} were measured in the VideoScan system. 
+Next, the amplification curves (\autoref{HCU32}A), the differences between baseline region and plateau region (\autoref{HCU32}B), the correlation between the Cq value and amplification efficiency (\autoref{HCU32}C) and the clusters based on the Hausdorff distance (\autoref{HCU32} were taken into account. In total, 32 real-time PCR reactions for the bacterial gen \textit{aggR} were measured in the VideoScan system. 
 
 > **Note**: The raw data has not been modified to retain all characteristics of the amplification curves.
 
@@ -1021,9 +1021,9 @@ visdat_pcrfit(res, type = "all", interactive = FALSE)
 
 ### Amplification Curve Analysis Functions of the \texttt{PCRedux} package  \label{section_analysis_functions}
 
-There are a number of ROIs (see figure \autoref{amplification_curve_ROI}) in an amplification curve that are potentially useful for calculating characteristics for the classification of amplification curves. As a rule, amplification curves deviate differently from the ideal sigmoid models (compare figure \autoref{figure_sigmoid_cuve} and figure \autoref{figure_sigmoid_cuve}) of qPCRs. For instance, some amplification curves are only flat or have a rise with positive or negative signs without sigmodic function. In the case of sigmoid amplification curves, there are turning points which can be characteristic for positive amplification curves. Such differences are interesting candidates to calculate features for machine learning. On the basis of this observation, various concepts were developed and implemented in algorithms to describe amplification curves.
+There are a number of ROIs (see \autoref{amplification_curve_ROI}) in an amplification curve that are potentially useful for calculating characteristics for the classification of amplification curves. As a rule, amplification curves deviate differently from the ideal sigmoid models (compare \autoref{figure_sigmoid_cuve} and \autoref{figure_sigmoid_cuve}) of qPCRs. For instance, some amplification curves are only flat or have a rise with positive or negative signs without sigmodic function. In the case of sigmoid amplification curves, there are turning points which can be characteristic for positive amplification curves. Such differences are interesting candidates to calculate features for machine learning. On the basis of this observation, various concepts were developed and implemented in algorithms to describe amplification curves.
 
-The intent of @gunay_machine_2016 was to improve the Cq value determinations. They postulated that they can achieve an improved prediction of Cq values using a modified sigmoid function (three parameters). However, this is questionable. Because a basic assumption, from their approach, was that this model can be applied to any data set. 
+The intent of @gunay_machine_2016 was to improve the determination of the Cq values. They postulated that they can achieve an improved prediction of Cq values using a modified sigmoid function (three parameters). However, this is questionable. Because a an assumption, from their approach, is that this model can be applied to any data set. 
 
 There are several reasons why such an assumption is not universally valid. In the chapters \autoref{section_hookreg}, for example, the functions ``hookreg()`` and ``hookregNL()`` are briefly displayed. These amplification curves deviate significantly from a five-parameter model. In addition, non-linear functions also tend to fit models to noise (\autoref{curve_fit_fail}). 
 
@@ -1494,7 +1494,7 @@ abline(h = 0.8, col = "black", lty = 2)
 
 The ``pcrfit_single()`` function is performing the analysis for a single process and the ``pblapply()`` function from the \texttt{pbapply} package is used internally to is delivers a progress bar and leverages parallel processing. Examples are given in the documentation of the ``encu()`` function. Parallel computing technologies saves scientists time in their routine tasks of analyzing experimental data. Information about parallel computing technologies in \texttt{R} are available from @eddelbuettel_cran_2017.
 
-To process high data volumes and to deal with speed issues several \texttt{R} packages for parallelization were evaluated [@vera_r_parallel_2008, @porzelius_easier_2009, @boehringer_dynamic_2013]. For the calculation of the curve parameters the custom-made function *pcrfit_parallel* was developed (see \autoref{pcrfit_parallel}). In particular, to benchmark and evaluate the performance of multiple learners on multiple tasks studies quickly become resource-demanding. Therefore, packages such as **mlr** support natively parallelization [@bischl_mlr:_2010].
+To process high data volumes and to deal with speed issues several \texttt{R} packages for parallelization were evaluated [@vera_r_parallel_2008, @porzelius_easier_2009, @boehringer_dynamic_2013]. For the calculation of the curve parameters the custom-made function ``pcrfit_parallel()`` was developed. In particular, to benchmark and evaluate the performance of multiple learners on multiple tasks studies quickly become resource-demanding. Therefore, packages such as **mlr** support natively parallelization [@bischl_mlr:_2010].
 
 The code block below shows an example for a parallelized version of ``pcrfit_single()``. This function is called ``pcrfit_parallel()``, which is intended for users who wish to calculate the features of a large amplification 
 curve data set. This function appears to be works on Linux systems. On Windows 
@@ -1723,7 +1723,7 @@ The signal height and the slope in the first amplification curve cycles are help
 
 Therefore, the function ``earlyreg()`` was developed. This function uses an MM-type estimator [@todorov_object-oriented_2009] for robust linear regression within a limited number of cycles. As ROI, the first 10 cycles were defined. This restriction is based on empirical data suggesting that during the first six cycles only a significant increase in signal strength can be measured with a few qPCRs. However, ``earlyreg()`` ignores the first cycle, as many thermo-cyclers use this cycle for sensor calibration. Extreme values are therefore limited from the very beginning. As standard, the next six amplitude values are used for robust linear regression. The number of cycles can also be adjusted via the parameter `range`. Furthermore, the ``earlyreg()`` function calculates the maximum information coefficient (MIC) according to @reshef_detecting_2011 using the \texttt{minerva} package. MIC is a maximum information-based non-parametric exploration statistics (MINE) for identifying and classifying relationships. Since all amplification curves are normalized to the 99%-percentile, there is also a comparability between the background signals and the slopes.
 
-The following example illustrates a possible use of the function ``earlyreg()``. For that purpose 500 amplification curves were randomly drawn from the `htPCR` data set and used for analysis. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. The figure \autoref{earlyreg_slopes}B shows only the first ten cycles.
+The following example illustrates a possible use of the function ``earlyreg()``. For that purpose 500 amplification curves were randomly drawn from the `htPCR` data set and used for analysis. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. The \autoref{earlyreg_slopes}B shows the first ten cycles.
 
 
 ```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the `RAS002` data set (\\texttt{PCRedux} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
@@ -1751,7 +1751,7 @@ matplot(
 mtext("B    Cycle 1 to 10", cex = 1.25, side = 3, adj = 0, font = 2)
 ```
 
-Next, the ``earlyreg()`` function was used to determine the slope, intercept and MIC in the range of the first ten PCR cycles. The results were used in a cluster analysis using k-means clustering. As shown in Figure \autoref{earlyreg_results}B, the density function from the values of the zero shift resembles a mono-modal bell curve. By contrast, the density function from the rises is rather bimodal (\autoref{earlyreg_results}C). Therefore, the increase seems to be an indicator of differences between the amplification curves.
+Next, the ``earlyreg()`` function was used to determine the slope, intercept and MIC in the range of the first ten PCR cycles. The results were used in a cluster analysis using k-means clustering. As shown in \autoref{earlyreg_results}B, the density function from the values of the zero shift resembles a mono-modal bell curve. By contrast, the density function from the rises is rather bimodal (\autoref{earlyreg_results}C). Therefore, the increase seems to be an indicator of differences between the amplification curves.
 
 When analyzing clusters with k-means (\textit{k} = 4 it was assumed that some amplification curves have a small, moderate or strong increase. After the cluster analysis this could also be observed (\autoref{earlyreg_results}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
 
@@ -1954,7 +1954,7 @@ Further examples are shown in the manual for the ``hookregNL()`` function.
 
 In \autoref{amplification_curve_ROI} it was shown that an amplification curve can be divided into different regions. One assumption is that the slope and asymmetry of positive amplification curves are markedly different in head (ground phase) and tail (plateau phase). Asymmetry in the head should be lower than in the tail. In a negative amplification curve, the asymmetries should be almost identical. The slope in the tail should also provide some indication to determine whether the amplification reaction is completed. In order to quantify these values, a linear regression model can be used in these ROIs.
 
-``mblrr()`` is a function to perform the Median based Local Robust Regression (m b l r r) from a quantitative PCR experiment. In detail, this function attempts to break the amplification curve in two ROIs (head (~background) and tail (~plateau)). Subsequent, a robust linear regression analysis (``lmrob()``) is preformed individually on both parts. The rationale behind this analysis is that the slope and intercept of an amplification curve differ in the background and plateau region. In the example shown below, the samples "P01.W19", "P06.W35", "P33.W66", "P65.W90", "P71.W23" and "P87.W01" were arbitrarily selected for demonstration purposes \autoref{plot_mblrr}. Another example is shown in \autoref{HCU32}A. Those amplification curves have a slight negative trend in the baseline region and a positive trend in the plateau region (\autoref{section_machine_learning}).
+``mblrr()`` is a function to perform the Median based Local Robust Regression (m b l r r) from a quantitative PCR experiment. In detail, this function attempts to break the amplification curve in two ROIs (head (~background) and tail (~plateau)). Subsequent, a robust linear regression analysis (``lmrob()``) is preformed individually on both parts. The rationale behind this analysis is that the slope and intercept of an amplification curve differ in the background and plateau region. In the example shown below, the samples "P01.W19", "P06.W35", "P33.W66", "P65.W90", "P71.W23" and "P87.W01" were arbitrarily selected for demonstration purposes \autoref{plot_mblrr}. Another example is shown in \autoref{HCU32}A. Those amplification curves have a slight negative trend in the baseline region and a positive trend in the plateau region.
 
 The correlation coefficient is a measure to quantify the dependence on variables (e. g. number of cycles, signal height). The correlation coefficient is always between -1 and 1, with a value close to -1 describing a strong-negative dependency and close to 1 describing a strong-positive dependency; if the value is 0, there is no dependency between the variables. The most frequently used correlation coefficient to describe a linear dependency is the Pearson correlation coefficient *r*.
 
@@ -2057,7 +2057,7 @@ In the following example, the `RAS002` data set from the \texttt{qpcR} package w
 ```{r, eval=TRUE, echo=TRUE}
 # Load the xtable library for an appealing table output
 options(warn = -1)
-library(FFTrees)
+suppressMessages(library(FFTrees))
 library(PCRedux)
 
 # The RAS002 amplification curves were analyzed with the mblrr() function before.
