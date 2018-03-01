@@ -3,12 +3,12 @@
 \docType{package}
 \name{PCRedux-package}
 \alias{PCRedux-package}
-\alias{l7}
+\alias{l4}
 \alias{PCRedux}
 \title{PCRedux - quantitative PCR machine learning helper tool}
 \format{An object of class \code{list} of length 11.}
 \usage{
-l7
+l4
 }
 \description{
 \code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
