@@ -105,8 +105,8 @@
 
 pcrfit_single <- function(x) {
 
-  # Normalize RFU values to the alpha percentile (0.999)
-  x <- x / quantile(x, 0.999, na.rm = TRUE)
+  # Normalize RFU values to the alpha percentile (0.99)
+  x <- x / quantile(x, 0.99, na.rm = TRUE)
   length_cycle <- length(x)
   cycles <- 1L:length_cycle
   
@@ -155,7 +155,7 @@ pcrfit_single <- function(x) {
   res_hookreg <- ifelse(res_hookreg_simple["hook"] == 1 || res_hookregNL["hook"] == 1, 1, 0)
 
   # Calculates the area of the amplification curve
-  res_polyarea <- try(pracma::polyarea(cycles, x), silent = TRUE)
+  res_polyarea <- try(pracma::polyarea(cycles, x), silent = TRUE) / length_cycle
   if (class(res_polyarea) == "try-error") {
 #     res_polyarea <- NA
     res_polyarea <- 0
@@ -280,13 +280,9 @@ pcrfit_single <- function(x) {
       sd_ground_phase <- sd(x[2L:8])
     }
     if (class(res_takeoff_reverse) == "try-error") {
-      #       res_takeoff_reverse <- list(NA, NA)
-      #       res_takeoff_reverse <- list(length_cycle, x[length_cycle])
       res_takeoff_reverse <- list(length_cycle, 1)
     }
   } else {
-    #     res_takeoff_reverse <- list(100, 1)
-    #     res_takeoff_reverse <- list(length_cycle, x[length_cycle])
     res_takeoff_reverse <- list(length_cycle, 1)
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to cycle 8 if the the takeoff point cannot be
@@ -389,7 +385,7 @@ pcrfit_single <- function(x) {
     amptester_rgt.dec = res_amptester@decisions["rgt.dec"][[1]],
     amptester_tht.dec = res_amptester@decisions["tht.dec"][[1]],
     amptester_slt.dec = res_amptester@decisions["slt.dec"][[1]],
-    amptester_polygon = res_amptester@"polygon",
+    amptester_polygon = res_amptester@"polygon" / length_cycle,
     amptester_slope.ratio = ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
     minRFU = fluo_range[[1]],
     maxRFU = fluo_range[[2]],
