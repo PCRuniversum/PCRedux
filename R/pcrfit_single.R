@@ -222,7 +222,6 @@ pcrfit_single <- function(x) {
 
   res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
   if (class(res_coef) == "try-error") {
-#     res_coef <- c(b = NA, f = NA)
     res_coef <- c(b = 0, f = 0)
   }
 
@@ -298,11 +297,10 @@ pcrfit_single <- function(x) {
     # in Tichopad et al. (2003).
     res_takeoff <- try(qpcR::takeoff(res_fit), silent = TRUE)
     if (class(res_takeoff) == "try-error") {
-#       res_takeoff <- list(NA, NA)
-      res_takeoff <- list(1, x[1])
+      res_takeoff <- list(length_cycle, 1)
     }
     if (is.na(res_takeoff[[1]])) {
-      res_takeoff <- list(1, x[1])
+      res_takeoff <- list(length_cycle, 1)
     }
     names(res_takeoff) <- c("top", "f.top")
 
@@ -313,7 +311,6 @@ pcrfit_single <- function(x) {
       silent = TRUE
     )
     if (class(res_sliwin) == "try-error") {
-#       res_sliwin <- NA
       res_sliwin <- 0
     }
 
