@@ -1303,7 +1303,15 @@ res_pcrfit_parallel
 
 #### Test of an amplification reaction\label{section_amptester}
 
-Methods of the ``amptester()`` function are more sophisticated and are targeted at two user groups. The first covers developers who wish to implement their own routines. The second covers users who wish to include an initial quality control. 
+A part of the ``pcrfit_single ()`` function is the ``amptester ()`` function from the \texttt{chipPCR} package. This function contains tests to determine whether an amplification curve is positive or negative.  The input values for the function differ due to the different preprocessing steps in the ``pcrfit_single ()`` function. Therefore, the concepts of the tests are briefly described below.
+
+- The first test (SHt) is based on this Shapiro-Wilk test of normality. This relatively simple procedure can be used to check whether the underlying population of a sample (amplification) is significantly ($\alpha \leq 5e-04$) normal distributed. In \autoref{amplification_curve_shapes} it can be seen that negative amplification curves resemble a normal distribution, but positive amplification curves are deviating from the normal distribution.  The output is binary coded (negative = 0, positive = 1). The name of the output of the ``pcrfit_single ()`` function is `amptester_shap.noisy`.
+- The second test is the Resids growth test (RGt), which tests if the fluorescence values in linear phase are stable. Whenever no amplification occurs, fluorescence values quickly deviate from linear model. Their standardized residuals will be strongly correlated with their value. For real amplification curves, situation is much more stable. Noise (that means deviations from linear model) in  background do not correlate strongly with the changes in fluorescence. The decision is based on the threshold value (here 0.5). The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single ()`` function is `amptester_rgt.dec`.
+- The third test is the *Linear Regression test* (LRt). This test determines the coefficient of determination ($R^{2}$) by an ordinary linear least squares regression. The $R^{2}$ are determined from a run of circa 15% range of the data. If a sequence of more than six $R^{2}$s is larger than 0.8 is found that is likely a nonlinear signal. This is a bit counter intuitive because $R^{2}$ of nonlinear data should be low. The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single ()`` function is `amptester_lrt.test`.
+- The fourth test is called *Threshold test* (THt), which is based on the Wilcoxon rank sum test. As a simple rule the first 20% (head) and the last 15% (tail) of an amplification curve are used as input data. From that a one-sided Wilcoxon rank sum tests of the head versus the tail is performed ($\alpha \leq 1e-02$). The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single ()`` function is `amptester_tht.dec`.
+- The fifth test is called *Signal level test* (SLt). he test compares the signals of the head and the tail by a robust "sigma" rule (median + 2 * median absolute deviation) and the  the comparison of the head/tail ratio. If the returned value is less than 1.25 (25 percent), then the amplification curve is likely negative.The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single ()`` function is `amptester_slt.dec`.
+- The sixth test is called *pco test*. The pco test determines if the points in an amplification curve (like a polygon) are in a "clockwise" order. The sum over the edges result in a positive value if the amplification curve is "clockwise" and is negative if the curve is counter-clockwise. From experience is noise positive and "true" amplification curves "highly" negative. In contrast to the implementation in the ``amptester ()`` function, the result is normalized by a division to the number of PCR cycles. The output is numeric. The output name of the ``pcrfit_single ()`` function is `amptester_polygon`.
+- The seventh test is the *Slope Ratio test* (SlR).This test uses the approximated first derivative maximum, the second derivative minimum and the second derivative maximum of the amplification curve. Next the raw fluorescence at the approximated second derivative minimum and the second derivative maximum are taken from the original data set. The fluorescence intensities are normalized to the maximum fluorescence of this data. This data is used for a linear regression. Where the slope is used. The output is numeric. The output name of the ``pcrfit_single ()`` function is `amptester_slope.ratio`.
 
 * Test of an amplification reaction
     - ``amptester()`` [\texttt{chipPCR}]: Tests with different statistical methods, if the amplification is positive or negative.
@@ -2274,11 +2282,12 @@ feature <- c("eff", "cpD1", "cpD2", "fluo", "init1", "init2",
              "slope_background", "intercept_background", "MIC_background", 
              "polyarea", "changepoint.e.agglo", "changepoint.bcp", 
              "amptester_polygon", "amptester_slope.ratio", "minRFU", "maxRFU", 
-             "bg.start_normalized", "bg.stop_normalized", "amp.stop_normalized", "amp_cor_MIC", 
+#              "bg.start_normalized", "bg.stop_normalized", "amp.stop_normalized", "amp_cor_MIC", 
+             "amp_cor_MIC", 
              "mcaPeaks_minima_maxima_ratio", "diffQ2_slope", "diffQ2_Cq_range")
 
 
-par(mfrow = c(3,4))
+par(mfrow = c(3,3))
 
 x <- data$decision
 
