@@ -1143,7 +1143,7 @@ In this section, the methods of the ``pcrfit_single()`` function are described c
 Users of this function should independently verify and validate the results of the methods for their applications. The ``encu()`` function is based on  the ``pcrfit_single()`` function. Contrary to the ``pcrfit_single()`` function, it can be used to process records with amplification curve data arranged in columns. The progress of processing is displayed in the form of a progress bar and the estimated run-time. The ``encu()`` function is not discussed in more detail. Additionally, the ``encu()`` allows to specify which monitoring chemistry (e.g., DNA binding dye, sequence specific probes) was used. Such information may well be relevant for data analysis. @ruijter_2014 have shown, among other things, that monitoring chemistry of the type of input DNA (single stranded, double stranded) can be important when analysing qPCR data.
 
 
-**Amplification curve pre-processing**: The ``pcrfit_single()`` function and the ``encu()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. They are usually automatically imputed. These two functions will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99% quantile. The normalization is necessary, because the amplitudes of amplification curves depend on the used detection chemistry and thermo-cycler (sensor technology, software processing). As a result considerable differences between the maximum values are the norm. Users of the \texttt{PCRedux} package are advised to take a look at the datasets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain. For example, the data in \autoref{plot_dat_2}A show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. In addition, selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` function from the \texttt{chipPCR} package to pre-process (e.g., baselining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr.
+**Amplification curve pre-processing**: The ``pcrfit_single()`` function and the ``encu()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. They are usually automatically imputed. These two functions will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99% quantile. The normalization is necessary, because the amplitudes of amplification curves depend on the used detection chemistry and thermo-cycler (sensor technology, software processing). As a result considerable differences between the maximum values are the norm. Users of the \texttt{PCRedux} package are advised to take a look at the datasets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain. For example, the data in \autoref{plot_dat_2}G show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. In addition, selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` function from the \texttt{chipPCR} package to pre-process (e.g., baselining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr.
 
 **The handling of missing values**: Missing values (NA) are measuring points in a dataset where no measured values are available. Causes of this can be found, for example, in the case that no measurement has been carried out (e. g., defective detector), that they have been removed arbitrarily or that a calculation does not allow the calculation of a specified value. It can occur, for example, if a logistical function is to be adapted to a measurement series, but the raw data is too noisy to allow model adaptation. As a consequence, no parameters would be determined from this model. 
 The apparent lack of information is nevertheless still useful in the context of data analysis. For the case described above, it could be deduced from the missing values that the data series does not show a sigmoid curve progression. In this regard, NAs nonetheless provide an informational basis. 
@@ -1377,10 +1377,10 @@ for (i in c(2, 4)) {
 #### Areas, Ratios and Slopes\label{section_Areas_Ratios_Slopes}
 
 
-In the literature, statistical methods are described which can be used to describe quantitatively the product formation in a qPCR [@roediger2015chippcr, @ruijter_evaluation_2013]. As illustrated in  \autoref{figure_quntifcation_points} are these the Ct value, the the first derivative maximum (`cpD1`) and the second derivative maximum (`cpD2`). The ``pcrfit_single()`` function  calculates the `cpD1` and `cpD2`. The Ct value is not calculate for the reasons discussed in \autoref{section_software}. As shown in \autoref{plot_dat}B & C are both quantification points not directly useful to distinguish between a positive and negative amplification curve. However, it low `cpD1` and `cpD2` values (< 15) indicate that the PCR reaction was negative. No further information shall be provided about these typical procedures. 
+In the literature, statistical methods are described which can be used to describe quantitatively the product formation in a qPCR [@roediger2015chippcr, @ruijter_evaluation_2013]. As illustrated in  \autoref{figure_quntifcation_points} are these the Ct value, the the first derivative maximum (`cpD1`) and the second derivative maximum (`cpD2`). The ``pcrfit_single()`` function  calculates the `cpD1` and `cpD2`. The Ct value is not calculate for the reasons discussed in \autoref{section_software}. As shown in \autoref{plot_dat_1}D & E are both quantification points not directly useful to distinguish between a positive and negative amplification curve. However, it low `cpD1` and `cpD2` values (< 15) indicate that the PCR reaction was negative. No further information shall be provided about these typical procedures. 
 
 Another method is the *takeoff point* (`top`) according to @tichopad_standardized_2003. The `top` is calculated using externally studentized residuals, which tested to be an outlier in terms of the t-distribution. The `top` signifies to first PCR cycle entering the exponential phase. The *takedown point* (`tdp`) is an implementation in the ``pcrfit_single()`` function, which uses the inverse ordered amplification curve for calculation \autoref{amplification_curve_ROI}A describes the location of `top` and `tdp` exemplarily. The position (`f.top`, `f.tdp`) on the ordinate is also determined from these points. If an amplification curve is negative or neither `top` nor `tdp` can be calculated, then `top` & `tdp` will be assigned the number of cycles and `f.top` & `f.tdp` the value 1.
-The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat}G-J. This figure shows that a `top` value and a `tdp` value enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values (\autoref{plot_dat}I). The same applies inversely to the `tdp` values (\autoref{plot_dat}J). In this way, amplification curves can be classified according to these values.
+The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat_1}I-L. This figure shows that a `top` value and a `tdp` value enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values (\autoref{plot_dat_1}J). The same applies inversely to the `tdp` values (\autoref{plot_dat_1}L). In this way, amplification curves can be classified according to these values.
 
 
 In \autoref{amplification_curve_ROI} it was postulated that an amplification curve can be divided into different regions. One assumption is that the slope and intercept of positive amplification curves are markedly different in head (ground phase) and tail (plateau phase). The intercept in the head should be lower than in the tail. In a negative amplification curve, the intercept should be nearly identical. The slope in the tail should also provide some indication to determine whether the amplification reaction is completed. In order to quantify these values, a linear regression model can be used in these ROIs.
@@ -1395,7 +1395,7 @@ In \autoref{amplification_curve_ROI} it was postulated that an amplification cur
     - ``sliwin()`` [\texttt{qpcR}]: Calculates the qPCR efficiency by the 'window-of-linearity' method using functionality from the \texttt{qpcR} package.
 
 
-The aim was to predict, based on the ``polyarea`` feature, whether an amplification curve is positive or negative. The feature `polyarea` has been randomly selected from all features to show that the area under an amplification curve can be used to distinguish positive and negative amplification curves. The hypothesis is that positive amplification curves have a larger area than negative amplification curves. As shown in \autoref{plot_dat_2}G, there is a statistically significant difference between positive and negative amplification curves. Also shown are the values of another method to calculate the area under an amplification curve. This method is called `amptester_polygon` (\autoref{plot_dat_2}). It is expected that this method would allow even more reliable predictions. However, this question is not to be dealt with in the following example.
+The aim was to predict, based on the ``polyarea`` feature, whether an amplification curve is positive or negative. The feature `polyarea` has been randomly selected from all features to show that the area under an amplification curve can be used to distinguish positive and negative amplification curves. The hypothesis is that positive amplification curves have a larger area than negative amplification curves. As shown in \autoref{plot_dat_3}C, there is a statistically significant difference between positive and negative amplification curves. Also shown are the values of another method to calculate the area under an amplification curve. This method is called `amptester_polygon` (\autoref{plot_dat_3}Ds). It is expected that this method would allow even more reliable predictions. However, this question is not to be dealt with in the following example.
 
 The `stepone_std`, `RAS002`, `RAS003`, `lc96_bACTXY` datasets will be used for the analysis by a binomial logistic regression (aka logit regression or logit model). This dataset contains almost equal proportions of positive and negative amplification curves (\autoref{plot_Logistic_Regression}A). Prior to this, the amplification curves were analyzed with the ``encu()`` function (\autoref{section_pcrfit_single_pcrfit_parallel}) and stored in the `data_sample.rda` file to save computing time. The file is part of the \texttt{PCRedux} package. The dataset was split into two chunks. This is an important step during such applications. One chunk is for adapting, i. e. training, the model and the other chunk for testing the model. Typically, 70% to 80% of the data is used for training [@walsh_correct_2015, @kuhn_building_2008]. The binomial logistic regression model was adapted using the function ``glm()`` by using the parameter `family = binomial (link=' logit')`. To objectify the splitting, the ``sample()`` function was used.
 
@@ -2188,14 +2188,16 @@ library(PCRedux)
 
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
-feature <- c("eff", "cpD1", "cpD2", "fluo", "init1", "init2", 
-             "top", "f.top", "tdp", "f.tdp", "ressliwin", 
-             "b_slope", "f_asymmetry", "convInfo_iteratons", "cpDdiff", 
-             "slope_background", "intercept_background", 
-             "polyarea", "changepoint.e.agglo", "changepoint.bcp", 
-             "amptester_polygon", "amptester_slope.ratio", "minRFU", "maxRFU", 
-             "bg.start_normalized", "bg.stop_normalized", "amp.stop_normalized", 
-             "mcaPeaks_minima_maxima_ratio", "diffQ2_slope", "diffQ2_Cq_range")
+feature <- c(
+    "eff", "ressliwin", "convInfo_iteratons", "cpD1", 
+    "cpD2", "cpDdiff", "diffQ2_slope", "diffQ2_Cq_range", 
+    "top", "f.top", "tdp", "f.tdp", 
+    "bg.stop_normalized", "amp.stop_normalized", "fluo", "init1", 
+    "init2", "minRFU", "maxRFU", "sd_ground_phase", 
+    "b_slope", "f_asymmetry", "slope_background", "intercept_background", 
+    "amptester_slope.ratio", "head_to_tail_ratio", "polyarea", "amptester_polygon", 
+    "changepoint.e.agglo", "changepoint.bcp", "mcaPeaks_minima_maxima_ratio"
+)
 
 
 par(mfrow = c(3,4))
@@ -2230,20 +2232,22 @@ mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3,
 
 \newpage
 
-```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}  H) In energy agglomerative clustering, positive amplification curves had fewer change points than negative amplification curves. These two change point analyses generally separate positive and negative amplification curves. I) This analysis used the Bayesian change point analysis. Positive amplification curves appear to contain more change points than negative amplification curves. Nevertheless, there is an overlap between the positive and negative amplification curves in both methods. This can lead to false-positive or false-negative classifications.", fig.height=11, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}Some text", fig.height=11, fig.width=11}
 library(PCRedux)
 
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
-feature <- c("eff", "cpD1", "cpD2", "fluo", "init1", "init2", 
-             "top", "f.top", "tdp", "f.tdp", "ressliwin", 
-             "b_slope", "f_asymmetry", "convInfo_iteratons", "cpDdiff", 
-             "slope_background", "intercept_background", 
-             "polyarea", "changepoint.e.agglo", "changepoint.bcp", 
-             "amptester_polygon", "amptester_slope.ratio", "minRFU", "maxRFU", 
-             "bg.start_normalized", "bg.stop_normalized", "amp.stop_normalized", 
-             "mcaPeaks_minima_maxima_ratio", "diffQ2_slope", "diffQ2_Cq_range")
 
+feature <- c(
+    "eff", "ressliwin", "convInfo_iteratons", "cpD1", 
+    "cpD2", "cpDdiff", "diffQ2_slope", "diffQ2_Cq_range", 
+    "top", "f.top", "tdp", "f.tdp", 
+    "bg.stop_normalized", "amp.stop_normalized", "fluo", "init1", 
+    "init2", "minRFU", "maxRFU", "sd_ground_phase", 
+    "b_slope", "f_asymmetry", "slope_background", "intercept_background", 
+    "amptester_slope.ratio", "head_to_tail_ratio", "polyarea", "amptester_polygon", 
+    "changepoint.e.agglo", "changepoint.bcp", "mcaPeaks_minima_maxima_ratio"
+)
 
 par(mfrow = c(3,4))
 
@@ -2277,20 +2281,21 @@ for(i in (1L:12) + 12*1) {
 
 \newpage
 
-```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}Fill me up soon.", fig.height=11, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}  E) In energy agglomerative clustering, positive amplification curves had fewer change points than negative amplification curves. These two change point analyses generally separate positive and negative amplification curves. F) This analysis used the Bayesian change point analysis. Positive amplification curves appear to contain more change points than negative amplification curves. Nevertheless, there is an overlap between the positive and negative amplification curves in both methods. This can lead to false-positive or false-negative classifications.", fig.height=11, fig.width=11}
 library(PCRedux)
 
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
-feature <- c("eff", "cpD1", "cpD2", "fluo", "init1", "init2", 
-             "top", "f.top", "tdp", "f.tdp", "ressliwin", 
-             "b_slope", "f_asymmetry", "convInfo_iteratons", "cpDdiff", 
-             "slope_background", "intercept_background", 
-             "polyarea", "changepoint.e.agglo", "changepoint.bcp", 
-             "amptester_polygon", "amptester_slope.ratio", "minRFU", "maxRFU", 
-             "bg.start_normalized", "bg.stop_normalized", "amp.stop_normalized", 
-             "mcaPeaks_minima_maxima_ratio", "diffQ2_slope", "diffQ2_Cq_range")
-
+feature <- c(
+    "eff", "ressliwin", "convInfo_iteratons", "cpD1", 
+    "cpD2", "cpDdiff", "diffQ2_slope", "diffQ2_Cq_range", 
+    "top", "f.top", "tdp", "f.tdp", 
+    "bg.stop_normalized", "amp.stop_normalized", "fluo", "init1", 
+    "init2", "minRFU", "maxRFU", "sd_ground_phase", 
+    "b_slope", "f_asymmetry", "slope_background", "intercept_background", 
+    "amptester_slope.ratio", "head_to_tail_ratio", "polyarea", "amptester_polygon", 
+    "changepoint.e.agglo", "changepoint.bcp", "mcaPeaks_minima_maxima_ratio"
+)
 
 par(mfrow = c(3,4))
 
@@ -2326,7 +2331,7 @@ for(i in (1 + shift):length(feature)) {
 
 Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. There exist several change point algorithms such as the binary segmentation algorithm [@scott_cluster_1974]. In the change point analysis one assumes independent ordered observations $X_{1}, X_{2}, \ldots, X_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. The the case of qPCR this is simply the cycle-dependent fluorescence. This is be used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.g., mean, variance) of the change points at specific points, change point analysis using the Bayesian method produces a probability for the occurrence of a change point at certain points. CPA is used for example in econometrics and bioinformatics [@Killick_2014, @erdman_bcp:_2007]. For the analysis of the amplification curves it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves. 
 
-The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` function from the \texttt{bcp} package [@erdman_bcp:_2007] and the ``e.agglo()`` function from the \texttt{ecp} package [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurement from the qPCR systems typically shows noise that typically has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As result the analysis returns the posterior probability of a change point at each $X_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_dat_2}H & I).
+The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` function from the \texttt{bcp} package [@erdman_bcp:_2007] and the ``e.agglo()`` function from the \texttt{ecp} package [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurement from the qPCR systems typically shows noise that typically has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As result the analysis returns the posterior probability of a change point at each $X_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_dat_3}E & F).
 
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_cpa}Application of different change point analysis methods to the `RAS002` dataset. An analysis of a negative and a positive amplification curuve from the `RAS002` dataset was performed using the ``pcrfit_single()`` function. In this process, the amplification curves were analysed for change points using Bayesian change point analysis and energy agglomerative clustering. A) The negative amplification curve has a high base signal (~ 4050 RFU) but only a small signal increase (~4250 RFU). There is a clear indication of the signal variation (noise). B) The first negative derivative amplifies the noise so that some peaks are visible. C) The change point analysis shows changes in energy agglomerative clustering at several positions (green vertical line). The Bayesian change point analysis rarely exceeds a probability of 0.6 (grey vert line). D) The positive amplification curve has a lower base signal (~ 2650 RFU) and increases strongly up to the 40th cycle (~3800 RFU). A sigmoid shape of the curve is clearly visible. B) The first negative derivation shows a peak with a minimum at cycle 27.5. C) The change point analysis in energy agglomerative clustering shows changes (green vertical line) only at two positions. The Bayesian change point analysis shows a probability higher then 0.6 (grey horizontal line) at several positions.", fig.height=6}
