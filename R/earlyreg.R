@@ -21,7 +21,6 @@
 #' @seealso
 #'  \code{\link[robustbase]{lmrob}}
 #'  \code{\link[stats]{coefficients}}
-#'  \code{\link[minerva]{mine}}
 #' @examples
 #'
 #' # Calculate slope and intercept on noise (negative) amplification curve data
@@ -36,7 +35,7 @@
 #' res
 #' @export earlyreg
 
-earlyreg <- function(x, y, range=10, normalize=FALSE) {
+earlyreg <- function(x, y, range = 10, normalize = FALSE) {
   data <- na.omit(cbind(x = x, y = y))
 
   x <- data[, "x"]
@@ -69,12 +68,6 @@ earlyreg <- function(x, y, range=10, normalize=FALSE) {
     res_lm_fit <- c(0, 0)
   }
 
-  res_mine <- try(suppressWarnings(minerva::mine(x[range_ht], y[range_ht])$MIC), silent = TRUE)
-  if (class(res_mine) == "try-error") {
-    res_mine <- c(0)
-  }
-
-  res_lm_fit <- c(res_lm_fit, res_mine[1])
-  names(res_lm_fit) <- c("intercept", "slope", "earlyreg.MIC")
+  names(res_lm_fit) <- c("intercept", "slope")
   res_lm_fit
 }

@@ -25,7 +25,6 @@ Imports:
     FFTrees,
     magrittr,
     MBmca,
-    minerva,
     pbapply,
     plotly,
     pracma,

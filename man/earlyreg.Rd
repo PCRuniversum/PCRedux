@@ -44,7 +44,6 @@ res
 \seealso{
 \code{\link[robustbase]{lmrob}}
  \code{\link[stats]{coefficients}}
- \code{\link[minerva]{mine}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

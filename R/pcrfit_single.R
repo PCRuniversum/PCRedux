@@ -94,7 +94,7 @@
 #'  \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
 #'  \code{\link[ecp]{e.agglo}}
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
-#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}},\code{\link[minerva]{mine}}
+#'  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
 #'  \code{\link[pracma]{polyarea}}
 #'  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
 #'  \code{\link[base]{diff}}
@@ -209,13 +209,6 @@ pcrfit_single <- function(x) {
   # Perform an autocorrelation analysis
   res_autocorrelation <- PCRedux::autocorrelation_test(y = x)
 
-  # Perform an correlation analysis with the
-  res_amp_cor_MIC <- try(suppressWarnings(minerva::mine(cycles, y = x)$MIC), silent = TRUE)
-  if (class(res_amp_cor_MIC) == "try-error") {
-    res_amp_cor_MIC <- c(NA)
-    names(res_amp_cor_MIC) <- "MIC"
-  }
-
   # Fit sigmoidal models to curve data
 
   pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
@@ -326,7 +319,7 @@ pcrfit_single <- function(x) {
       silent = TRUE
     )
     if (class(res_efficiency_tmp) != "try-error") {
-      res_cpDdiff <- try(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
+      res_cpDdiff <- try(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]))
     } else {
       res_efficiency_tmp <- list(
         eff = 0,
@@ -371,7 +364,6 @@ pcrfit_single <- function(x) {
     cpDdiff = res_cpDdiff,
     slope_background = res_lm_fit[["slope"]],
     intercept_background = res_lm_fit[["intercept"]],
-    MIC_background = res_lm_fit[["earlyreg.MIC"]],
     polyarea = res_polyarea,
     changepoint.e.agglo = res_changepoint_e.agglo,
     changepoint.bcp = res_bcp,
@@ -386,7 +378,6 @@ pcrfit_single <- function(x) {
     amptester_slope.ratio = ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
     minRFU = fluo_range[[1]],
     maxRFU = fluo_range[[2]],
-    bg.start_normalized = res_bg.max[1],
     bg.stop_normalized = res_bg.max[2],
     amp.stop_normalized = res_bg.max[3],
     head_to_tail_ratio = res_head_tail_ratio,
@@ -397,7 +388,6 @@ pcrfit_single <- function(x) {
     mblrr_intercept_more = res_mblrr[4],
     mblrr_slope_more = res_mblrr[5],
     mblrr_cor_more = res_mblrr[6],
-    amp_cor_MIC = res_amp_cor_MIC,
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
