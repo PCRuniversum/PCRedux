@@ -31,7 +31,7 @@
 #' # Plot the data
 #' plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
 #'      main="C316.amp data set", lty=1, type="l")
-#' res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=6)
+#' res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=10)
 #' res
 #' @export earlyreg
 
@@ -53,14 +53,15 @@ earlyreg <- function(x, y, range = 10, normalize = FALSE) {
   y <- data[, "y"]
 
   if (normalize) {
-    y <- y / quantile(y, 0.999)
+    y <- y / quantile(y, 0.99)
   }
 
   range_ht <- head(x, range)
 
   res_lm_fit <- try(suppressWarnings(
     coefficients(
-      lmrob(y[range_ht] ~ x[range_ht])
+#       lmrob(y[range_ht] ~ x[range_ht])
+      lm(y[range_ht] ~ x[range_ht])
     )
   ), silent = TRUE)
 

@@ -38,7 +38,7 @@ data(C316.amp)
 # Plot the data
 plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
      main="C316.amp data set", lty=1, type="l")
-res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=6)
+res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=10)
 res
 }
 \seealso{
