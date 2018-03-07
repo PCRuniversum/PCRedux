@@ -1152,89 +1152,56 @@ However, NAs pose a difficulty in many analyses. Before an analysis is carried o
 
 
 
-#### Parallel Programming \label{section_parallel_programming}
 
 
-``pcrfit_single()`` is a function, which calculates `r length(pcrfit_single(chipPCR::C126EG595[, 2]))` potential features from an amplification curve. This comes at a cost, since several internal functions are computational very intensive [@porzelius_easier_2009, @schmidberger_2009]. For example, ``pcrfit()`` function (\texttt{qpcR} package) in ``pcrfit_single()`` fits and optimizes eight non-linear (sigmoid) models to the amplification curve data.
-``encuf()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function. Similarly, this function calculates numerous but with an emphasis on features extraction of large amplification curve datasets. 
+```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}Some text", fig.height=11, fig.width=11}
+library(PCRedux)
 
-The ``pcrfit_single()`` function is performing the analysis for a single process and the ``pblapply()`` function from the \texttt{pbapply} package is used internally to is delivers a progress bar and leverages parallel processing. Examples are given in the documentation of the ``encu()`` function. Parallel computing technologies saves scientists time in their routine tasks of analyzing experimental data. Information about parallel computing technologies in \texttt{R} are available from @eddelbuettel_cran_2017.
-
-To process high data volumes and to deal with speed issues several \texttt{R} packages for parallelization were evaluated [@vera_r_parallel_2008, @porzelius_easier_2009, @boehringer_dynamic_2013]. For the calculation of the curve parameters the custom-made function ``pcrfit_parallel()`` was developed. In particular, to benchmark and evaluate the performance of multiple learners on multiple tasks studies quickly become resource-demanding. Therefore, packages such as **mlr** support natively parallelization [@bischl_mlr:_2010].
-
-The code block below shows an example for a parallelized version of ``pcrfit_single()``. This function is called ``pcrfit_parallel()``, which is intended for users who wish to calculate the features of a large amplification 
-curve dataset. This function appears to be works on Linux systems. On Windows 
-systems error messages were reported. ``pcrfit_parallel()`` makes use of 
-parallelized code to make use of multi-core architectures. In this function we 
-import from the \texttt{parallel} package the ``detectCores()`` function. This function determines the number of available cores. Function from the \texttt{foreach} package (e.g., ``%dopar%``, ``foreach()``) are used for the further organization of the CPU usage. The ``pcrfit_single()`` performs the analysis for a single process.
-
-* The parameter `data` is the dataset containing the cycles and fluorescence amplitudes.
-* The parameter `n_cores` defines the numbers of cores that should be left unused by this function. 
-
-By default, ``pcrfit_parallel()`` is using only one core (`n_cores=1`). 
-`n_cores="all"` uses all available cores. The output of the 
-``pcrfit_parallel()`` function is similar to the ``pcrfit_single()`` function.
+data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
 
-```{r, echo=TRUE, eval=FALSE}
-# Copy and paste the code to an R console to evaluate it
+feature <- c(
+    "eff", "ressliwin", "convInfo_iteratons", "cpD1", 
+    "cpD2", "cpDdiff", "diffQ2_slope", "diffQ2_Cq_range", 
+    "top", "f.top", "tdp", "f.tdp", 
+    "bg.stop_normalized", "amp.stop_normalized", "fluo", "init1", 
+    "init2", "minRFU", "maxRFU", "sd_ground_phase", 
+    "b_slope", "f_asymmetry", "slope_background", "intercept_background", 
+    "amptester_slope.ratio", "head_to_tail_ratio", "polyarea", "amptester_polygon", 
+    "changepoint.e.agglo", "changepoint.bcp", "mcaPeaks_minima_maxima_ratio"
+)
 
-library(parallel)
-library(doParallel)
+par(mfrow = c(3,4))
 
-pcrfit_parallel <- function(data, n_cores=1) {
-  # Determine the number of available cores and register them
-  if (n_cores == "all") {
-    n_cores <- detectCores()
-  }
+x <- data$decision
 
-  registerDoParallel(n_cores)
+shift <- 1 * 12
 
-  # Prepare the data for further processing
-  # Normalize RFU values to the alpha percentile (0.99)
-  cycles <- data.frame(cycles = data[, 1])
-  data_RFU <- data.frame(data[, -1])
-  data_RFU_colnames <- colnames(data_RFU)
-  data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
-    data_RFU[, i] / quantile(data_RFU[, i], 0.99, na.rm = TRUE)
-  })
-  colnames(data_RFU) <- data_RFU_colnames
-
-  # just to shut RCHeck for NSE we define ith_cycle
-  ith_cycle <- 1
-
-  run_res <- foreach::foreach(
-    ith_cycle = 1L:ncol(data_RFU),
-    .packages = c(
-      "bcp", "changepoint", "chipPCR", "ecp", "MBmca",
-      "PCRedux", "pracma", "qpcR", "robustbase",
-      "zoo"
-    ),
-    .combine = rbind
-  ) %dopar% {
-    suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
-  }
-
-
-  res <- cbind(runs = colnames(data_RFU), run_res)
-
-  rownames(res) <- NULL
-
-  res
+for(i in (1L:12) + 12*1) {
+    y <- data[, colnames(data) == feature[i]]
+    res <- stats::wilcox.test(y ~ x)
+    h <- max(na.omit(y))
+    l <- min(na.omit(y))
+    h_text <- rep(h * 0.976, 2)
+    
+    par(bg=NA)
+    stripchart(y ~ x, vertical = TRUE, ylab = feature[i],
+               method = "jitter", pch = 19, cex = 1, 
+               col = adjustcolor("darkgrey", alpha.f = 0.65), 
+               ylim = c(l, h * 1.05))
+    
+    boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
+    lines(c(1, 2), rep(h * 0.945, 2))
+    text(1.5, h_text, paste0("P = ", signif(res[["p.value"]])), 
+         cex = 1)
+    
+    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
+          adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
+                                          "black", "red"))
 }
-
-# Calculate curve features of an amplification curve data. Note: Not all
-# CPU cores are used. If need set "all" to use all available cores.
-# In this example the testdat dataset from the qpcR package is used.
-# The observations F1.1 and F1.2 are positive amplification curves. The observations
-# F1.3 and F1.4 are negative.
-options(warn = -1)
-library(qpcR)
-res_pcrfit_parallel <- pcrfit_parallel(testdat[, 1:5])
-res_pcrfit_parallel
 ```
 
-\newpage
+
 
 
 #### Model Selection \label{section_models}
@@ -1271,7 +1238,7 @@ f(x) = c + k1 \cdot x + k2 \cdot x^2 + \frac{d - c}{(1 + exp(b(log(x) - log(e)))
 \end{equation}
 
 
-The more parameters, the easier it is to adapt the model to an existing dataset. The ``pcrfit_single()`` function starts by adjusting a seven-parameter model. From that model, the ``pcrfit_single()`` function outputs the variables `b_slope` and `f_asymmetry`, which describe the increase and the asymmetry. The number of iterations required to adapt the model is also stored. That value is returned by the ``pcrfit_single()`` function as `convInfo_iteratons`. The higher the `convInfo_iteratons` value, the more iterations were necessary to converge from the start parameters (\autoref{plot_dat_1}C). Hence, a low `convInfo_iteratons` value implies a sigmoid curve and a high number of iterations implies a noisy or non-sigmoid curve. 
+The ``pcrfit_single()`` function starts by adjusting a seven-parameter model. As a matter of fact, models with many parameters adapt adapt *easier* to an dataset. From that model, the ``pcrfit_single()`` function outputs the variables `b_slope` and `f_asymmetry`, which describe the increase and the asymmetry. The number of iterations required to adapt the model is also stored. That value is returned by the ``pcrfit_single()`` function as `convInfo_iteratons`. The higher the `convInfo_iteratons` value, the more iterations were necessary to converge from the start parameters (\autoref{plot_dat_1}C). Hence, a low `convInfo_iteratons` value implies a sigmoid curve and a high number of iterations implies a noisy or non-sigmoid curve. 
 
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_models}Models and decision.", fig.height=3.5}
@@ -1874,7 +1841,7 @@ Next, the ``earlyreg()`` function was used to determine the slope, intercept and
 
 When analyzing clusters with k-means (\textit{k} = 4 it was assumed that some amplification curves have a small, moderate or strong increase. After the cluster analysis this could also be observed (\autoref{earlyreg_results}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
 
-```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of observations according to their slope and intercept. The `htPCR` dataset (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=10, fig.width=10} 
+```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of observations according to their slope and intercept. The `htPCR` dataset (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=4} 
 
 # Normalize each amplification curve to their 0.99 percentile and use the
 # earlyreg function to determine the slope and intercept of the first
@@ -1908,7 +1875,7 @@ plot(res_earlyreg, col = cl[["cluster"]], pch = 19)
 mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
 
 matplot(RAS002[range, 1], RAS002[range, -1], xlab = "Cycle", 
-        ylab = "RFU", main = "RAS002 dataset",
+        ylab = "RFU", main = "",
         type = "l", lty = 1, lwd = 2, col = cl[["cluster"]])
 mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
 ``` 
@@ -2090,7 +2057,7 @@ The correlation coefficient is a measure to quantify the dependence on variables
 The correlation coefficient can also be used as a feature. Because similar data structures will have similar correlation coefficients. 
 Correlation coefficients are between -1 and +1, with -1 being a strong negative correlation and 1 a strong positive correlation. The values of -1 and 1 have a perfect correlation. If the value is 0, there is no correlation between the two variables. However. variables that are not strongly correlated can also be important for modeling.
 
-```{r, echo=TRUE, eval = TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the `RAS002` dataset. Not the differences in slopes and intercepts (red and green lines). The ``mblrr()`` function is presumably useful for datasets which are accompanied by noise and artifacts.m, slop; n, intercept.", fig.height=7, fig.width=7}
+```{r, echo=TRUE, eval = TRUE, fig.cap="\\label{plot_mblrr}Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the `RAS002` dataset. Not the differences in slopes and intercepts (red and green lines). The ``mblrr()`` function is presumably useful for datasets which are accompanied by noise and artifacts.m, slop; n, intercept.", fig.height=6}
 options(warn = -1)
 library(PCRedux)
 
@@ -2230,56 +2197,6 @@ plot(res_mblrr.fft, decision.lables = c("Positive", "Negative"))
 \newpage
 
 
-\newpage
-
-```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}Some text", fig.height=11, fig.width=11}
-library(PCRedux)
-
-data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
-
-
-feature <- c(
-    "eff", "ressliwin", "convInfo_iteratons", "cpD1", 
-    "cpD2", "cpDdiff", "diffQ2_slope", "diffQ2_Cq_range", 
-    "top", "f.top", "tdp", "f.tdp", 
-    "bg.stop_normalized", "amp.stop_normalized", "fluo", "init1", 
-    "init2", "minRFU", "maxRFU", "sd_ground_phase", 
-    "b_slope", "f_asymmetry", "slope_background", "intercept_background", 
-    "amptester_slope.ratio", "head_to_tail_ratio", "polyarea", "amptester_polygon", 
-    "changepoint.e.agglo", "changepoint.bcp", "mcaPeaks_minima_maxima_ratio"
-)
-
-par(mfrow = c(3,4))
-
-x <- data$decision
-
-shift <- 1 * 12
-
-for(i in (1L:12) + 12*1) {
-    y <- data[, colnames(data) == feature[i]]
-    res <- stats::wilcox.test(y ~ x)
-    h <- max(na.omit(y))
-    l <- min(na.omit(y))
-    h_text <- rep(h * 0.976, 2)
-    
-    par(bg=NA)
-    stripchart(y ~ x, vertical = TRUE, ylab = feature[i],
-               method = "jitter", pch = 19, cex = 1, 
-               col = adjustcolor("darkgrey", alpha.f = 0.65), 
-               ylim = c(l, h * 1.05))
-    
-    boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
-    lines(c(1, 2), rep(h * 0.945, 2))
-    text(1.5, h_text, paste0("P = ", signif(res[["p.value"]])), 
-         cex = 1)
-    
-    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
-          adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
-                                          "black", "red"))
-}
-```
-
-\newpage
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_dat_3}  E) In energy agglomerative clustering, positive amplification curves had fewer change points than negative amplification curves. These two change point analyses generally separate positive and negative amplification curves. F) This analysis used the Bayesian change point analysis. Positive amplification curves appear to contain more change points than negative amplification curves. Nevertheless, there is an overlap between the positive and negative amplification curves in both methods. This can lead to false-positive or false-negative classifications.", fig.height=11, fig.width=11}
 library(PCRedux)
@@ -2334,7 +2251,7 @@ Change point analysis (CPA) encompasses methods to identify or estimate single o
 The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` function from the \texttt{bcp} package [@erdman_bcp:_2007] and the ``e.agglo()`` function from the \texttt{ecp} package [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurement from the qPCR systems typically shows noise that typically has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As result the analysis returns the posterior probability of a change point at each $X_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_dat_3}E & F).
 
 
-```{r, echo=FALSE, fig.cap="\\label{plot_cpa}Application of different change point analysis methods to the `RAS002` dataset. An analysis of a negative and a positive amplification curuve from the `RAS002` dataset was performed using the ``pcrfit_single()`` function. In this process, the amplification curves were analysed for change points using Bayesian change point analysis and energy agglomerative clustering. A) The negative amplification curve has a high base signal (~ 4050 RFU) but only a small signal increase (~4250 RFU). There is a clear indication of the signal variation (noise). B) The first negative derivative amplifies the noise so that some peaks are visible. C) The change point analysis shows changes in energy agglomerative clustering at several positions (green vertical line). The Bayesian change point analysis rarely exceeds a probability of 0.6 (grey vert line). D) The positive amplification curve has a lower base signal (~ 2650 RFU) and increases strongly up to the 40th cycle (~3800 RFU). A sigmoid shape of the curve is clearly visible. B) The first negative derivation shows a peak with a minimum at cycle 27.5. C) The change point analysis in energy agglomerative clustering shows changes (green vertical line) only at two positions. The Bayesian change point analysis shows a probability higher then 0.6 (grey horizontal line) at several positions.", fig.height=6}
+```{r, echo=FALSE, fig.cap="\\label{plot_cpa}Application of Bayesian change point analysis and energy agglomerative change point analysis methods to the `RAS002` dataset. An analysis of a negative and a positive amplification curuve from the `RAS002` dataset was performed using the ``pcrfit_single()`` function. In this process, the amplification curves were analysed for change points using Bayesian change point analysis and energy agglomerative clustering. A) The negative amplification curve has a high base signal (~ 4050 RFU) but only a small signal increase (~4250 RFU). There is a clear indication of the signal variation (noise). B) The first negative derivative amplifies the noise so that some peaks are visible. C) The change point analysis shows changes in energy agglomerative clustering at several positions (green vertical line). The Bayesian change point analysis rarely exceeds a probability of 0.6 (grey vert line). D) The positive amplification curve has a lower base signal (~ 2650 RFU) and increases strongly up to the 40th cycle (~3800 RFU). A sigmoid shape of the curve is clearly visible. B) The first negative derivation shows a peak with a minimum at cycle 27.5. C) The change point analysis in energy agglomerative clustering shows changes (green vertical line) only at two positions. The Bayesian change point analysis shows a probability higher then 0.6 (grey horizontal line) at several positions.", fig.height=5}
 # Analyze amplification curves from the RAS002 dataset for changepoints
 options(warn = -1)
 
@@ -2435,6 +2352,93 @@ Up to now, priority has been given to features which either represent a typical 
 
 
 \newpage
+
+
+#### Parallel Programming \label{section_parallel_programming}
+
+
+``pcrfit_single()`` is a function, which calculates `r length(pcrfit_single(chipPCR::C126EG595[, 2]))` potential features from an amplification curve. This comes at a cost, since several internal functions are computational very intensive [@porzelius_easier_2009, @schmidberger_2009]. For example, ``pcrfit()`` function (\texttt{qpcR} package) in ``pcrfit_single()`` fits and optimizes eight non-linear (sigmoid) models to the amplification curve data.
+``encuf()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function. Similarly, this function calculates numerous but with an emphasis on features extraction of large amplification curve datasets. 
+
+The ``pcrfit_single()`` function is performing the analysis for a single process and the ``pblapply()`` function from the \texttt{pbapply} package is used internally to is delivers a progress bar and leverages parallel processing. Examples are given in the documentation of the ``encu()`` function. Parallel computing technologies saves scientists time in their routine tasks of analyzing experimental data. Information about parallel computing technologies in \texttt{R} are available from @eddelbuettel_cran_2017.
+
+To process high data volumes and to deal with speed issues several \texttt{R} packages for parallelization were evaluated [@vera_r_parallel_2008, @porzelius_easier_2009, @boehringer_dynamic_2013]. For the calculation of the curve parameters the custom-made function ``pcrfit_parallel()`` was developed. In particular, to benchmark and evaluate the performance of multiple learners on multiple tasks studies quickly become resource-demanding. Therefore, packages such as **mlr** support natively parallelization [@bischl_mlr:_2010].
+
+The code block below shows an example for a parallelized version of ``pcrfit_single()``. This function is called ``pcrfit_parallel()``, which is intended for users who wish to calculate the features of a large amplification 
+curve dataset. This function appears to be works on Linux systems. On Windows 
+systems error messages were reported. ``pcrfit_parallel()`` makes use of 
+parallelized code to make use of multi-core architectures. In this function we 
+import from the \texttt{parallel} package the ``detectCores()`` function. This function determines the number of available cores. Function from the \texttt{foreach} package (e.g., ``%dopar%``, ``foreach()``) are used for the further organization of the CPU usage. The ``pcrfit_single()`` performs the analysis for a single process.
+
+* The parameter `data` is the dataset containing the cycles and fluorescence amplitudes.
+* The parameter `n_cores` defines the numbers of cores that should be left unused by this function. 
+
+By default, ``pcrfit_parallel()`` is using only one core (`n_cores=1`). 
+`n_cores="all"` uses all available cores. The output of the 
+``pcrfit_parallel()`` function is similar to the ``pcrfit_single()`` function.
+
+
+```{r, echo=TRUE, eval=FALSE}
+# Copy and paste the code to an R console to evaluate it
+
+library(parallel)
+library(doParallel)
+
+pcrfit_parallel <- function(data, n_cores=1) {
+    # Determine the number of available cores and register them
+    if (n_cores == "all") {
+        n_cores <- detectCores()
+    }
+    
+    registerDoParallel(n_cores)
+    
+    # Prepare the data for further processing
+    # Normalize RFU values to the alpha percentile (0.99)
+    cycles <- data.frame(cycles = data[, 1])
+    data_RFU <- data.frame(data[, -1])
+    data_RFU_colnames <- colnames(data_RFU)
+    data_RFU <- sapply(1L:ncol(data_RFU), function(i) {
+        data_RFU[, i] / quantile(data_RFU[, i], 0.99, na.rm = TRUE)
+    })
+    colnames(data_RFU) <- data_RFU_colnames
+    
+    # just to shut RCHeck for NSE we define ith_cycle
+    ith_cycle <- 1
+    
+    run_res <- foreach::foreach(
+        ith_cycle = 1L:ncol(data_RFU),
+                                .packages = c(
+                                    "bcp", "changepoint", "chipPCR", "ecp", "MBmca",
+                                    "PCRedux", "pracma", "qpcR", "robustbase",
+                                    "zoo"
+                                ),
+                                .combine = rbind
+    ) %dopar% {
+        suppressMessages(pcrfit_single(data_RFU[, ith_cycle]))
+    }
+    
+    
+    res <- cbind(runs = colnames(data_RFU), run_res)
+    
+    rownames(res) <- NULL
+    
+    res
+}
+
+# Calculate curve features of an amplification curve data. Note: Not all
+# CPU cores are used. If need set "all" to use all available cores.
+# In this example the testdat dataset from the qpcR package is used.
+# The observations F1.1 and F1.2 are positive amplification curves. The observations
+# F1.3 and F1.4 are negative.
+options(warn = -1)
+library(qpcR)
+res_pcrfit_parallel <- pcrfit_parallel(testdat[, 1:5])
+res_pcrfit_parallel
+```
+
+\newpage
+
+
 
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
 
