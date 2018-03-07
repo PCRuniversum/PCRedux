@@ -1188,12 +1188,12 @@ for(i in (1L:12) + 12*1) {
     stripchart(y ~ x, vertical = TRUE, ylab = feature[i],
                method = "jitter", pch = 19, cex = 1, 
                col = adjustcolor("darkgrey", alpha.f = 0.65), 
-               ylim = c(l, h * 1.05))
+               ylim = c(l * 0.95, h * 1.05))
     
     boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
-    lines(c(1, 2), rep(h * 0.945, 2))
-    text(1.5, h_text, paste0("P = ", signif(res[["p.value"]])), 
-         cex = 1)
+
+    legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
+           cex = 1, bty = "n")
     
     mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
@@ -1311,19 +1311,19 @@ for(i in (1L:12) + 12*0) {
     y <- data[, colnames(data) == feature[i]]
     res <- stats::wilcox.test(y ~ x)
     h <- max(na.omit(y))
-    l <- min(na.omit(y))
+    l <- min(na.omit(y)) 
     h_text <- rep(h * 0.976, 2)
     
     par(bg=NA)
     stripchart(y ~ x, vertical = TRUE, ylab = feature[i],
                method = "jitter", pch = 19, cex = 1, 
                col = adjustcolor("darkgrey", alpha.f = 0.65), 
-               ylim = c(l, h * 1.05))
+               ylim = c(l * 0.95, h * 1.05))
     
     boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
-    lines(c(1, 2), rep(h * 0.945, 2))
-    text(1.5, h_text, paste0("P = ", signif(res[["p.value"]])), 
-         cex = 1)
+
+    legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
+           cex = 1, bty = "n")
     
     mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
@@ -1802,83 +1802,71 @@ As shown in this example, the ``autocorrelation_test()`` function is able to dis
 
 \newpage
 
+
+
+
+
 #### ``earlyreg()`` - A Function to Calculate the Slope and Intercept of Amplification Curve Data from a qPCR Experiment \label{section_earlyreg}
 
 The signal height and the slope in the first amplification curve cycles are helpful information for the analysis of amplification curves. Some qPCR systems calibrate themselves according to the measured values in the first cycles. This is noticeable in the form of strong signal changes which appear spontaneously between the first and second cycle. For another, the signal level can be used to determine which background signal is present and whether the ground phase already has a slope. From the slope it could be deduced whether amplification has already started (see \autoref{section_DataAnalysis}). 
 
-Therefore, the function ``earlyreg()`` was developed. This function uses an MM-type estimator [@todorov_object-oriented_2009] for robust linear regression within a limited number of cycles. As ROI, the first 10 cycles were defined. This restriction is based on empirical data suggesting that during the first six cycles only a significant increase in signal strength can be measured with a few qPCRs. However, ``earlyreg()`` ignores the first cycle, as many thermo-cyclers use this cycle for sensor calibration. Extreme values are therefore limited from the very beginning. As standard, the next six amplitude values are used for robust linear regression. The number of cycles can also be adjusted via the parameter `range`. Since all amplification curves are normalized to the 99%-percentile, there is also a comparability between the background signals and the slopes.
+In addition, the function ``earlyreg()`` was developed. This function uses an ordinary least squares linear regression within a limited number of cycles. As ROI, the first 10 cycles were defined. This restriction is based on empirical data suggesting that during the first ten cycles only a significant increase in signal strength can be measured within few qPCRs. However, ``earlyreg()`` does not ignore the first cycle, as many thermo-cyclers use this cycle for sensor calibration. Extreme values are therefore included. As standard, the next nine amplitude values are used for the linear regression. The number of cycles can also be adjusted via the parameter `range`. Since all amplification curves are normalized to the 99%-percentile, there is also a comparability between the background signals and the slopes.
 
-The following example illustrates a possible use of the function ``earlyreg()``. For that purpose 500 amplification curves were randomly drawn from the `htPCR` dataset and used for analysis. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. The \autoref{earlyreg_slopes}B shows the first ten cycles.
+The following example illustrates a possible use of the function ``earlyreg()``. For that purpose amplification curves from the `competimer` dataset were analysed. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. Next, the ``earlyreg()`` function was used to determine the slope and the intercept in the range of the first ten PCR cycles. The results were used in a cluster analysis using k-means clustering  (\autoref{earlyreg_slopes}B). Therefore, the increase seems to be an indicator of differences between the amplification curves. The \autoref{earlyreg_slopes}C shows the first 15 cycles colored according to their cluster. 
+After the cluster analysis this could also be observed (\autoref{earlyreg_slopes}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
 
 
-```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the `competimer` dataset (\\texttt{PCRedux} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR.", fig.height=5.5, fig.width=11}
+```{r, echo=TRUE, fig.cap="\\label{earlyreg_slopes}Amplification curves from the `competimer` dataset (\\texttt{qpcR} package). The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. B) Clusters of observations according to their slope and intercept. The `competimer` dataset (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=4}
 options(warn = -1)
 library(PCRedux)
 
-
 data <- qpcR::competimer
-curve_colors <- c(rainbow(ncol(data) - 1, alpha = .5))
-range <- 1L:10
 
+range <- 1L:15
 
-par(mfrow = c(1, 2), las = 0, bty = "o", oma = c(0, 0, 0, 0))
+y_max <- max(data[range, -1])
 
-matplot(
-  data[, 1], data[, -1], col = curve_colors, pch = 19, lty = 1, type = "l",
-  xlab = "Cycle", ylab = "RFU", main = ""
-)
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+well <- substr(colnames(data)[-1], 1, 3)
 
-matplot(
-  data[range, 1], data[range, -1], col = curve_colors, pch = 19, lty = 1,
-  type = "l", xlab = "Cycle", ylab = "RFU",
-  main = ""
-)
-mtext("B    Cycle 1 to 10", cex = 1.25, side = 3, adj = 0, font = 2)
-```
-
-Next, the ``earlyreg()`` function was used to determine the slope, intercept and MIC in the range of the first ten PCR cycles. The results were used in a cluster analysis using k-means clustering. As shown in \autoref{earlyreg_results}B, the density function from the values of the zero shift resembles a mono-modal bell curve. By contrast, the density function from the rises is rather bimodal (\autoref{earlyreg_results}C). Therefore, the increase seems to be an indicator of differences between the amplification curves.
-
-When analyzing clusters with k-means (\textit{k} = 4 it was assumed that some amplification curves have a small, moderate or strong increase. After the cluster analysis this could also be observed (\autoref{earlyreg_results}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
-
-```{r, echo=TRUE, fig.cap="\\label{earlyreg_results}Clusters of observations according to their slope and intercept. The `htPCR` dataset (\\texttt{qpcR} package) was used. The amplification curves show different slopes in the early phase (cycle 1 to 10) of the qPCR. Both the slope and the intercept were used for a cluster analysis (k-means).", fig.height=4} 
 
 # Normalize each amplification curve to their 0.99 percentile and use the
 # earlyreg function to determine the slope and intercept of the first
 # 10 cycles
-options(warn = -1)
-library(PCRedux)
-
-
-data <- RAS002
-
-
-range <- 1L:15
-
-well <- substr(colnames(data)[-1], 1, 3)
 
 res_earlyreg <- do.call(rbind, lapply(2L:ncol(data), function(i) {
-  earlyreg(x = data[, 1], y = data[, i], range = 10, normalize = FALSE)
+  earlyreg(x = data[, 1], y = data[, i], range = 10, normalize = TRUE)
 }))
 
 # Label the observation with their original names
-rownames(res_earlyreg) <- colnames(htPCR)[2:ncol(data)]
+rownames(res_earlyreg) <- colnames(data)[2:ncol(data)]
 
 
 cl <- kmeans(res_earlyreg, 4)
 
 rownames(res_earlyreg) <- well
 
-par(mfrow = c(1, 2), las = 0, bty = "o", oma = c(0, 0, 0, 0))
 
-plot(res_earlyreg, col = cl[["cluster"]], pch = 19)
+par(mfrow = c(2, 3), las = 0, bty = "o", oma = c(0, 0, 0, 0))
+
+matplot(
+  data[, 1], data[, -1], col = 1, pch = 19, lty = 1, type = "l",
+  xlab = "Cycle", ylab = "RFU", main = ""
+)
 mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
 
-matplot(RAS002[range, 1], RAS002[range, -1], xlab = "Cycle", 
-        ylab = "RFU", main = "",
-        type = "l", lty = 1, lwd = 2, col = cl[["cluster"]])
+
+plot(res_earlyreg, col = cl[["cluster"]], pch = 19)
 mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
-``` 
+
+
+for(i in sort(unique(cl[["cluster"]]))) {
+matplot(data[range, 1], data[range, which(cl[["cluster"]] == i) + 1], xlab = "Cycle", 
+        ylab = "RFU", main = "", ylim = c(0, y_max),
+        type = "l", lty = 1, lwd = 2, col = i)
+mtext(LETTERS[i + 2], cex = 1.25, side = 3, adj = 0, font = 2)
+}
+```
+
 
 #### ``head2tailratio()`` - A Function to Calculate the Ratio of the Head and the Tail of a Quantitative PCR Amplification Curve\label{section_head2tailratio}
 
@@ -2231,12 +2219,12 @@ for(i in (1 + shift):length(feature)) {
     stripchart(y ~ x, vertical = TRUE, ylab = feature[i],
                method = "jitter", pch = 19, cex = 1, 
                col = adjustcolor("darkgrey", alpha.f = 0.65), 
-               ylim = c(l, h * 1.05))
+               ylim = c(l * 0.95, h * 1.05))
     
     boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
-    lines(c(1, 2), rep(h * 0.945, 2))
-    text(1.5, h_text, paste0("P = ", signif(res[["p.value"]])), 
-         cex = 1)
+
+    legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
+           cex = 1, bty = "n")
     
     mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
