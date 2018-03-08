@@ -6,7 +6,7 @@ Version 0.2.6 [February 2018]
 * New amplification curve data set (thanks Roy-Arne)
 * Improved performR (thanks to vondoRishi)
 * added Maximal Information Coefficient as feature
-* added slope, asymmetry and number of iterations as additional features
+* added slope, intercept and number of iterations as additional features
 * new function tReem
 * pcrfit_single (encu) tests from now on l4, l5, l6 and l7 models only (-> faster analysis)
 * most outputs no longer reports NAs if nothing could be calculated but extreme values

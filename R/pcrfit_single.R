@@ -45,7 +45,7 @@
 #'   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
 #'   "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
 #'   "b_slope" \tab Is the slope of seven parameter model \cr
-#'   "f_asymmetry" \tab Is the asymmetry of the seven parameter model \cr
+#'   "f_intercept" \tab Is the intercept of the seven parameter model \cr
 #'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
 #'   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
 #'   "slope_background" \tab slope of the first cycles \tab numeric \cr
@@ -359,7 +359,7 @@ pcrfit_single <- function(x) {
     f.tdp = res_takeoff_reverse[[2]],
     ressliwin = res_sliwin[[1]],
     b_slope = res_coef[["b"]],
-    f_asymmetry = res_coef[["f"]],
+    f_intercept = res_coef[["f"]],
     convInfo_iteratons = res_convInfo_iteratons,
     cpDdiff = res_cpDdiff,
     slope_background = res_lm_fit[["slope"]],
