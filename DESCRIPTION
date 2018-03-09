@@ -30,6 +30,7 @@ Imports:
     pracma,
     qpcR,
     robustbase,
+    randomForest,
     stats,
     testthat,
     utils,

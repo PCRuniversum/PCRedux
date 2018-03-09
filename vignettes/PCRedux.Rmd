@@ -1445,10 +1445,10 @@ test_data <- dat[index_training,]
 
 # Fit the binomial logistic regression model
 
-model.glm <- glm(decision ~ polyarea, family=binomial(link='logit'), 
+model_glm <- glm(decision ~ polyarea, family=binomial(link='logit'), 
                  data = train_data)
 
-predictions <- ifelse(predict(model.glm, 
+predictions <- ifelse(predict(model_glm, 
                                  newdata = test_data, type = 'response') > 0.5,
                          1, 0)
 
@@ -1460,7 +1460,7 @@ The ``summary()` function returns the results of the model fitting. This can be 
 
 
 ```{r, echo=TRUE}
-summary(model.glm)
+summary(model_glm)
 ```
 
 Based on the results it can be concluded that the parameters ` (Intercept)` and `polyarea` are statistically significant (*P* < 2e-16). This indicates a strong association between `polyarea` and the probability that an amplification curve is positive.
@@ -1482,7 +1482,7 @@ plot(train_data$polyarea, train_data$decision, pch = 19,
 mtext("A", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
 abline(h = 0.5, col = "grey")
 
-curve(predict(model.glm, data.frame(polyarea = x), type="resp"), 
+curve(predict(model_glm, data.frame(polyarea = x), type="resp"), 
       add=TRUE, col="blue")
 
 # Plot test_data (red)
@@ -2324,10 +2324,89 @@ A part of the ``pcrfit_single()`` function is the ``amptester()`` function from 
 - ``takeoff()`` [\texttt{qpcR}]: Calculates the qPCR takeoff point using functionality.
 
 
+Random Forest is an enhancement of decision tree algorithms. Random Forest uses *n* random data subsets. The subset is to be used to capture trends precisely without taking into account the whole data. In order to do this, an ensemble consisting of *n* small decision trees is generated. Each decision tree contains a biased classifier. The majority of the previous classes are then selected for classification.
+Compared to a single tree classifier, the Random Forest has a high robustness against noise, outliers and over-fitting [@williams_rattle:_2009, @breiman_random_2001].
 
-#### Derivatives\label{section_Derivatives}
+In the following example, the ``randomForest()`` function from the \texttt{randomForest} package [@liaw_classification_2002] was used for the classification. The aim was to classify positive and negative amplification curves. 
+As response vector ($y$) served `decision` with its possible states "positive" and "negative" (factor). The features `amptester_shap.noisy`, `amptester_lrt.test`, `amptester_rgt.dec`, `amptester_tht.dec`, `amptester_slt.dec`, `amptester_polygon` and `amptester_slope.ratio` served as a matrix of predictors describing the model to be adapted. The `stepone_std`, `RAS002`, `RAS003`, `lc96_bACTXY` datasets were used for the analysis. This dataset contains almost equal proportions of positive and negative amplification curves (\autoref{plot_Logistic_Regression}A). Prior to this, the amplification curves were analyzed with the ``encu()`` function (\autoref{section_pcrfit_single_pcrfit_parallel}) and stored in the `data_sample.rda` file to save computing time. The file is part of the \texttt{PCRedux} package.
 
 
+```{r}
+options(warn = -1)
+suppressMessages(library(randomForest))
+library(PCRedux)
+
+data <- data_sample[data_sample$dataset %in% 
+                c("batsch1",
+                  "HCU32_aggR",
+                  "lc96_bACTXY",
+                  "RAS002", 
+                  "RAS003", 
+                  "stepone_std"), ]
+
+n_positive <- sum(data[["decision"]] == "y")
+n_negative <- sum(data[["decision"]] == "n")
+
+dat <- data.frame(data[, c("amptester_shap.noisy", 
+                           "amptester_lrt.test", 
+                           "amptester_rgt.dec", 
+                           "amptester_tht.dec", 
+                           "amptester_slt.dec",
+                           "amptester_polygon", 
+                           "amptester_slope.ratio")],
+                  decision = as.numeric(factor(data$decision, 
+                                         levels = c("n", "y"), 
+                                         label = c(0, 1))) - 1)
+
+# Select randomly observations from 70% of the data for training.
+# n_train is the number of observations used for training.
+
+n_train <- round(nrow(data) * 0.7)
+
+# index_test is the index of observations to be selected for the training
+index_test <- sample(1:nrow(dat), size = n_train)
+
+# index_test is the index of observations to be selected for the testing
+index_training <- which(!(1:nrow(dat) %in% index_test))
+
+# train_data contains the data used for training
+
+train_data <- dat[index_test,]
+
+# test_data contains the data used for training
+
+test_data <- dat[index_training,]
+
+
+model_rf = randomForest(decision ~ ., data = train_data, ntree = 4000, importance = TRUE)
+
+
+# Determine variable importance
+res_importance <- importance(model_rf)
+```
+
+
+
+
+```{r, echo=TRUE, fig.cap="\\label{plot_random_forest}Random Forest.", fig.height=4}
+par(mfrow = c(1,3))
+
+plot(model_rf, main = "")
+mtext("A", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+
+rownames(res_importance) <- substr(rownames(res_importance), 11, 22)
+
+
+barplot(t(as.matrix(sort(res_importance[, 1]))), 
+        ylab = "%IncMSE", main = "", las = 2,
+        col = adjustcolor("grey", alpha.f = 0.5))
+mtext("B", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+
+barplot(t(as.matrix(sort(res_importance[, 2]))), 
+        ylab = "IncNodePurity", main = "", las = 2,
+        col = adjustcolor("grey", alpha.f = 0.5))
+mtext("C", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+```
 
 #### Features in Consideration\label{section_consideration}
 
@@ -2347,7 +2426,7 @@ Up to now, priority has been given to features which either represent a typical 
 
 
 ``pcrfit_single()`` is a function, which calculates `r length(pcrfit_single(chipPCR::C126EG595[, 2]))` potential features from an amplification curve. This comes at a cost, since several internal functions are computational very intensive [@porzelius_easier_2009, @schmidberger_2009]. For example, ``pcrfit()`` function (\texttt{qpcR} package) in ``pcrfit_single()`` fits and optimizes eight non-linear (sigmoid) models to the amplification curve data.
-``encuf()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function. Similarly, this function calculates numerous but with an emphasis on features extraction of large amplification curve datasets. 
+``encu()`` (ENcode CUrves) is a relative of the ``pcrfit_single()`` function. Similarly, this function calculates numerous but with an emphasis on features extraction of large amplification curve datasets. 
 
 The ``pcrfit_single()`` function is performing the analysis for a single process and the ``pblapply()`` function from the \texttt{pbapply} package is used internally to is delivers a progress bar and leverages parallel processing. Examples are given in the documentation of the ``encu()`` function. Parallel computing technologies saves scientists time in their routine tasks of analyzing experimental data. Information about parallel computing technologies in \texttt{R} are available from @eddelbuettel_cran_2017.
 
