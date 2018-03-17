@@ -102,7 +102,7 @@ matplot(
   main = "C127EGHP dataset", type = "l", lty = 1, lwd = 2, col = colors
 )
 abline(h = 0, col = "grey")
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 colors <- rainbow(2000, alpha = 0.2)
 matplot(
@@ -110,21 +110,21 @@ matplot(
   main = "htPCR dataset", type = "l", lty = 1, lwd = 2, col = colors
 )
 abline(h = 0, col = "grey")
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(x_val, y_val, type = "l", xlab = "x", ylab = "f(x)", ylim = y_lim)
 abline(h = 0, col = "grey")
 legend("topleft", expression(y == frac(1, (1 + e ^ {
   -x
 }))), bty = "n", cex = 0.9)
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(x_val, y_val_slope, type = "l", xlab = "x", ylab = "f(x)", ylim = y_lim)
 abline(h = 0, col = "grey")
 legend("topleft", expression(y == frac(1, (1 + e ^ {
   -x
 })) + n), bty = "n", cex = 0.9)
-mtext("D", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("D", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(
   x_val, y_val_slope_quadratic, type = "l", xlab = "x", ylab = "f(x)",
@@ -134,7 +134,7 @@ abline(h = 0, col = "grey")
 legend("topleft", expression(y == frac(1, (1 + e ^ {
   -x
 })) + m * x ^ 2 + n), bty = "n", cex = 0.9)
-mtext("E", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("E", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(
   x_val, y_val_slope_quadratic_noise, type = "l", xlab = "x", ylab = "f(x)",
@@ -144,7 +144,7 @@ abline(h = 0, col = "grey")
 legend("topleft", expression(y == frac(1, (1 + e ^ {
   -x
 })) + m * x ^ 2 + n + epsilon, epsilon %~% N(0, sigma)), bty = "n", cex = 0.9)
-mtext("F", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("F", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 The analysis of sigmoid data (e.g., quantitative PCR) it is a manageable task if the data volume is low, or dedicated analysis software is available. An example such a scenario (low number of amplification curves) is shown in \autoref{figure_sigmoid_cuve}A. All `r ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape.
@@ -241,7 +241,7 @@ layout(matrix(c(1, 1, 2, 3), 2, 2, byrow = TRUE), respect = TRUE)
 
 plot(amp_data[, 1], amp_data[, 2], ylim = c(-0.1, y_lim), xlab = "Cycle", ylab = "RFU", type = "b", lwd = 2, pch = 19)
 
-text(c(2,30), c(10.5,10.5), c("Head", "Tail"), cex = 1.25, col = "red")
+text(c(2,30), c(10.5,10.5), c("Head", "Tail"), cex = 1.2, col = "red")
 
 rect(0, 0, res_takeoff[[1]] + 1, res_takeoff[[2]] * 1.25, col = colors[1], border = NA)
 text(5, res_bgpl[1] * 1.45, "Baseline region")
@@ -331,16 +331,16 @@ abline(h = (mean(testdat[1:10, 2]) + 3 * sd(testdat[1:10, 2])), col = "grey")
 abline(h = res_th.cyc[1, 2], col = "black")
 text(28, r_user + 0.3, paste0("Threshold: ", r_user))
 arrows(res_th.cyc[1, 1], res_th.cyc[1, 2], res_th.cyc[1, 1], 0, angle = 25, length = 0.1, lwd = 2)
-mtext(paste0("A     ", "Ct = ", signif(res_th.cyc[1, 1], 4)), cex = 1.25, side = 3, adj = 0, font = 2)
+mtext(paste0("A     ", "Ct = ", signif(res_th.cyc[1, 1], 4)), cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(testdat[, 1], log(testdat[, 2]), xlab = "Cycles", ylab = "log(Raw fluorescence)")
 abline(h = log(res_th.cyc[1, 2]), col = "black")
 arrows(res_th.cyc[1, 1], log(res_th.cyc[1, 2]), res_th.cyc[1, 1], min(log(testdat[, 2]), na.rm = TRUE), angle = 25, length = 0.1, lwd = 2)
-mtext(paste0("B     ", "Ct = ", signif(res_th.cyc[1, 1], 4)), cex = 1.25, side = 3, adj = 0, font = 2)
+mtext(paste0("B     ", "Ct = ", signif(res_th.cyc[1, 1], 4)), cex = 1.2, side = 3, adj = 0, font = 2)
 
 res_efficiency <- efficiency(res_model)
 arrows(res_takeoff[[1]], res_takeoff[[2]], res_takeoff[[1]], -0.2, angle = 25, length = 0.1, lwd = 2)
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 In all cases the Cq can be used to calculate the concentration of target sequence in a sample (low Cq \textrightarrow high target concentration). In contrast, negative or ambiguous amplification curves loosely resemble noise. This noise may appear linear or exhibit a curvature (\autoref{htPCR_nap}). Many factors, such as the sample quality, qPCR chemistry, and technical problems (e.g., sensor errors) contribute to various curve shapes. A common phenomenon of amplification curve shapes is the 'hook effect' [@barratt_improving_2002, @ruijter_2014]. This however, may result in faulty interpretation of the amplification curves. 
@@ -356,12 +356,12 @@ par(mfrow = c(2, 2))
 
 matplot(RAS002[, 1], RAS002[, which(RAS002_decisions == "n") + 1], type = "l", 
         col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1)
-mtext("A    Negative", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A    Negative", cex = 1.2, side = 3, adj = 0, font = 2)
 abline(v = 15)
 
 matplot(RAS002[, 1], RAS002[, which(RAS002_decisions == "y") + 1], type = "l", 
         col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1)
-mtext("B    Positive", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
 abline(v = 15)
 
 cycles <- 1:15
@@ -369,13 +369,13 @@ cycles <- 1:15
 rfu_neg <- unlist(RAS002[cycles, which(RAS002_decisions == "n") + 1])
 plot(density(rfu_neg), main = "")
 rug(rfu_neg)
-mtext("C    Negative", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C    Negative", cex = 1.2, side = 3, adj = 0, font = 2)
 
 
 rfu_pos <- unlist(RAS002[cycles, which(RAS002_decisions == "y") + 1])
 plot(density(rfu_pos), main = "")
 rug(rfu_pos)
-mtext("D    Positive", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("D    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 This means that the amplification curve shape, the amplification efficiency and the Cq value are essential to judge the outcome of a qPCR reaction. In all phases of PCR the curves should be smooth. Possible peaks in the curves may be due to unstable light sources from the instrument or problems during sample preparation, such as the presence of bubbles in the reaction vessel.
@@ -653,7 +653,7 @@ for (i in 2L:9) {
   barplot(data_tmp, col = adjustcolor("grey", alpha.f = 0.5),
       xlab = "Class", ylab = "Counts")
   text(c(0.7, 1.9, 3.1), rep(quantile(data_tmp, 0.25), 3), data_tmp, srt = 90)
-  mtext(LETTERS[i - 1], cex = 1.25, side = 3, adj = 0, font = 2)
+  mtext(LETTERS[i - 1], cex = 1.2, side = 3, adj = 0, font = 2)
 }
 ```
 
@@ -768,7 +768,7 @@ legend("topleft", c(
   paste("ambiguos ", colnames(htPCR)[512]),
   paste("positive ", colnames(htPCR)[616])
 ), col = 1:3, pch = 19, bty = "n")
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 
 # Plot the Frequencies of the decisions
 barplot(
@@ -795,7 +795,7 @@ This amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$
 #### ``visdat_pcrfit()`` - A Function to Visualize the Content of Data From an Analysis with the ``pcrfit_single()`` Function \label{section_visdat_pcrfit_parallel}
 
 
-In all data science projects it is important to look at a new dataset to gain an insight into what is contained therein and which potential problems might emerge during the further analysis. The ``pcrfit_single()`` function uses various algorithms to calculate values that are returned as factors (e. g., adapted model) or numbers (e. g., surfaces). Contrary to what the user expects, it is also possible that the algorithms cannot calculate certain values and that missing values (NA) are output instead. This may occur if the amplification curves have an unusual characteristic. In the analysis of large datasets, this can be a major problem that could be detected in advance. 
+In all data science projects it is important to look at a new dataset to gain an insight into what is contained therein and which potential problems might emerge during the further analysis. The ``pcrfit_single()`` function uses various algorithms to calculate values that are returned as factors (e. g., adapted model) or numbers (e. g., Cq value). Contrary to what the user expects, it is also possible that the algorithms cannot calculate certain values and that missing values (NA) are output instead. This may occur if the amplification curves have an unusual characteristic. In the analysis of large datasets, this can be a major problem that could be detected in advance. 
 
 The ``visdat_pcrfit()`` function makes use of the ``vis_dat`` function from the \texttt{visdat} package by @Tierney2017 to create heatmap-like visualizations. The Heatmapt displays each amplification curve line by line and reads from top to bottom. The characteristics are presented column by column. In principle, the structure of the output is the same as for the ``pcrfit_single()`` function. 
 
@@ -906,10 +906,10 @@ legend(
     "topleft", paste0(as.character(columnames), ": ", res_cutree),
        pch = 19, col = data_colors, bty = "n", ncol = 2, cex = 0.7
 )
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_hclust, main = "", xlab = "", sub="")
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 rect(0.5, -3, 12.25, 0.5, border = "red")
 text(7, 1, "negative", col = "red")
 rect(12.5, -3, 24.5, 0.5, border = "green")
@@ -1019,7 +1019,7 @@ legend(
     "topleft", as.character(columnames), pch = 19,
        col = data_colors, bty = "n", ncol = 4
 )
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 # Plot the background and plateau phase.
 
@@ -1028,7 +1028,7 @@ boxplot(
         col = data_colors, las = 2, main = "Signal to noise ratio",
         xlab = "Sample", ylab = "RFU"
 )
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 
 # Plot the Cqs and the amplification efficiencies.
 # Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs
@@ -1053,7 +1053,7 @@ text(
     calculated_Cqs[labeled], calculated_effs[labeled],
      as.character(columnames)[labeled]
 )
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
 
 # Calculate the Hausdorff distance using the fda.usc package and cluster the
 # the distances.
@@ -1066,7 +1066,7 @@ cluster <- hclust(as.dist(res_fdata_hclust))
 
 plot(cluster, main = "Clusters of the amplification\n
 curves as calculated by the Hausdorff distance", xlab = "", sub="")
-mtext("D", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("D", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 The analysis gives an overview of the variation of the amplification curve data.
@@ -1097,7 +1097,7 @@ layout(matrix(c(1, 1, 2, 3), 2, 2, byrow = TRUE), respect = TRUE)
 
 matplot(amp_data[,1], amp_data[, -1], pch = 19, lty = 1, type = "l",
         xlab = "Cycle", ylab = "RFU", main = "")
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 # Apply the the amptester function from the chipPCR package to the amplification 
 # curve data and write the results to the main of the plots.
@@ -1123,7 +1123,7 @@ for (i in 2:3) {
     abline(h = res[["fluo"]], v = res[["cpD2"]], col = c("grey", "red"))
     points(res[["cpD2"]], res[["fluo"]], pch = 19)
     
-    mtext(paste0(LETTERS[i], "    Cq: ", res[["cpD2"]]), cex = 1.25, side = 3, 
+    mtext(paste0(LETTERS[i], "    Cq: ", res[["cpD2"]]), cex = 1.2, side = 3, 
           adj = 0, font = 2)
     
     legend(
@@ -1146,24 +1146,34 @@ The function described following are aimed for experimental studies. It is impor
 
 #### ``pcrfit_single()`` - A Function to Calculate Features from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
 
-In this section, the methods of the ``pcrfit_single()`` function are described concisely and the underlying hypotheses are formulated. The goal is not to examine the limits of their applicability, but rather to prove their basic functionality. The algorithms of the ``pcrfit_single()`` function use only certain ROIs to calculate specific features. The methods of the ``pcrfit_single()`` function are based on considerations and experience. Selected methods have been implemented as standalone functions to make them available to other applications. In order to bring a systematic into the algorithms, the functions are summarized in groups with similar approaches. Due to the number of algorithms, it is not possible to provide a detailed description with examples in every place. To underscore the usability of the algorithms and their features, selected amplification curve datasets (`batsch1`, `boggy`, `C126EG595`, `competimer`, `dil4reps94`, `guescini1`, `karlen1`, `lievens1`, `reps384`, `rutledge`, `testdat`, `vermeulen1`, `vermeulen1`) were analyzed with the ``encu()`` function and the results (features) were combined in the file `data_sample.rda`. The algorithms are divided into the following broad categories:
+In this section, the methods of the ``pcrfit_single()`` function are described concisely and the underlying hypotheses are formulated. The goal is not to examine the limits of their applicability, but rather to prove their basic functionality. The algorithms of the ``pcrfit_single()`` function are restricted to ROIs (\autoref{amplification_curve_ROI}) to calculate specific features. 
+
+The methods of the ``pcrfit_single()`` function are based on considerations and experience. Selected methods have been implemented as standalone functions to make them available to other applications. The following output shows all features and their data type (*num*, numeric; *int*, integer; *Factor*, factor; *logi*, boolean) which are determined from the second amplification curve of the `RAS002` dataset with the ``pcrfit_single()`` function.
+
+```{r, echo=TRUE}
+library(PCRedux)
+str(pcrfit_single(RAS002[, 2]))
+```
+
+In order to bring a systematic into the algorithms, the functions with similar approaches are summarized in groups. Due to the number of algorithms, it is not possible to provide a detailed description with examples in every place. 
+
+To underscore the usability of the algorithms and their features, `r d <- PCRedux::data_sample; paste0(nrow(d), " observations ", "(", sum(d[["decision"]] == "n"), " negative amplification curves, ", sum(d[["decision"]] == "y"), " positive amplification curves)")` from the `batsch1`, `boggy`, `C126EG595`, `competimer`, `dil4reps94`, `guescini1`, `karlen1`, `lievens1`, `reps384`, `rutledge`, `testdat`, `vermeulen1`, `VIMCFX96_60`, `stepone_std`, `RAS002`, `RAS003`, `HCU32_aggR` and `lc96_bACTXY` were analyzed with the ``encu()`` function and the results (features) were combined in the file `data_sample.rda`. The algorithms are divided into the following broad categories:
 
 - algorithms that determine increases, signal levels and,
 - algorithms that determine turning points and
 - algorithms that determine areas.
 
-Users of this function should independently verify and validate the results of the methods for their applications. The ``encu()`` function is based on  the ``pcrfit_single()`` function. Contrary to the ``pcrfit_single()`` function, it can be used to process records with amplification curve data arranged in columns. The progress of processing is displayed in the form of a progress bar and the estimated run-time. The ``encu()`` function is not discussed in more detail. Additionally, the ``encu()`` allows to specify which monitoring chemistry (e.g., DNA binding dye, sequence specific probes) and which thermo-cycler was used. Such information may well be relevant for data analysis (\autoref{section_introduction}). @ruijter_2014 have shown, among other things, that monitoring chemistry of the type of input DNA (single stranded, double stranded) can be important when analysing qPCR data.
+Users of this function should independently verify and validate the results of the methods for their applications. The ``encu()`` function is based on the ``pcrfit_single()`` function. Contrary to the ``pcrfit_single()`` function, it can be used to process records with amplification curve data arranged in columns. The progress of processing is displayed in the form of a progress bar and the estimated run-time. The ``encu()`` function is not discussed in more detail. Additionally, the ``encu()`` allows to specify which monitoring chemistry (e.g., DNA binding dye, sequence specific probes) and which thermo-cycler was used. Such information may well be relevant for data analysis (\autoref{section_introduction}). @ruijter_2014 have shown, among other things, that monitoring chemistry of the type of input DNA (single stranded, double stranded) can be important when analysing qPCR data.
 
 
-**Amplification curve pre-processing**: The ``pcrfit_single()`` function and the ``encu()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. They are usually automatically imputed. These two functions will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99% quantile. The normalization is necessary, because the amplitudes of amplification curves depend on the used detection chemistry and thermo-cycler (sensor technology, software processing). As a result considerable differences between the maximum values are the norm. Users of the \texttt{PCRedux} package are advised to take a look at the datasets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain. For example, the data in \autoref{plot_dat_2}G show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. In addition, selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` function from the \texttt{chipPCR} package to pre-process (e.g., baselining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr.
+**Amplification curve pre-processing**: The ``pcrfit_single()`` function and the ``encu()`` function perform two important pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. Missing values are automatically imputed. The ``pcrfit_single()`` function and the ``encu()`` function will only terminate with an error message in extreme cases. In the next step, all values of an amplification curve are normalized to the 99% quantile. The normalization is necessary, because the amplitudes of amplification curves depend on the used detection chemistry and thermo-cycler (sensor technology, software processing). As a result considerable differences between the maximum values of raw data are the norm. Users of the \texttt{PCRedux} package are advised to take a look at the datasets of amplification curves before starting complex analyses. In order to compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., *minmum-maximum normalization*, see @roediger2015chippcr), the normalization by means of the 99% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a *Min-Max-standardization*. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain. For example, the data in \autoref{plot_dat_2}G show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. Inspired by `maxRFU` value, the minimum of the amplification curve is determined by the 1% quantile to minimize the influence of outliers. It is referred to as `minRFU` (\autoref{plot_dat_2}F).
+
+In addition, selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` function from the \texttt{chipPCR} package to pre-process (e.g., baselining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr.
 
 **The handling of missing values**: Missing values (NA) are measuring points in a dataset where no measured values are available. Causes of this can be found, for example, in the case that no measurement has been carried out (e. g., defective detector), that they have been removed arbitrarily or that a calculation does not allow the calculation of a specified value. It can occur, for example, if a logistical function is to be adapted to a measurement series, but the raw data is too noisy to allow model adaptation. As a consequence, no parameters would be determined from this model. 
 The apparent lack of information is nevertheless still useful in the context of data analysis. For the case described above, it could be deduced from the missing values that the data series does not show a sigmoid curve progression. In this regard, NAs nonetheless provide an informational basis. 
 
-However, NAs pose a difficulty in many analyses. Before an analysis is carried out, it must be clarified how to deal with the missing values. Under the term "imputation" there are a number of procedures based on statistical methods (e. g., neighboring median, spline interpolation) or on user-defined rules. Such a rule could, for example, consist of setting one of the slope parameters of a model to zero when it cannot be determined [@williams_rattle:_2009, @cook_interactive_2007, @hothorn_handbook_2014]. The application of fixed rules brings the advantage that the user is relieved of the decision as to how to deal with missing values. The disadvantage is that certain rules do not necessarily have to reflect a natural process. The NAs were left unchanged in the \texttt{PCRedux} package up to version 0.2.5-1. Since version 0.2.6, however, the NAs have been replaced by numerical values (e. g., total number of cycles) or factors (e.g., lNA for non-fitted model).
-
-
-
+However, NAs pose a difficulty in many analyses. Before an analysis is carried out, it must be clarified how to deal with the missing values. Under the term "imputation" there are a number of procedures based on statistical methods (e. g., neighboring median, spline interpolation) or on user-defined rules. Such a rule could, for example, consist of setting one of the slope parameters of a model to zero when it cannot be determined [@williams_rattle:_2009, @cook_interactive_2007, @hothorn_handbook_2014]. The application of fixed rules brings the advantage that the user is relieved of the decision as to how to deal with missing values. The disadvantage is that certain rules do not necessarily have to reflect a natural process. The NAs were left unchanged in the \texttt{PCRedux} package up to version 0.2.5-1. Since version 0.2.6, however, the NAs have been replaced by numerical values (e. g., total number of cycles) or factors (e.g., *lNA* for non-fitted model).
 
 
 ```{r, echo=FALSE, fig.cap="\\label{plot_dat_2}Some text", fig.height=11, fig.width=11}
@@ -1207,7 +1217,7 @@ for(i in (1L:12) + 12*1) {
     legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
            cex = 1, bty = "n")
     
-    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
+    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.2, side = 3, 
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
                                           "black", "red"))
 }
@@ -1277,11 +1287,11 @@ par(mfrow = c(1,2))
 
 barplot(res_fw, beside = TRUE, col = colors, xlab = "Model", ylab = "Counts")
 legend("topright", legend = c("Negative", "Positive"), fill = colors, bty = "n")
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 barplot(res_rv, beside = TRUE, col = colors, xlab = "Model", ylab = "Counts")
 legend("topleft", legend = c("Negative", "Positive"), fill = colors, bty = "n")
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 
@@ -1337,7 +1347,7 @@ for(i in (1L:12) + 12*0) {
     legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
            cex = 1, bty = "n")
     
-    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
+    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.2, side = 3, 
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
                                           "black", "red"))
 }
@@ -1401,15 +1411,6 @@ for (i in c(2, 4)) {
     diffQ2_slope_fun(testdat, cyc = 1, rfu = i)
 }
 ```
-
-
-    - ``head2tailratio()`` [\texttt{PCRedux}]: Calculates an estimate for the head to tail fluorescence, normalized to the slope. See \autoref{section_head2tailratio}.
-    - ``earlyreg()`` [\texttt{PCRedux}]: Calculates the slope and intercept of an amplification curve data from a quantitative PCR experiment. See \autoref{section_earlyreg}.
-    - ``mblrr()`` [\texttt{PCRedux}]: See \autoref{section_mblrr}.
-    - ``polyarea()`` [\texttt{pracma}]: Calculates the area of a polygon defined by the vertices with coordinates of the cycles and fluorescence, based on the Gauss polygon area formula. Finally, the area of the polygon is normalized to the number of cylces.
-    - ``efficiency()`` [\texttt{qpcR}]: Determines the Cq (first derivative maximum, second derivative maximum) and other parameters. 
-    - ``sliwin()`` [\texttt{qpcR}]: Calculates the qPCR efficiency by the 'window-of-linearity' method using functionality from the \texttt{qpcR} package.
-
 
 The aim was to predict, based on the ``polyarea`` feature, whether an amplification curve is positive or negative. The feature `polyarea` has been randomly selected from all features to show that the area under an amplification curve can be used to distinguish positive and negative amplification curves. The hypothesis is that positive amplification curves have a larger area than negative amplification curves. As shown in \autoref{plot_dat_3}C, there is a statistically significant difference between positive and negative amplification curves. Also shown are the values of another method to calculate the area under an amplification curve. This method is called `amptester_polygon` (\autoref{plot_dat_3}Ds). It is expected that this method would allow even more reliable predictions. However, this question is not to be dealt with in the following example.
 
@@ -1491,7 +1492,7 @@ par(mfrow = c(1,2))
 plot(train_data$polyarea, train_data$decision, pch = 19, 
      xlab = "polyarea", ylab = "Probability", 
      col = adjustcolor("grey", alpha.f = 0.9), cex = 1.5)
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 abline(h = 0.5, col = "grey")
 
 curve(predict(model_glm, data.frame(polyarea = x), type = "resp"), 
@@ -1517,7 +1518,7 @@ text(position_bp, rep(0.8, length(res_performeR)),
 axis(2, at = c(0, 1), labels = c("0", "1"), las = 2)
 abline(h = 0.85, col = "grey")
 
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 ```
 
 The sensitivity, specificity and further parameters for estimating the prediction were calculated using the ``performeR()`` function (\autoref{section_performeR}). The results indicate that the sensitivity and specificity for the test dataset provides a good result. However, the results in this case depend heavily on the computer-aided random sampling of the training data and the total size of the dataset. Over-fitting and under-fitting and other problems need to be addressed [@walsh_correct_2015].
@@ -1691,7 +1692,7 @@ tau <- seq(1, 25, 1)
 par(mfrow = c(2, 2))
 
 plot(amp_data[, 1], amp_data[, 10], xlab = "Cycle", ylab = "RFU", pch = 19)
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 ac_pos <- sapply(1L:length(tau), function(i) {
   autocorrelation_test(amp_data[, 2], n = tau[i], ns_2_numeric = TRUE)
@@ -1709,10 +1710,10 @@ legend(
   ),
   bty = "n"
 )
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(amp_data[, 1], amp_data[, 15], xlab = "Cycle", ylab = "RFU", pch = 19)
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
 
 ac_neg <- sapply(1L:length(tau), function(i) {
   autocorrelation_test(amp_data[, 15], n = tau[i])
@@ -1720,7 +1721,7 @@ ac_neg <- sapply(1L:length(tau), function(i) {
 
 plot(tau, ac_neg, ylim = c(0, 1), pch = 19)
 
-mtext("D", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("D", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 Then follows a significance test for correlation between paired observations (amplification curve data & lagged amplification curve data). The hypothesis is that the paired observation of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example.
@@ -1773,7 +1774,7 @@ matplot(
   col = decs, lwd = 2
 )
 legend("topleft", c("positive", "negative"), pch = 19, col = c(1, 2), bty = "n")
-mtext("A    RAS002 dataset", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A    RAS002 dataset", cex = 1.2, side = 3, adj = 0, font = 2)
 
 
 # Convert the n.s. (not significant) in 0 and others to 1.
@@ -1793,14 +1794,14 @@ plot(density(res_ac), ylab = "Autocorrelation", main = "")
 rug(res_ac)
 
 abline(v = cutoff)
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 
 
 cdplot(
   as.factor(decs) ~ res_ac, xlab = "Autocorrelation",
   ylab = "Decision"
 )
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 
 barplot(
   as.matrix(res_performeR[, c(1:10, 12)]), yaxt = "n", ylab = "",
@@ -1809,7 +1810,7 @@ barplot(
 )
 
 axis(2, at = c(0, 1), labels = c("0", "1"), las = 2)
-mtext("D", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("D", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 ```
 
 As shown in this example, the ``autocorrelation_test()`` function is able to distinguish between positive and negative amplification curves. Negative amplification curve were in all cases non-significant. In contrast, the coefficients of correlation for positive amplification curves ranged between `r signif(range(as.numeric(res_ac), na.rm = TRUE), 3)[1]` and `r signif(range(as.numeric(res_ac), na.rm = TRUE), 3)[2]` at a significance level of 0.01 and a lag of 3.
@@ -1862,18 +1863,18 @@ matplot(
   data[, 1], log(data[, -1]), col = 1, pch = 19, lty = 1, type = "l",
   xlab = "Cycle", ylab = "log(RFU)", main = ""
 )
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 
 plot(res_earlyreg, col = cl[["cluster"]], pch = 19)
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 
 
 for(i in sort(unique(cl[["cluster"]]))) {
 matplot(data[range, 1], log(data[range, which(cl[["cluster"]] == i) + 1]), xlab = "Cycle", 
         ylab = "log(RFU)", main = "", ylim = c(y_range[1], y_range[2]),
         type = "l", lty = 1, lwd = 2, col = i)
-mtext(LETTERS[i + 2], cex = 1.25, side = 3, adj = 0, font = 2)
+mtext(LETTERS[i + 2], cex = 1.2, side = 3, adj = 0, font = 2)
 }
 ```
 
@@ -1943,7 +1944,7 @@ for (i in 1L:(ncol(data_normalized) - 1)) {
   )
   abline(res_head2tailratio[[i]]$fit, col = colors[i], lwd = 2)
 }
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 # Boxplot of the head2tail ratios of the positive and negative
 # amplification curves.
@@ -1954,7 +1955,7 @@ lines(c(1, 2), rep(h * 0.945, 2))
 text(1.5, h_text, paste0("P = ", signif(res_wilcox.test[["p.value"]])), 
      cex = 1)
 
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 \autoref{htPCR_nap} shows that negative amplification curves can have a trend. The trend may be positive or negative. In \autoref{section_DataAnalysis} some reasons were mentioned. How to deal with this is the question. One possible solution could be to include this factor in the ratio calculation. The ``head2tailratio()`` function uses a linear model that calculates the slope between the ground and plateau phases. If the slope of the model is significant, then the ratio from the head and tail is normalized to this slope. This requires setting the `slope_normalizer` parameter in the ``head2tailratio()`` function. By default, this parameter is not set.
@@ -2028,14 +2029,14 @@ legend(
   "topleft", as.character(res_hook$obs), pch = 19,
   col = data_colors, bty = "n"
 )
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(
   res_hook$intercept, res_hook$slope, pch = 19, cex = 2, col = data_colors,
   xlab = "intercept", ylab = "Slope",
   main = "Hook Effect-like Curvature\nboggy dataset"
 )
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 points(res_hook$intercept, res_hook$slope, col = cl, pch = cl, cex = cl)
 legend(
   "topright", c("Strong Hook effect", " Weak Hook effect"),
@@ -2231,7 +2232,7 @@ for(i in (1 + shift):length(feature)) {
     legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
            cex = 1, bty = "n")
     
-    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.25, side = 3, 
+    mtext(paste0(LETTERS[i - shift], "   ", feature[i]), cex = 1.2, side = 3, 
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
                                           "black", "red"))
 }
@@ -2293,30 +2294,30 @@ res_ecp_neg <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 2]))$estimates
 par(mfrow = c(2, 3))
 
 plot(amp_data[, 1], amp_data[, 2], xlab = "Cycle", ylab = "RFU", type = "l", lwd = 2)
-mtext("A    Negative", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("A    Negative", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_pos$data, xlab = "Cycle", ylab = "d(RFU) / d(cycle)", type = "l", lwd = 2)
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_pos$posterior.prob, xlab = "Cycle", ylab = "Probability", type = "b", lwd = 2, pch = 19, col = "red", ylim = c(0, 1))
 res_ecp_pos <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 1]))$estimates
 abline(v = res_ecp_pos, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
 legend("topright", c("Baysian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 
 plot(amp_data[, 1], amp_data[, 3], xlab = "Cycle", ylab = "RFU", type = "l", lwd = 2)
-mtext("D    Positive", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("D    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_neg$data, xlab = "Cycle", ylab = "d(RFU) / d(cycle)", type = "l", lwd = 2)
-mtext("E", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("E", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_neg$posterior.prob, xlab = "Cycle", ylab = "Probability", type = "b", lwd = 2, pch = 19, col = "red", ylim = c(0, 1))
 res_ecp_neg <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 2]))$estimates
 abline(v = res_ecp_neg, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
-mtext("F", cex = 1.25, side = 3, adj = 0, font = 2)
+mtext("F", cex = 1.2, side = 3, adj = 0, font = 2)
 legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 ```
@@ -2409,7 +2410,7 @@ res_importance <- importance(model_rf)
 par(mfrow = c(1,3))
 
 plot(model_rf, main = "", las = 2)
-mtext("A", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 
 rownames(res_importance) <- substr(rownames(res_importance), 11, 22)
 
@@ -2417,12 +2418,12 @@ rownames(res_importance) <- substr(rownames(res_importance), 11, 22)
 barplot(t(as.matrix(sort(res_importance[, 1]))), 
         ylab = "%IncMSE", main = "", las = 2,
         col = adjustcolor("grey", alpha.f = 0.5))
-mtext("B", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 
 barplot(t(as.matrix(sort(res_importance[, 2]))), 
         ylab = "IncNodePurity", main = "", las = 2,
         col = adjustcolor("grey", alpha.f = 0.5))
-mtext("C", cex = 1.25, side = 3, adj = 0, font = 2, las = 0)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 ```
 
 
