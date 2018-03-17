@@ -8,11 +8,11 @@ test_that("encu is a function to calculate numerous features from amplification 
 
   expect_is(res$f.tdp, "numeric")
   expect_is(res, "data.frame")
-  expect_that(res$changepoint.e.agglo == 2, is_true())
+  expect_that(res$changepoint_e.agglo == 2, is_true())
   expect_that(res$hookreg_hook == 1, is_true())
   expect_that(res$top == 10, is_true())
-  expect_length(res, 51)
-  expect_true(res$amptester_shap.noisy == FALSE)
-  expect_true(res$amptester_rgt.dec != FALSE)
+  expect_length(res, 50)
+  expect_true(res$amptester_shapiro == FALSE)
+  expect_true(res$amptester_rgt != FALSE)
 })
 

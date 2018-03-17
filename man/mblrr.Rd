@@ -26,12 +26,12 @@ that the slope and intercept of an amplification curve differ in the
 background and plateau region.
 }
 \details{
-\emph{mblrr_intercept_less} is the intercept of the head region,
-\emph{mblrr_slope_less} is the slope of the head region,
-\emph{mblrr_cor_less} is the coefficient of correlation of the head region,
-\emph{mblrr_intercept_more} is the intercept of the tail region,
-\emph{mblrr_intercept_more} is the slope of the tail region,
-\emph{mblrr_cor_more} is the coefficient of correlation of the tail region
+\emph{mblrr_intercept_bg} is the intercept of the head region,
+\emph{mblrr_slope_bg} is the slope of the head region,
+\emph{mblrr_cor_bg} is the coefficient of correlation of the head region,
+\emph{mblrr_intercept_pt} is the intercept of the tail region,
+\emph{mblrr_intercept_pt} is the slope of the tail region,
+\emph{mblrr_cor_pt} is the coefficient of correlation of the tail region
 }
 \examples{
 

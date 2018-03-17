@@ -10,7 +10,7 @@ test_that("visdat_pcrfit uses all types", {
   plot_visdat_pcrfit <- visdat_pcrfit(res_pcrfit, type = "all", interactive = FALSE)
 
   expect_that(plot_visdat_pcrfit, is_a("gg"))
-  expect_that(nrow(plot_visdat_pcrfit[["data"]]), equals(40))
+  expect_that(nrow(plot_visdat_pcrfit[["data"]]), equals(39))
 })
 
 test_that("visdat_pcrfit uses the qpcR package types only", {
@@ -21,5 +21,5 @@ test_that("visdat_pcrfit uses the qpcR package types only", {
   plot_visdat_pcrfit <- visdat_pcrfit(res_pcrfit, type = "qpcR", interactive = FALSE)
 
   expect_that(plot_visdat_pcrfit, is_a("gg"))
-  expect_that(nrow(plot_visdat_pcrfit[["data"]]), equals(12))
+  expect_that(nrow(plot_visdat_pcrfit[["data"]]), equals(11))
 })

@@ -37,7 +37,6 @@
 #'   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
 #'   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
 #'   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
-#'   "init1" \tab initial template fluorescence from the sigmoidal model \tab numeric \cr
 #'   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
 #'   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
 #'   "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
@@ -48,39 +47,39 @@
 #'   "f_intercept" \tab Is the intercept of the seven parameter model \cr
 #'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
 #'   "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
-#'   "slope_background" \tab slope of the first cycles \tab numeric \cr
-#'   "intercept_background" \tab intercept of the first cycles \tab numeric \cr
+#'   "slope_bg" \tab slope of the first cycles \tab numeric \cr
+#'   "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
 #'   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
-#'   "changepoint.e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-#'   "changepoint.bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
+#'   "changepoint_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
+#'   "changepoint_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
 #'   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
-#'   "amptester_shap.noisy" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
-#'   "amptester_lrt.test" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
-#'   "amptester_rgt.dec" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
-#'   "amptester_tht.dec" \tab  Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests. \tab binary \cr
-#'   "amptester_slt.dec" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
+#'   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
+#'   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
+#'   "amptester_rgt" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
+#'   "amptester_tht" \tab  Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests. \tab binary \cr
+#'   "amptester_slt" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
 #'   "amptester_polygon" \tab pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order. \tab binary \cr
 #'   "amptester_slope.ratio" \tab SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. \tab numeric \cr
 #'   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
 #'   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
-#'   "bg.start_normalized" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-#'   "bg.stop_normalized" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-#'   "amp.stop_normalized" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "bg.stop_norm" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "amp.stop_norm" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "head_to_tail_ratio" \tab \tab numeric \cr
 #'   "autocorellation" \tab  \tab numeric \cr
-#'   "mblrr_intercept_less" \tab  \tab numeric \cr
-#'   "mblrr_slope_less" \tab \tab numeric \cr
-#'   "mblrr_cor_less" \tab \tab numeric \cr
-#'   "mblrr_intercept_more" \tab \tab numeric \cr
-#'   "mblrr_slope_more" \tab \tab numeric \cr
-#'   "mblrr_cor_more" \tab \tab numeric \cr
+#'   "mblrr_intercept_bg" \tab  \tab numeric \cr
+#'   "mblrr_slope_bg" \tab \tab numeric \cr
+#'   "mblrr_cor_bg" \tab \tab numeric \cr
+#'   "mblrr_intercept_pt" \tab \tab numeric \cr
+#'   "mblrr_slope_pt" \tab \tab numeric \cr
+#'   "mblrr_cor_pt" \tab \tab numeric \cr
 #'   "amp_cor_MIC" \tab \tab numeric \cr
 #'   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
 #'   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
-#'   "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+#'   "peaks_min_max_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
 #'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
-#'   "sd_ground_phase \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+#'   "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
 #' }
 #' @details Details can be found in the vignette.
 #' @importFrom qpcR pcrfit
@@ -187,9 +186,9 @@ pcrfit_single <- function(x) {
   # Estimate the spread of the approximate local minima and maxima of the curve data
 
   res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
-  mcaPeaks_minima_maxima_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
-  if (is.infinite(mcaPeaks_minima_maxima_ratio)) {
-    mcaPeaks_minima_maxima_ratio <- NA
+  peaks_min_max_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
+  if (is.infinite(peaks_min_max_ratio)) {
+    peaks_min_max_ratio <- NA
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
@@ -267,9 +266,9 @@ pcrfit_single <- function(x) {
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to the takeoff point
     if (!is.na(res_takeoff_reverse[[1]])) {
-      sd_ground_phase <- try(sd(x[2L:res_takeoff_reverse[[1]]]), silent = TRUE)
+      sd_bg <- try(sd(x[2L:res_takeoff_reverse[[1]]]), silent = TRUE)
     } else {
-      sd_ground_phase <- sd(x[2L:8])
+      sd_bg <- sd(x[2L:8])
     }
     if (class(res_takeoff_reverse) == "try-error") {
       res_takeoff_reverse <- list(length_cycle, 1)
@@ -279,7 +278,7 @@ pcrfit_single <- function(x) {
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to cycle 8 if the the takeoff point cannot be
     # determined
-    sd_ground_phase <- sd(x[2L:8])
+    sd_bg <- sd(x[2L:8])
   }
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
 
@@ -314,7 +313,8 @@ pcrfit_single <- function(x) {
         "eff",
         "cpD1", "cpD2",
         "fluo",
-        "init1", "init2"
+#         "init1", "init2"
+        "init2"
       )],
       silent = TRUE
     )
@@ -326,7 +326,7 @@ pcrfit_single <- function(x) {
         cpD1 = 0,
         cpD2 = 0,
         fluo = 1,
-        init1 = 0,
+#         init1 = 0,
         init2 = 1
       )
       res_cpDdiff <- length_cycle
@@ -337,7 +337,7 @@ pcrfit_single <- function(x) {
       cpD1 = 0,
       cpD2 = 0,
       fluo = 1,
-      init1 = 0,
+#       init1 = 0,
       init2 = 1
     )
     res_takeoff <- list(1, x[1])
@@ -347,54 +347,62 @@ pcrfit_single <- function(x) {
   }
 
   all_results <- data.frame(
-    eff = res_efficiency_tmp[["eff"]],
+    # Quantification points, derivatives, efficiencies,
+    # curve fitting
     cpD1 = res_efficiency_tmp[["cpD1"]],
     cpD2 = res_efficiency_tmp[["cpD2"]],
-    fluo = res_efficiency_tmp[["fluo"]],
-    init1 = res_efficiency_tmp[["init1"]],
-    init2 = res_efficiency_tmp[["init2"]],
+    eff = res_efficiency_tmp[["eff"]],
+    ressliwin = res_sliwin[[1]],
+    cpDdiff = res_cpDdiff,
+    diffQ2_slope = res_diffQ2_slope,
+    diffQ2_Cq_range = range_Cq,
     top = res_takeoff[[1]],
     f.top = res_takeoff[[2]],
     tdp = res_takeoff_reverse[[1]],
     f.tdp = res_takeoff_reverse[[2]],
-    ressliwin = res_sliwin[[1]],
+    bg.stop_norm = res_bg.max[2],
+    amp.stop_norm = res_bg.max[3],
     b_slope = res_coef[["b"]],
     f_intercept = res_coef[["f"]],
     convInfo_iteratons = res_convInfo_iteratons,
-    cpDdiff = res_cpDdiff,
-    slope_background = res_lm_fit[["slope"]],
-    intercept_background = res_lm_fit[["intercept"]],
-    polyarea = res_polyarea,
-    changepoint.e.agglo = res_changepoint_e.agglo,
-    changepoint.bcp = res_bcp,
     qPCRmodel = res_fit_model[[1]],
     qPCRmodel_reverse = res_fit_model_reverse[[1]],
-    amptester_shap.noisy = res_amptester@decisions["shap.noisy"][[1]],
-    amptester_lrt.test = res_amptester@decisions["lrt.test"][[1]],
-    amptester_rgt.dec = res_amptester@decisions["rgt.dec"][[1]],
-    amptester_tht.dec = res_amptester@decisions["tht.dec"][[1]],
-    amptester_slt.dec = res_amptester@decisions["slt.dec"][[1]],
-    amptester_polygon = res_amptester@"polygon" / length_cycle,
-    amptester_slope.ratio = ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
+    # Signal levels
     minRFU = fluo_range[[1]],
     maxRFU = fluo_range[[2]],
-    bg.stop_normalized = res_bg.max[2],
-    amp.stop_normalized = res_bg.max[3],
+#     init1 = res_efficiency_tmp[["init1"]],
+    init2 = res_efficiency_tmp[["init2"]],
+    fluo = res_efficiency_tmp[["fluo"]],
+    slope_bg = res_lm_fit[["slope"]],
+    intercept_bg = res_lm_fit[["intercept"]],
+    sd_bg = sd_bg,
     head_to_tail_ratio = res_head_tail_ratio,
+    mblrr_slope_pt = res_mblrr[5],
+    mblrr_intercept_bg = res_mblrr[1],
+    mblrr_slope_bg = res_mblrr[2],
+    mblrr_cor_bg = res_mblrr[3],
+    mblrr_intercept_pt = res_mblrr[4],
+    mblrr_cor_pt = res_mblrr[6],
+    # Areas
+    polyarea = res_polyarea,
+    peaks_min_max_ratio = peaks_min_max_ratio,
     autocorellation = res_autocorrelation,
-    mblrr_intercept_less = res_mblrr[1],
-    mblrr_slope_less = res_mblrr[2],
-    mblrr_cor_less = res_mblrr[3],
-    mblrr_intercept_more = res_mblrr[4],
-    mblrr_slope_more = res_mblrr[5],
-    mblrr_cor_more = res_mblrr[6],
+    # Change points
+    changepoint_e.agglo = res_changepoint_e.agglo,
+    changepoint_bcp = res_bcp,
+    # Amptester
+    amptester_shapiro = res_amptester@decisions["shap.noisy"][[1]],
+    amptester_lrt = res_amptester@decisions["lrt.test"][[1]],
+    amptester_rgt = res_amptester@decisions["rgt.dec"][[1]],
+    amptester_tht = res_amptester@decisions["tht.dec"][[1]],
+    amptester_slt = res_amptester@decisions["slt.dec"][[1]],
+    amptester_polygon = res_amptester@"polygon" / length_cycle,
+    amptester_slope.ratio = ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
+    # Curvature
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
-    mcaPeaks_minima_maxima_ratio = mcaPeaks_minima_maxima_ratio,
-    diffQ2_slope = res_diffQ2_slope,
-    diffQ2_Cq_range = range_Cq,
-    sd_ground_phase = sd_ground_phase,
+    # Identifier
     row.names = "results"
   )
 }

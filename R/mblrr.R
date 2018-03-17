@@ -8,12 +8,12 @@
 #' that the slope and intercept of an amplification curve differ in the
 #' background and plateau region.
 #' @details
-#' \emph{mblrr_intercept_less} is the intercept of the head region,
-#' \emph{mblrr_slope_less} is the slope of the head region,
-#' \emph{mblrr_cor_less} is the coefficient of correlation of the head region,
-#' \emph{mblrr_intercept_more} is the intercept of the tail region,
-#' \emph{mblrr_intercept_more} is the slope of the tail region,
-#' \emph{mblrr_cor_more} is the coefficient of correlation of the tail region
+#' \emph{mblrr_intercept_bg} is the intercept of the head region,
+#' \emph{mblrr_slope_bg} is the slope of the head region,
+#' \emph{mblrr_cor_bg} is the coefficient of correlation of the head region,
+#' \emph{mblrr_intercept_pt} is the intercept of the tail region,
+#' \emph{mblrr_intercept_pt} is the slope of the tail region,
+#' \emph{mblrr_cor_pt} is the coefficient of correlation of the tail region
 #'
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
@@ -46,23 +46,23 @@ mblrr <-
     res_q75_cor.test <- try(cor.test(x[res_q75], y[res_q75]), silent = TRUE)
 
     if (class(res_q25_lm) == "try-error" || is.na(res_q25_lm[[1]])[1] == TRUE) {
-#       mblrr_intercept_less <- NA
-#       mblrr_slope_less <- NA
-      mblrr_intercept_less <- 0
-      mblrr_slope_less <- 0
+#       mblrr_intercept_bg <- NA
+#       mblrr_slope_bg <- NA
+      mblrr_intercept_bg <- 0
+      mblrr_slope_bg <- 0
     } else {
-      mblrr_intercept_less <- res_q25_lm$coefficients[[1]]
-      mblrr_slope_less <- res_q25_lm$coefficients[[2]]
+      mblrr_intercept_bg <- res_q25_lm$coefficients[[1]]
+      mblrr_slope_bg <- res_q25_lm$coefficients[[2]]
     }
 
     if (class(res_q75_lm) == "try-error" || is.na(res_q75_lm[[1]])[1] == TRUE) {
-#       mblrr_intercept_more <- NA
-#       mblrr_slope_more <- NA
-      mblrr_intercept_more <- 0
-      mblrr_slope_more <- 0
+#       mblrr_intercept_pt <- NA
+#       mblrr_slope_pt <- NA
+      mblrr_intercept_pt <- 0
+      mblrr_slope_pt <- 0
     } else {
-      mblrr_intercept_more <- res_q75_lm$coefficients[[1]]
-      mblrr_slope_more <- res_q75_lm$coefficients[[2]]
+      mblrr_intercept_pt <- res_q75_lm$coefficients[[1]]
+      mblrr_slope_pt <- res_q75_lm$coefficients[[2]]
     }
 
 
@@ -91,21 +91,21 @@ mblrr <-
 
 
     res_mblrr <- c(
-      mblrr_intercept_less,
-      mblrr_slope_less,
+      mblrr_intercept_bg,
+      mblrr_slope_bg,
       res_q25_cor.test_estimate,
-      mblrr_intercept_more,
-      mblrr_slope_more,
+      mblrr_intercept_pt,
+      mblrr_slope_pt,
       res_q75_cor.test_estimate
     )
 
     names(res_mblrr) <- c(
-      "mblrr_intercept_less",
-      "mblrr_slope_less",
-      "mblrr_cor_less",
-      "mblrr_intercept_more",
-      "mblrr_slope_more",
-      "mblrr_cor_more"
+      "mblrr_intercept_bg",
+      "mblrr_slope_bg",
+      "mblrr_cor_bg",
+      "mblrr_intercept_pt",
+      "mblrr_slope_pt",
+      "mblrr_cor_pt"
     )
     res_mblrr
   }

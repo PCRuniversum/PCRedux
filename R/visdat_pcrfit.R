@@ -46,36 +46,36 @@
 
 visdat_pcrfit <- function(data, type="all", interactive=TRUE) {
   fetch_all <- c(
-    "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
-#    "f.top", "resLRE", "ressliwin", "cpDdiff", "slope_background",
-    "f.top", "ressliwin", "cpDdiff", "slope_background",
-    "intercept_background", "polyarea", "changepoint.e.agglo", "changepoint.bcp",
-    "qPCRmodel", "amptester_shap.noisy", "amptester_lrt.test", "amptester_rgt.dec",
-    "amptester_tht.dec", "amptester_slt.dec", "amptester_polygon",
+    "runs", "eff", "cpD1", "cpD2", "fluo", "init2", "top",
+#   "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
+    "f.top", "ressliwin", "cpDdiff", "slope_bg",
+    "intercept_bg", "polyarea", "changepoint_e.agglo", "changepoint_bcp",
+    "qPCRmodel", "amptester_shapiro", "amptester_lrt", "amptester_rgt",
+    "amptester_tht", "amptester_slt", "amptester_polygon",
     "amptester_slope.ratio", "minRFU", "maxRFU",
-    "bg.stop_normalized", "amp.stop_normalized", "head_to_tail_ratio",
-    "autocorellation", "mblrr_intercept_less", "mblrr_slope_less",
-    "mblrr_cor_less", "mblrr_intercept_more", "mblrr_slope_more",
-    "mblrr_cor_more", "hookreg_hook", "mcaPeaks_minima_maxima_ratio",
+    "bg.stop_norm", "amp.stop_norm", "head_to_tail_ratio",
+    "autocorellation", "mblrr_intercept_bg", "mblrr_slope_bg",
+    "mblrr_cor_bg", "mblrr_intercept_pt", "mblrr_slope_pt",
+    "mblrr_cor_pt", "hookreg_hook", "peaks_min_max_ratio",
     "diffQ2_slope", "diffQ2_Cq_range"
   )
 
 
   fetch_qpcR <- c(
-    "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
-#    "f.top", "resLRE", "ressliwin", "cpDdiff", "qPCRmodel"
+    "runs", "eff", "cpD1", "cpD2", "fluo", "init2", "top",
+#   "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
     "f.top", "ressliwin", "cpDdiff", "qPCRmodel"
   )
 
   fetch_amptester <- c(
-    "runs", "slope_background",
-    "intercept_background", "amptester_shap.noisy", "amptester_lrt.test", "amptester_rgt.dec",
-    "amptester_tht.dec", "amptester_slt.dec", "amptester_polygon",
+    "runs", "slope_bg",
+    "intercept_bg", "amptester_shapiro", "amptester_lrt", "amptester_rgt",
+    "amptester_tht", "amptester_slt", "amptester_polygon",
     "amptester_slope.ratio", "minRFU", "maxRFU",
-    "bg.stop_normalized", "amp.stop_normalized", "head_to_tail_ratio",
-    "mblrr_intercept_less", "mblrr_slope_less",
-    "mblrr_cor_less", "mblrr_intercept_more", "mblrr_slope_more",
-    "mblrr_cor_more", "hookreg_hook", "mcaPeaks_minima_maxima_ratio",
+    "bg.stop_norm", "amp.stop_norm", "head_to_tail_ratio",
+    "mblrr_intercept_bg", "mblrr_slope_bg",
+    "mblrr_cor_bg", "mblrr_intercept_pt", "mblrr_slope_pt",
+    "mblrr_cor_pt", "hookreg_hook", "peaks_min_max_ratio",
     "diffQ2_slope", "diffQ2_Cq_range"
   )
 
