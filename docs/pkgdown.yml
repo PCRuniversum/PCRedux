@@ -1,0 +1,7 @@
+pandoc: 1.19.2.1
+pkgdown: 0.1.0.9000
+pkgdown_sha: 2bd7be1a1c03e765d9ad820365a7fef6c2169919
+articles:
+  PCRedux: PCRedux.html
+  SI1: SI1.html
+
