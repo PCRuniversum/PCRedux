@@ -177,8 +177,7 @@ pcrfit_single <- function(x) {
 
   # Median based local robust regression (mblrr)
   res_mblrr <- PCRedux::mblrr(cycles, x)
-  
-  
+
 
   # Calculate amptester results
   res_amptester <- suppressMessages(try(chipPCR::amptester(x)))
@@ -313,7 +312,6 @@ pcrfit_single <- function(x) {
         "eff",
         "cpD1", "cpD2",
         "fluo",
-#         "init1", "init2"
         "init2"
       )],
       silent = TRUE
@@ -326,7 +324,6 @@ pcrfit_single <- function(x) {
         cpD1 = 0,
         cpD2 = 0,
         fluo = 1,
-#         init1 = 0,
         init2 = 1
       )
       res_cpDdiff <- length_cycle
@@ -337,7 +334,6 @@ pcrfit_single <- function(x) {
       cpD1 = 0,
       cpD2 = 0,
       fluo = 1,
-#       init1 = 0,
       init2 = 1
     )
     res_takeoff <- list(1, x[1])
@@ -370,7 +366,6 @@ pcrfit_single <- function(x) {
     # Signal levels
     minRFU = fluo_range[[1]],
     maxRFU = fluo_range[[2]],
-#     init1 = res_efficiency_tmp[["init1"]],
     init2 = res_efficiency_tmp[["init2"]],
     fluo = res_efficiency_tmp[["fluo"]],
     slope_bg = res_lm_fit[["slope"]],

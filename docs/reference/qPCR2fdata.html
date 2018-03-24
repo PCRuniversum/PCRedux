@@ -33,6 +33,8 @@ function prepares the data for further analysis with the fda.usc package,
 which includes utilities for functional data analysis (e.g., Hausdorff
 distance)." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +57,12 @@ distance)." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PCRedux</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PCRedux</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -66,7 +72,7 @@ distance)." />
   </a>
 </li>
 <li>
-  <a href="../articles/PCRedux.html">Get Started</a>
+  <a href="../articles/PCRedux.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -104,7 +110,7 @@ distance)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A helper function to convert amplification curve data to the fdata format.</h1>
-    <small>Source: <a href='https:/github.com/devSJR/PCRedux/blob/master/R/qPCR2fdata.R'><code>R/qPCR2fdata.R</code></a></small>
+    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/qPCR2fdata.R'><code>R/qPCR2fdata.R</code></a></small>
     </div>
 
     
@@ -117,7 +123,7 @@ distance).</p>
 
     <pre class="usage"><span class='fu'>qPCR2fdata</span>(<span class='no'>data</span>, <span class='kw'>preprocess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -176,7 +182,7 @@ pre-process raw data of amplification curves</em>, Bioinformatics. 31 (2015)
 
 <span class='no'>res_fdata_hclust</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fda.usc/topics/metric.hausdorff'>metric.hausdorff</a></span>(<span class='no'>res_fdata</span>)
 <span class='fu'>plot</span>(<span class='fu'>hclust</span>(<span class='fu'>as.dist</span>(<span class='no'>res_fdata_hclust</span>)), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Clusters of the amplification\n
-   curves as calculated by the Hausdorff distance"</span>)</div><div class='img'><img src='qPCR2fdata-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+   curves as calculated by the Hausdorff distance"</span>)</div><div class='img'><img src='qPCR2fdata-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

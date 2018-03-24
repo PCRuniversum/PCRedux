@@ -107,7 +107,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.995, robus
       dec_hook
     )
   } else {
-#     res_hookreg <- c(NA, NA, NA, NA, NA, NA, NA, FALSE, FALSE, FALSE)
+    #     res_hookreg <- c(NA, NA, NA, NA, NA, NA, NA, FALSE, FALSE, FALSE)
     res_hookreg <- c(0, 0, 0, 0, NA, NA, NA, FALSE, FALSE, FALSE)
   }
   names(res_hookreg) <- c(

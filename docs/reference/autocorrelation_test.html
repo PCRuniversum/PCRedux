@@ -37,6 +37,8 @@ be determined.
 Noise (negative) amplification curves usually do not exhibit any
 autocorrelation and will therefore be "n.s."." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -59,8 +61,12 @@ autocorrelation and will therefore be "n.s."." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PCRedux</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PCRedux</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -70,7 +76,7 @@ autocorrelation and will therefore be "n.s."." />
   </a>
 </li>
 <li>
-  <a href="../articles/PCRedux.html">Get Started</a>
+  <a href="../articles/PCRedux.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -109,7 +115,7 @@ autocorrelation and will therefore be "n.s."." />
     <div class="page-header">
     <h1>A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment</h1>
-    <small>Source: <a href='https:/github.com/devSJR/PCRedux/blob/master/R/autocorrelation_test.R'><code>R/autocorrelation_test.R</code></a></small>
+    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/autocorrelation_test.R'><code>R/autocorrelation_test.R</code></a></small>
     </div>
 
     
@@ -124,7 +130,7 @@ autocorrelation and will therefore be "n.s.".</p>
 
     <pre class="usage"><span class='fu'>autocorrelation_test</span>(<span class='no'>y</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>sig.level</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>ns_2_numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -156,8 +162,10 @@ Default: 0.01</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Test for autocorrelation in amplification curve data</span>
 <span class='co'># Load the libraries magrittr for pipes and qpcR for the data</span>
-<span class='fu'>library</span>(<span class='no'>magrittr</span>)
-<span class='fu'>library</span>(<span class='no'>qpcR</span>)
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>qpcR</span>)
 <span class='co'># Test for autocorrelation in the testdat data set</span>
 <span class='no'>res_ac</span> <span class='kw'>&lt;-</span> <span class='fu'>sapply</span>(<span class='fl'>2</span>:<span class='fu'>ncol</span>(<span class='no'>testdat</span>), <span class='kw'>function</span>(<span class='no'>i</span>) {
                     <span class='fu'>autocorrelation_test</span>(<span class='no'>testdat</span>[, <span class='no'>i</span>])
@@ -198,7 +206,7 @@ Default: 0.01</p></td>
        <span class='kw'>bty</span><span class='kw'>=</span><span class='st'>"n"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"black"</span>,<span class='st'>"red"</span>))
 
 <span class='fu'>barplot</span>(<span class='fu'>as.matrix</span>(<span class='no'>res_performeR</span>[, <span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>10</span>,<span class='fl'>12</span>)]), <span class='kw'>yaxt</span><span class='kw'>=</span><span class='st'>"n"</span>,
-        <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>""</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Performance of autocorrelation_test"</span>)</div><div class='input'><span class='fu'>axis</span>(<span class='fl'>2</span>, <span class='kw'>at</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>1</span>), <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"0"</span>, <span class='st'>"1"</span>), <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='autocorrelation_test-1.png' alt='' width='700' height='432.632880098887' /></div></pre>
+        <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>""</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Performance of autocorrelation_test"</span>)</div><div class='input'><span class='fu'>axis</span>(<span class='fl'>2</span>, <span class='kw'>at</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>1</span>), <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"0"</span>, <span class='st'>"1"</span>), <span class='kw'>las</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='autocorrelation_test-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -62,7 +62,7 @@ analysis, normalization procedures and data management [@roediger2015chippcr,
 # Package and Functionalities
 
 The `PCRedux` package contains functions and classified amplification curves for machine learning and statistical analysis. Each amplification curve was classified (negative, positive) by a human being. For curve shap based classification, the `tReem()` funftion was developed.
-To analyze the amplification curves methods such as change-point analysis, regression analysis, autocorrelation analysis and model fitting have been integrated based on the implementations of others and us (e. g. @erdman_bcp: _2007, 
+To analyze the amplification curves methods such as change-point analysis, regression analysis, autocorrelation analysis and model fitting have been integrated based on the implementations of others and us (e. g., @erdman_bcp: _2007, 
 @Ritz2008, @Febrero_Bande_2012, @james_ecp: _2013) and us [@roediger_RJ_2013, 
 @roediger2015chippcr] the `pcrfit_single ()` function calculate more than 45 features from the amplification curves. This is useful for creating models and predicting classes (e. g. negative, positive). We have integrated the visualization function `visdat_pcrfit ()` for data management, inspired by @Tierney2017. Additional functionality in the package includes:
 

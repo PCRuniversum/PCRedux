@@ -29,6 +29,8 @@
 
 <meta property="og:description" content="A compilation of datasets for method evaluation/comparison." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,8 +53,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PCRedux</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PCRedux</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -62,7 +68,7 @@
   </a>
 </li>
 <li>
-  <a href="../articles/PCRedux.html">Get Started</a>
+  <a href="../articles/PCRedux.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -113,23 +119,23 @@
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><b>data_sample</b>
-Setup: Amplification curve data were analyzed with the encu() and the decision_modus() functions.
-Details:
+    <p><b>data_sample</b><br />
+Setup: Amplification curve data were analyzed with the encu() and the decision_modus() functions.<br />
+Details:<br />
 Data sets: batsch1, boggy, C126EG595, competimer, dil4reps94, guescini1, karlen1, lievens1, reps384, rutledge, testdat, vermeulen1, VIMCFX96_60, stepone_std.rdml, RAS002.rdml, RAS003.rdml, HCU32_aggR.csv, lc96_bACTXY.rdml.</p>
-<p><b>RAS002</b>
-Setup: Amplification curve data of the RAS002.rdml data set.
-Details:
+<p><b>RAS002</b><br />
+Setup: Amplification curve data of the RAS002.rdml data set.<br />
+Details:<br />
 Data sets: RAS002.rdml.</p>
-<p><b>RAS002_decisions</b>
-Setup: Classes of the amplification curves from the RAS002.rdml data set.
-Details:
+<p><b>RAS002_decisions</b><br />
+Setup: Classes of the amplification curves from the RAS002.rdml data set.<br />
+Details:<br />
 Data sets: decision_res_RAS002.csv.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Roediger, S., Burdukiewicz, M., Spiess, A.-N. &amp; Blagodatskikh, K. Enabling reproducible real-time quantitative PCR research: the RDML package. <em>Bioinformatics</em> (2017). doi:10.1093/bioinformatics/btx528
-Roediger, S., Burdukiewicz, M. &amp; Schierack, P. chipPCR: an R package to pre-process raw data of amplification curves. <em>Bioinformatics</em> 31, 2900--2902 (2015)
+    <p>Roediger, S., Burdukiewicz, M., Spiess, A.-N. &amp; Blagodatskikh, K. Enabling reproducible real-time quantitative PCR research: the RDML package. <em>Bioinformatics</em> (2017). doi:10.1093/bioinformatics/btx528<br />
+Roediger, S., Burdukiewicz, M. &amp; Schierack, P. chipPCR: an R package to pre-process raw data of amplification curves. <em>Bioinformatics</em> 31, 2900--2902 (2015)<br />
 Ritz, C. &amp; Spiess, A.-N. qpcR: an R package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis. <em>Bioinformatics</em> 24, 1549--1551 (2008).</p>
     
 

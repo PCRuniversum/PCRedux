@@ -39,6 +39,8 @@ in "probability for noiseless functional relationships" (see
 original study by Reshef, D. N. et al. Detecting novel associations in
 large data sets. Science, 334, 1518-1524 (2011))." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -61,8 +63,12 @@ large data sets. Science, 334, 1518-1524 (2011))." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PCRedux</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PCRedux</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -72,7 +78,7 @@ large data sets. Science, 334, 1518-1524 (2011))." />
   </a>
 </li>
 <li>
-  <a href="../articles/PCRedux.html">Get Started</a>
+  <a href="../articles/PCRedux.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -111,7 +117,7 @@ large data sets. Science, 334, 1518-1524 (2011))." />
     <div class="page-header">
     <h1>A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment.</h1>
-    <small>Source: <a href='https:/github.com/devSJR/PCRedux/blob/master/R/earlyreg.R'><code>R/earlyreg.R</code></a></small>
+    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/earlyreg.R'><code>R/earlyreg.R</code></a></small>
     </div>
 
     
@@ -128,7 +134,7 @@ large data sets. Science, 334, 1518-1524 (2011)).</p>
 
     <pre class="usage"><span class='fu'>earlyreg</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -165,7 +171,7 @@ data should be normalized to the 99 percent percentile of the amplification curv
 
 <span class='co'># Plot the data</span>
 <span class='fu'>plot</span>(<span class='no'>C316.amp</span>[, <span class='fl'>2</span>], <span class='kw'>y</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>3</span>], <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Cycle"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"RFU"</span>,
-     <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"C316.amp data set"</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)</div><div class='img'><img src='earlyreg-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>earlyreg</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>2</span>], <span class='kw'>y</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>3</span>], <span class='kw'>range</span><span class='kw'>=</span><span class='fl'>10</span>)
+     <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"C316.amp data set"</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)</div><div class='img'><img src='earlyreg-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>earlyreg</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>2</span>], <span class='kw'>y</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>3</span>], <span class='kw'>range</span><span class='kw'>=</span><span class='fl'>10</span>)
 <span class='no'>res</span></div><div class='output co'>#&gt; intercept     slope 
 #&gt; 103.42021 -20.54145 </div></pre>
   </div>

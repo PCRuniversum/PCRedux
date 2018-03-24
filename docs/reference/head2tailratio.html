@@ -34,6 +34,8 @@ tail of a quantitative PCR amplification curve. In this test, only the head
 (first six cycles) and the tail (last six cycles) form the region of interest
 (ROI)." />
 <meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +58,12 @@ tail of a quantitative PCR amplification curve. In this test, only the head
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">PCRedux</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">PCRedux</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -67,7 +73,7 @@ tail of a quantitative PCR amplification curve. In this test, only the head
   </a>
 </li>
 <li>
-  <a href="../articles/PCRedux.html">Get Started</a>
+  <a href="../articles/PCRedux.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -106,7 +112,7 @@ tail of a quantitative PCR amplification curve. In this test, only the head
     <div class="page-header">
     <h1>A function to calculate to head to tail ratio of amplification curve data
 from a quantitative PCR experiment</h1>
-    <small>Source: <a href='https:/github.com/devSJR/PCRedux/blob/master/R/head2tailratio.R'><code>R/head2tailratio.R</code></a></small>
+    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/head2tailratio.R'><code>R/head2tailratio.R</code></a></small>
     </div>
 
     
@@ -119,7 +125,7 @@ tail of a quantitative PCR amplification curve. In this test, only the head
     <pre class="usage"><span class='fu'>head2tailratio</span>(<span class='no'>y</span>, <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>slope_normalizer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -156,7 +162,7 @@ parameters and coefficients of the analysis should be shown.</p></td>
 <span class='no'>res_head2tailratio_cluster</span> <span class='kw'>&lt;-</span> <span class='fu'>kmeans</span>(<span class='no'>res_head2tailratio</span>, <span class='fl'>3</span>)$<span class='no'>cluster</span>
 
 <span class='fu'>matplot</span>(<span class='no'>competimer</span>[, <span class='fl'>1</span>], <span class='no'>competimer</span>[, -<span class='fl'>1</span>], <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Cycle"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"RFU"</span>,
-        <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"competimer data set"</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>res_head2tailratio_cluster</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='head2tailratio-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+        <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"competimer data set"</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>res_head2tailratio_cluster</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='head2tailratio-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
