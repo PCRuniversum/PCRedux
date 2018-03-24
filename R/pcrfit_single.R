@@ -213,7 +213,7 @@ pcrfit_single <- function(x) {
 
   res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
   if (class(res_coef) == "try-error") {
-    res_coef <- c(b = 0, f = 0)
+    res_coef <- c(b = 0, f = 20000)
   }
 
 
