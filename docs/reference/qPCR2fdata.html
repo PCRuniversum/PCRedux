@@ -156,12 +156,8 @@ pre-process raw data of amplification curves</em>, Bioinformatics. 31 (2015)
 <span class='co'># for the last eight cycles.</span>
 <span class='co'># Load additional packages for data and pipes.</span>
 <span class='fu'>library</span>(<span class='no'>qpcR</span>)
-<span class='fu'>library</span>(<span class='no'>fda.usc</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: fda</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: splines</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘fda’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:PCRedux’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matplot</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:graphics’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matplot</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: mgcv</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: nlme</span></div><div class='output co'>#&gt; <span class='message'>This is mgcv 1.8-23. For overview type 'help("mgcv-package")'.</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: rpart</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>magrittr</span>)
+<span class='fu'>library</span>(<span class='no'>fda.usc</span>)
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)
 
 <span class='co'># Convert the qPCR data set to the fdata format</span>
 <span class='no'>res_fdata</span> <span class='kw'>&lt;-</span> <span class='fu'>qPCR2fdata</span>(<span class='no'>testdat</span>)

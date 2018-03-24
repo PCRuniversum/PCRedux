@@ -884,7 +884,7 @@ Positive and negative Amplification curves from the <code>RAS002</code> dataset.
 ##  $ peaks_min_max_ratio  : num 0.0117
 ##  $ autocorellation      : num 0.765
 ##  $ changepoint_e.agglo  : int 2
-##  $ changepoint_bcp      : int 9
+##  $ changepoint_bcp      : int 10
 ##  $ amptester_shapiro    : logi FALSE
 ##  $ amptester_lrt        : logi TRUE
 ##  $ amptester_rgt        : logi TRUE
@@ -1084,22 +1084,22 @@ res_performeR &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -4.8265  -0.3848  -0.2147   0.0430   1.6145  
+## -4.2579  -0.4194  -0.2804   0.0852   1.7371  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  -2.4826     0.2706  -9.175   &lt;2e-16 ***
-## polyarea     76.7092     8.1064   9.463   &lt;2e-16 ***
+## (Intercept)  -2.3550     0.2432  -9.685   &lt;2e-16 ***
+## polyarea     61.9948     6.5628   9.446   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 490.03  on 362  degrees of freedom
-## Residual deviance: 180.94  on 361  degrees of freedom
-## AIC: 184.94
+##     Null deviance: 472.41  on 362  degrees of freedom
+## Residual deviance: 217.97  on 361  degrees of freedom
+## AIC: 221.97
 ## 
-## Number of Fisher Scoring iterations: 7</code></pre>
+## Number of Fisher Scoring iterations: 6</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(Intercept)</code> and <code>polyarea</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates a strong association between <code>polyarea</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new dataset, further steps are necessary. <code>predict()</code> is a generic function for prediction from the results of a model fitting function. All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code>predict()</code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">warn =</span> <span class="dv">-1</span>)
