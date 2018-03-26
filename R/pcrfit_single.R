@@ -134,9 +134,9 @@ pcrfit_single <- function(x) {
     )
   } else {
     res_bg.max <- c(
-      bg.start = res_bg.max_tmp@bg.start / length_cycle,
-      bg.stop = res_bg.max_tmp@bg.stop / length_cycle,
-      amp.stop = res_bg.max_tmp@amp.stop / length_cycle
+      bg.start = res_bg.max_tmp@bg.start,
+      bg.stop = res_bg.max_tmp@bg.stop,
+      amp.stop = res_bg.max_tmp@amp.stop
     )
   }
 
@@ -191,11 +191,11 @@ pcrfit_single <- function(x) {
 
   # Estimate the slope between the minimum and the maximum of the second derivative
   res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles, dat_smoothed), verbose = FALSE, fct = min))
-  range_Cq <- diff(res_diffQ2[[3]]) / length_cycle
+  range_Cq <- diff(res_diffQ2[[3]])
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {
     range_Cq
   } else {
-    range_Cq <- 1
+    range_Cq <- 0
   }
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && range_Cq > 1 && range_Cq < 9) {
     res_diffQ2_slope <- coefficients(lm(unlist(c(res_diffQ2[[4]])) ~ unlist(c(res_diffQ2[[3]]))))[2]
@@ -266,17 +266,17 @@ pcrfit_single <- function(x) {
     if (!is.na(res_takeoff_reverse[[1]])) {
       sd_bg <- try(sd(x[2L:res_takeoff_reverse[[1]]]), silent = TRUE)
     } else {
-      sd_bg <- sd(x[2L:8])
+      sd_bg <- sd(x[1L:8])
     }
     if (class(res_takeoff_reverse) == "try-error") {
-      res_takeoff_reverse <- list(1, 1)
+      res_takeoff_reverse <- list(0, 1)
     }
   } else {
     res_takeoff_reverse <- list(length_cycle, 1)
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to cycle 8 if the the takeoff point cannot be
     # determined
-    sd_bg <- sd(x[2L:8])
+    sd_bg <- sd(x[1L:8])
   }
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
 
@@ -287,10 +287,10 @@ pcrfit_single <- function(x) {
     # in Tichopad et al. (2003).
     res_takeoff <- try(qpcR::takeoff(res_fit), silent = TRUE)
     if (class(res_takeoff) == "try-error") {
-      res_takeoff <- list(1, 1)
+      res_takeoff <- list(0, 1)
     }
     if (is.na(res_takeoff[[1]])) {
-      res_takeoff <- list(1, 1)
+      res_takeoff <- list(0, 1)
     }
     names(res_takeoff) <- c("top", "f.top")
 
@@ -316,7 +316,7 @@ pcrfit_single <- function(x) {
       silent = TRUE
     )
     if (class(res_efficiency_tmp) != "try-error") {
-      res_cpDdiff <- try(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]) / length_cycle)
+      res_cpDdiff <- try(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]))
     } else {
       res_efficiency_tmp <- list(
         eff = 0,
@@ -335,10 +335,10 @@ pcrfit_single <- function(x) {
       fluo = 1,
       init2 = 1
     )
-    res_takeoff <- list(1 / length_cycle, x[1])
-    res_takeoff_reverse <- list(1, 1)
+    res_takeoff <- list(0, x[1])
+    res_takeoff_reverse <- list(0, 1)
     res_sliwin <- 0
-    res_cpDdiff <- 1
+    res_cpDdiff <- 0
   }
 
   all_results <- data.frame(
@@ -351,9 +351,9 @@ pcrfit_single <- function(x) {
     cpDdiff = res_cpDdiff,
     diffQ2_slope = res_diffQ2_slope,
     diffQ2_Cq_range = range_Cq,
-    top = res_takeoff[[1]] / length_cycle,
+    top = res_takeoff[[1]],
     f.top = res_takeoff[[2]],
-    tdp = res_takeoff_reverse[[1]] / length_cycle,
+    tdp = res_takeoff_reverse[[1]],
     f.tdp = res_takeoff_reverse[[2]],
     bg.stop_norm = res_bg.max[2],
     amp.stop_norm = res_bg.max[3],
@@ -396,6 +396,8 @@ pcrfit_single <- function(x) {
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
+    # Number of Cycles
+    number_of_cycles = length_cycle,
     # Identifier
     row.names = "results"
   )
