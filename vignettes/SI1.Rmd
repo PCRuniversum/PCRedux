@@ -28,7 +28,7 @@ Quantitative real-time PCR (qPCR) is a widely used method for gene expression an
 Numerous algorithms have been developed to extract features from amplification curves such as the cylce of quantification and the amplification efficiency [@ruijter_evaluation_2013]. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance [@kemperman_mircomp-shiny:_2017]. But at an earlier level it is important to have a solid foundation for the data preprocessing [@spiess_impact_2015, @spiess_system-specific_2016, @ronde_practical_2017].
 Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.
 
-The aim of the study is to provide software tools and algorithms, which assist qPCR users during the analysis of their data. In particular, this study shows how it is possible to automatically detect hook effects (see @barratt_improving_2002) or hook effect-like curvatures. 
+The aim of the study is to provide software tools and algorithms, which assist qPCR users during the analysis and quality management of their data. In particular, this study shows how it is possible to automatically detect hook effects (see @barratt_improving_2002) or hook effect-like curvatures. 
 
 
 # Introduction
@@ -164,7 +164,7 @@ prepared for this study), the detection chemistries (intercalator (Syto-13,
 SyberGreenI, EvaGreen), hydrolysis probes (TaqMan (Cy5/BHQ2) , TaqMan 
 (HEX/BHQ1))) and calculations by tow humans.", 
              label='Table_human_rated'),
-      size = "normalsize",
+      size = "\\tiny",
       include.rownames = FALSE,
       include.colnames = TRUE,
       caption.placement = "top",
@@ -231,7 +231,7 @@ print(xtable(res_hookreg_table,
              caption = "Results from the hookreg() function for the hookreg.rdml 
              data set.", 
              label='res_hookreg_table'),
-      size = "normalsize",
+      size = "\\tiny",
       include.rownames = FALSE,
       include.colnames = TRUE,
       caption.placement = "top",
@@ -309,7 +309,7 @@ print(xtable(res_hookregNL_table,
              caption = "Results from the hookregNL() function for the 
              hookreg.rdml data set.", 
              label='res_hookregNL_table'),
-      size = "normalsize",
+      size = "\\tiny",
       include.rownames = FALSE,
       include.colnames = TRUE,
       caption.placement = "top",

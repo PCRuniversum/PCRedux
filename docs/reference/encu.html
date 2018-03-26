@@ -158,24 +158,24 @@ identical to the <code><a href='pcrfit_single.html'>pcrfit_single</a></code> fun
 <span class='co'># F1.3 and F1.4 are negative.</span>
 
 <span class='fu'>library</span>(<span class='no'>qpcR</span>)
-<span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt;    |                                                  | 0 % ~calculating     |+++++++++++++++++++++++++                         | 50% ~01s             |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 02s</div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2      eff ressliwin cpDdiff diffQ2_slope diffQ2_Cq_range top
-#&gt; 1 F1.1 17.49 15.62 1.819425  1.739444    1.87   0.01871564        4.472330  10
-#&gt; 2 F1.2 17.39 15.59 1.782711  1.737737    1.80   0.01893160        4.546122  10
-#&gt;        f.top tdp     f.tdp bg.stop_norm amp.stop_norm   b_slope f_intercept
-#&gt; 1 0.01391000  27 0.9712161    0.1836735     0.6122449 -12.73839   0.9283718
-#&gt; 2 0.01330955  28 0.9853867    0.1836735     0.5510204 -13.90384   0.7622996
-#&gt;   convInfo_iteratons qPCRmodel qPCRmodel_reverse       minRFU maxRFU
-#&gt; 1                  8        l7                l7 -0.004237230      1
-#&gt; 2                  8        l7                l7 -0.003998994      1
-#&gt;          init2      fluo    slope_bg intercept_bg     sd_bg head_to_tail_ratio
-#&gt; 1 1.700487e-05 0.1953197 0.001581130 -0.006475498 0.4229451      -0.0007122453
-#&gt; 2 2.631616e-05 0.2160592 0.001655031 -0.006660901 0.4395818      -0.0009850845
-#&gt;   mblrr_slope_pt mblrr_intercept_bg mblrr_slope_bg mblrr_cor_bg
-#&gt; 1  -0.0003719424       -0.006442819    0.001572672    0.9323391
-#&gt; 2  -0.0002171012       -0.006274295    0.001548088    0.9198655
-#&gt;   mblrr_intercept_pt mblrr_cor_pt   polyarea peaks_min_max_ratio
-#&gt; 1           1.008902            0 -0.1559269          0.02573190
-#&gt; 2           1.001047            0 -0.1684371          0.03253091
+<span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt;    |                                                  | 0 % ~calculating     |+++++++++++++++++++++++++                         | 50% ~01s             |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 02s</div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2      eff   sliwin    cpDdiff diffQ2_slope diffQ2_Cq_range
+#&gt; 1 F1.1 17.49 15.62 1.819425 1.739444 0.03816327            0      0.09127203
+#&gt; 2 F1.2 17.39 15.59 1.782711 1.737737 0.03673469            0      0.09277801
+#&gt;         top      f.top       tdp     f.tdp bg.stop_norm amp.stop_norm   b_slope
+#&gt; 1 0.2040816 0.01391000 0.5510204 0.9712161    0.1836735     0.6122449 -12.73839
+#&gt; 2 0.2040816 0.01330955 0.5714286 0.9853867    0.1836735     0.5510204 -13.90384
+#&gt;   f_intercept convInfo_iteratons qPCRmodel qPCRmodel_reverse       minRFU
+#&gt; 1   0.9283718                  8        l7                l7 -0.004237230
+#&gt; 2   0.7622996                  8        l7                l7 -0.003998994
+#&gt;   maxRFU        init2      fluo    slope_bg intercept_bg     sd_bg
+#&gt; 1      1 1.700487e-05 0.1953197 0.001581130 -0.006475498 0.4229451
+#&gt; 2      1 2.631616e-05 0.2160592 0.001655031 -0.006660901 0.4395818
+#&gt;   head_to_tail_ratio mblrr_slope_pt mblrr_intercept_bg mblrr_slope_bg
+#&gt; 1      -0.0007122453  -0.0003719424       -0.006442819    0.001572672
+#&gt; 2      -0.0009850845  -0.0002171012       -0.006274295    0.001548088
+#&gt;   mblrr_cor_bg mblrr_intercept_pt mblrr_cor_pt   polyarea peaks_min_max_ratio
+#&gt; 1    0.9323391           1.008902            0 -0.1559269          0.02573190
+#&gt; 2    0.9198655           1.001047            0 -0.1684371          0.03253091
 #&gt;   autocorellation changepoint_e.agglo changepoint_bcp amptester_shapiro
 #&gt; 1       0.5814756                   2              11             FALSE
 #&gt; 2       0.5478919                   2              13             FALSE

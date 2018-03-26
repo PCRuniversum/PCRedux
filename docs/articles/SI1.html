@@ -82,7 +82,7 @@
       <h1>Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</h1>
                         <h4 class="author">The PCRedux package authors</h4>
             
-            <h4 class="date">2018-03-24</h4>
+            <h4 class="date">2018-03-26</h4>
       
       <small>Source: <a href="https://github.com/devSJR/PCRedux/blob/master/vignettes/SI1.Rmd"><code>vignettes/SI1.Rmd</code></a></small>
 
@@ -97,7 +97,7 @@
 <a href="#abstract" class="anchor"></a>Abstract</h1>
 <p>abstract: | This is a supplemental document for the study <em>Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</em>. Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics <span class="citation">(Dvinge and Bertone 2009, <span class="citation">Martins et al. (2015)</span>, <span class="citation">Sauer, Reinke, and Courts (2016)</span>)</span>.</p>
 <p>Numerous algorithms have been developed to extract features from amplification curves such as the cylce of quantification and the amplification efficiency <span class="citation">(Ruijter et al. 2013)</span>. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance <span class="citation">(Kemperman and McCall 2017)</span>. But at an earlier level it is important to have a solid foundation for the data preprocessing <span class="citation">(A.-N. Spiess et al. 2015, <span class="citation">A.-N. Spiess et al. (2016)</span>, <span class="citation">Ronde et al. (2017)</span>)</span>. Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.</p>
-<p>The aim of the study is to provide software tools and algorithms, which assist qPCR users during the analysis of their data. In particular, this study shows how it is possible to automatically detect hook effects (see <span class="citation">Barratt and Mackay (2002)</span>) or hook effect-like curvatures.</p>
+<p>The aim of the study is to provide software tools and algorithms, which assist qPCR users during the analysis and quality management of their data. In particular, this study shows how it is possible to automatically detect hook effects (see <span class="citation">Barratt and Mackay (2002)</span>) or hook effect-like curvatures.</p>
 </div>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
@@ -218,7 +218,7 @@ res_hookreg_table &lt;-<span class="st"> </span><span class="kw">data.frame</spa
              <span class="dt">caption =</span> <span class="st">"Results from the hookreg() function for the hookreg.rdml </span>
 <span class="st">             data set."</span>, 
              <span class="dt">label=</span><span class="st">'res_hookreg_table'</span>),
-      <span class="dt">size =</span> <span class="st">"normalsize"</span>,
+      <span class="dt">size =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">tiny"</span>,
       <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
       <span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,
       <span class="dt">caption.placement =</span> <span class="st">"top"</span>,
@@ -268,7 +268,7 @@ res_hookregNL_table &lt;-<span class="st"> </span><span class="kw">data.frame</s
              <span class="dt">caption =</span> <span class="st">"Results from the hookregNL() function for the </span>
 <span class="st">             hookreg.rdml data set."</span>, 
              <span class="dt">label=</span><span class="st">'res_hookregNL_table'</span>),
-      <span class="dt">size =</span> <span class="st">"normalsize"</span>,
+      <span class="dt">size =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">tiny"</span>,
       <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,
       <span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,
       <span class="dt">caption.placement =</span> <span class="st">"top"</span>,
