@@ -825,7 +825,7 @@ res <- rbind(A01 = res_1, A02 = res_2, A04 = res_3, B04 = res_4)
 
 Finally, the data can be visualized with the ``visdat_pcrfit()`` function. In this example the static plot is shown (\autoref{visdat_pcrfit_plot}). It is also possible to run the function interactively by setting the parameter `interactive=TRUE`. In this case starts an interactive, browser-based charting library that uses ECMA Script. The interactive plot are rendered entirely locally, through a HTML widgets framework
 
-```{r, echo=TRUE, fig.cap="\\label{visdat_pcrfit_plot}Application of ``visdat_pcrfit()`` for the visualization of the data structure after an analysis by ``pcrfit_single()``. The amplification curves (A01 = 1, A02 = 2, A04 = 3, B04 = 4) from the `C126EG685` dataset were analyzed with the ``pcrfit_single()`` function and then visualized with the ``visdat_pcrfit()`` function. For each observation, the classes (factor, integer, logical, numeric, NA) are presented. For the observations 1, 2 and 3, the parameter `loglin_slope` could not be calculated, therefore NAs were returned.", fig.height=8}
+```{r, echo=TRUE, fig.cap="\\label{visdat_pcrfit_plot}Application of ``visdat_pcrfit()`` for the visualization of the data structure after an analysis by ``pcrfit_single()``. The amplification curves (A01 = 1, A02 = 2, A04 = 3, B04 = 4) from the `C126EG685` dataset were analyzed with the ``pcrfit_single()`` function and then visualized with the ``visdat_pcrfit()`` function. For each observation, the classes (factor, integer, logical, numeric, NA) are presented. For the observation 2 the parameter `loglin_slope` could not be calculated, therefore NA was returned.", fig.height=8}
 # Show all results in a plot. Not that the interactive parameter is set to
 # FALSE.
 
@@ -1217,7 +1217,7 @@ f(x) = c + k1 \cdot x + k2 \cdot x^2 + \frac{d - c}{(1 + exp(b(log(x) - log(e)))
 The ``pcrfit_single()`` function starts by adjusting a seven-parameter model. As a matter of fact, models with many parameters adapt adapt *easier* to an dataset. From that model, the ``pcrfit_single()`` function outputs the variables `b_slope` and `f_intercept`, which describe the increase and the intercept. The number of iterations required to adapt the model is also stored. That value is returned by the ``pcrfit_single()`` function as `convInfo_iteratons`. The higher the `convInfo_iteratons` value, the more iterations were necessary to converge from the start parameters (\autoref{plot_dat_EffTop}D). Hence, a low `convInfo_iteratons` value implies a sigmoid curve and a high number of iterations implies a noisy or non-sigmoid curve. 
 
 
-```{r, echo=FALSE, fig.cap="\\label{plot_models}Distribution of models of amplification curves. The `competimer`, `dil4reps94`, `guescini1`, `HCU32_aggR`, `karlen1`, `lc96_bACTXY`, `lievens1`, `RAS002`, `RAS003`, `reps384`, `rutledge`, `stepone_std`, `testdat`, `vermeulen1`, `VIMCFX96_60` datasets were analyzed with the ``encu()`` function. For each amplification curve, the optimal model was selected on the basis of the Akaike information criterion. A) Model functions of the raw amplification curve. B) Model functions of the rotated and flipped (R&F) amplification curves. lNA, no model fitted. l4 \\ldots l7, model with four to seven parameters.", fig.height=3.5}
+```{r, echo=FALSE, fig.cap="\\label{plot_models}Distribution of models of amplification curves. The `competimer`, `dil4reps94`, `guescini1`, `HCU32_aggR`, `karlen1`, `lc96_bACTXY`, `lievens1`, `RAS002`, `RAS003`, `reps384`, `rutledge`, `stepone_std`, `testdat`, `vermeulen1`, `VIMCFX96_60` datasets were analyzed with the ``encu()`` function. For each amplification curve, the optimal model was selected on the basis of the Akaike information criterion. A) Model functions of the raw amplification curve. B) Model functions of the rotated and flipped amplification curves. lNA, no model fitted. l4 \\ldots l7, model with four to seven parameters.", fig.height=3.5}
 options(warn = -1)
 library(PCRedux)
 
@@ -1243,7 +1243,7 @@ mtext("A    Normal", cex = 1.2, side = 3, adj = 0, font = 2)
 
 barplot(res_rv / sum(res_rv) * 100, beside = TRUE, col = colors, xlab = "Model", ylab = "Percentage")
 legend("top", legend = c("Negative", "Positive"), fill = colors, bty = "n")
-mtext("B    R&F", cex = 1.2, side = 3, adj = 0, font = 2)
+mtext("B    Rotated and Flipped", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 
@@ -1301,7 +1301,6 @@ Further features from the ``pcrfit_single()`` function are:
 - `eff` is the optimized PCR efficiency found within a sliding window. A linear model of cycles versus log(Fluorescence) is fit within a sliding window (for details see ``sliwin()`` function from the \texttt{qpcR} package). The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}A demonstrates that the classes are significantly different from each other.
 - `sliwin` is the PCR efficiency by the 'window-of-linearity' method [@spiess_highly_2008].
 - `cpDdiff` is the is the absolute value of the difference between the Cq values calculated from the first and the second derivative maximum ($cpDdiff = |cpD1 - cpD2|$) from the fitted model. Provided that a model can be exactly fitted, the estimates of the difference are reliable. Higher `cpDdiff` values indicate a negative amplification reaction or a very low amplification efficiency. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}C demonstrates that the classes are significantly different from each other. In the event that the `cpDdiff` value cannot be determined (NA), it is replaced by zero.
-- `loglin_slope`
 - `cpD2_range` is the is the absolute value of the difference between the minimum and the maximum of the second derivative maximum ($cpD2_range = |\min cpD2 - \max cpD2|$) from the ``diffQ2()`` function (no model fitted) [@roediger2015chippcr]. The `cpD2_range` value does not require an adjustment of a multiparametric model. The approximate first and second derivatives are determined using a five-point stencil [@roediger2015chippcr]. To take different numbers of PCR cycles into account, the `cpD2_range` value is normalized to the total number of cycles. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}E shows that the classes differ significantly from each other. In the event that the `cpD2_range` value cannot be determined (NA), it is replaced by zero.
 - `bg.stop_norm` is the end of the ground phase estimated by the ``bg.max()`` function [@roediger2015chippcr].
 - `amp.stop_norm` is the end of the exponential phase estimated by the ``bg.max()`` function [@roediger2015chippcr].
@@ -1352,10 +1351,10 @@ for(i in 1L:length(feature)) {
 In \autoref{amplification_curve_ROI} it was postulated that an amplification curve can be divided into different regions. One assumption is that the slope and intercept of positive amplification curves are markedly different in head (ground phase) and tail (plateau phase). The intercept in the head should be lower than in the tail. In a negative amplification curve, the intercept should be nearly identical. The slope in the tail should also provide some indication to determine whether the amplification reaction is completed. In order to quantify these values, a linear regression model can be used in these ROIs.
 
 
-An example is given for the internal parameter ``loglin_slope`` which is calculated from the slope determined by a linear model of the data points from the minimum and maximum of the second derivative. The coordinates of the minimum and the maximum were determined as described in @roediger_RJ_2013. In the following example, the data 
+An example is given for the internal parameter `loglin_slope` which is calculated from the slope determined by a linear model of the data points from the fluorescence at the minimum and maximum of the second derivative. The coordinates of the minimum and the maximum were determined as described in @roediger_RJ_2013. This feature uses the exponential phase as ROI. Provided that the locations of the minimum of the second derivative and the maximum of the second derivative yield a *suitable* interval. As a precaution, the algorithm checks, for example, whether the distance between the minimum of the second derivative and the maximum of the second derivative is not more than nine PCR cycles. Failing this, the `loglin_slope` value is set to zero (no slope). In the following example, the data \autoref{loglin_slope}.
 
 
-```{r, eval=FALSE, echo=FALSE, fig.cap="\\label{loglin_slope}Analysis of the amplification curve via diffQ2()."}
+```{r, eval=TRUE, echo=TRUE, fig.cap="\\label{loglin_slope}The `loglin_slope` feature uses the exponential phase as ROI. Analysis of the amplification curve via diffQ2()."}
 # Load example data (observation F6.1) from the testdat dataset
 options(warn = -1)
 library(magrittr)
