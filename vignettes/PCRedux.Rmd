@@ -825,7 +825,7 @@ res <- rbind(A01 = res_1, A02 = res_2, A04 = res_3, B04 = res_4)
 
 Finally, the data can be visualized with the ``visdat_pcrfit()`` function. In this example the static plot is shown (\autoref{visdat_pcrfit_plot}). It is also possible to run the function interactively by setting the parameter `interactive=TRUE`. In this case starts an interactive, browser-based charting library that uses ECMA Script. The interactive plot are rendered entirely locally, through a HTML widgets framework
 
-```{r, echo=TRUE, fig.cap="\\label{visdat_pcrfit_plot}Application of ``visdat_pcrfit()`` for the visualization of the data structure after an analysis by ``pcrfit_single()``. The amplification curves (A01 = 1, A02 = 2, A04 = 3, B04 = 4) from the `C126EG685` dataset were analyzed with the ``pcrfit_single()`` function and then visualized with the ``visdat_pcrfit()`` function. For each observation, the classes (factor, integer, logical, numeric, NA) are presented. For the observations 1, 2 and 3, the parameter `diffQ2_slope` could not be calculated, therefore NAs were returned.", fig.height=8}
+```{r, echo=TRUE, fig.cap="\\label{visdat_pcrfit_plot}Application of ``visdat_pcrfit()`` for the visualization of the data structure after an analysis by ``pcrfit_single()``. The amplification curves (A01 = 1, A02 = 2, A04 = 3, B04 = 4) from the `C126EG685` dataset were analyzed with the ``pcrfit_single()`` function and then visualized with the ``visdat_pcrfit()`` function. For each observation, the classes (factor, integer, logical, numeric, NA) are presented. For the observations 1, 2 and 3, the parameter `loglin_slope` could not be calculated, therefore NAs were returned.", fig.height=8}
 # Show all results in a plot. Not that the interactive parameter is set to
 # FALSE.
 
@@ -1228,7 +1228,7 @@ res_fw <- rbind(n = table(y[x == "n"]),
                 y = table(y[x == "y"])
 )
 
-y <- factor(data_sample[["qPCRmodel_reverse"]], levels = c("lNA", "l4", "l5", "l6", "l7"))
+y <- factor(data_sample[["qPCRmodelRF"]], levels = c("lNA", "l4", "l5", "l6", "l7"))
 
 res_rv <- rbind(n = table(y[x == "n"]),
                 y = table(y[x == "y"])
@@ -1301,8 +1301,8 @@ Further features from the ``pcrfit_single()`` function are:
 - `eff` is the optimized PCR efficiency found within a sliding window. A linear model of cycles versus log(Fluorescence) is fit within a sliding window (for details see ``sliwin()`` function from the \texttt{qpcR} package). The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}A demonstrates that the classes are significantly different from each other.
 - `sliwin` is the PCR efficiency by the 'window-of-linearity' method [@spiess_highly_2008].
 - `cpDdiff` is the is the absolute value of the difference between the Cq values calculated from the first and the second derivative maximum ($cpDdiff = |cpD1 - cpD2|$) from the fitted model. Provided that a model can be exactly fitted, the estimates of the difference are reliable. Higher `cpDdiff` values indicate a negative amplification reaction or a very low amplification efficiency. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}C demonstrates that the classes are significantly different from each other. In the event that the `cpDdiff` value cannot be determined (NA), it is replaced by zero.
-- `diffQ2_slope`
-- `diffQ2_Cq_range` is the is the absolute value of the difference between the Cq values calculated from the first and the second derivative maximum ($diffQ2_Cq_range = |cpD1 - cpD2|$) from the ``diffQ2()`` function (no model fitted) [@roediger2015chippcr]. The `diffQ2_Cq_range` value does not require an adjustment of a multiparametric model. The approximate first and second derivatives are determined using a five-point stencil [@roediger2015chippcr]. To take different numbers of PCR cycles into account, the `diffQ2_Cq_range` value is normalized to the total number of cycles. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}E shows that the classes differ significantly from each other. In the event that the `diffQ2_Cq_range` value cannot be determined (NA), it is replaced by zero.
+- `loglin_slope`
+- `cpD2_range` is the is the absolute value of the difference between the minimum and the maximum of the second derivative maximum ($cpD2_range = |\min cpD2 - \max cpD2|$) from the ``diffQ2()`` function (no model fitted) [@roediger2015chippcr]. The `cpD2_range` value does not require an adjustment of a multiparametric model. The approximate first and second derivatives are determined using a five-point stencil [@roediger2015chippcr]. To take different numbers of PCR cycles into account, the `cpD2_range` value is normalized to the total number of cycles. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}E shows that the classes differ significantly from each other. In the event that the `cpD2_range` value cannot be determined (NA), it is replaced by zero.
 - `bg.stop_norm` is the end of the ground phase estimated by the ``bg.max()`` function [@roediger2015chippcr].
 - `amp.stop_norm` is the end of the exponential phase estimated by the ``bg.max()`` function [@roediger2015chippcr].
 
@@ -1316,7 +1316,7 @@ library(PCRedux)
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
 feature <- c("eff", "sliwin", 
-             "cpDdiff", "diffQ2_slope", "diffQ2_Cq_range", "top", 
+             "cpDdiff", "loglin_slope", "cpD2_range", "top", 
              "f.top", "tdp", "f.tdp", "bg.stop_norm", 
              "amp.stop_norm", "convInfo_iteratons")
 
@@ -1352,10 +1352,10 @@ for(i in 1L:length(feature)) {
 In \autoref{amplification_curve_ROI} it was postulated that an amplification curve can be divided into different regions. One assumption is that the slope and intercept of positive amplification curves are markedly different in head (ground phase) and tail (plateau phase). The intercept in the head should be lower than in the tail. In a negative amplification curve, the intercept should be nearly identical. The slope in the tail should also provide some indication to determine whether the amplification reaction is completed. In order to quantify these values, a linear regression model can be used in these ROIs.
 
 
-An example is given for the internal parameter ``diffQ2_slope`` which is calculated from the slope determined by a linear model of the data points from the minimum and maximum of the second derivative. The coordinates of the minimum and the maximum were determined as described in @roediger_RJ_2013. In the following example, the data 
+An example is given for the internal parameter ``loglin_slope`` which is calculated from the slope determined by a linear model of the data points from the minimum and maximum of the second derivative. The coordinates of the minimum and the maximum were determined as described in @roediger_RJ_2013. In the following example, the data 
 
 
-```{r, eval=FALSE, echo=FALSE, fig.cap="\\label{diffQ2_slope}Analysis of the amplification curve via diffQ2()."}
+```{r, eval=FALSE, echo=FALSE, fig.cap="\\label{loglin_slope}Analysis of the amplification curve via diffQ2()."}
 # Load example data (observation F6.1) from the testdat dataset
 options(warn = -1)
 library(magrittr)
@@ -1474,16 +1474,16 @@ for(i in 1L:length(devices)) {
 }
 ```
 
+.
 
-
-```{r, echo=FALSE, fig.cap="\\label{plot_bg_pt}Fill me up soon.", fig.height=11, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{plot_bg_pt}A) b_slope, B) f\\_intercept, C) minRFU, D) maxRFU, E) init2, F) fluo, G) slope\\_bg, H) intercept\\_bg, I) sd\\_bg, J) head2tail_ratio.", fig.height=11, fig.width=11}
 library(PCRedux)
 
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
 feature <- c("b_slope", "f_intercept", "minRFU", "maxRFU", 
              "init2", "fluo", "slope_bg", "intercept_bg", 
-             "sd_bg", "head_to_tail_ratio")
+             "sd_bg", "head2tail_ratio")
 
 par(mfrow = c(3,4))
 
@@ -1776,8 +1776,6 @@ abline(h = 0.8, col = "black", lty = 2)
 
 
 #### ``autocorrelation_test()`` - A Function to Detect Positive Amplification Curves \label{section_autocorrelation_test}
-
-- ``autocorrelation_test()`` [\texttt{PCRedux}]: Test for an autocorrelation of amplification curve data from a quantitative PCR experiment. See \autoref{section_autocorrelation_test}. 
 
 Autocorrelation analysis is a technique that is used in the field of time series analysis. It can be used to reveal regularly occurring patterns in one-dimensional data [@spiess_system-specific_2016]. The autocorrelation measures the correlation of a signal $f(t)$ with itself shifted by some time delay $f(t - \tau)$.
 
@@ -2295,7 +2293,7 @@ library(PCRedux)
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
 
 feature <- c(
-    "polyarea", "peaks_min_max_ratio", "changepoint_e.agglo", "changepoint_bcp", 
+    "polyarea", "peaks_ratio", "changepoint_e.agglo", "changepoint_bcp", 
   "amptester_polygon", "amptester_slope.ratio")
 
 par(mfrow = c(2,3))

@@ -65,7 +65,7 @@
 #'   "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "bg.stop_norm" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "amp.stop_norm" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-#'   "head_to_tail_ratio" \tab \tab numeric \cr
+#'   "head2tail_ratio" \tab \tab numeric \cr
 #'   "autocorellation" \tab  \tab numeric \cr
 #'   "mblrr_intercept_bg" \tab  \tab numeric \cr
 #'   "mblrr_slope_bg" \tab \tab numeric \cr
@@ -76,9 +76,9 @@
 #'   "amp_cor_MIC" \tab \tab numeric \cr
 #'   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
 #'   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
-#'   "peaks_min_max_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
-#'   "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
-#'   "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+#'   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+#'   "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
+#'   "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
 #'   "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
 #' }
 #' @details Details can be found in the vignette.
@@ -141,7 +141,7 @@ pcrfit_single <- function(x) {
   }
 
   # Determine the head to tail ratio
-  res_head_tail_ratio <- PCRedux::head2tailratio(x)
+  res_head2tail_ratio <- PCRedux::head2tailratio(x)
 
   # Determine the slope from the cycles 2 to 11
   res_lm_fit <- PCRedux::earlyreg(x = cycles, x)
@@ -160,7 +160,6 @@ pcrfit_single <- function(x) {
   }
 
   # Calculate change points
-  res_changepoint_e.agglo <- try(length(ecp::e.agglo(as.matrix(x))$estimates), silent = TRUE)
   res_changepoint_e.agglo <- try(length(ecp::e.agglo(as.matrix(res_diffQ[["d(F) / dT"]]))$estimates), silent = TRUE)
   if (class(res_changepoint_e.agglo) == "try-error") {
     res_changepoint_e.agglo <- length_cycle
@@ -184,23 +183,25 @@ pcrfit_single <- function(x) {
   # Estimate the spread of the approximate local minima and maxima of the curve data
 
   res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
-  peaks_min_max_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
-  if (is.infinite(peaks_min_max_ratio)) {
-    peaks_min_max_ratio <- NA
+  peaks_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
+  if (is.infinite(peaks_ratio)) {
+    peaks_ratio <- 0
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
-  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles, dat_smoothed), verbose = FALSE, fct = min))
-  range_Cq <- diff(res_diffQ2[[3]])
+  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles, dat_smoothed), verbose = FALSE, fct = min, inder = TRUE))
+  # difference between the minimum and the maximum of the approximate second derivative.
+  cpD2_range <- diff(res_diffQ2[[3]])
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {
-    range_Cq
+    cpD2_range
   } else {
-    range_Cq <- 0
+    cpD2_range <- 0
   }
-  if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && range_Cq > 1 && range_Cq < 9) {
-    res_diffQ2_slope <- coefficients(lm(unlist(c(res_diffQ2[[4]])) ~ unlist(c(res_diffQ2[[3]]))))[2]
+  if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && cpD2_range > 1 && cpD2_range < 9) {
+    ROI <- round(res_diffQ2[[3]])
+    res_loglin_slope <- coefficients(lm(x[ROI] ~ ROI))[["ROI"]]
   } else {
-    res_diffQ2_slope <- 0
+    res_loglin_slope <- 0
   }
 
   # Perform an autocorrelation analysis
@@ -349,8 +350,8 @@ pcrfit_single <- function(x) {
     eff = res_efficiency_tmp[["eff"]],
     sliwin = res_sliwin[[1]],
     cpDdiff = res_cpDdiff,
-    diffQ2_slope = res_diffQ2_slope,
-    diffQ2_Cq_range = range_Cq,
+    loglin_slope = res_loglin_slope,
+    cpD2_range = cpD2_range,
     top = res_takeoff[[1]],
     f.top = res_takeoff[[2]],
     tdp = res_takeoff_reverse[[1]],
@@ -361,7 +362,7 @@ pcrfit_single <- function(x) {
     f_intercept = res_coef[["f"]],
     convInfo_iteratons = res_convInfo_iteratons,
     qPCRmodel = res_fit_model[[1]],
-    qPCRmodel_reverse = res_fit_model_reverse[[1]],
+    qPCRmodelRF = res_fit_model_reverse[[1]],
     # Signal levels
     minRFU = fluo_range[[1]],
     maxRFU = fluo_range[[2]],
@@ -370,7 +371,7 @@ pcrfit_single <- function(x) {
     slope_bg = res_lm_fit[["slope"]],
     intercept_bg = res_lm_fit[["intercept"]],
     sd_bg = sd_bg,
-    head_to_tail_ratio = res_head_tail_ratio,
+    head2tail_ratio = res_head2tail_ratio,
     mblrr_slope_pt = res_mblrr[5],
     mblrr_intercept_bg = res_mblrr[1],
     mblrr_slope_bg = res_mblrr[2],
@@ -379,7 +380,7 @@ pcrfit_single <- function(x) {
     mblrr_cor_pt = res_mblrr[6],
     # Areas
     polyarea = res_polyarea,
-    peaks_min_max_ratio = peaks_min_max_ratio,
+    peaks_ratio = peaks_ratio,
     autocorellation = res_autocorrelation,
     # Change points
     changepoint_e.agglo = res_changepoint_e.agglo,

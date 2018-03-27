@@ -44,7 +44,7 @@ Output Description
   "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "bg.stop_norm" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "amp.stop_norm" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "head_to_tail_ratio" \tab \tab numeric \cr
+  "head2tail_ratio" \tab \tab numeric \cr
   "autocorellation" \tab  \tab numeric \cr
   "mblrr_intercept_bg" \tab  \tab numeric \cr
   "mblrr_slope_bg" \tab \tab numeric \cr
@@ -55,9 +55,9 @@ Output Description
   "amp_cor_MIC" \tab \tab numeric \cr
   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
-  "peaks_min_max_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
-  "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
-  "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+  "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+  "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
+  "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
   "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
 }
 }

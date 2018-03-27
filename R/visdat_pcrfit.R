@@ -53,11 +53,11 @@ visdat_pcrfit <- function(data, type="all", interactive=TRUE) {
     "qPCRmodel", "amptester_shapiro", "amptester_lrt", "amptester_rgt",
     "amptester_tht", "amptester_slt", "amptester_polygon",
     "amptester_slope.ratio", "minRFU", "maxRFU",
-    "bg.stop_norm", "amp.stop_norm", "head_to_tail_ratio",
+    "bg.stop_norm", "amp.stop_norm", "head2tail_ratio",
     "autocorellation", "mblrr_intercept_bg", "mblrr_slope_bg",
     "mblrr_cor_bg", "mblrr_intercept_pt", "mblrr_slope_pt",
-    "mblrr_cor_pt", "hookreg_hook", "peaks_min_max_ratio",
-    "diffQ2_slope", "diffQ2_Cq_range"
+    "mblrr_cor_pt", "hookreg_hook", "peaks_ratio",
+    "loglin_slope", "cpD2_range"
   )
 
 
@@ -72,11 +72,11 @@ visdat_pcrfit <- function(data, type="all", interactive=TRUE) {
     "intercept_bg", "amptester_shapiro", "amptester_lrt", "amptester_rgt",
     "amptester_tht", "amptester_slt", "amptester_polygon",
     "amptester_slope.ratio", "minRFU", "maxRFU",
-    "bg.stop_norm", "amp.stop_norm", "head_to_tail_ratio",
+    "bg.stop_norm", "amp.stop_norm", "head2tail_ratio",
     "mblrr_intercept_bg", "mblrr_slope_bg",
     "mblrr_cor_bg", "mblrr_intercept_pt", "mblrr_slope_pt",
-    "mblrr_cor_pt", "hookreg_hook", "peaks_min_max_ratio",
-    "diffQ2_slope", "diffQ2_Cq_range"
+    "mblrr_cor_pt", "hookreg_hook", "peaks_ratio",
+    "loglin_slope", "cpD2_range"
   )
 
 
