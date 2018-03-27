@@ -5,7 +5,7 @@
 \title{A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment.}
 \usage{
-earlyreg(x, y, range = 10, normalize = FALSE)
+earlyreg(x, y, range = 5, normalize = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -38,7 +38,7 @@ data(C316.amp)
 # Plot the data
 plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
      main="C316.amp data set", lty=1, type="l")
-res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=10)
+res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=5)
 res
 }
 \seealso{

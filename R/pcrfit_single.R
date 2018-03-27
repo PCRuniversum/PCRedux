@@ -192,20 +192,22 @@ pcrfit_single <- function(x) {
   res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles, dat_smoothed), verbose = FALSE, fct = min, inder = TRUE))
   # difference between the minimum and the maximum of the approximate second derivative.
   cpD2_range <- diff(res_diffQ2[[3]])
+  if(cpD2_range > 200) cpD2_range <- length_cycle
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2]) {
     cpD2_range
   } else {
-    cpD2_range <- 0
+    cpD2_range <- length_cycle
   }
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && cpD2_range > 1 && cpD2_range < 9) {
-    ROI <- round(res_diffQ2[[3]])
-    res_loglin_slope <- coefficients(lm(x[ROI] ~ ROI))[["ROI"]]
+    ROI <- round(c(res_diffQ2[[1]], res_diffQ2[[3]]))
+    res_loglin_slope <- try(coefficients(lm(x[ROI] ~ ROI))[["ROI"]], silent = FALSE)
   } else {
     res_loglin_slope <- 0
   }
 
   # Perform an autocorrelation analysis
   res_autocorrelation <- PCRedux::autocorrelation_test(y = x)
+  if(res_autocorrelation == "n.s." || is.na(res_autocorrelation)) res_autocorrelation <- 0
 
   # Fit sigmoidal models to curve data
 

@@ -31,11 +31,11 @@
 #' # Plot the data
 #' plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
 #'      main="C316.amp data set", lty=1, type="l")
-#' res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=10)
+#' res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=5)
 #' res
 #' @export earlyreg
 
-earlyreg <- function(x, y, range = 10, normalize = FALSE) {
+earlyreg <- function(x, y, range = 5, normalize = FALSE) {
   data <- na.omit(cbind(x = x, y = y))
 
   x <- data[, "x"]

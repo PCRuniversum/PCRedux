@@ -358,30 +358,39 @@ In all cases the Cq value can be used to calculate the concentration of target s
 options(warn = -1)
 library(PCRedux)
 
-curve_colors <- c(rainbow(ncol(RAS002) - 1, alpha = .5))
+index <- which(grepl("B.Globin", colnames(RAS002)))
+
+data <- RAS002[, c(1, index)]
+
+y_lim <- range(data[, -1])
+
+curve_colors <- c(rainbow(ncol(data) - 1, alpha = .5))
+
+upper_limit <- 15
+
+cycles <- 2:upper_limit
 
 par(mfrow = c(2, 2))
 
-matplot(RAS002[, 1], RAS002[, which(RAS002_decisions == "n") + 1], type = "l", 
-        col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1)
+matplot(data[, 1], data[, which(RAS002_decisions[index - 1] == "n") + 1], type = "l", 
+        col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1, ylim = y_lim)
 mtext("A    Negative", cex = 1.2, side = 3, adj = 0, font = 2)
-abline(v = 15)
+abline(v = upper_limit)
 
-matplot(RAS002[, 1], RAS002[, which(RAS002_decisions == "y") + 1], type = "l", 
-        col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1)
+matplot(data[, 1], data[, which(RAS002_decisions[index - 1] == "y") + 1], type = "l", 
+        col = curve_colors, xlab = "Cycle", ylab = "RFU", lty = 1, ylim = y_lim)
 mtext("B    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
-abline(v = 15)
+abline(v = upper_limit)
 
-cycles <- 1:15
 
-rfu_neg <- unlist(RAS002[cycles, which(RAS002_decisions == "n") + 1])
-plot(density(rfu_neg), main = "")
+rfu_neg <- unlist(data[cycles, which(RAS002_decisions[index - 1] == "n") + 1])
+plot(density(rfu_neg, width = 100), main = "", xlim = c(2300, 2950))
 rug(rfu_neg)
 mtext("C    Negative", cex = 1.2, side = 3, adj = 0, font = 2)
 
 
-rfu_pos <- unlist(RAS002[cycles, which(RAS002_decisions == "y") + 1])
-plot(density(rfu_pos), main = "")
+rfu_pos <- unlist(data[cycles, which(RAS002_decisions[index - 1] == "y") + 1])
+plot(density(rfu_pos, width = 100), main = "", xlim = c(2300, 2950))
 rug(rfu_pos)
 mtext("D    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
@@ -1094,7 +1103,7 @@ library(chipPCR)
 # Select one positive and one negative amplification curve from the PCRedux 
 # package.
 
-amp_data <- RAS002[, c("cyc", "A01_gDNA.._unkn_B.Globin", "B07_gDNA.._unkn_HPRT1")]
+amp_data <- RAS002[, c("cyc", "A01_gDNA.._unkn_B.Globin", "H10_ntc_ntc_B.Globin")]
 
 # Arrange graphs in an matrix and set the plot parameters. An plot the positive
 # and negative amplification curve.
@@ -1254,7 +1263,7 @@ mtext("B    Rotated and Flipped", cex = 1.2, side = 3, adj = 0, font = 2)
 In the literature, statistical methods are described which can be used to describe quantitatively the product formation in a qPCR [@roediger2015chippcr, @ruijter_evaluation_2013]. As illustrated in  \autoref{figure_quntifcation_points} are these the Ct value, the the first derivative maximum (`cpD1`) and the second derivative maximum (`cpD2`). The ``pcrfit_single()`` function  calculates the `cpD1` and `cpD2` (\autoref{plot_dat_Cq}). Both quantification points are not directly useful to distinguish between a positive and negative amplification curve. However, low `cpD1` and `cpD2` values (< 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high. The Ct value is not calculate for the reasons discussed in \autoref{section_software}. No further information shall be provided about these typical procedures.
 
 
-```{r, echo=FALSE, fig.cap="\\label{plot_dat_Cq}Distribution of Cq values of positive and negative amplification curves. All Cq values were determined from the maximum of the first derivative (cpD1) (A) and the minimum of the second derivative (cpD2) (B) from a multiparametric model. Positive amplification curves heaped up in the range between 10 and 35 PCR cycles. This differs from the distribution of negative amplification curves.", fig.height=5}
+```{r, echo=FALSE, fig.cap="\\label{plot_dat_Cq}Distribution of Cq values of positive and negative amplification curves. All Cq values were determined from the maximum of the first derivative (cpD1) (A) and the minimum of the second derivative (cpD2) (B) from a multi-parametric model. Positive amplification curves heaped up in the range between 10 and 35 PCR cycles. This differs from the distribution of negative amplification curves.", fig.height=5}
 library(PCRedux)
 
 data <- data_sample
@@ -1306,10 +1315,10 @@ Further features from the ``pcrfit_single()`` function are:
 - `amp.stop_norm` is the end of the exponential phase estimated by the ``bg.max()`` function [@roediger2015chippcr].
 
 Another method is the *takeoff point* (`top`) according to @tichopad_standardized_2003. The `top` is calculated using externally studentized residuals, which tested to be an outlier in terms of the t-distribution. The `top` signifies to first PCR cycle entering the exponential phase. The *takedown point* (`tdp`) is an implementation in the ``pcrfit_single()`` function, which uses the rotated $f(x) \mapsto f_{1}(f(x))$ and flipped $g(x) = -(x)$ amplification curve for calculation \autoref{amplification_curve_ROI}A describes the location of `top` and `tdp` exemplarily. The position (`f.top`, `f.tdp`) on the ordinate is also determined from these points. If an amplification curve is negative or neither `top` nor `tdp` can be calculated, then `top` & `tdp` will be assigned the number of cycles and `f.top` & `f.tdp` the value 1.
-# The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat_EffTop}I-L. This figure shows that a `top` value and a `tdp` value enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values (\autoref{plot_dat_EffTop}J). The same applies inversely to the `tdp` values (\autoref{plot_dat_EffTop}L). In this way, amplification curves can be classified according to these values.
+The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat_EffTop}I-L. This figure shows that a `top` value and a `tdp` value enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values (\autoref{plot_dat_EffTop}J). The same applies inversely to the `tdp` values (\autoref{plot_dat_EffTop}L). In this way, amplification curves can be classified according to these values.
 
 
-```{r, echo=FALSE, fig.cap="\\label{plot_dat_EffTop}Some text", fig.height=11, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{plot_dat_EffTop}A) `eff`, B) `sliwin`, C) `cpDdiff`, D) `loglin_slope`, E) `cpD2_range`, F) `top`, G) `f.top`, H) `tdp`, I) `f.tdp`, J) `bg.stop_norm`, K) `amp.stop_norm`, L) `convInfo_iteratons`", fig.height=11, fig.width=11}
 library(PCRedux)
 
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
@@ -1354,7 +1363,7 @@ In \autoref{amplification_curve_ROI} it was postulated that an amplification cur
 An example is given for the internal parameter `loglin_slope` which is calculated from the slope determined by a linear model of the data points from the fluorescence at the minimum and maximum of the second derivative. The coordinates of the minimum and the maximum were determined as described in @roediger_RJ_2013. This feature uses the exponential phase as ROI. Provided that the locations of the minimum of the second derivative and the maximum of the second derivative yield a *suitable* interval. As a precaution, the algorithm checks, for example, whether the distance between the minimum of the second derivative and the maximum of the second derivative is not more than nine PCR cycles. Failing this, the `loglin_slope` value is set to zero (no slope). In the following example, the data \autoref{loglin_slope}.
 
 
-```{r, eval=TRUE, echo=TRUE, fig.cap="\\label{loglin_slope}The `loglin_slope` feature uses the exponential phase as ROI. Analysis of the amplification curve via diffQ2()."}
+```{r, eval=TRUE, echo=FALSE, fig.cap="\\label{loglin_slope}Concept of the `loglin_slope` feature. The algorithm determines the fluorescence values of the raw data at the approximate positions of the maximum of the first derivative, the minimum of the second derivative and the maximum of the second derivative, which are in the exponential phase of the amplification curve. A linear model is created from these parameter sets and the slope is determined. A) Positive amplification curves have a clearly positive slope. B) Negative amplification curves usually have a low, sometimes negative slope. The data were taken from the `RAS002` dataset.", fig.height=4}
 # Load example data (observation F6.1) from the testdat dataset
 options(warn = -1)
 library(magrittr)
@@ -1363,74 +1372,40 @@ library(magrittr)
 
 library(MBmca)
 
-par(mfrow = c(2, 2))
+par(mfrow = c(1, 2))
 
 cyc <- 1
 
-data <- RAS002[, c("cyc", "A01_gDNA.._unkn_B.Globin", "B07_gDNA.._unkn_HPRT1")]
-
+data <- RAS002[, c("cyc", "A01_gDNA.._unkn_B.Globin", "H10_ntc_ntc_B.Globin")]
+col_names <- colnames(data)
+data <- cbind(data[, 1], data[, 2]/quantile(data[, 2], .99), data[, 3]/quantile(data[, 3], .99))
+colnames(data) <- col_names
 # Calculate the minimum, and the maximum of the second
 # derivative and assign it to the object res_diffQ2
 
-rfu <- 2
-obs <- colnames(data)[rfu]
-data_tmp <- data.frame(cyc = data[, cyc], rfu = data[, rfu])
-res_diffQ2 <- suppressMessages(diffQ2(data_tmp, plot = FALSE, fct = min))
+rfu <- c(2,3)
 
+for (i in rfu){
+obs <- colnames(data)[i]
+data_tmp <- data.frame(cyc = data[, cyc], rfu = data[, i])
+res_diffQ2 <- suppressMessages(diffQ2(data_tmp, plot = FALSE, fct = min, inder = TRUE))
+ROI <- round(c(res_diffQ2[[1]], res_diffQ2[[3]]))
 # Build a linear model from der second derivative of res_diffQ2
-res_diffQ2_lm <- lm(res_diffQ2[["yTm1.2.D2"]] ~ res_diffQ2[["xTm1.2.D2"]])
+res_loglin_lm <- lm(data_tmp[ROI, 2] ~ ROI)
 
 data_tmp %>% plot(
-    ., xlab = "Cycle", ylab = "RFU", main = "", type = "l",
+    ., xlab = "Cycle", ylab = "normalized RFU", main = "", type = "l",
     lty = 1, lwd = 2, col = "black"
 )
-abline(v = res_diffQ2[["xTm1.2.D2"]], col = "grey", lwd = 2)
-mtext(paste("A", obs), side = 3, adj = 0, font = 1)
-
-plot(
-    res_diffQ2[["xTm1.2.D2"]], res_diffQ2[["yTm1.2.D2"]], pch = 19, cex = 1.5,
-        xlab = "Cycle", ylab = "dd(RFU)/d(Cycle)",
-        main = ""
-)
-abline(v = res_diffQ2[["xTm1.2.D2"]], col = "grey", lwd = 2)
-abline(res_diffQ2_lm, col = "blue", lwd = 2)
+abline(res_loglin_lm, col = "red", lwd = 2)
+abline(v = ROI, col = "grey", lwd = 2)
+mtext(paste(LETTERS[i - 1], obs), side = 3, adj = 0, font = 1)
 legend("topleft", paste("Slope: ", signif(
-    coefficients(res_diffQ2_lm)[2],
+    coefficients(res_loglin_lm)["ROI"],
                                             4
 )), bty = "n")
 mtext("", side = 3, adj = 0, font = 2)
-
-
-rfu <- 3
-# Calculate the minimum, and the maximum of the second
-# derivative and assign it to the object res_diffQ2
-
-obs <- colnames(data)[rfu]
-data_tmp <- data.frame(cyc = data[, cyc], rfu = data[, rfu])
-res_diffQ2 <- suppressMessages(diffQ2(data_tmp, plot = FALSE, fct = min))
-
-# Build a linear model from der second derivative of res_diffQ2
-res_diffQ2_lm <- lm(res_diffQ2[["yTm1.2.D2"]] ~ res_diffQ2[["xTm1.2.D2"]])
-
-data_tmp %>% plot(
-    ., xlab = "Cycle", ylab = "RFU", main = "", type = "l",
-    lty = 1, lwd = 2, col = "black"
-)
-abline(v = res_diffQ2[["xTm1.2.D2"]], col = "grey", lwd = 2)
-mtext(paste("B", obs), side = 3, adj = 0, font = 1)
-
-plot(
-    res_diffQ2[["xTm1.2.D2"]], res_diffQ2[["yTm1.2.D2"]], pch = 19, cex = 1.5,
-     xlab = "Cycle", ylab = "dd(RFU)/d(Cycle)",
-     main = ""
-)
-abline(v = res_diffQ2[["xTm1.2.D2"]], col = "grey", lwd = 2)
-abline(res_diffQ2_lm, col = "blue", lwd = 2)
-legend("topright", paste("Slope: ", signif(
-    coefficients(res_diffQ2_lm)[2],
-                                          4
-)), bty = "n")
-mtext("", side = 3, adj = 0, font = 2)
+}
 ```
 
 All manufacturers of thermo-cyclers use different sensors and data processing algorithms in their systems. Hence it can be assumed that the signal variation in the ground phase (\autoref{figure_sigmoid_cuve}F) differs between the different systems. Moreover, users make use of different detection chemistries (e.g., hydrolysis probes, reporter dyes). However, the latter will not be discussed here. For the distinction between negative and positive amplification curves, it should be checked whether a difference can be determined on the basis of the standard deviation of the background fluorescence. 
@@ -1475,7 +1450,7 @@ for(i in 1L:length(devices)) {
 
 .
 
-```{r, echo=FALSE, fig.cap="\\label{plot_bg_pt}A) b_slope, B) f\\_intercept, C) minRFU, D) maxRFU, E) init2, F) fluo, G) slope\\_bg, H) intercept\\_bg, I) sd\\_bg, J) head2tail_ratio.", fig.height=11, fig.width=11}
+```{r, echo=FALSE, fig.cap="\\label{plot_bg_pt}A) `b_slope`, B) `f_intercept`, C) `minRFU`, D) `maxRFU`, E) `init2`, F) `fluo`, G) `slope_bg`, H) `intercept_bg`, I) `sd_bg`, J) `head2tail_ratio`.", fig.height=11, fig.width=11}
 library(PCRedux)
 
 data <- data_sample[data_sample$dataset %in% c("stepone_std", "RAS002", "RAS003", "lc96_bACTXY"), ]
@@ -1514,7 +1489,7 @@ for(i in 1L:length(feature)) {
 
 The aim was to predict, based on the `polyarea` feature, whether an amplification curve is positive or negative. The computation of ``polyarea`` is based on the Gauss polygon area formula. The feature `polyarea` has been selected to show that the area under an amplification curve can be used to distinguish positive and negative amplification curves. The hypothesis is that positive amplification curves have a larger area than negative amplification curves. As shown in \autoref{plot_cp_area}C, there is a statistically significant difference between positive and negative amplification curves. Also shown are the values of another method to calculate the area under an amplification curve. This method is called `amptester_polygon`. `amptester_polygon`\footnote{This feature is determines from the the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a `clockwise` order. The sum over the edges result in a positive value if the amplification curve is `clockwise` and is negative if the curve is `counter-clockwise`.} is part of the ``amptester()`` function from the \texttt{chipPCR} package [@roediger2015chippcr]. In contrast to the implementation in the ``amptester()`` is the `amptester_polygon` value normalized to the total number of cycles. It is expected that this method allows comparable predictions (\autoref{plot_cp_area}Ds). However, this question is not to be dealt with in the following example.
 
-The `batsch1`, `HCU32_aggR`, `stepone_std`, `RAS002`, `RAS003`, `lc96_bACTXY` datasets were used for the calculation of the `polyarea` values for all amplification curves. A binomial logistic regression (aka logit regression or logit model) was used to analyze the relationship between the `polyarea` value and the decision (negative, positive). This dataset contains almost equal proportions of positive and negative amplification curves (\autoref{plot_Logistic_Regression}A). Prior to this, the amplification curves were analyzed with the ``encu()`` function (\autoref{section_pcrfit_single_pcrfit_parallel}) and stored in the `data_sample.rda` file to save computing time. The file is part of the \texttt{PCRedux} package. The dataset was split into two chunks. This is an important step during such applications. One chunk is for adapting, i. e. training, the model and the other chunk for testing the model. Typically, 70% to 80% of the data is used for training [@walsh_correct_2015, @kuhn_building_2008]. The binomial logistic regression model was adapted using the function ``glm()`` by using the parameter `family = binomial (link = 'logit')`. To objectify the splitting, the ``sample()`` function was used.
+The `batsch1`, `HCU32_aggR`, `stepone_std`, `RAS002`, `RAS003`, `lc96_bACTXY` datasets were used for the calculation of the `polyarea` values for all amplification curves. A binomial logistic regression (aka logit regression or logit model) was used to analyze the relationship between the `polyarea` value and the decision (negative, positive). This dataset contains almost equal proportions of positive and negative amplification curves (\autoref{plot_Logistic_Regression}A). Prior to this, the amplification curves were analyzed with the ``encu()`` function (\autoref{section_pcrfit_single_pcrfit_parallel}) and stored in the `data_sample.rda` file to save computing time. The file is part of the \texttt{PCRedux} package. The dataset was split into two chunks. This is an important step during such applications. One chunk is for adapting, i. e. training, the model and the other chunk for testing the model. Typically, 70% to 80% of the data is used for training [@walsh_correct_2015, @kuhn_building_2008]. The binomial logistic regression model was adapted using the function ``glm()`` by using the parameter `family = binomial(link = 'logit')`. To objectify the splitting, the ``sample()`` function was used.
 
 
 ```{r, echo=TRUE}
@@ -1917,65 +1892,54 @@ As shown in this example, the ``autocorrelation_test()`` function is able to dis
 
 \newpage
 
-#### ``earlyreg()`` - A Function to Calculate the Slope and Intercept of Amplification Curve Data from a qPCR Experiment \label{section_earlyreg}
+#### ``earlyreg()`` - A Function to Calculate the Slope and Intercept in the Ground Phase of an Amplification Curve \label{section_earlyreg}
 
 The signal height and the slope in the first amplification curve cycles are helpful information for the analysis of amplification curves. Some qPCR systems calibrate themselves according to the measured values in the first cycles. This is noticeable in the form of strong signal changes which appear spontaneously between the first and second cycle. For another, the signal level can be used to determine which background signal is present and whether the ground phase already has a slope. From the slope it could be deduced whether amplification has already started (see \autoref{section_DataAnalysis}). 
 
 In addition, the function ``earlyreg()`` was developed. This function uses an ordinary least squares linear regression within a limited number of cycles. As ROI, the first 10 cycles were defined. This restriction is based on empirical data suggesting that during the first ten cycles only a significant increase in signal strength can be measured within few qPCRs. However, ``earlyreg()`` does not ignore the first cycle, as many thermo-cyclers use this cycle for sensor calibration. Extreme values are therefore included. As standard, the next nine amplitude values are used for the linear regression. The number of cycles can also be adjusted via the parameter `range`. Since all amplification curves are normalized to the 99%-percentile, there is also a comparability between the background signals and the slopes.
 
-The following example illustrates a possible use of the function ``earlyreg()``. For that purpose amplification curves from the `competimer` dataset were analysed. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. Next, the ``earlyreg()`` function was used to determine the slope and the intercept in the range of the first ten PCR cycles. The results were used in a cluster analysis using k-means clustering  (\autoref{earlyreg_slopes}B). Therefore, the increase seems to be an indicator of differences between the amplification curves. The \autoref{earlyreg_slopes}C shows the first 15 cycles colored according to their cluster. 
+The following example illustrates a possible use of the function ``earlyreg()``. For that purpose amplification curves from the `RAS002` dataset were analysed. In figure \autoref{earlyreg_slopes}A the amplification curves for all cycles are shown. Next, the ``earlyreg()`` function was used to determine the slope and the intercept in the range of the first ten PCR cycles. The results were used in a cluster analysis using k-means clustering  (\autoref{earlyreg_slopes}B). Therefore, the increase seems to be an indicator of differences between the amplification curves. The \autoref{earlyreg_slopes}C shows the first 15 cycles colored according to their cluster. 
 After the cluster analysis this could also be observed (\autoref{earlyreg_slopes}D-F). Hence, it can be postulated that the increase in the background phase is helpful for the classification of amplification curves.
 
 
-```{r, echo = TRUE, fig.cap = "\\label{earlyreg_slopes}Analysis of the ground phase by ordinary least squares regression. A) The amplification curves show different slopes and basel-line levels in the early phase (cycle 1 to 10) of the qPCR. B) Both the slope and the intercept were used for a cluster analysis (k-means, Hartigan-Wong algorithm, \\textit{k = 4}). The amplification curves were separated into four clusters dependent on their slope and intercept (colored in red, green, blue black). Amplification curves (n = 147) from the `competimer` dataset (\\texttt{qpcR} package).", fig.height=4}
+```{r, echo = TRUE, fig.cap = "\\label{earlyreg_slopes}Analysis of the ground phase with the ``earlyreg()`` function. A) The amplification curves show different slopes and intercepts in the early ground phase (ROI: cycle 1 to 5) of the qPCR. Amplification curves (n = 192) from the `RAS002` dataset were used. B) Both the slope and the intercept were used for a cluster analysis (k-means, Hartigan-Wong algorithm, \\textit{k = 3}). The amplification curves were separated into three clusters dependent on their slope and intercept (colored in red, green, balck). ", fig.height=7}
 options(warn = -1)
 library(PCRedux)
 
-data <- qpcR::competimer
+data <- RAS002
 
-range <- 1L:10
-
-y_range <- log(range(data[range, -1]))
-
-well <- substr(colnames(data)[-1], 1, 3)
+well <- substr(colnames(data)[-1], 1, 10)
 
 
 # Normalize each amplification curve to their 0.99 percentile and use the
 # earlyreg function to determine the slope and intercept of the first
-# 10 cycles
+# 5 cycles
 
 res_earlyreg <- do.call(rbind, lapply(2L:ncol(data), function(i) {
-  earlyreg(x = data[, 1], y = data[, i], range = 10, normalize = TRUE)
+  earlyreg(x = data[, 1], y = data[, i], range = 5, normalize = FALSE)
 }))
 
 # Label the observation with their original names
 rownames(res_earlyreg) <- colnames(data)[2:ncol(data)]
 
 
-cl <- kmeans(res_earlyreg, 4)
+cl <- kmeans(res_earlyreg, 3)
 
 rownames(res_earlyreg) <- well
 
-
-par(mfrow = c(2, 3), las = 0, bty = "o", oma = c(0, 0, 0, 0))
-
+par(fig = c(0,1,0,1), las = 0, bty = "o", oma = c(0, 0, 0, 0))
 matplot(
-  data[, 1], log(data[, -1]), col = 1, pch = 19, lty = 1, type = "l",
-  xlab = "Cycle", ylab = "log(RFU)", main = ""
+  data[, 1], data[, -1], pch = 19, lty = 1, type = "l",
+  xlab = "Cycle", ylab = "RFU", main = "", col = cl[["cluster"]]
 )
 mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
+abline(v = c(1,5))
+rect(21,3500,45,4700, col = "white", border = NA)
+text(3, 3250, "ROI")
 
-
+par(fig = c(0.55,1, 0.5, 0.9), new = TRUE) 
 plot(res_earlyreg, col = cl[["cluster"]], pch = 19)
-mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
-
-
-for(i in sort(unique(cl[["cluster"]]))) {
-matplot(data[range, 1], log(data[range, which(cl[["cluster"]] == i) + 1]), xlab = "Cycle", 
-        ylab = "log(RFU)", main = "", ylim = c(y_range[1], y_range[2]),
-        type = "l", lty = 1, lwd = 2, col = i)
-mtext(LETTERS[i + 2], cex = 1.2, side = 3, adj = 0, font = 2)
-}
+mtext("B    k-means with k = 3", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 
