@@ -42,8 +42,8 @@ Output Description
   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
   "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "bg.stop_norm" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "amp.stop_norm" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "head2tail_ratio" \tab \tab numeric \cr
   "autocorellation" \tab  \tab numeric \cr
   "mblrr_intercept_bg" \tab  \tab numeric \cr

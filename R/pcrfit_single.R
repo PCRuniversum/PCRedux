@@ -63,8 +63,8 @@
 #'   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
 #'   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
 #'   "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-#'   "bg.stop_norm" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-#'   "amp.stop_norm" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+#'   "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "head2tail_ratio" \tab \tab numeric \cr
 #'   "autocorellation" \tab  \tab numeric \cr
 #'   "mblrr_intercept_bg" \tab  \tab numeric \cr
@@ -114,7 +114,7 @@ pcrfit_single <- function(x) {
   dat_smoothed <- chipPCR::smoother(cycles, x)
   
   # Calculate the first derivative
-  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles, dat_smoothed), verbose = TRUE)$xy)
+  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy)
   
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm = TRUE)
@@ -189,7 +189,7 @@ pcrfit_single <- function(x) {
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
-  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles, dat_smoothed), verbose = FALSE, fct = min, inder = TRUE))
+  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = FALSE, fct = min, inder = TRUE))
   # difference between the minimum and the maximum of the approximate second derivative.
   cpD2_range <- diff(res_diffQ2[[3]])
   if(cpD2_range > 200) cpD2_range <- length_cycle
@@ -358,8 +358,8 @@ pcrfit_single <- function(x) {
     f.top = res_takeoff[[2]],
     tdp = res_takeoff_reverse[[1]],
     f.tdp = res_takeoff_reverse[[2]],
-    bg.stop_norm = res_bg.max[2],
-    amp.stop_norm = res_bg.max[3],
+    bg.stop = res_bg.max[2],
+    amp.stop = res_bg.max[3],
     b_slope = res_coef[["b"]],
     f_intercept = res_coef[["f"]],
     convInfo_iteratons = res_convInfo_iteratons,
