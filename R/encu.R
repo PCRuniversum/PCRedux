@@ -45,25 +45,11 @@ encu <- function(data, detection_chemistry = NA, device = NA) {
   })
   colnames(data_RFU) <- data_RFU_colnames
 
-  # just to shut RCHeck for NSE we define ith_cycle
-  ith_cycle <- 1
-
-  run_res <- pblapply(1L:ncol_data_RFU, function(ith_run) pcrfit_single(data_RFU[, ith_run]))
-
-  run_res_as_columns <- do.call(
-    rbind,
-    lapply(1L:ncol_data_RFU, function(i) {
-      tmp <- run_res[[i]]
-    })
-  )
-
-  res <- cbind(
-    runs = colnames(data_RFU), run_res_as_columns,
-    detection_chemistry = detection_chemistry,
-    device = device
-  )
-
-  rownames(res) <- NULL
-
-  res
+  run_res <- do.call(rbind, pblapply(1L:ncol_data_RFU, function(ith_run) {
+    pcrfit_single(data_RFU[, ith_run])
+  }))
+  
+  cbind(runs = colnames(data_RFU), run_res,
+        detection_chemistry = detection_chemistry,
+        device = device)
 }
