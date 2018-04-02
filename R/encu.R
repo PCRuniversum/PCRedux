@@ -49,6 +49,8 @@ encu <- function(data, detection_chemistry = NA, device = NA) {
     pcrfit_single(data_RFU[, ith_run])
   }))
   
+  rownames(run_res) <- NULL
+  
   cbind(runs = colnames(data_RFU), run_res,
         detection_chemistry = detection_chemistry,
         device = device)
