@@ -100,7 +100,7 @@ hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.995, robus
       hook_max_range,
       hook_delta,
       res_lm_fit_summary,
-      res_lm_fit_confint[1, 2],
+      res_lm_fit_confint[2, 1],
       res_lm_fit_confint[2, 2],
       res_hook_significance,
       res_lm_fit_confint_decision,

@@ -343,6 +343,32 @@ pcrfit_single <- function(x) {
     res_sliwin <- 0
     res_cpDdiff <- 0
   }
+  
+# # Calculate angle
+#     # Get x coordinates for the vectors be the inder 
+#     # function. The first derivative maximum (FDM) is the
+#     # center. The second derivative maximum (SDM) is the left
+#     # and second derivative minimum (SDm) is the right point of
+#     # the vectors.
+# 
+#     res_cpD <- summary(chipPCR::inder(x = cycles, y = x))[c(2,1,3)]
+# 
+#     res_val <- data.frame(cpD = res_cpD, rfu = NA)
+# 
+#     # The y coordinates get determined at the point of the
+# 
+#     for(i in 1L:3) {
+#         res_val[i, 2] <- res[which(res[, "x"] == res_cpD[i]), "y"]
+#     }
+# 
+#     res_val[, 2] <- res_val[, 2] / res_val[2, 2]
+# 
+#     vec_a <- c(x = (res_val[3, 1] - res_val[2, 1]), y = (res_val[3, 2] - res_val[2, 2]))
+#     vec_b <- c(x = (res_val[1, 1] - res_val[2, 1]), y = (res_val[1, 2] - res_val[2, 2]))
+# 
+#     crossprod_ab <- as.numeric(vec_a %*% vec_b)
+# 
+#     lampda <- acos(crossprod_ab / (sum(vec_a^2)^0.5 * sum(vec_b^2)^0.5)) / (pi/180)
 
   all_results <- data.frame(
     # Quantification points, derivatives, efficiencies,
@@ -399,6 +425,8 @@ pcrfit_single <- function(x) {
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
+#     # Angle
+#     angle = lampda,
     # Number of Cycles
     number_of_cycles = length_cycle,
     # Identifier
