@@ -73,7 +73,7 @@ hookregNL <- function(x, y, plot=FALSE, level=0.995, simple=TRUE, manualtrim=5) 
   1, 0
   )
 
-  confslope_simple <- if (!is.na(confslope)) {
+  confslope_simple <- if (!is.na(confslope[1])) {
     data.frame(CI.low = confslope[[1]], CI.up = confslope[[2]])
   } else {
     data.frame(CI.low = NA, CI.up = NA)
