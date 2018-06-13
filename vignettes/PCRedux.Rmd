@@ -427,7 +427,7 @@ This kind of calculation strongly dependents on the user, who has to adjust the 
 Another approach is to use non-linear model to fit the amplification curve. For example, five-parameter Richardson functions (\autoref{l5}, @richards_flexible_1959) are often used [@spiess_impact_2015].
 
 
-> **A comment on noise in sigmoid amplification cures**: Noise in amplification curves can have very different causes. Among them are incorrectly assigned dye detectors, errors during the calibration of dyes for the instrument, errors during the preparation of the PCR master mix, sample degradation, lack of a sample in the PCR, too much sample material in the PCR mix or a low detection probe concentration.
+> **A comment on noise in sigmoid amplification curves**: Noise in amplification curves can have very different causes. Among them are incorrectly assigned dye detectors, errors during the calibration of dyes for the instrument, errors during the preparation of the PCR master mix, sample degradation, lack of a sample in the PCR, too much sample material in the PCR mix or a low detection probe concentration.
 
 \newpage
 
