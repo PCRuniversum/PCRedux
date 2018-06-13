@@ -838,7 +838,7 @@ library(chipPCR)
 
 res <- encu(C126EG685[, c(1,2,3,5,17)])
 
-# Show all results in a plot. Not that the interactive parameter is set to
+# Show all results in a plot. Note that the interactive parameter is set to
 # FALSE.
 
 visdat_pcrfit(res, type = "all", interactive = FALSE)
