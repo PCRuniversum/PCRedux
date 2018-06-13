@@ -1,3 +1,7 @@
+Version 0.2.6-1 [June 2018]
+* Fix for qpcR package
+* Improved documentation
+
 Version 0.2.6 [May 2018]
 * Largely extended documentation
 * New feature in pcrfit_single ("take down point")
