@@ -2148,7 +2148,8 @@ matplot(
 res_hook$hook.start[res_hook$hook.start == 0] <- "no hook"
 
 legend(
-  "topleft", paste(as.character(res_hook$obs), "Hook start cycle:", res_hook$hook.start), pch = 19,
+  "topleft", paste(as.character(res_hook$obs), "Hook start cycle:", 
+                   res_hook$hook.start), pch = 19,
   col = res_hook$hook + 1, bty = "n"
 )
 rect(26,2,40,2.3, border ="red")
@@ -2157,7 +2158,7 @@ rect(26,2,40,2.3, border ="red")
 #### ``mblrr()`` - A Function Perform the Quantile-filter Based Local Robust Regression \label{section_mblrr}
 
 
-``mblrr()`` is a function to perform the Median based Local Robust Regression (m b l r r) from a quantitative PCR experiment. In detail, this function attempts to break the amplification curve in two ROIs (head (~background) and tail (~plateau)). As opposed to the ``earlyreg()`` function, the ``mblrr()` function does not use a fixed interval. Instead, the ``mblrr()` function dynamically determines cut points for each amplification curve. For the ``mblrr()` function was defined:
+``mblrr()`` is a function to perform the \textbf{m}edian \textbf{b}ased \textbf{l}ocal \textbf{r}obust \textbf{r}egression (mblrr) from a quantitative PCR experiment. In detail, this function attempts to break the amplification curve in two ROIs (head (~background) and tail (~plateau)). As opposed to the ``earlyreg()`` function, the ``mblrr()` function does not use a fixed interval. Instead, the ``mblrr()` function dynamically determines cut points for each amplification curve. For the ``mblrr()` function was defined:
 
 - The 25% quantile is the value for which 25% of all values are smaller than this value. 
 - The 75% quantile is the value for which 75% of all values are greater than this value. 

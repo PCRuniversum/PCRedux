@@ -85,7 +85,7 @@ autocorrelation_test <- function(y, n = 12, sig.level = 0.01, ns_2_numeric=FALSE
       cycle_RFU_n[!is.na(cycle_RFU_n)]
     )
     # Logical analysis of the correlation test and output
-    if (res_autocorrelation$p.value <= sig.level) {
+    if (res_autocorrelation$p.value <= sig.level && !is.na(res_autocorrelation$p.value)) {
       res_autocorrelation <- res_autocorrelation$estimate
     } else {
       if (ns_2_numeric) {
