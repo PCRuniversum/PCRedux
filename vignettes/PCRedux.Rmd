@@ -26,7 +26,7 @@ vignette: >
 
 \newpage
 
-## Analysis of Simgmoid Shaped Curves for Data Mining and Machine Learning Applications: An Introduction
+## Analysis of Sigmoid Shaped Curves for Data Mining and Machine Learning Applications: An Introduction
 
 \texttt{PCRedux} is an open source software package for the analysis and numerical description of sigmoid curves. The descriptors (features) (\autoref{section_Functions_of_PCRedux}) can be used for applications such as data mining, automatic classification (e.&nbsp;g., positive, negative). This is in useful for applications in machine learning.
 
