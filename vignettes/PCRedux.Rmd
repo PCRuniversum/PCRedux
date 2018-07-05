@@ -2089,7 +2089,7 @@ mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 \autoref{htPCR_nap} shows that negative amplification curves can have a trend. The trend may be positive or negative. In \autoref{section_DataAnalysis} some reasons were mentioned. How to deal with this is the question. One possible solution could be to include this factor in the ratio calculation. The ``head2tailratio()`` function uses a linear model that calculates the slope between the ground and plateau phases. If the slope of the model is significant, then the ratio from the head and tail is normalized to this slope. This requires setting the `slope_normalizer` parameter in the ``head2tailratio()`` function. By default, this parameter is not set.
 
 
-#### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effekt-like Curvatures\label{section_hookreg}
+#### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effect-like Curvatures\label{section_hookreg}
 
 ``hookreg()`` and ``hookregNL()`` are functions to detect amplification curves bearing a hook effect [@barratt_improving_2002, ] or negative slope at the end of the amplification curve. Both functions calculate the slope and intercept of an amplification curve data. The idea is that a strong negative slope at the end of an amplification curve is indicative for a hook effect. ``hookreg()`` and ``hookregNL()`` are currently undergoing a review process. For this reason, the functions will not be discussed in detail here. More information is given in the vignette and manual of both functions.
 
