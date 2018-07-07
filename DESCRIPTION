@@ -4,7 +4,10 @@ Title: Quantitative Polymerase Chain Reaction (qPCR) Data Mining and Machine Lea
 Version: 0.2.6
 Date: 2018-01-23
 Authors@R: c(person("Stefan", "Roediger", email = "stefan.roediger@b-tu.de", role = c("cre", "aut")),
-             person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("aut")),
+             person("Michal", "Burdukiewicz", 
+             email = "michalburdukiewicz@gmail.com", 
+             comment = c(ORCID = "0000-0001-8926-582X"),
+             role = c("aut")),
              person("Andrej-Nikolai", "Spiess", email = "a.spiess@uke.de", role = c("aut")),
              person("Konstantin A.", "Blagodatskikh", email = "k.blag@yandex.ru", role = c("aut")))
 Description: Extracts features from amplification curve data of quantitative Polymerase Chain Reactions (qPCR) (Pabinger, Stephan, Stefan Roediger, Albert Kriegner, Klemens Vierlinger, and Andreas Weinhauusel (2014) <doi:10.1016/j.bdq.2014.08.002>) for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg() and hookregNL() functions can be used to predict amplification curves with an hook effect-like curvature. The pcrfit_single() function can be used to extract features from an amplification curve.
