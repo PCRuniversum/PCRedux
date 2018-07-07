@@ -1,4 +1,12 @@
-Version 0.2.6 [March 2018]
+Version 0.2.6-2 [July 2018]
+* make autocorrelation_test more robust
+* Improved documentation
+
+Version 0.2.6-1 [June 2018]
+* Fix for qpcR package
+* Improved documentation
+
+Version 0.2.6 [May 2018]
 * Largely extended documentation
 * New feature in pcrfit_single ("take down point")
 * Curated classifications
