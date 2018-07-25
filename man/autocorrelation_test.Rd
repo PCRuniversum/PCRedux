@@ -5,7 +5,7 @@
 \title{A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment}
 \usage{
-autocorrelation_test(y, n = 12, sig.level = 0.01, ns_2_numeric = FALSE)
+autocorrelation_test(y, n = 8, sig.level = 0.01, ns_2_numeric = FALSE)
 }
 \arguments{
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}

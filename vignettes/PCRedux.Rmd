@@ -45,7 +45,7 @@ A classification as negative or positive amplification curve is feasible using b
 - The mere classification into positive or negative is not necessarily the only aim of the \texttt{PCRedux} package. Instead, it is aimed that users and developers have tools to classify amplification curves automatically by any category conceivable. This can be for example a description of the amplification curve quality.
 
 
-### Technologies for Working with Amplification Curve Data
+### Technologies for Working with Amplification Curve Data\label{section_technologies_amplification_curves_ML}
 
 Data mining algorithms and machine learning can be used for descriptive and predictive tasks during the analysis of complex datasets. Data mining uses specific methods from statistical interference, software engineering and domain knowledge to
 

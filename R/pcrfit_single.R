@@ -114,7 +114,7 @@ pcrfit_single <- function(x) {
   dat_smoothed <- chipPCR::smoother(cycles, x)
   
   # Calculate the first derivative
-  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy)
+  res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy), silent=TRUE)
   
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm = TRUE)
@@ -166,8 +166,8 @@ pcrfit_single <- function(x) {
   }
 
   # Bayesian analysis of change points
-  res_bcp_tmp <- bcp::bcp(res_diffQ[["d(F) / dT"]])
-  res_bcp_tmp <- res_bcp_tmp$posterior.prob >= 0.6
+  res_bcp_tmp <- try(bcp::bcp(res_diffQ[["d(F) / dT"]]), silent = TRUE)
+  res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.6, silent = TRUE)
   res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length()))
   if (class(res_bcp) == "try-error") {
     res_bcp <- 0
@@ -182,9 +182,9 @@ pcrfit_single <- function(x) {
 
   # Estimate the spread of the approximate local minima and maxima of the curve data
 
-  res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
-  peaks_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
-  if (is.infinite(peaks_ratio)) {
+  res_mcaPeaks <- try(MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2]), silent = TRUE)
+  peaks_ratio <- try(base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2])), silent = TRUE)
+  if (is.infinite(peaks_ratio) || class(peaks_ratio) == "try-error") {
     peaks_ratio <- 0
   }
 

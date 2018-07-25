@@ -51,7 +51,7 @@
 #'
 #' @export hookreg
 
-hookreg <- function(x, y, normalize=TRUE, sig.level=0.005, CI.level=0.995, robust=FALSE) {
+hookreg <- function(x, y, normalize=TRUE, sig.level=0.0025, CI.level=0.9975, robust=FALSE) {
   # Remove missing values from data
   data <- na.omit(data.frame(x = x, y = y))
   x <- data[, "x"]

@@ -71,9 +71,15 @@
 #' axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 
 
-autocorrelation_test <- function(y, n = 12, sig.level = 0.01, ns_2_numeric=FALSE) {
+autocorrelation_test <- function(y, n = 8, sig.level = 0.01, ns_2_numeric=FALSE) {
   # Coercing object to class "zoo".
   cycle_RFU <- try(zoo::as.zoo(y), silent = TRUE)
+  
+  if(length(y) <= 35) n <- 8
+  if(length(y) > 35 && length(y) <= 40) n <- 10
+  if(length(y) > 40 && length(y) <= 45) n <- 12
+  if(length(y) > 45) n <- 14
+  
 
   if (class(cycle_RFU) == "zoo") {
     # Compute a lagged version of the cycle, shifting the cycle (time) base
@@ -82,8 +88,7 @@ autocorrelation_test <- function(y, n = 12, sig.level = 0.01, ns_2_numeric=FALSE
     # Test for correlation between paired samples (cycle & lagged cycle)
     res_autocorrelation <- stats::cor.test(
       cycle_RFU[!is.na(cycle_RFU_n)],
-      cycle_RFU_n[!is.na(cycle_RFU_n)]
-    )
+      cycle_RFU_n[!is.na(cycle_RFU_n)], method = "pearson")
     # Logical analysis of the correlation test and output
     if (res_autocorrelation$p.value <= sig.level && !is.na(res_autocorrelation$p.value)) {
       res_autocorrelation <- res_autocorrelation$estimate

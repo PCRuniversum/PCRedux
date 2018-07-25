@@ -53,7 +53,7 @@ tReem <- function(data, cor = TRUE, k = 2) {
       ylab = "RFU", ylim = y_lim
     )
     abline(h = y_quantile, lwd = c(1, 1.5, 1), col = "grey", lty = 2)
-    r_tmp <- readline(prompt = "Press [enter] to continue")
+    r_tmp <- readline(prompt = "Press [enter] to continue: ")
     dec <- c(dec, r_tmp)
   }
 
