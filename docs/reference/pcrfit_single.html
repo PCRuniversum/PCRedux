@@ -21,10 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="pcrfit_single - A function to extract features from an amplification curve — pcrfit_single" />
 
 <meta property="og:description" content="The pcrfit_single is responsible for the
@@ -32,6 +37,7 @@ extraction of features from amplification curve data. The function can be used
 for custom functions for a paralleled analysis of amplification curve data.
 An example is given in the vignette." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -58,7 +64,7 @@ An example is given in the vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6.2</span>
       </span>
     </div>
 
@@ -98,6 +104,7 @@ An example is given in the vignette." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -105,19 +112,22 @@ An example is given in the vignette." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>pcrfit_single - A function to extract features from an amplification curve</h1>
-    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/pcrfit_single.R'><code>R/pcrfit_single.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/pcrfit_single.R'><code>R/pcrfit_single.R</code></a></small>
+    <div class="hidden name"><code>pcrfit_single.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The pcrfit_single is responsible for the
 extraction of features from amplification curve data. The function can be used
 for custom functions for a paralleled analysis of amplification curve data.
 An example is given in the vignette.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>pcrfit_single</span>(<span class='no'>x</span>)</pre>
     
@@ -132,196 +142,56 @@ An example is given in the vignette.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Output Description</p><table><tr><td>
-  "eff" </td>
-<td> qPCR amplification efficiency </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "cpD1" </td>
-<td> maximum of the first derivative curve </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "cpD2" </td>
-<td> maximum of the second derivative curve </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "fluo" </td>
-<td> raw fluorescence value at the point defined by cpD2 </td>
-<td>  numeric </td>
-</tr><tr><td><br />
-  "init2" </td>
-<td> initial template fluorescence from an exponential model </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "top" </td>
-<td> takeoff point. When no top can be determined, the tob value is set to the first cycle number. </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "f.top" </td>
-<td> fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. </td>
-<td>  numeric </td>
-</tr><tr><td><br />
-  "tdp" </td>
-<td> takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "f.tdp" </td>
-<td> fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. </td>
-<td>  numeric </td>
-</tr><tr><td><br />
-  "sliwin" </td>
-<td> PCR efficiency by the 'window-of-linearity' method </td>
-<td> numeric </td>
-</tr><tr><td><br />
-  "b_slope" </td>
-<td> Is the slope of seven parameter model </td>
-<td><br />
-  "f_intercept" </td>
-</tr><tr><td> Is the intercept of the seven parameter model </td>
-<td><br />
-  "convInfo_iteratons" </td>
-<td> Number of iterations needed to fit the model </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "cpDdiff" </td>
-<td> absolute difference between cpD1 and cpD2 </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "slope_bg" </td>
-<td> slope of the first cycles </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "intercept_bg" </td>
-<td> intercept of the first cycles </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "polyarea" </td>
-<td> area of a polygon given by the vertices in the vectors cycles and fluorescence </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "changepoint_e.agglo" </td>
-<td> agglomerative hierarchical estimate for multiple change points </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "changepoint_bcp" </td>
-<td> change point by Bayesian analysis methods </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "qPCRmodel" </td>
-<td> non-linear model determined for the analysis </td>
-</tr><tr><td> factor </td>
-<td><br />
-  "amptester_shapiro" </td>
-<td> tests based on the Shapiro-Wilk normality test if the amplification curve is just noise </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "amptester_lrt" </td>
-<td> performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "amptester_rgt" </td>
-<td> Resids growth test (RGt) tests if fluorescence values in a linear phase are stable </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "amptester_tht" </td>
-<td>  Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests. </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "amptester_slt" </td>
-<td> Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "amptester_polygon" </td>
-<td> pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order. </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "amptester_slope.ratio" </td>
-<td> SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "minRFU" </td>
-<td> minimum of fluorescence amplitude (percentile 0.01) </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "maxRFU" </td>
-<td> maximum of fluorescence amplitude (percentile 0.99) </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "bg.start_norm" </td>
-<td> takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "bg.stop_norm" </td>
-<td> estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "amp.stop_norm" </td>
-<td> estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "head2tail_ratio" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "autocorellation" </td>
-<td>  </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "mblrr_intercept_bg" </td>
-<td>  </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "mblrr_slope_bg" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "mblrr_cor_bg" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "mblrr_intercept_pt" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "mblrr_slope_pt" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "mblrr_cor_pt" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "amp_cor_MIC" </td>
-<td> </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "hookreg_hook" </td>
-<td> estimate of hook effect like curvature </td>
-</tr><tr><td> binary </td>
-<td><br />
-  "hookreg_hook_slope" </td>
-<td> estimate of slope of the hook effect like curvature </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "peaks_ratio" </td>
-<td> Takes the estimate approximate local minimums and maximums </td>
-</tr><tr><td> </td>
-<td><br />
-  "loglin_slope" </td>
-<td> slope determined by a linear model of the data points from the minimum and maximum of the second derivative </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "cpD2_range" </td>
-<td> cycle difference between the maximum and the minimum of the second derivative curve </td>
-</tr><tr><td> numeric </td>
-<td><br />
-  "sd_bg </td>
-<td> shows the standard deviation of the fluorescence in the ground phase </td>
-</tr><tr><td> numeric </td>
-<td>
-  "eff" </td>
-<td> qPCR amplification efficiency </td>
-</tr></table>
+    <p>Output Description</p><table class='table'>
+<tr><td>"eff"</td><td>qPCR amplification efficiency</td><td>numeric</td></tr>
+<tr><td>"cpD1"</td><td>maximum of the first derivative curve</td><td>numeric</td></tr>
+<tr><td>"cpD2"</td><td>maximum of the second derivative curve</td><td>numeric</td></tr>
+<tr><td>"fluo"</td><td>raw fluorescence value at the point defined by cpD2</td><td>numeric</td></tr>
+<tr><td>"init2"</td><td>initial template fluorescence from an exponential model</td><td>numeric</td></tr>
+<tr><td>"top"</td><td>takeoff point. When no top can be determined, the tob value is set to the first cycle number.</td><td>numeric</td></tr>
+<tr><td>"f.top"</td><td>fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number.</td><td>numeric</td></tr>
+<tr><td>"tdp"</td><td>takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number.</td><td>numeric</td></tr>
+<tr><td>"f.tdp"</td><td>fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number.</td><td>numeric</td></tr>
+<tr><td>"sliwin"</td><td>PCR efficiency by the 'window-of-linearity' method</td><td>numeric</td></tr>
+<tr><td>"b_slope"</td><td>Is the slope of seven parameter model</td><td>"f_intercept"</td></tr>
+<tr><td>Is the intercept of the seven parameter model</td><td>"convInfo_iteratons"</td><td>Number of iterations needed to fit the model</td></tr>
+<tr><td>numeric</td><td>"cpDdiff"</td><td>absolute difference between cpD1 and cpD2</td></tr>
+<tr><td>numeric</td><td>"slope_bg"</td><td>slope of the first cycles</td></tr>
+<tr><td>numeric</td><td>"intercept_bg"</td><td>intercept of the first cycles</td></tr>
+<tr><td>numeric</td><td>"polyarea"</td><td>area of a polygon given by the vertices in the vectors cycles and fluorescence</td></tr>
+<tr><td>numeric</td><td>"changepoint_e.agglo"</td><td>agglomerative hierarchical estimate for multiple change points</td></tr>
+<tr><td>numeric</td><td>"changepoint_bcp"</td><td>change point by Bayesian analysis methods</td></tr>
+<tr><td>numeric</td><td>"qPCRmodel"</td><td>non-linear model determined for the analysis</td></tr>
+<tr><td>factor</td><td>"amptester_shapiro"</td><td>tests based on the Shapiro-Wilk normality test if the amplification curve is just noise</td></tr>
+<tr><td>binary</td><td>"amptester_lrt"</td><td>performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold</td></tr>
+<tr><td>binary</td><td>"amptester_rgt"</td><td>Resids growth test (RGt) tests if fluorescence values in a linear phase are stable</td></tr>
+<tr><td>binary</td><td>"amptester_tht"</td><td>Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests.</td></tr>
+<tr><td>binary</td><td>"amptester_slt"</td><td>Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio</td></tr>
+<tr><td>binary</td><td>"amptester_polygon"</td><td>pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order.</td></tr>
+<tr><td>binary</td><td>"amptester_slope.ratio"</td><td>SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data.</td></tr>
+<tr><td>numeric</td><td>"minRFU"</td><td>minimum of fluorescence amplitude (percentile 0.01)</td></tr>
+<tr><td>numeric</td><td>"maxRFU"</td><td>maximum of fluorescence amplitude (percentile 0.99)</td></tr>
+<tr><td>numeric</td><td>"bg.start_norm"</td><td>takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number</td></tr>
+<tr><td>numeric</td><td>"bg.stop"</td><td>estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number</td></tr>
+<tr><td>numeric</td><td>"amp.stop"</td><td>estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number</td></tr>
+<tr><td>numeric</td><td>"head2tail_ratio"</td><td></td></tr>
+<tr><td>numeric</td><td>"autocorellation"</td><td></td></tr>
+<tr><td>numeric</td><td>"mblrr_intercept_bg"</td><td></td></tr>
+<tr><td>numeric</td><td>"mblrr_slope_bg"</td><td></td></tr>
+<tr><td>numeric</td><td>"mblrr_cor_bg"</td><td></td></tr>
+<tr><td>numeric</td><td>"mblrr_intercept_pt"</td><td></td></tr>
+<tr><td>numeric</td><td>"mblrr_slope_pt"</td><td></td></tr>
+<tr><td>numeric</td><td>"mblrr_cor_pt"</td><td></td></tr>
+<tr><td>numeric</td><td>"amp_cor_MIC"</td><td></td></tr>
+<tr><td>numeric</td><td>"hookreg_hook"</td><td>estimate of hook effect like curvature</td></tr>
+<tr><td>binary</td><td>"hookreg_hook_slope"</td><td>estimate of slope of the hook effect like curvature</td></tr>
+<tr><td>numeric</td><td>"peaks_ratio"</td><td>Takes the estimate approximate local minimums and maximums</td></tr>
+<tr><td></td><td>"loglin_slope"</td><td>slope determined by a linear model of the data points from the minimum and maximum of the second derivative</td></tr>
+<tr><td>numeric</td><td>"cpD2_range"</td><td>cycle difference between the maximum and the minimum of the second derivative curve</td></tr>
+<tr><td>numeric</td><td>"sd_bg</td><td>shows the standard deviation of the fluorescence in the ground phase</td></tr>
+<tr><td>numeric</td><td></td><td>"eff"</td></tr>
+</table>
+
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -353,7 +223,7 @@ pre-process raw data of amplification curves</em>, <em>Bioinformatics</em>. 31 (
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/bcp/topics/bcp'>bcp</a></code>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/bcp/topics/bcp'>bcp</a></code>
  <code><a href='http://www.rdocumentation.org/packages/chipPCR/topics/bg.max'>bg.max</a></code>,<code><a href='http://www.rdocumentation.org/packages/chipPCR/topics/amptester'>amptester</a></code>,<code><a href='http://www.rdocumentation.org/packages/chipPCR/topics/smoother'>smoother</a></code>
  <code><a href='http://www.rdocumentation.org/packages/ecp/topics/e.agglo'>e.agglo</a></code>
  <code><a href='http://www.rdocumentation.org/packages/MBmca/topics/diffQ'>diffQ</a></code>,<code><a href='http://www.rdocumentation.org/packages/MBmca/topics/mcaPeaks'>mcaPeaks</a></code>,<code><a href='http://www.rdocumentation.org/packages/MBmca/topics/diffQ2'>diffQ2</a></code>
@@ -361,14 +231,15 @@ pre-process raw data of amplification curves</em>, <em>Bioinformatics</em>. 31 (
  <code><a href='http://www.rdocumentation.org/packages/pracma/topics/polyarea'>polyarea</a></code>
  <code><a href='http://www.rdocumentation.org/packages/qpcR/topics/pcrfit'>pcrfit</a></code>,<code><a href='http://www.rdocumentation.org/packages/qpcR/topics/takeoff'>takeoff</a></code>,<code><a href='http://www.rdocumentation.org/packages/qpcR/topics/sliwin'>sliwin</a></code>,<code><a href='http://www.rdocumentation.org/packages/qpcR/topics/efficiency'>efficiency</a></code>
  <code><a href='http://www.rdocumentation.org/packages/base/topics/diff'>diff</a></code>
- <code><a href='http://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></code></p>
+ <code><a href='http://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Load the chipPCR package and analyze from the C126EG685 the first qPCR run</span>
 <span class='co'># "A01" (column 2).</span>
 <span class='fu'>library</span>(<span class='no'>chipPCR</span>)
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>pcrfit_single</span>(<span class='no'>C126EG685</span>[, <span class='fl'>2</span>])</div></pre>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>pcrfit_single</span>(<span class='no'>C126EG685</span>[, <span class='fl'>2</span>])</div><div class='output co'>#&gt; N:36, idsize:36, idval1:1, idval22:22
+#&gt; mm: 1, nn2: 36, N:36, cumksize.size: 36</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -404,6 +275,8 @@ Stefan Roediger, Michal Burdukiewcz
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

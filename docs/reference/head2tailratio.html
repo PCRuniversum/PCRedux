@@ -22,10 +22,15 @@ from a quantitative PCR experiment — head2tailratio • PCRedux</title>
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="A function to calculate to head to tail ratio of amplification curve data
 from a quantitative PCR experiment — head2tailratio" />
 
@@ -34,6 +39,7 @@ tail of a quantitative PCR amplification curve. In this test, only the head
 (first six cycles) and the tail (last six cycles) form the region of interest
 (ROI)." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -60,7 +66,7 @@ tail of a quantitative PCR amplification curve. In this test, only the head
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6.2</span>
       </span>
     </div>
 
@@ -100,6 +106,7 @@ tail of a quantitative PCR amplification curve. In this test, only the head
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -107,20 +114,23 @@ tail of a quantitative PCR amplification curve. In this test, only the head
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A function to calculate to head to tail ratio of amplification curve data
 from a quantitative PCR experiment</h1>
-    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/head2tailratio.R'><code>R/head2tailratio.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/head2tailratio.R'><code>R/head2tailratio.R</code></a></small>
+    <div class="hidden name"><code>head2tailratio.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>head2tailratio</code> is a function to calculate the ratio of the head and the
 tail of a quantitative PCR amplification curve. In this test, only the head
 (first six cycles) and the tail (last six cycles) form the region of interest
 (ROI).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>head2tailratio</span>(<span class='no'>y</span>, <span class='kw'>normalize</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>slope_normalizer</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -191,6 +201,8 @@ Stefan Roediger, Michal Burdukiewcz
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

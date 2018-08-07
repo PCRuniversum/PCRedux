@@ -22,21 +22,27 @@ from a quantitative PCR experiment — autocorrelation_test • PCRedux</title>
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment — autocorrelation_test" />
 
 <meta property="og:description" content="autocorrelation_test is a function for an autocorrelation analysis
 from a quantitative PCR experiment. The result of the function is either
 a correlation coefficient in case the result is significant at a given
-significance level, or a "n.s." (non-significant) if no correlation could
+significance level, or a &quot;n.s.&quot; (non-significant) if no correlation could
 be determined.
 Noise (negative) amplification curves usually do not exhibit any
-autocorrelation and will therefore be "n.s."." />
+autocorrelation and will therefore be &quot;n.s.&quot;." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -63,7 +69,7 @@ autocorrelation and will therefore be "n.s."." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6.2</span>
       </span>
     </div>
 
@@ -103,6 +109,7 @@ autocorrelation and will therefore be "n.s."." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -110,14 +117,16 @@ autocorrelation and will therefore be "n.s."." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment</h1>
-    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/autocorrelation_test.R'><code>R/autocorrelation_test.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/autocorrelation_test.R'><code>R/autocorrelation_test.R</code></a></small>
+    <div class="hidden name"><code>autocorrelation_test.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>autocorrelation_test</code> is a function for an autocorrelation analysis
 from a quantitative PCR experiment. The result of the function is either
@@ -127,8 +136,10 @@ be determined.
 Noise (negative) amplification curves usually do not exhibit any
 autocorrelation and will therefore be "n.s.".</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>autocorrelation_test</span>(<span class='no'>y</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>sig.level</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>ns_2_numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>autocorrelation_test</span>(<span class='no'>y</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>sig.level</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+  <span class='kw'>ns_2_numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,17 +166,15 @@ Default: 0.01</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/zoo/topics/as.zoo'>as.zoo</a></code>, <code><a href='http://www.rdocumentation.org/packages/stats/topics/lag'>lag</a></code>,
- <code><a href='http://www.rdocumentation.org/packages/stats/topics/cor.test'>cor.test</a></code></p>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/zoo/topics/as.zoo'>as.zoo</a></code>, <code><a href='http://www.rdocumentation.org/packages/stats/topics/lag'>lag</a></code>,
+ <code><a href='http://www.rdocumentation.org/packages/stats/topics/cor.test'>cor.test</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Test for autocorrelation in amplification curve data</span>
 <span class='co'># Load the libraries magrittr for pipes and qpcR for the data</span>
-<span class='fu'>library</span>(<span class='no'>magrittr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘magrittr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    equals, is_less_than, not</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>qpcR</span>)
+<span class='fu'>library</span>(<span class='no'>magrittr</span>)
+<span class='fu'>library</span>(<span class='no'>qpcR</span>)
 <span class='co'># Test for autocorrelation in the testdat data set</span>
 <span class='no'>res_ac</span> <span class='kw'>&lt;-</span> <span class='fu'>sapply</span>(<span class='fl'>2</span>:<span class='fu'>ncol</span>(<span class='no'>testdat</span>), <span class='kw'>function</span>(<span class='no'>i</span>) {
                     <span class='fu'>autocorrelation_test</span>(<span class='no'>testdat</span>[, <span class='no'>i</span>])
@@ -236,6 +245,8 @@ Stefan Roediger, Michal Burdukiewcz
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

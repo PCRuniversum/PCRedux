@@ -21,14 +21,20 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="The datasets implemented in PCRedux — PCRedux_datasets" />
 
 <meta property="og:description" content="A compilation of datasets for method evaluation/comparison." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -55,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6.2</span>
       </span>
     </div>
 
@@ -95,6 +101,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -102,16 +109,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The datasets implemented in PCRedux</h1>
     
+    <div class="hidden name"><code>PCRedux_datasets.rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A compilation of datasets for method evaluation/comparison.</p>
     
+    </div>
 
     <pre class="usage"><span class='no'>data_sample</span>
 <span class='no'>RAS002</span>
@@ -178,6 +188,8 @@ Stefan Roediger
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

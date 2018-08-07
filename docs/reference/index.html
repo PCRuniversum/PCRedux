@@ -21,11 +21,17 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Function reference" />
+
 
 
 <!-- mathjax -->
@@ -52,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6.2</span>
       </span>
     </div>
 
@@ -92,6 +98,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -99,126 +106,125 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
       <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PCRedux-package.html">l4</a></code> </p>
-          </td>
-          <td><p>PCRedux - quantitative PCR Data Mining and Machine Learning Helper Tool</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="PCRedux_datasets.rd">data_sample</a></code> <code><a href="PCRedux_datasets.rd">RAS002</a></code> <code><a href="PCRedux_datasets.rd">RAS002_decisions</a></code> </p>
-          </td>
-          <td><p>The datasets implemented in PCRedux</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="autocorrelation_test.html">autocorrelation_test()</a></code> </p>
-          </td>
-          <td><p>A function to test for autocorrelation of amplification curve data
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="PCRedux-package.html">l4</a></code> </p>
+        </td>
+        <td><p>PCRedux - quantitative PCR Data Mining and Machine Learning Helper Tool</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="PCRedux_datasets.rd">data_sample</a></code> <code><a href="PCRedux_datasets.rd">RAS002</a></code> <code><a href="PCRedux_datasets.rd">RAS002_decisions</a></code> </p>
+        </td>
+        <td><p>The datasets implemented in PCRedux</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="autocorrelation_test.html">autocorrelation_test()</a></code> </p>
+        </td>
+        <td><p>A function to test for autocorrelation of amplification curve data
 from a quantitative PCR experiment</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="decision_modus.html">decision_modus()</a></code> </p>
-          </td>
-          <td><p>A function to get a decision (modus) from a vector of classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="earlyreg.html">earlyreg()</a></code> </p>
-          </td>
-          <td><p>A function to calculate the slope and intercept of an amplification curve data
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="decision_modus.html">decision_modus()</a></code> </p>
+        </td>
+        <td><p>A function to get a decision (modus) from a vector of classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="earlyreg.html">earlyreg()</a></code> </p>
+        </td>
+        <td><p>A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="encu.html">encu()</a></code> </p>
-          </td>
-          <td><p>A function to calculate numerous features from amplification curve data
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="encu.html">encu()</a></code> </p>
+        </td>
+        <td><p>A function to calculate numerous features from amplification curve data
 from a quantitative PCR experiment.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="head2tailratio.html">head2tailratio()</a></code> </p>
-          </td>
-          <td><p>A function to calculate to head to tail ratio of amplification curve data
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="head2tailratio.html">head2tailratio()</a></code> </p>
+        </td>
+        <td><p>A function to calculate to head to tail ratio of amplification curve data
 from a quantitative PCR experiment</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="hookreg.html">hookreg()</a></code> </p>
-          </td>
-          <td><p>A function to calculate the slope and intercept of an amplification curve data
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hookreg.html">hookreg()</a></code> </p>
+        </td>
+        <td><p>A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment at the end of the data stream.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="hookregNL.html">hookregNL()</a></code> </p>
-          </td>
-          <td><p>hookregNL - A function to calculate the slope of amplification curves in the tail region</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mblrr.html">mblrr()</a></code> </p>
-          </td>
-          <td><p>A function to perform a Qunantile-filter based Local Robust Regression</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="pcrfit_single.html">pcrfit_single()</a></code> </p>
-          </td>
-          <td><p>pcrfit_single - A function to extract features from an amplification curve</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="performeR.html">performeR()</a></code> </p>
-          </td>
-          <td><p>Performance analysis for binary classification</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="qPCR2fdata.html">qPCR2fdata()</a></code> </p>
-          </td>
-          <td><p>A helper function to convert amplification curve data to the fdata format.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tReem.html">tReem()</a></code> </p>
-          </td>
-          <td><p>A function to Group Amplification Curves According to their Shape</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="visdat_pcrfit.html">visdat_pcrfit()</a></code> </p>
-          </td>
-          <td><p>Visualizing the content of data from an analysis with the pcrfit_single function</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hookregNL.html">hookregNL()</a></code> </p>
+        </td>
+        <td><p>hookregNL - A function to calculate the slope of amplification curves in the tail region</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mblrr.html">mblrr()</a></code> </p>
+        </td>
+        <td><p>A function to perform a Qunantile-filter based Local Robust Regression</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pcrfit_single.html">pcrfit_single()</a></code> </p>
+        </td>
+        <td><p>pcrfit_single - A function to extract features from an amplification curve</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="performeR.html">performeR()</a></code> </p>
+        </td>
+        <td><p>Performance analysis for binary classification</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="qPCR2fdata.html">qPCR2fdata()</a></code> </p>
+        </td>
+        <td><p>A helper function to convert amplification curve data to the fdata format.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tReem.html">tReem()</a></code> </p>
+        </td>
+        <td><p>A function to Group Amplification Curves According to their Shape</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="visdat_pcrfit.html">visdat_pcrfit()</a></code> </p>
+        </td>
+        <td><p>Visualizing the content of data from an analysis with the pcrfit_single function</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -240,6 +246,8 @@ from a quantitative PCR experiment at the end of the data stream.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

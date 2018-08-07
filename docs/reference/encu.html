@@ -22,10 +22,15 @@ from a quantitative PCR experiment. — encu • PCRedux</title>
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="A function to calculate numerous features from amplification curve data
 from a quantitative PCR experiment. — encu" />
 
@@ -34,6 +39,7 @@ features of a large amplification curve data set.
 The pcrfit_single is
 performing the analysis for a single process." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -60,7 +66,7 @@ performing the analysis for a single process." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.6.2</span>
       </span>
     </div>
 
@@ -100,6 +106,7 @@ performing the analysis for a single process." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -107,20 +114,23 @@ performing the analysis for a single process." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A function to calculate numerous features from amplification curve data
 from a quantitative PCR experiment.</h1>
-    <small>Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/encu.R'><code>R/encu.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/encu.R'><code>R/encu.R</code></a></small>
+    <div class="hidden name"><code>encu.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>encu (ENcode CUrves) is a function to calculate numerous
 features of a large amplification curve data set.
 The <code><a href='pcrfit_single.html'>pcrfit_single</a></code> is
 performing the analysis for a single process.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>encu</span>(<span class='no'>data</span>, <span class='kw'>detection_chemistry</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>device</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
@@ -158,27 +168,30 @@ identical to the <code><a href='pcrfit_single.html'>pcrfit_single</a></code> fun
 <span class='co'># F1.3 and F1.4 are negative.</span>
 
 <span class='fu'>library</span>(<span class='no'>qpcR</span>)
-<span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt;    |                                                  | 0 % ~calculating  </div><div class='output co'>#&gt; <span class='message'>Loading required package: bcp</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: grid</span></div><div class='output co'>#&gt;    |+++++++++++++++++++++++++                         | 50% ~02s             |++++++++++++++++++++++++++++++++++++++++++++++++++| 100% elapsed = 03s</div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2      eff   sliwin cpDdiff loglin_slope cpD2_range top
-#&gt; 1 F1.1 17.49 15.62 1.819425 1.739444    1.87    0.1382870   4.287451  10
-#&gt; 2 F1.2 17.39 15.59 1.782711 1.737737    1.80    0.1421122   4.267283  10
-#&gt;        f.top tdp     f.tdp bg.stop_norm amp.stop_norm   b_slope f_intercept
-#&gt; 1 0.01391000  27 0.9712161            9            30 -12.73839   0.9283718
-#&gt; 2 0.01330955  28 0.9853867            9            27 -13.90384   0.7622996
+<span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt; <span class='message'>Loading required package: bcp</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: grid</span></div><div class='output co'>#&gt; N:45, idsize:45, idval1:1, idval22:22
+#&gt; mm: 1, nn2: 45, N:45, cumksize.size: 45
+#&gt; N:45, idsize:45, idval1:1, idval22:22
+#&gt; mm: 1, nn2: 45, N:45, cumksize.size: 45</div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2      eff   sliwin cpDdiff loglin_slope cpD2_range top
+#&gt; 1 F1.1 17.49 15.62 1.819425 1.739444    1.87    0.1382870   4.368862  10
+#&gt; 2 F1.2 17.39 15.59 1.782711 1.737737    1.80    0.1421122   4.258406  10
+#&gt;        f.top tdp     f.tdp bg.stop amp.stop   b_slope f_intercept
+#&gt; 1 0.01391000  27 0.9712161       9       30 -12.73839   0.9283718
+#&gt; 2 0.01330955  28 0.9853867       9       27 -13.90384   0.7622996
 #&gt;   convInfo_iteratons qPCRmodel qPCRmodelRF       minRFU maxRFU        init2
 #&gt; 1                  8        l7          l7 -0.004237230      1 1.700487e-05
 #&gt; 2                  8        l7          l7 -0.003998994      1 2.631616e-05
 #&gt;        fluo    slope_bg intercept_bg     sd_bg head2tail_ratio mblrr_slope_pt
-#&gt; 1 0.1953197 0.001581130 -0.006475498 0.4229451   -0.0007122453  -0.0003719424
-#&gt; 2 0.2160592 0.001655031 -0.006660901 0.4395818   -0.0009850845  -0.0002171012
+#&gt; 1 0.1953197 0.001733801 -0.006777540 0.4229451   -0.0007122453  -0.0003719424
+#&gt; 2 0.2160592 0.001635822 -0.006490719 0.4395818   -0.0009850845  -0.0002171012
 #&gt;   mblrr_intercept_bg mblrr_slope_bg mblrr_cor_bg mblrr_intercept_pt
 #&gt; 1       -0.006442819    0.001572672    0.9323391           1.008902
 #&gt; 2       -0.006274295    0.001548088    0.9198655           1.001047
 #&gt;   mblrr_cor_pt   polyarea peaks_ratio autocorellation changepoint_e.agglo
-#&gt; 1            0 -0.1559269  0.02573190       0.5814756                   2
-#&gt; 2            0 -0.1684371  0.03253091       0.5478919                   2
+#&gt; 1            0 -0.1559269  0.02573190       0.4883720                   2
+#&gt; 2            0 -0.1684371  0.03146392       0.4402242                   2
 #&gt;   changepoint_bcp amptester_shapiro amptester_lrt amptester_rgt amptester_tht
-#&gt; 1              11             FALSE          TRUE          TRUE          TRUE
-#&gt; 2              13             FALSE          TRUE          TRUE          TRUE
+#&gt; 1              10             FALSE          TRUE          TRUE          TRUE
+#&gt; 2              12             FALSE          TRUE          TRUE          TRUE
 #&gt;   amptester_slt amptester_polygon amptester_slope.ratio hookreg_hook
 #&gt; 1          TRUE          1.266341             0.2219895            1
 #&gt; 2          TRUE          1.273192             0.2167183            1
@@ -218,6 +231,8 @@ Stefan Roediger, Michal Burdukiewcz
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>
