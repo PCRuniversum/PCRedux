@@ -5,8 +5,8 @@
 \title{A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment at the end of the data stream.}
 \usage{
-hookreg(x, y, normalize = TRUE, sig.level = 0.0025, CI.level = 0.9975,
-  robust = FALSE)
+hookreg(x, y, normalize = TRUE, sig.level = 0.0025,
+  CI.level = 0.9975, robust = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
