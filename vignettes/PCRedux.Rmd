@@ -164,14 +164,118 @@ plot_random_forest_short <- "Random Forest"
 }
 \end{figure}
 
+
+## Development, Implementation and Installation \label{section_Development_Implementation_and_Installation}
+
+\texttt{PCRedux} is an open source software package for the statistical computing language \texttt{R}. This software is published under the terms of the [MIT license](https://opensource.org/licenses/MIT)\footnote{\url{https://opensource.org/licenses/MIT}}. \texttt{PCRedux} contains function for the calculation of features from amplification curves and classified datasets for machine learning applications.
+
+All technical and experimental aspects should be performed under principles that follow good practices of reproducible research. Numerous authors addressed the matter for experimental design and data report. Examples are the *Minimum Information for Publication of Quantitative PCR Experiments* guidelines (MIQE) and the *Real-time PCR Data Markup Language* (RDML). MIQE is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines and RDML is a data exchange format [@bustin_continuing_2017, @roediger2015r, @roediger_enabling_2017].
+
+The development of scientific software is a complex process. In particular, if the development is carried out by teams who work in different time zones and where no face-to-face meetings a possible. End users need releases with stable software that delivers reproducible results. Developers need well documented software the adopt the software according to their needs. 
+
+Under the umbrella \textit{Agile Software Development} and \textit{Extreme Programming}, several principles were proposed to deliver high quality software, which meet the needs of end users and developers. This includes version control, collaborative editing, unit testing and continuous integration [@lanubile_collaboration_2010, @myers_art_2004, @roediger2015r]. The following paragraphs describe methods applied for the \texttt{PCRedux} package.
+
+### Version Control and Continuous Integration \label{section_Version_Control_and_Continuous_Integration}
+
+The development of the \texttt{PCRedux} package started 2017 with the submission of a functional, yet immature source code, to GitHub (GitHub, Inc.). GitHub is a web-based version control repository hosting service. Both distributed version control and source code management are based on Git. [@lanubile_collaboration_2010]. Additional functionality of GitHub includes the administration of access management, bug tracking, moderation of feature requests, task management, some metrics for the software development, and wikis. The source code of \texttt{PCRedux} is available at:
+
+> \url{https://github.com/devSJR/PCRedux/}
+
+In continuous integration development team members can commit and integrate their contributions several times a day. Team members may include coders, artists and translators. An automated build and test system verifies each integration and gives the development team members a timely feedback about the effect of their commit. In contrast to deferred integration leads this to a reduced number of integration problems and less workload because most errors are solved shortly after they were integrated [@myers_art_2004].
+
+TravisCI was chosen as continues integration service for \texttt{PCRedux}. The TravisCI server communicates with the GitHub version control system and manages the  \texttt{PCRedux} package building process. Currently the continuous interaction is available for the \texttt{R} releases \textit{oldrel}, \textit{release} and \textit{devel}. The history of the build tests are available at:
+
+> \url{https://travis-ci.org/devSJR/PCRedux}
+
+### Naming Convention and Literate Programming \label{section_Naming_Convention_and_Literate_Programming}
+
+The \texttt{PCRedux} software is provided as an \text{R} ($\geq$ v. 3.3.3) package. \texttt{PCRedux} is written as \textit{S3} object system. \textit{S3} has characteristics of object orientated programming but eases the development due to the use of the naming conventions [@noauthor_compstat_2008]. In most places function and parameter names are written as underscore separated (underscore$\_$sep), which is a widely used style in \texttt{R} packages [@Baaaath_2012]. This convention had to be violated in coding sections where functionality from other packages was used.
+
+Literate programming, as proposed by @knuth_literate_1984, is a concept where the logic of the source code and documentation is integrated in a single file. Markup conventions (e.&nbsp;g., '#') tell in literate programming how to typeset the documentation. This produces outputs in a typesetting language such as the lightweight markup language **Markdown**, or the document preparation system  \LaTeX. 
+
+The \texttt{roxygen2}, \texttt{rmarkdown} and \texttt{knitr} packages were used to write the documentation in-line with code for the \texttt{PCRedux} package.
+
+### Installation of the \texttt{PCRedux} Package \label{section_Installation_of_the_PCRedux_Package}
+
+The development version of the package can be installed using the developer version of the package can be installed using the \texttt{devtools} package.
+
+```{r, eval=FALSE, echo=TRUE}
+# Install devtools, if not already installed.
+install.packages("devtools")
+
+library(devtools)
+install_github("devSJR/PCRedux")
+```
+
+\texttt{PCRedux} is available as stable version from the \textbf{C}omprehensive \texttt{R} \textbf{A}rchive \textbf{N}etwork (CRAN) at \url{https://CRAN.R-project.org/package=PCRedux}. Package published at CRAN undergo intensive checking procedures. In addition, CRAN tests whether the package can be built for common operating systems and whether all version dependencies are solved. To install \texttt{PCRedux} first install \texttt{R} ($\geq$ v. 3.3.3). Then start \texttt{R} and type in the prompt:
+
+```{r, eval=FALSE, echo=TRUE}
+# Select your local mirror
+install.packages("PCRedux")
+```
+
+The \texttt{PCRedux} package should just install. If this failed make sure that write access is permitted to the destination directory.
+
+```{r, eval=FALSE, echo=TRUE}
+# The following command points to the help for download and install of packages
+# from CRAN-like repositories or from local files.
+?install.packages()
+```
+
+If this fails try to follow the instructions given  by @de_vries_r_2012.
+
+> R CMD check 
+
+Results from CRAN check can be found at 
+
+> \url{http://cran.us.r-project.org/web/checks/check_results_PCRedux.html}.
+
+
+### Unit Testing of the \texttt{PCRedux} Package \label{section_Unit_Testing_of_the_PCRedux_Package}
+
+Modules testing, better known as unit testing, is an approach to simplify the refactoring of source code during software development. Unit Testing is not a guarantee for error-free software [@myers_art_2004]. The goal is to minimize errors and regressions. It is also intended to ensure that the numerical results from the calculations are reproducible and of high quality. An unintended behavior of the software should be detected at the latest during the package building process.
+
+The basic concept is to use *checkpoints* to check whether the software performs calculations and data transformations correctly for all builds. For this, numerous (logical) queries have to be defined by the developer in advance. They are refereed to \textit{expectations}. It should be ensured that as many errors as possible are covered. A logical query can be, for example, whether the calculation has a numeric or Boolean value as output. If the data type is incorrect during output, this is a sufficient termination criterion. Or it can be checked whether the length of the result vector is correct after the calculation. There are different approaches for unit tests in \texttt{R}. This also includes testing of units from the packages \texttt{RUnit}, \texttt{covr}, \texttt{svUnit} and \texttt{testthat}. (@wickham_testthat_2011).
+
+The package \texttt{testthat} was used in \texttt{PCRedux} because it could be well implemented and its maintenance is relatively simple. The logic is that an \textit{expectation} defines how the result, class or error in the corresponding unit (e.&nbsp;g., function) should behave. Unit tests can be found in the `/test/testthat` subdirectory of the \texttt{PCRedux} package. The unit tests always run automatically during the creation of the package. The following is an example of the function ``qPCR2fdata()`` (for details see \autoref{section_qPCR2fdata}). The function ``test_that()``, from the \texttt{testthat} package, is given several \textit{expectations} such as:
+
+* an object of the class *fdata* is created (see @Febrero_Bande_2012 for details of the class *fdata*),
+* the parameter `rangeval` has a length of two,
+* is the second value of parameter `rangeval` 49 (last cycle number) and 
+*whether the object structure of the function ``qPCR2fdata()`` does not change if the parameter `preprocess=TRUE` is set.
+
+```{r, eval=FALSE, echo=TRUE}
+# Expectations used for the unit testing of the qPCR2fdata() function.
+library(PCRedux)
+
+context("qPCR2fdata")
+
+test_that("qPCR2fdata gives the correct dimensions and properties", {
+    library(qpcR)
+    res_fdata <- qPCR2fdata(testdat)
+    res_fdata_preprocess <- qPCR2fdata(testdat, preprocess = TRUE)
+    
+    expect_that(res_fdata, is_a("fdata"))
+    expect_that(length(res_fdata$rangeval) == 2 &&
+    res_fdata$rangeval[2] == 49, is_true())
+    
+    expect_that(res_fdata_preprocess, is_a("fdata"))
+    expect_that(length(res_fdata_preprocess$rangeval) == 2 &&
+    res_fdata_preprocess$rangeval[2] == 49, is_true())
+})
+```
+
+Further unit tests were implemented for all functions of the \texttt{PCRedux} package. The coverage by \texttt{PCRedux} package can be calculated by the ``package_coverage()`` function from the \texttt{covr} package [@covr] or visual analyzed at:
+
+> \url{https://codecov.io/gh/devSJR/PCRedux/list/master/}.
+
+
 \newpage
 
 ## Analysis of Sigmoid Shaped Curves for Data Mining and Machine Learning Applications\label{section_reasoning_and_analysis}
 
 
-This document describes the \texttt{PCRedux} open source software package for the statistical computing language \texttt{R}. \texttt{PCRedux} is intended to be used for the analysis, numerical description and feature calculation from a sigmoid curve. A feature herein refers to a quantifiable *informative* property of a sigmoid curve. The features, sometimes referred to as descriptors, (\autoref{section_Functions_of_PCRedux}) can be used for applications such as data mining, machine learning and automatic classification of curves (e.&nbsp;g., positive, negative). An other classification could indicate whether the quality of the amplification curve is poor (much noise) or good (low noise). 
-
-In the following chapters information are provided, which can be used for the analysis and numerical description of quantitative real-time PCR (qPCR) amplification curves. qPCR amplification curves are a practical example for sigmoid shaped curves. 
+The following sections describe the \texttt{PCRedux} regarding the analysis, numerical description and feature calculation from a sigmoid curve. A feature herein refers to a quantifiable *informative* property of a sigmoid curve. Quantitative real-time PCR (qPCR) amplification curves are a practical example for sigmoid shaped curves. The features, sometimes referred to as descriptors, (\autoref{section_Functions_of_PCRedux}) can be used for applications such as data mining, machine learning and automatic classification of curves (e.&nbsp;g., positive, negative). An other classification could indicate whether the quality of the amplification curve is poor (much noise) or good (low noise).
 
 The determination of quantification points such as the Cq value is a typical task during the analysis of qPCR experiments. This is dealt with only marginally (e.&nbsp;g., \autoref{section_reasoning_and_analysis} ff.), since specific software packages and analysis procedures have already been described in other studies (\autoref{section_software}). Instead, characteristics of amplification curves that can be used for the statistical and analytical description are discussed (\autoref{section_analysis_functions}) more in detail. The examples described here focus on the **binary (dichotomous) classification** [@kruppa_probability_2014] as negative positive. 
 
@@ -179,41 +283,25 @@ The availability of classified amplification curve datasets and technologies for
 
 ### Machine Learning Technologies for Working with Amplification Curve Data\label{section_technologies_amplification_curves_ML}
 
-Data mining and machine learning can be used for descriptive and predictive tasks during the analysis of complex datasets. Data mining uses specific methods from statistical interference, software engineering and domain knowledge to
+Data mining and machine learning can be used for descriptive and predictive tasks during the analysis of complex datasets. Data mining uses specific methods from statistical interference, software engineering and domain knowledge to obtain a better understanding of the data and to extract *hidden knowledge* from the pre-processed data [@kruppa_probability_2014, @herrera_multiple_2016]. All this implies that a human being interacts with the data at the different stages of the whole process as part of the workflow in data mining. Elements of the data mining process are the pre-processing of the data, the description of the data, the exploration of the data and the search for connections and causes. 
 
-* obtain a better understanding of the data and
-* to extract *hidden knowledge*
+In contrast, machine learning uses instructions and data in software modules to create models that can be used to make predictions on novel data. In machine learning, the human being is much less necessary in the entire process. Processes (algorithms) are used to create models with tunable parameters. These models automatically adapt their performance to the information (features) from the data. Well-known examples of machine learning technologies are Decision Trees (DT), Boosting, Random Forests (RF), Support Vector Machines (SVM), generalized linear models (GLM), logistic regression (LR) and deep neural networks (DNN) [@lee_statistical_2010]. The three following classes of machine learning are classically described in the literature:
 
-from the pre-processed data [@kruppa_probability_2014, @herrera_multiple_2016]. All this implies that a human being interacts with the data at the different stages of the whole process. The human being is therefore always a part of the workflow in data mining. Parts of the data mining process are
+*Supervised learning*: These algorithms (e.&nbsp;g., SVM, DT, RF) learn from a training dataset of labeled and annotated data (e.&nbsp;g., "positive" and "negative"). It is used for building a generalized model of all data. These algorithms use error or reward signals to evaluate the quality of a solution found [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017]. Binomial logistic regression\footnote{Logistical regression can also be used to predict a dependent variable that can assume more than two states. In this case, it is called a multinomial logistic regression. An example would be the classification $y$ of amplification curves as \textit{slightly noisy}, \textit{medium noisy} or \textit{heavily noisy}.} is used to gain knowledge about a binary relationship, by fitting a regression model $y = f(x)$. $y$ is a categorical variable with two states (negative $\rightarrow 0$, positive $\rightarrow 1$). Typically, this model is used for predicting $y$ with a mixture of $n$ continuous and categorical predictors (features) $x_{i1}, \ldots, x_{k1}, (i = 1, \ldots, n)$. 
 
-* the pre-processing of the data \autoref{section_data_sets}, 
-* the description of the data, 
-* the exploration of the data and 
-* the search for connections and causes. 
+The logit model is a robust and versatile classification method to explain a dependent binary variable. Their codomain of real numbers is limited to [0,1]. Probabilities can therefore be utilized. The logistical distribution function $F(\eta)$, also known as the response function, is strictly monotone increasing and limited to this range.
 
-In contrast, machine learning uses instructions and data in software modules to create models that can be used to make predictions on novel data. In machine learning, the human being is much less necessary in the entire process. During machine learning, processes (algorithms) are used to create models with tunable parameters. These models automatically adapt their performance to the information (features) from the data. Well-known examples of machine learning technologies are Decision Trees (DT), Boosting, Random Forests (RF), Support Vector Machines (SVM), generalized linear models (GLM), logistic regression (LR) and deep neural networks (DNN) [@lee_statistical_2010]. The three following classes of machine learning are classically described in the literature:
+$\eta_{i}$ establishes the link between the probability of the occurrence and the independent variables. For this reason, $\eta_{i}$ is referred to as a link function. The distribution function of the normal distribution is an alternative to the logistical distribution function. By using the normal distribution, the Probit model is obtained. However, since this is more difficult to interpret, it is less widely used in practice. Since probabilities are used, it is possible to make a prediction about the probability of occurrence of an event. 
 
-* *Supervised learning*: These algorithms (e.&nbsp;g., LR, SVM, DT, RF) learn from a training dataset of labeled and annotated data (e.&nbsp;g., "positive" and "negative"). It is used for building a generalized model of all data. These algorithms use error or reward signals to evaluate the quality of a solution found [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017].
-* *Unsupervised learning*: Algorithms, such as k-means clustering, kernel density estimation, LDA or PCA learn from training datasets of unlabeled or non-annotated data to find hidden structures according to geometric or statistical criteria [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017].
-* *Reinforcement Learning*: The algorithms learn by reinforcement from `criticism`. The criticisms inform the algorithm about the quality of the solution found. But the criticism says nothing about how to improve. These algorithms iteratively search the improved solution in the entire solution space [@bischl_mlr:_2010, @igual_introduction_2017].
-
-Decision trees are a classic approach to machine learning [@quinlan_induction_1986]. Here relatively simple algorithms and simple tree structures are used to create a model. \texttt{R} offers several packages like \texttt{party} [@hothorn_unbiased_2006], \texttt{rpart} [@rpart_2017] and \texttt{Rattle} [@williams_rattle:_2009] for creating decision trees. An applications of decision trees is shown in \autoref{section_mblrr}.
-
-Binomial logistic regression\footnote{Logistical regression can also be used to predict a dependent variable that can assume more than two states. In this case, it is called a multinomial logistic regression. An example would be the classification $y$ of amplification curves as \textit{slightly noisy}, \textit{medium noisy} or \textit{heavily noisy}.} is used in data science and machine learning to gain knowledge about a binary relationship. In specific, Binomial logistic regression is used to fit a regression model, $y = f(x)$ if $y$ is a categorical variable with two states (e.&nbsp;g., negative, positive). Thus, binary variables have exactly two values (negative $\rightarrow 0$, positive $\rightarrow 1$). Typically, this model is used for predicting $y$ with $n$ predictors $x_{i1}, \ldots, x_{k1}, (i = 1, \ldots, n)$. The predictors can be a mixture of continuous and categorical. The logit model is a robust and versatile classification method to explain a dependent binary variable. Their codomain of real numbers is limited to [0,1]. Probabilities can therefore be utilized. Logistical distribution function $F(\eta)$, also known as the response function, is strictly monotone increasing and limited to this range.
-
-$\eta_{i}$ establishes the link between the probability of the occurrence and the independent variables. For this reason, $\eta_{i}$ is referred to as a link function. The distribution function of the normal distribution is an alternative to the logistical distribution function. By using the normal distribution, the Probit model is obtained. However, since this is more difficult to interpret, it is less widely used in practice. Since probabilities are used, it is possible to make a prediction about the probability of occurrence of an event. When analyzing amplification curves, a diagnosis can be made whether a reaction was unsuccessful (0) or successful (1). For the prediction independent metric variables are used. The metric variables have interpretable distances with a defined order. Their codomain is [-$\infty$,$\infty$]. The logistic distribution function on the independent variables determines the probability for $Y_{i} = 0$ or $Y_{i} = 1$. A logistic regression model can be formulated as follows:
+When analyzing amplification curves, a diagnosis can be made whether a reaction was unsuccessful (0) or successful (1). For the prediction independent metric variables (features) are used. The metric variables have interpretable distances with a defined order. Their codomain is [-$\infty$,$\infty$]. The logistic distribution function on the independent variables determines the probability for $Y_{i} = 0$ or $Y_{i} = 1$. A logistic regression model can be formulated as follows:
 
 $F(\eta)=\frac{1}{1+exp(-\eta)}$
 
 The logistic regression analysis is based on the maximum-likelihood estimation (MLE). In contrast to linear regression, the probability for $Y=1$ is not modeled from explanatory variables. Rather, the logarithmic chance (logit) is used for the occurrence of $Y=1$. The term *chance* refers to the ratio of the probability of occurrence of an event (e.&nbsp;g., amplification curve is positive) and the counter-probability (e.&nbsp;g., amplification curve is negative) of an event.
 
-In the ideal case, this should achieve a high degree of objectivity and reproducibility. It is not always possible to justify this ideal, because the algorithms can be biased as the human. One reason is that humans design the algorithms and  curate the dataset used for the learning. In particular, datasets can be biased if the human expert excludes seemingly problematic data.
+*Unsupervised learning*: Algorithms, such as k-means clustering, kernel density estimation, LDA or PCA learn from training datasets of unlabeled or non-annotated data to find hidden structures according to geometric or statistical criteria [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017].
 
-The model should then be able to bring new unknown data into a meaningful context. The selected features have a significant influence on the accuracy of the model. In machine learning, variables are features that are used to train a model [@saeys_review_2007]. Therefore, it is important to identify or generate new features potential features and to test them intensively. Regarding amplification curves, only a few features have been described in the literature so far. They are described in the following sections. Dedicated applications and descriptions of features in the peer-reviewed literature is not described.
-
-Since machine learning algorithm for the analysis of amplification curve data were not available in the literature, it was necessary to speculate, which characteristics should be extracted by the processing algorithm and broken down into characteristic vectors. The number of proposed features that can be created with the algorithms of the \texttt{PCRedux} package was presumably the most extensive collection at the time of first release on \url{https://github.com/devSJR/PCRedux} in summer 2017. Previously, only a few characteristics of amplification curves were described in the literature. Thus, it would be too few to use them extensively for machine learning with qPCR data. An application of those for machine learning could also not be found.
-
-The algorithms of machine learning consist of several steps including careful data pre-processing and quality management. In a first step, relatively large datasets of known characteristic vectors have to be collected, measured and calculated as raw data. In a second step, these characteristics are used to classify unknown feature vectors using the machine learning algorithm. For example, the amplification curves would have to be divided into training data and test data from the entire dataset at random.
+*Reinforcement Learning*: The algorithms learn by reinforcement from `criticism`. The criticisms inform the algorithm about the quality of the solution found. But the criticism says nothing about how to improve. These algorithms iteratively search the improved solution in the entire solution space [@bischl_mlr:_2010, @igual_introduction_2017].
 
 \newpage
 
@@ -733,112 +821,6 @@ Ideally, only a few iterations are necessary to complete the classification of a
 library(qpcR)
 tReem(testdat[, 1:15], k = 3)
 ```
-
-\newpage
-
-
-## Development, Implementation and Installation \label{section_Development_Implementation_and_Installation}
-
-\texttt{PCRedux} is an open source software package for the statistical computing language \texttt{R}. This software is published under the terms of the [MIT license](https://opensource.org/licenses/MIT)\footnote{\url{https://opensource.org/licenses/MIT}}. \texttt{PCRedux} contains function for the calculation of features from amplification curves and classified datasets for machine learning applications.
-
-Reproducibility is a foundation of research. All technical and experimental aspects should be performed under principles that follow good practices of reproducible research. Numerous authors addressed the matter for experimental design and data report. Examples are the *Minimum Information for Publication of Quantitative PCR Experiments* guidelines (MIQE) and the *Real-time PCR Data Markup Language* (RDML). MIQE is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines and RDML is a data exchange format [@bustin_reproducibility_2014, @bustin_continuing_2017, @roediger2015r, @roediger_enabling_2017, @wilson_good_2016]. Both MIQE and RDML, are widely used to preform quantitative real-time PCRs [@pabinger_2014].
-
-The development of scientific software is a complex process. In particular, if the development is carried out by teams who work in different time zones and where no face-to-face meetings a possible. End users need releases with stable software that delivers reproducible results. Developers need well documented software the adopt the software according to their needs. 
-
-Under the umbrella \textit{Agile Software Development} and \textit{Extreme Programming}, several principles were proposed to deliver high quality software, which meet the needs of end users and developers. This includes version control, collaborative editing, unit testing and continuous integration[@lanubile_collaboration_2010, @myers_art_2004, @roediger2015r]. The following paragraphs describe methods implemented in the PCRedux package to ensure high software quality.
-
-### Version Control and Continuous Integration \label{section_Version_Control_and_Continuous_Integration}
-
-The development of the \texttt{PCRedux} package started 2017 with the submission of a functional, yet immature source code, to GitHub (GitHub, Inc.). GitHub is a web-based version control repository hosting service. Both distributed version control and source code management are based on Git. [@lanubile_collaboration_2010]. Additional functionality of GitHub includes the administration of access management, bug tracking, moderation of feature requests, task management, some metrics for the software development, and wikis. The source code of \texttt{PCRedux} is available at:
-
-> \url{https://github.com/devSJR/PCRedux/}
-
-In continuous integration development team members commit and integrate their contributions several times a day. Team members may include coders, artists and translators. An automated build and test system verifies each integration and gives the development team members a timely feedback about the effect of their commit. In contrast to deferred integration leads this to a reduced number of integration problems and less workload because most erros are solved shortly after they were integrated [@myers_art_2004].
-
-TrivsCI was chosen as continues integration service for \texttt{PCRedux}. The TravisCI server communicates with the GitHub version control system and manages the  \texttt{PCRedux} package building process. Currently the continuous interaction is available for the \texttt{R} releases \textit{oldrel}, \textit{release} and \textit{devel}. The history of the build tests are available at
-
-> \url{https://travis-ci.org/devSJR/PCRedux}
-
-### Naming Convention and Literate Programming \label{section_Naming_Convention_and_Literate_Programming}
-
-The \texttt{PCRedux} software is provided as an \text{R} ($\geq$ v. 3.3.3) package. \texttt{PCRedux} is written as \textit{S3} object system. \textit{S3} has characteristics of object orientated programming but eases the development due to the use of the naming conventions [@noauthor_compstat_2008]. In most places function and parameter names are written as underscore separated (underscore$\_$sep), which is a widely used style in \texttt{R} packages [@Baaaath_2012]. This convention had to be violated in coding sections where functionality from other packages was used.
-
-Literate programming, as proposed by @knuth_literate_1984, is a concept where the logic of the source code and documentation is integrated in a single file. Markup conventions (e.&nbsp;g., '#') tell in literate programming how to typeset the documentation. This produces outputs in a typesetting language such as the lightweight markup language **Markdown**, or the document preparation system  \LaTeX. 
-
-The \texttt{roxygen2}, \texttt{rmarkdown} and \texttt{knitr} packages were used to write the documentation in-line with code for the \texttt{PCRedux} package.
-
-### Installation of the \texttt{PCRedux} Package \label{section_Installation_of_the_PCRedux_Package}
-
-The development version of the package can be installed using the developer version of the package can be installed using the \texttt{devtools} package.
-
-```{r, eval=FALSE, echo=TRUE}
-# Install devtools, if not already installed.
-install.packages("devtools")
-
-library(devtools)
-install_github("devSJR/PCRedux")
-```
-
-\texttt{PCRedux} is available as stable version from the \textbf{C}omprehensive \texttt{R} \textbf{A}rchive \textbf{N}etwork (CRAN) at \url{https://CRAN.R-project.org/package=PCRedux}. Package published at CRAN undergo intensive checking procedures. In addition, CRAN tests whether the package can be built for common operating systems and whether all version dependencies are solved. To install \texttt{PCRedux} first install \texttt{R} ($\geq$ v. 3.3.3). Then start \texttt{R} and type in the prompt:
-
-```{r, eval=FALSE, echo=TRUE}
-# Select your local mirror
-install.packages("PCRedux")
-```
-
-The \texttt{PCRedux} package should just install. If this fails make sure you that write access is permitted to the destination directory.
-
-```{r, eval=FALSE, echo=TRUE}
-# The following command points to the help for download and install of packages
-# from CRAN-like repositories or from local files.
-?install.packages()
-```
-
-If this fails try to follow the instructions given  by @de_vries_r_2012.
-
-> R CMD check 
-
-Results from CRAN check can be found at 
-
-> \url{http://cran.us.r-project.org/web/checks/check_results_PCRedux.html}.
-
-
-### Unit Testing of the \texttt{PCRedux} Package \label{section_Unit_Testing_of_the_PCRedux_Package}
-
-Modules testing, better known as unit testing, is an approach to simplify the refactoring of source code during software development. The goal is to minimize errors and regressions. It is also intended to ensure that the numerical results from the calculations are reproducible and of high quality. An unintended behavior of the software should be detected at the latest during the package building process. Please note that Unit Testing is not a guarantee for error-free software [@myers_art_2004].
-
-The basic concept is to use checkpoints to check whether the software performs calculations and data transformations correctly for all builds. For this, numerous (logical) queries have to be defined by the developer in advance. They are refereed to \textit{expectations}. It should be ensured that as many errors as possible are covered. A logical query can be, for example, whether the calculation has a numeric or Boolean value as output. If the data type is incorrect during output, this is a sufficient termination criterion. Or it can be checked whether the length of the result vector is correct after the calculation. There are different approaches for unit tests in \texttt{R}. This also includes testing of units from the packages \texttt{RUnit}, \texttt{covr}, \texttt{svUnit} and \texttt{testthat}. (@wickham_testthat_2011).
-
-The package \texttt{testthat} was used in \texttt{PCRedux} because it could be well implemented and its maintenance is relatively simple. The logic is that an \textit{expectation} defines how the result, class or error in the corresponding unit (e.&nbsp;g., function) should behave. Unit tests can be found in the `/test/testthat` subdirectory of the \texttt{PCRedux} package. The unit tests always run automatically during the creation of the package. The following is an example of the function ``qPCR2fdata()``. The details of how ``qPCR2fdata()`` works are detailed in the \autoref{section_qPCR2fdata} section. The function ``test_that()``, from the \texttt{testthat} package, is given several \textit{expectations}. The ``qPCR2fdata()`` function when processing the amplification curves check whether:
-
-* an object of the class *fdata* is created (see @Febrero_Bande_2012 for details of the class *fdata*),
-* the parameter `rangeval` has a length of two,
-* is the second value of parameter `rangeval` 49 (last cycle number) and 
-*whether the object structure of the function ``qPCR2fdata()`` does not change if the parameter `preprocess=TRUE` is set.
-
-```{r, eval=FALSE, echo=TRUE}
-library(PCRedux)
-
-context("qPCR2fdata")
-
-test_that("qPCR2fdata gives the correct dimensions and properties", {
-  library(qpcR)
-  res_fdata <- qPCR2fdata(testdat)
-  res_fdata_preprocess <- qPCR2fdata(testdat, preprocess = TRUE)
-
-  expect_that(res_fdata, is_a("fdata"))
-  expect_that(length(res_fdata$rangeval) == 2 &&
-    res_fdata$rangeval[2] == 49, is_true())
-
-  expect_that(res_fdata_preprocess, is_a("fdata"))
-  expect_that(length(res_fdata_preprocess$rangeval) == 2 &&
-    res_fdata_preprocess$rangeval[2] == 49, is_true())
-})
-```
-
-Similar unit tests were implemented for all functions of the \texttt{PCRedux} package. The coverage by \texttt{PCRedux} package can be calculated by the ``package_coverage()`` function from the \texttt{covr} package or visual analyzed at 
-
-> \url{https://codecov.io/gh/devSJR/PCRedux/list/master/}.
 
 \newpage
 
@@ -2384,7 +2366,7 @@ print(xtable(
 ), comment = FALSE, caption.placement = "top")
 ```
 
-In another example, the results from the ``mblrr()`` function were combined with the classifications (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. FFTrees belong to class of simple decision rules. In many situations, FFTrees make fast decisions based on a few features (N = 1 - 5). In this example six features were used for the analysis.
+In another example, the results from the ``mblrr()`` function were combined with the classifications (positive, negative) by a human to apply them in an analysis with Fast and Frugal Trees (FFTrees). FFTrees belong to class of simple decision rules. DT's are a classic approach to machine learning [@quinlan_induction_1986]. Here relatively simple algorithms and simple tree structures are used to create a model. A general introduction to decision trees is given in [@quinlan_induction_1986, @luan_signal-detection_2011]. In many situations, FFTrees make fast decisions based on a few features (N = 1 - 5). In this example six features were used for the analysis.
 
 The \texttt{FFTrees} package [@FFTrees_package] provides an implementation for the \texttt{R} statistical computing language. All that is needed for the present example are:
 
@@ -2436,6 +2418,8 @@ res_mblrr.fft <- suppressMessages(
 ```{r plot_FFTrees, echo=FALSE, fig.cap=plot_FFTrees, fig.scap=plot_FFTrees_short, fig.height=11, fig.width=11}
 plot(res_mblrr.fft, decision.lables = c("Positive", "Negative"))
 ```
+
+\texttt{R} offers several packages like \texttt{party} [@hothorn_unbiased_2006], \texttt{rpart} [@rpart_2017] and \texttt{Rattle} [@williams_rattle:_2009] for creating decision trees. 
 
 \newpage
 
@@ -2804,8 +2788,6 @@ res_pcrfit_parallel
 
 \newpage
 
-
-
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
 
 Extensive amounts of data represent a serious challenge in the analysis of qPCR amplification curves. In a manual classification (e.g. negative, positive) the result is usually characterized by the subjective perception of the experimenter. The time required for a manual analysis is high. An automatic system for amplification curve analysis might objectify and generalize the decision process. Interestingly, so far most authors focused on the extraction of single features from amplification curves. These include the Cq and the amplification efficiency, which are used for the downstream processing such as expression analysis or genotyping [@pabinger_2014]. Numerous software tools were developed, which deal with theses analytical steps. For example @baebler_quantgenius:_2017 published \texttt{quantGenius} and @mallona_chainy:_nodate published \texttt{Chainy}. However, none of them attempts to make use of characteristics of the amplification curve. Therefore, the aims were to
@@ -2817,20 +2799,7 @@ Extensive amounts of data represent a serious challenge in the analysis of qPCR 
 
 for an automatic analysis of amplification curve data by machine learning. 
     
-With the \texttt{PCRedux} software a technology was proposed with which these four objectives have been implemented. The feature complete version 0.2.5-1 of \texttt{PCRedux} was published on 2017/11/20 on CRAN\footnote{\url{https://CRAN.R-project.org/package=PCRedux}}. The download statistics developed till the compilation date (`r Sys.Date()`) of this thesis indicates that there is a need for this kind of software (\autoref{figure_Download_statistics}).
-
-```{r, echo=FALSE, eval=TRUE, cache=TRUE, fig.cap="\\label{figure_Download_statistics} Download statistics of the \\texttt{PCRedux} package. Shown is the number of downloads from CRAN since the release on 2017/11/20 (red dot). Note that other package sources (e. g., GitHub) are not counted.", fig.height=4}
-library(cranlogs)
-library(robustbase)
-dl <- cran_downloads(package = c("PCRedux"), from = "2017-11-20", to = Sys.Date())
-plot(dl[["date"]], dl[["count"]], xlab = "Date", ylab = "Downloads per day", xlim = c(as.Date("11/20/2017", "%m/%d/%Y"), as.Date(tail(dl[["date"]],1), "%m/%d/%Y")), ylim = c(0, max(dl[["count"]])), type="h", lwd = 2.5)
-abline(v=as.Date("12/31/2017", "%m/%d/%Y"), col = "grey")
-# points(as.Date("12/31/2017", "%m/%d/%Y"), max(dl[["count"]]), col = "red", pch = 13, cex = 2)
-points(as.Date("11/20/2017", "%m/%d/%Y"), 0, col = "red", pch = 19, cex = 2)
-lm_dl <- lmrob(count ~ date, data=dl)
-mtext(paste0("Average package downloads per day: ", round(mean(dl[["count"]]), 0), " ± ", round(sd(dl[["count"]]), 0), "\nSum: ", sum(dl[["count"]])), cex = 1, side = 3, adj = 0, font = 1)
-# abline(lm_dl, col = "skyblue", lwd = 2)
-```
+With the \texttt{PCRedux} software a technology was proposed with which these four objectives have been implemented. 
 
 Data sets it is important to make sure that the volume of the data is representative. In this package a comprehensive number of amplification curves were classified by hand and processed with the algorithms described. Although, this dataset is fairly large in comparison to what existed before there is no numeric evidence how well it reflects amplification curves in general. In particular, not all datasets have comparable case numbers. For example, the `htPCR` dataset (Biomark HD, Fluidigm) encompass in total `r ncol(qpcR::htPCR)-1` amplification curves, while the `C127EGHP` dataset (iQ5, Bio-Rad) encompass in total `r ncol(chipPCR::C127EGHP)-2` amplification curves. While most of the amplification curves of the `C127EGHP` dataset have a classical sigmod curve shape exhibit amplification curves from the `htPCR` dataset noisy curvatures with non-sigmoid shape. One may question if the larger dataset introduces a confirmation bias.
 
@@ -2869,6 +2838,13 @@ Of note, we would like to emphasis that the functionality of this package is not
 
 During the setup of a qPCR assay, a manual analysis is a justified and reasonable approach to get acquainted with the characteristics and challenges of the qPCR data. At least hypothetically, it can hardly be denied that the trained human expert can best interpret the dataset. In particular, artifacts and outliers in a series of measurements can usually be readily identified by humans. When large amounts of data need to be processed, however, manual analysis is unfavorable. In addition, the objectivity of an expert can be questioned. It is an open secret that data from quantitative real-time PCRs are occasionally subject to problematic post-processing. In particular, the reproducible and objective analysis of the amplification curve data exposes challenges to inexperienced users. Even among peers is not uncommon that they ``judge`` (classify) results differently. An example on this problem was given in \autoref{figure_sigmoid_curve}.
 
+In the ideal case, this should achieve a high degree of objectivity and reproducibility. It is not always possible to justify this ideal, because the algorithms can be biased as the human. One reason is that humans design the algorithms and  curate the dataset used for the learning. In particular, datasets can be biased if the human expert excludes seemingly problematic data.
+
+The model should then be able to bring new unknown data into a meaningful context. The selected features have a significant influence on the accuracy of the model. In machine learning, variables are features that are used to train a model [@saeys_review_2007]. Therefore, it is important to identify or generate new features potential features and to test them intensively. Regarding amplification curves, only a few features have been described in the literature so far. They are described in the following sections. Dedicated applications and descriptions of features in the peer-reviewed literature is not described.
+
+Since machine learning algorithm for the analysis of amplification curve data were not available in the literature, it was necessary to speculate, which characteristics should be extracted by the processing algorithm and broken down into characteristic vectors. The number of proposed features that can be created with the algorithms of the \texttt{PCRedux} package was presumably the most extensive collection at the time of first release on \url{https://github.com/devSJR/PCRedux} in summer 2017. Previously, only a few characteristics of amplification curves were described in the literature. Thus, it would be too few to use them extensively for machine learning with qPCR data. An application of those for machine learning could also not be found.
+
+The algorithms of machine learning consist of several steps including careful data pre-processing and quality management. In a first step, relatively large datasets of known characteristic vectors have to be collected, measured and calculated as raw data. In a second step, these characteristics are used to classify unknown feature vectors using the machine learning algorithm. For example, the amplification curves would have to be divided into training data and test data from the entire dataset at random.
 
 \newpage
 # References
