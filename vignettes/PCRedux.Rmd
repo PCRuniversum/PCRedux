@@ -1,7 +1,6 @@
 ---
 title: "PCRedux Package - An Overview"
 author: "Stefan R&ouml;diger"
-bibliography: "literature.bib"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::pdf_document:
