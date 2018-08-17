@@ -144,7 +144,7 @@ plot_cp_area <- "Analysis of area and changepoint features. Amplification curves
 
 plot_cp_area_short <- "Analysis of area and changepoint features"
 
-plot_cpa <- "Application of Bayesian change point analysis and energy agglomerative change point analysis methods to the `RAS002` dataset. An analysis of a negative and a positive amplification curve from the `RAS002` dataset was performed using the ``pcrfit\\_single()`` function. In this process, the amplification curves were analysed for change points using Bayesian change point analysis and energy agglomerative clustering. A) The negative amplification curve has a base signal of circa 2450 RFU and only a small signal increase to 2650 RFU. There is a clear indication of the signal variation (noise). B) The first negative derivative amplifies the noise so that some peaks are visible. C) The change point analysis shows changes in energy agglomerative clustering at several positions (green vertical line). The Bayesian change point analysis rarely exceeds a probability of 0.6 (grey vert line). D) The positive amplification curve has a lower base signal (~ 2450 RFU) and increases up to the 40th cycle (~3400 RFU). A sigmoid shape of the curve is visible. E) The first negative derivation of the positive amplification curve shows a distinctive peak with a minimum at cycle 25. F) The change point analysis in energy agglomerative clustering shows changes (green vertical line) only at two positions. The Bayesian change point analysis shows a probability higher than 0.6 (grey horizontal line) at several positions."
+plot_cpa <- "Application of Bayesian change point analysis and energy agglomerative change point analysis methods to the `RAS002` dataset. An analysis of a negative and a positive amplification curve from the `RAS002` dataset was performed using the ``pcrfit\\_single()`` function. In this process, the amplification curves were analysed for change points using Bayesian change point analysis and energy agglomerative clustering. A) The negative amplification curve has a base signal of circa 2450 RFU and only a small signal increase to 2650 RFU. There is a clear indication of the signal variation (noise). B) The first negative derivative amplifies the noise so that some peaks are visible. C) The change point analysis shows changes in energy agglomerative clustering at several positions (green vertical line). The Bayesian change point analysis rarely exceeds a probability of 0.6 (grey vert line). D) The positive amplification curve has a lower base signal ($\\sim 2450$ RFU) and increases up to the 40th cycle ($\\sim 3400$ RFU). A sigmoid shape of the curve is visible. E) The first negative derivation of the positive amplification curve shows a distinctive peak with a minimum at cycle 25. F) The change point analysis in energy agglomerative clustering shows changes (green vertical line) only at two positions. The Bayesian change point analysis shows a probability higher than 0.6 (grey horizontal line) at several positions."
 
 plot_cpa_short <- "Application of Bayesian change point analysis and energy agglomerative change point analysis methods to the `RAS002` dataset"
 
@@ -159,8 +159,8 @@ plot_random_forest_short <- "Random Forest"
 
 \begin{figure}[ht]
 \centering
-\scalebox{0.6}{
-\includegraphics[clip=true,trim=1cm 1cm 1cm 1cm]{Logo.pdf}
+    \scalebox{0.6}{
+    \includegraphics[clip=true,trim=1cm 1cm 1cm 1cm]{Logo.pdf}
 }
 \end{figure}
 
@@ -282,13 +282,13 @@ The determination of quantification points such as the Cq value is a typical tas
 
 The availability of classified amplification curve datasets and technologies for the classification of amplification curves is of high importance to train and validate models. This is dealt with in \autoref{section_data_sets} and \autoref{chapter_humanrater}, respectively.
 
-### Machine Learning Technologies for Working with Amplification Curve Data\label{section_technologies_amplification_curves_ML}
+### Concepts of Machine Learning\label{section_technologies_amplification_curves_ML}
 
 Data mining and machine learning can be used for descriptive and predictive tasks during the analysis of complex datasets. Data mining uses specific methods from statistical interference, software engineering and domain knowledge to get a better understanding of the data and to extract *hidden knowledge* from the pre-processed data [@kruppa_probability_2014, @herrera_multiple_2016]. All this implies that a human being interacts with the data at the different stages of the whole process as part of the workflow in data mining. Elements of the data mining process are the pre-processing of the data, the description of the data, the exploration of the data and the search for connections and causes. 
 
-In contrast, machine learning uses instructions and data in software modules to create models that can be used to make predictions on novel data. In machine learning, the human being is much less necessary in the entire process. Processes (algorithms) are used to create models with tunable parameters. These models automatically adapt their performance to the information (features) from the data. Well-known examples of machine learning technologies are Decision Trees (DT), Boosting, Random Forests (RF), Support Vector Machines (SVM), generalized linear models (GLM), logistic regression (LR) and deep neural networks (DNN) [@lee_statistical_2010]. The three following classes of machine learning are classically described in the literature:
+In contrast, machine learning uses instructions and data in software modules to create models that can be used to make predictions on novel data. In machine learning, the human being is much less necessary in the entire process. Processes (algorithms) are used to create models with tunable parameters. These models automatically adapt their performance to the information (features) from the data. Well-known examples of machine learning technologies are Decision Trees (DT), Boosting, Random Forests (RF), Support Vector Machines (SVM), generalized linear models (GLM), logistic regression (LR) and deep neural networks (DNN) [@lee_statistical_2010]. The three following concepts of machine learning are frequently described in the literature:
 
-*Supervised learning*: These algorithms (e.&nbsp;g., SVM, DT, RF) learn from a training dataset of labeled and annotated data (e.&nbsp;g., "positive" and "negative"). It is used for building a generalized model of all data. These algorithms use error or reward signals to evaluate the quality of a solution found [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017]. Binomial logistic regression\footnote{Logistical regression can also be used to predict a dependent variable that can assume more than two states. In this case, it is called a multinomial logistic regression. An example would be the classification $y$ of amplification curves as \textit{slightly noisy}, \textit{medium noisy} or \textit{heavily noisy}.} is used to gain knowledge about a binary relationship, by fitting a regression model $y = f(x)$. $y$ is a categorical variable with two states (negative $\rightarrow 0$, positive $\rightarrow 1$). Typically, this model is used for predicting $y$ with a mixture of $n$ continuous and categorical predictors (features) $x_{i1}, \ldots, x_{k1}, (i = 1, \ldots, n)$. 
+*Supervised learning*: These algorithms (e.&nbsp;g., SVM, DT, RF) learn from a training dataset of labeled and annotated data (e.&nbsp;g., "positive" and "negative"). Classified training data can be created by one or more individuals. It is used for building a generalized model of all data. These algorithms use error or reward signals to evaluate the quality of a solution found [@bischl_mlr:_2010, @greene_big_2014, @igual_introduction_2017]. Binomial logistic regression\footnote{Logistical regression can also be used to predict a dependent variable that can assume more than two states. In this case, it is called a multinomial logistic regression. An example would be the classification $y$ of amplification curves as \textit{slightly noisy}, \textit{medium noisy} or \textit{heavily noisy}.} is used to gain knowledge about a binary relationship, by fitting a regression model $y = f(x)$. $y$ is a categorical variable with two states (negative $\rightarrow 0$, positive $\rightarrow 1$). Typically, this model is used for predicting $y$ with a mixture of $n$ continuous and categorical predictors (features) $x_{i1}, \ldots, x_{k1}, (i = 1, \ldots, n)$. 
 
 The logit model is a robust and versatile classification method to explain a dependent binary variable. Their codomain of real numbers is limited to [0,1]. Probabilities can therefore be utilized. The logistical distribution function $F(\eta)$, also known as the response function, is strictly monotone increasing and limited to this range.
 
@@ -659,7 +659,7 @@ For the amplification curves in \autoref{table-datasets}, a dichotomous classifi
 
 To answer this question, other methods such as agarosegel electrophoresis need to be used.
 
-### Graphical User Interfaces for Amplification Curve Classification
+### Sequential Amplification Curve Classification
 
 For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This function was developed to help the human expert during the classification of amplification curves and melting curves. The human expert has to define classes (e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve datasets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` was set to randomly select individual amplification curves. All datasets were manually classified at least three times. The `htPCR` dataset (\autoref{figure_sigmoid_curve}B) was in total classified eight times (see \autoref{figure_curve_classification}) because many of the amplification curves are neither unequivocal classifiable as positive or negative.
 
@@ -688,25 +688,26 @@ for (i in 2L:9) {
 
 The ``humanrater()`` function[@roediger2015chippcr] was developed with the aim that amplification curves are taken individually (randomly) from the datasets and presented by a human expert for classification. On the basis of his or her knowledge, the human expert is then able to undertake a classification. This approach is well suited and has been applied to classify a variety of amplification curves during the development of the \texttt{PCRedux} package. This methodological approach can, however, be time-consuming, depending on the size of the dataset. In addition, this approach can also be tiring for large datasets, especially when the amplification curves are similar. A high similarity between amplification curves exists, for example, in replicates and negative controls.
 
-In theory, the similarity between the amplification curves can be used to form groups with similar curves. The amplification curves in the groups can then be classified together in one run. In this way, a higher throughput can be achieved for classification. This approach has not yet been described for the analysis of qPCR data in the literature.
+### Curve-shape based Group-wise Classification of Amplification Curves
 
-The ``tReem()`` function was developed to perform a *curve-shape based group lassification*. Two algorithms have been integrated in the ``tReem()`` function to quantify the similarity between amplification curves. The interface of the ``tReem()`` function is similar to that of the ``humanrater()`` function. The function ``tReem()`` needs a data structure where the first column contains the qPCR cycles and all other columns contain the amplification curves. After a chain of processing steps, the ``tReem()`` function presents the human expert with a series of plots with a single amplification curve (no similarity to other curves) or groups of amplification curves (within a group there is a high similarity). The corresponding classes can then be assigned to the groups of amplification curves by the human expert using an input mask.
+In theory, the similarity between the amplification curves can be used to form groups with similar curves. The amplification curves in the groups can then be classified together in one run. In this way, a higher throughput can be achieved for classification. This approach has not yet been described for the analysis of qPCR data in the literature. The ``tReem()`` function was developed to perform a *curve-shape based group classification*. To use the ``tReem()`` function, the first column must contain the qPCR cycles and all subsequent columns must contain the amplification curves. Two measures of similarity are used within the ``tReem()`` function.
 
-In the first method (standard), the correlation coefficients (*r*) are determined in pairs according to Pearson for all combinations of amplification curves. The correlation calculation is used to describe the strength of the correlation between the two variables in a statistical measure. Consequently, the correlation coefficient *r* can be regarded as a distance between the amplification curves. *r* is a dimensionless value and only takes values between -1 and 1. If *r = -1*, there is a maximum reciprocal relationship. If *r = 0* there is no correlation between the two variables. If *r = 1*, there is a maximum rectified correlation. 
+In the first measure (default), the  Pearson *correlation coefficient*s (*r*) are determined in pairs for all combinations of the amplification curves. The correlation coefficient is a statistical measure to describe the strength of the correlation between two or more variables. The correlation coefficient *r* is regarded as distance between the amplification curves. *r* is a dimensionless value and only takes values between -1 and 1. If *r = -1*, there is a maximum reciprocal relationship. If *r = 0* there is no correlation between the two variables. If *r = 1*, there is a maximum rectified correlation.
 
-In the second method, the Hausdorff distance is used to determine the similarity between amplification curves. The Hausdorff distance is "the maximum of the distances from a point in any of the sets to the nearest point in the other set" [@rote_computing_1991, @herrera_multiple_2016]. The amplification curves are converted within the ``tReem()`` function using the ``qPCR2data()`` function.
+In the second measure, the *Hausdorff distance* is used to determine the similarity between amplification curves. The Hausdorff distance is "the maximum of the distances from a point in any of the sets to the nearest point in the other set" [@rote_computing_1991, @herrera_multiple_2016]. The amplification curves are converted within the ``tReem()`` function using the ``qPCR2data()`` function.
 
 Both methods process the distances in the same steps. This involves the calculation of the distance matrix using the Euclidean distances of all distance measures to determine the distance between the lines of the data matrix. This is used to perform a hierarchical cluster analysis. In the last step, the cluster is divided into groups based on a user-defined *k* value. For example, two groups are created for *k = 2*. If the amplification curves are different, a larger *k* should be used.
 
-As a rule, the grouping of the amplification curves using the Pearson correlation coefficient as a distance measure is faster than the Hausdorff distance. Nevertheless, it is up to the user to find the optimal method for his task.
+After a chain of processing steps, the ``tReem()`` function presents the human expert with a series of plots with a single amplification curve (no similarity to other curves) or groups of amplification curves (within a group there is a high similarity). The corresponding classes can then be assigned to the groups of amplification curves by the human expert using an input mask.
 
-Ideally, only a few iterations are necessary to complete the classification of a dataset. However, a prerequisite for this is that the amplification curves are similar.
+Grouping the amplification curves with the Pearson correlation coefficient as a distance measure is usually faster than the Hausdorff distance. Ideally, only a few iterations are necessary to complete the classification of a dataset. However, a prerequisite for this is that the amplification curves are similar.
 
 
 ```{r, echo=TRUE, eval=FALSE}
 # Classify amplification curve data by correlation coefficients (r)
 library(qpcR)
-tReem(testdat[, 1:15], k = 3)
+classification_result <- tReem(testdat[, 1:15], k = 3)
+classification_result
 ```
 
 ### Classified Amplification Curves\label{chapter_humanrater}
@@ -751,7 +752,7 @@ hookreg.rdml             | Bio-Rad   | various               | Taqman, DNA bindi
 
 \begin{table}[]
 \centering
-\caption{Classified amplification curve datasets. Decision Datasets in \texttt{PCRedux}: table with results of manual classification as comma separated values. qPCR Dataset: name of original amplification curve data set. Package: name of the \texttt{R} package containing the amplification curves. Device: is the device used to measure the amplification reaction. \texttt{Note: The original data sets contain information about the detection chemistry used within the corresponding qPCR experiments.} AB, Applied Biosystems.}
+\caption{Classified amplification curve datasets. Decision Datasets in \texttt{PCRedux}: table with results of manual classification as comma separated values. qPCR Dataset: name of original amplification curve data set. Package: name of the \texttt{R} package containing the amplification curves. Device: is the device used to measure the amplification reaction. \texttt{Note: The original data sets contain inofrmation about the detection chemistry used within the corresponding qPCR experiments.} AB, Applied Biosystems.}
 \label{table-datasets}
 \begin{tabular}{llll}
 \hline
@@ -814,11 +815,11 @@ The analysis functions are used to calculate specific characteristic values (fea
 
 #### ``decision_modus()`` - A Function to Get a Decision (Modus) from a Vector of Classes \label{section_decision_modus}
 
-Many approaches to machine learning exist. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Classified training data can be created by one or more individuals. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve, similar to what was described in \autoref{section_introduction} and \autoref{section_DataAnalysis} and on the opinion of the individual(s). 
+Many approaches to machine learning exist. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve, similar to what was described in \autoref{section_introduction} and \autoref{section_DataAnalysis} and on the opinion of the individual(s). 
 
-For example, the amplification curves in (\autoref{htPCR_nap}) were taken from the `htPCR` dataset (see \autoref{figure_sigmoid_curve}B). Assuming that the classification of the amplification curves is delegated to different users, it is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) are considered ambiguous or even positive (positive $\leftrightarrow$ ambivalent) by the users. A classification experiment was carried out for the complete `htPCR` dataset. For this purpose, the amplification curves were classified at different time points as described in @roediger2015chippcr.
+A manual classification was performed out for the `htPCR` dataset (for an example plot \autoref{figure_sigmoid_curve}B) with the ``humanrater()`` function. The classification of each amplification curve was performed eight times at different time points since many of the amplification curves did not resemble optimal curvatures (e.g., \autoref{htPCR_nap}). It is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) is considered as ambiguous or even positive (positive $\leftrightarrow$ ambivalent) by the users. 
 
-\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive. In total, the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`), resulting in a whole of 70864 individually analyzed amplification curves for this dataset. All the raw data is included in the CSV file.
+\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive. Since in total, the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`) a whole of 70864 amplification curves was analysed.
 
 
 ```{r, eval=TRUE, echo=FALSE, results='asis'}
@@ -849,13 +850,13 @@ print(
 )
 ```
 
-This example shows that the amplification curves have been classified differently in `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` of the cases (e.&nbsp;g., line 1 "P01. W01"). While for other amplification curves all classifications were the same (e.&nbsp;g., line 8856 "P95. W94").
+In this classification experiment the amplification curves have been classified differently in `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` of the cases (e.&nbsp;g., line 1 "P01. W01").
 
-For the systematic statistical analysis of classification datasets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. This feature is useful if you want to consolidate large collections of different decisions into a single decision. 
+For the systematic statistical analysis of classification datasets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. The mode is useful to consolidate large collections of different decisions into a single (most frequent) decision. 
 
-Observed:"a", "a", "a", "a", "a", "n", "n", "n" $\rightarrow$ frequencies 5 x "a", 3 x "n" $\rightarrow$ mode:"a"
+> Observed:*a*, *a*, *a*, *a*, *a*, *n*, *n*, *n* $\rightarrow$ frequencies 5 x *a*, 3 x *n* $\rightarrow$ mode:*a*
 
-Since the class names are known, they only have to be interpreted by the user (e.&nbsp;g., "a","n","y" -> "ambivalent","negative","positive"). 
+Since the class names are known, they only have to be interpreted by the user (e.&nbsp;g., "a",*n*,"y" -> "ambivalent","negative","positive"). 
 
 The ``decision_modus()`` function was applied to the record `decision_res_htPCR.csv` with all classification rounds (columns 2 to 9) and the mode was determined for each amplitude curve.
 
@@ -2548,13 +2549,13 @@ plot(amp_data[, 1], amp_data[, 2], xlab = "Cycles", ylab = "RFU", type = "l", lw
 mtext("A    Negative", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_pos$data, xlab = "Cycles", ylab = "d(RFU) / d(cycle)", type = "l", lwd = 2)
-mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
+mtext("B 1st Derivative", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_pos$posterior.prob, xlab = "Cycles", ylab = "Probability", type = "b", lwd = 2, pch = 19, col = "red", ylim = c(0, 1))
 res_ecp_pos <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 1]))$estimates
 abline(v = res_ecp_pos, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
-mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
+mtext("C   Changepoints", cex = 1.2, side = 3, adj = 0, font = 2)
 legend("topright", c("Baysian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 
@@ -2562,13 +2563,13 @@ plot(amp_data[, 1], amp_data[, 3], xlab = "Cycles", ylab = "RFU", type = "l", lw
 mtext("D    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_neg$data, xlab = "Cycles", ylab = "d(RFU) / d(cycle)", type = "l", lwd = 2)
-mtext("E", cex = 1.2, side = 3, adj = 0, font = 2)
+mtext("E    1st Derivative", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_bcp_neg$posterior.prob, xlab = "Cycles", ylab = "Probability", type = "b", lwd = 2, pch = 19, col = "red", ylim = c(0, 1))
 res_ecp_neg <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 2]))$estimates
 abline(v = res_ecp_neg, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
-mtext("F", cex = 1.2, side = 3, adj = 0, font = 2)
+mtext("F   Changepoints", cex = 1.2, side = 3, adj = 0, font = 2)
 legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 ```
@@ -2765,40 +2766,48 @@ res_pcrfit_parallel
 
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
 
-Extensive amounts of data represent a serious challenge in the analysis of qPCR amplification curves. In a manual classification (e.g. negative, positive) the result is usually characterized by the subjective perception of the experimenter. The time required for a manual analysis is high. An automatic system for amplification curve analysis might objectify and generalize the decision process. Interestingly, so far most authors focused on the extraction of single features from amplification curves. These include the Cq and the amplification efficiency, which are used for the downstream processing such as expression analysis or genotyping [@pabinger_2014]. Numerous software tools were developed, which deal with theses analytical steps. For example @baebler_quantgenius:_2017 published \texttt{quantGenius} and @mallona_chainy:_nodate published \texttt{Chainy}. However, none of them attempts to make use of characteristics of the amplification curve. Therefore, the aims were to
+Dealing with an extensive volume of qPCR amplification curves is a serious challenge during the data analysis. During the setup of a qPCR assay, a manual analysis is a justified and reasonable approach to get acquainted with the characteristics the qPCR amplification curves. In qPCRs is sigmoid shape is characterized by a base-line region, an exponential region and a (maximum) plateau phase. At least hypothetically, it can hardly be denied that the trained human expert can best interpret the dataset. In particular, artifacts and outliers in a series of measurements can usually be readily identified by humans. 
+As a matter of fact, amplification curves are difficult to interpret and analyze if the curvature deviates from the ideal sigmoid shape, or the volume of curve data is to large for an economic manual analysis. 
+The objectivity of an expert can be questioned. The reproducible and objective analysis of amplification curve data exposes challenges to inexperienced users. Even among peers is not uncommon that they ``judge`` (classify) results differently. An example on this problem was given in \autoref{figure_sigmoid_curve}.
+
+Moreover, amplification curves may look acceptable for an inexperienced use but unacceptable for an expert. Therefore, there is a need for method of statistical interrogation and objective interpretation of results.
+
+qPCR software focused mainly on the calculation of features from amplification curves. These include the Cq and the amplification efficiency, which are used for the downstream processing such as expression analysis or genotyping [@pabinger_2014]. Numerous software tools were developed, which deal with theses analytical steps. For example @baebler_quantgenius:_2017 published \texttt{quantGenius} and @mallona_chainy:_nodate published \texttt{Chainy}. 
+
+Besides the determination of quantification points, a classification of the amplification curves is also necessary. In a manual classification (e.g. negative, positive) the classification result is influenced by the subjective perception of the experimenter. Manual analysis is comparatively time-consuming. An automated amplification curve classification system is expected to objectify and generalize the process. However, none of them attempts to make use of characteristics of the amplification curve. Therefore, the aims were to
 
 1. create a collection of classified amplification curve data,
 2. propose algorithms that can be used to calculate features from amplification curves,
 3. evaluate pipelines that can be used for an automatic classification of amplification curves based on the curve shape and
 4. to bundle the findings in a public repository open source software and open data package 
 
-for an automatic analysis of amplification curve data by machine learning. 
-    
-With the \texttt{PCRedux} software a technology was proposed with which these four objectives have been implemented. 
+for an automatic analysis of amplification curve data by machine learning. With the \texttt{PCRedux} software a technology was proposed with which these four objectives have been implemented. 
 
-Data sets it is important to make sure that the volume of the data is representative. In this package a comprehensive number of amplification curves were classified by hand and processed with the algorithms described. Although, this dataset is fairly large in comparison to what existed before there is no numeric evidence how well it reflects amplification curves in general. In particular, not all datasets have comparable case numbers. For example, the `htPCR` dataset encompass in total `r ncol(qpcR::htPCR)-1` amplification curves, while the `C127EGHP` dataset encompass in total `r ncol(chipPCR::C127EGHP)-2` amplification curves. While most of the amplification curves of the `C127EGHP` dataset have a classical sigmod curve shape exhibit amplification curves from the `htPCR` dataset noisy curvatures with non-sigmoid shape. One may question if the larger dataset introduces a confirmation bias.
+Data sets it is important to make sure that the volume of the data is representative. The \texttt{PCRedux} package contains a comprehensive number of manually classified amplification curves. The dataset were processed with the algorithms of the \texttt{PCRedux} package. Although, this data collection is large in comparison to what existed before, there is no numeric evidence how well they represent amplification curves in general. In particular:
 
-One may argue that the technology is not as objective as intuitively assumed. There are good reasons to be skeptical about the *objectivity* of such technologies. All the proposed human classified datasets and algorithms are build up from human operators. These decide 
+- The domain knowledge, biases, and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator.
+- Not all datasets have comparable case numbers. For example, the `htPCR` dataset encompass in total `r ncol(qpcR::htPCR)-1` amplification curves, while the `C127EGHP` dataset encompass in total `r ncol(chipPCR::C127EGHP)-2` amplification curves.
+- Most of the amplification curves of the `C127EGHP` dataset have an *ideal* sigmod curve shape. Amplification curves from the `htPCR` dataset have noisy curvatures with non-sigmoid shape.
+- All the proposed human classified datasets and algorithms are build up from human operators. These decide
+    * which features might be drawn from an amplification curve, 
+    * which dataset and volumes are used to train the machines,
+    * how the data are pre-processed,
+    * how the models are tested and
+    * which results are reported.
 
-* which features might be drawn from an amplification curve, 
-* which dataset and volumes are used to train the machines,
-* how the data are pre-processed,
-* how the models are tested and
-* which results are reported.
+One may question if the imbalance of such dataset introduces a confirmation bias. The models derived from such datasets are not objective. This will affect (bias) the characteristics of the training dataset. The machine learning model is intended to be in accordance with the human operator.
 
-Accordingly, the domain knowledge, biases, and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training dataset. The model is intended to be in accordance with the human operator. The implications can be serve. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. Human operators will make an association between the shape of an amplification curve and the class it belongs to.
+The implications can be serve. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. Human operators will make an association between the shape of an amplification curve and the class it belongs to. The quantification of nucleic acids by curve parameters like the quantification point (Cq) and the amplification efficiency (AE) is only meaningful if the kinetic of the amplification curve follows a sigmoid structure according to the model the qPCR [@ruijter_evaluation_2013, @ruijter_2014, @Ritz2008]. 
 
-Measures to minimize errors are the implementation of algorithms in open source package and public available datasets. In contrast to black box algorithms and hidden datasets can third parties review and modify all elements. Many qPCR devices have build-in software that performs per-processiong steps like smoothing, base-lining and normalization and the datasets [@roediger2015chippcr, @spiess_impact_2015, @spiess_system-specific_2016]. This will have an impact on the feature extraction process. 
+The magnitude of the raw fluorescence and the shape of the amplification curve vary naturally between detection probe systems and devices. Therefore, it is challenging identifying negative curves which appear to be positive but just an artifact of scaling.
 
-It was shown how a given dataset of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves.
+Many qPCR devices have build-in software that performs per-processiong steps like smoothing, base-lining and normalization and the datasets [@roediger2015chippcr, @spiess_impact_2015, @spiess_system-specific_2016]. This will have an impact on the feature extraction process.
 
-The algorithms provide means for a sensitive and specific classification of amplification curves from qPCR experiments in both supervised an unsupervised analysis mode.
+Measures to minimize errors are the implementation of algorithms in open source package and public available datasets. In contrast to black box algorithms and hidden datasets can third parties review and modify all elements.
 
-However, this method might be applicable to melting analysis too. This needs to be investigated in further studies.
+It was shown how a given dataset of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves. This package \texttt{PCRedux} provides concepts for a sensitive and specific classification of amplification curves from qPCR experiments.
 
-Amplification curves can be difficult to interpret and analyze if the curvature deviates from the ideal sigmoid shape, or the volume of curve data is to large for an economic manual analysis. Moreover, amplification curves may look acceptable for an inexperienced use but unacceptable for an expert. Therefore, there is a need for method of statistical interrogation and objective interpretation of results.
-
-The quantification of nucleic acids by curve parameters like the quantification point (Cq) and the amplification efficiency (AE) is only meaningful if the kinetic of the amplification curve follows a sigmoid structure according to the model the qPCR [@ruijter_evaluation_2013, @ruijter_2014, @Ritz2008]. In qPCRs is sigmoid shape is characterized by a base-line region, an exponential region and a (maximum) plateau phase. The magnitude of the raw fluorescence and the shape of the amplification curve vary naturally between detection probe systems and devices. Therefore, it is challenging identifying negative curves which appear to be positive but just an artifact of scaling.
+The concepts might be applicable to melting analysis too. This needs to be investigated in further studies.
 
 A typical situation is that results samples may positive, negative or ambiguous. Ambiguous amplification curves are most challenging for the user because both outcomes (positive and negative) might be true. However, in most cases the user is interested in an automatic distinction between positive and negative samples. This is import in screening applications.
 
@@ -2808,9 +2817,9 @@ Such software can be used in high-throughput applications in combination with ot
 
 The ``pcrfit_single()`` function is an extendable wrapper function for several algorithm. `r length(pcrfit_single(chipPCR::C126EG595[, 2]))` features can be calculated from an amplification curve. 
 
-Of note, we would like to emphasis that the functionality of this package is not limited to amplification curve data from qPCR experiments. As stated before, amplification curves have a sigmoid curve shape. Presumably, this can also be used for melting curve analysis.
+Likely, the concepts of the \texttt{PCRedux} package are not limited to qPCR amplification curve data. Presumably, they can also be used for melting curve analysis.
 
-During the setup of a qPCR assay, a manual analysis is a justified and reasonable approach to get acquainted with the characteristics and challenges of the qPCR data. At least hypothetically, it can hardly be denied that the trained human expert can best interpret the dataset. In particular, artifacts and outliers in a series of measurements can usually be readily identified by humans. When large amounts of data need to be processed, however, manual analysis is unfavorable. In addition, the objectivity of an expert can be questioned. It is an open secret that data from quantitative real-time PCRs are occasionally subject to problematic post-processing. In particular, the reproducible and objective analysis of the amplification curve data exposes challenges to inexperienced users. Even among peers is not uncommon that they ``judge`` (classify) results differently. An example on this problem was given in \autoref{figure_sigmoid_curve}.
+When large amounts of data need to be processed, however, manual analysis is unfavorable. 
 
 In the ideal case, this should achieve a high degree of objectivity and reproducibility. It is not always possible to justify this ideal, because the algorithms can be biased as the human. One reason is that humans design the algorithms and  curate the dataset used for the learning. In particular, datasets can be biased if the human expert excludes seemingly problematic data.
 
