@@ -187,6 +187,11 @@ TravisCI was chosen as continues integration service for \texttt{PCRedux}. The T
 
 > \url{https://travis-ci.org/devSJR/PCRedux}
 
+\begin{figure}[ht]
+\centering
+\includegraphics{treem.png}
+\end{figure}
+
 ### Naming Convention and Literate Programming \label{section_Naming_Convention_and_Literate_Programming}
 
 The \texttt{PCRedux} software is provided as an \text{R} ($\geq$ v. 3.3.3) package. \texttt{PCRedux} is written as \textit{S3} object system. \textit{S3} has characteristics of object orientated programming but eases the development due to the use of the naming conventions [@noauthor_compstat_2008]. In most places function and parameter names are written as underscore separated (underscore$\_$sep), which is a widely used style in \texttt{R} packages [@Baaaath_2012]. This convention had to be violated in coding sections where functionality from other packages was used.
