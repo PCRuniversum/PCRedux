@@ -5,4 +5,4 @@
 ^.travis.yml$
 ^install_rdevel.sh
 paper
-doc
+docs
