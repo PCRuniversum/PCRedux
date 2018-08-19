@@ -16,14 +16,43 @@ Default: 'all'. Alternatives 'qpcR' or 'amptester'}
 should be interactive, Default: TRUE}
 }
 \description{
-gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the \link[visdat]{vis_dat} function by Tierney (2017). The colored indicators show the class (e.g., missing values, factors).
+In all data science projects it is important to look at a new dataset to gain an insight into what is contained therein and, which potential problems might emerge during the further analysis. The ``pcrfit_single()`` function uses various algorithms to calculate parameters (features) that are returned as factors (e.&nbsp;g., fitted model) or numbers (e.&nbsp;g., Cq value). In some cases are selected  algorithms not able to calculate certain features. As a result missing values (NA) are extreme values are output instead. ``visdat_pcrfit()`` function gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the \link[visdat]{vis_dat} function by Tierney (2017) and creates heatmap-like visualizations. The Heatmapt displays each amplification curve line by line and reads from top to bottom. The characteristics are presented column by column. The structure of the output is the same as for the ``pcrfit_single()`` and ``encu()`` functions. The colored indicators show the class (e.g., missing values, factors).
 }
 \details{
 type 'all' shows all results from the analysis by the
 \link[PCRedux]{pcrfit_single} function.
 }
 \examples{
+# First Example
+# The observations "A01", "A02", "A04" and "B04" from the 
+# ``C126EG685`` dataset were analyzed with the ``encu()`` 
+# function. Finally, the data were visualized with the 
+# ``visdat_pcrfit()`` function. In this example the static 
+# plot is shown (\\autoref{visdat_pcrfit_plot}). It is also 
+# possible to run the function interactively by setting the 
+# parameter `interactive=TRUE`. In this case starts an 
+# interactive, browser-based charting library that uses 
+# ECMA Script. The interactive plot are rendered entirely 
+# locally, through a HTML widgets framework.
+# Calculate curve features of an amplification curve 
+# dataset. Use the C126EG685 dataset from the chipPCR 
+# package and analyze the observationsA01, A02, A04 and B05.
+\dontrun{
+library(chipPCR)
+library(PCRedux)
 
+res <- encu(C126EG685[, c(1,2,3,5,17)])
+
+# Show all results in a plot. Note that the interactive parameter is set to
+# FALSE. For each observation, the classes (factor, 
+# integer, logical, numeric, NA) are presented. 
+# For the observations 2 and 4 the parameter 
+# `loglin\\\\_slope` could not be calculated (returned NA).
+
+visdat_pcrfit(res, type = "all", interactive = FALSE)
+}
+
+# Second Example
 # Calculate curve features of an amplification curve data. Note that not all
 # available CPU cores are used. If need set "all" to use all available cores.
 library(qpcR)
