@@ -37,14 +37,20 @@ amplification_curve_shapes <- "Amplification curves of the `RAS002` dataset. All
 amplification_curve_shapes_short <- "Density plots of negative and positive amplification curves"
 
 
-figure_curve_classification <- "Classification of amplification curves. The availability of classified amplification curves is an important prerequisite for the development of methods based on monitored learning. Amplification curves (n = 8858) from the `htPCR` dataset (\\texttt{qpcR} package) were classified in total eight time at different time points by a human eight times with the classes ambiguous (a), positive (y) or negative (n). The classification is subject to the subjectivity of the human expert, classified with the humanrater() function. Consequently, the amplification curves were selected randomly so that systematic errors in classification should be minimized. With this example, it becomes evident that even with the same dataset, different class assignments can occur. While in the first three rounds (A-C) only a few amplification curves were classified as negative. Their proportion is increased nearly tenfold (D-H) in subsequent classifications."
+figure_curve_classification <- "Classification of amplification curves. The availability of classified amplification curves is an important prerequisite for the development of methods based on monitored learning. Amplification curves (n = 8858) from the `htPCR` dataset (\\texttt{qpcR} package) were classified in total eight time at different time points by a human eight times with the classes ambiguous (a), positive (y) or negative (n). The classification is subject to the subjectivity of the user, classified with the humanrater() function. Consequently, the amplification curves were selected randomly so that systematic errors in classification should be minimized. With this example, it becomes evident that even with the same dataset, different class assignments can occur. While in the first three rounds (A-C) only a few amplification curves were classified as negative. Their proportion is increased nearly tenfold (D-H) in subsequent classifications."
 
 figure_curve_classification_short <- "Variability of classes assigned to amplification curves"
 
 
-htPCR_nap <- "Visual presentation of negative, ambiguous and positive amplification curves. A) Comparison of amplification curves. Examples of a negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` dataset. The negative amplification curve is not sigmoid and shows a strong positive trend. The ambiguous amplification curve approaches a sigmoid from, but shows a positive slope in the background (cycle 1 $\\rightarrow$ 5). The positive amplification curve is sigmoid. It begins in the background phase (cycle 1 $\\rightarrow$ 5) with a flat base-line, and shortly thereafter the exponential phase follows (cycle 5 $\\rightarrow$ 25) followed by a plateau phase (cycle 26 $\\rightarrow$ 35). B) Summary of frequencies of all classes of the `htPCR` record. negative, black; ambiguous, red; positive, green."
+htPCR_nap <- "Visual presentation of negative, ambiguous and positive amplification curves. A) Comparison of amplification curves. Examples of a negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` dataset. The negative amplification curve is not sigmoid and shows a strong positive trend. The ambiguous amplification curve approaches a sigmoid from, but shows a positive slope in the background (cycle 1 $\\rightarrow$ 5). The positive amplification curve is sigmoid. It begins in the background phase (cycle 1 $\\rightarrow$ 5) with a flat base-line, and shortly thereafter the exponential phase follows (cycle 5 $\\rightarrow$ 25) followed by a plateau phase (cycle 26 $\\rightarrow$ 35)."
 
 htPCR_nap_short <- "Visual presentation of negative, ambiguous and positive amplification curves"
+
+
+htPCR_nap_frequency <- "Frequency of negative, ambiguous and positive amplification curves in the `htPCR` dataset. Negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` dataset."
+
+htPCR_nap_short_frequency <- "Frequency of negative, ambiguous and positive amplification curves in the `htPCR` dataset"
+
 
 qPCR2fdata <- "Shape based grouping of amplification curves. Grouping of amplification curves of the `testdat` dataset via Hausdorff distance. A) The amplification curves were converted with the qPCR2fdata() function. B) Subsequent they were processed by a cluster analysis using the Hausdorff distance. Faultless differentiation was achieved between negative amplification curves (n) and positive amplification curves (y)."
 
@@ -92,7 +98,7 @@ statistical_methods_positive <- "The positive amplification curve F1.1 (`testdat
 
 statistical_methods_positive_short <- "Application of the ``amptester()`` function to detect positive amplification curves"
 
-statistical_methods_negative <- "The negative amplification curve F1.3 (`testdat` dataset) was analyzed with algorithms of the ``amptester()`` function. A) The Threshold test (THt) is based on the Wilcoxon rank sum test. The test compares 20\\% of the head to 15\\% of the tail region. No significant difference between the two regions was found for the amplification curve F1.3. Since the p-value is $0.621$ the null hypothesis cannot be rejected. This is indicative of a negative amplification reaction. B) Quantile-Quantile plot (Q-Q plot) of the amplification curve. A Q-Q plot is a probability plot for a graphical comparison of two probability distributions by plotting their quantiles against each other. In this study the probability distribution of the amplification curve is compared to a theoretical normal distribution. The orange line is the theoretical normal quantile-quantile plot which passes through the probabilities of the first and third quartiles. The Shapiro-Wilk test (SHt) of normality checks whether the underlying population of a sample (amplification curve) is significantly ($\\alpha \\leq 5e^{-4}$) normal distributed. Since the p-value is $0.895$ the null hypothesis cannot be rejected. C) The Linear Regression test (LRt). This test determines the coefficient of determination ($R^{2}$) by an ordinary least squares linear (OLS) regression. Usually the non-linear part of an amplification curve has an $R^{2}$ smaller than 0.8."
+statistical_methods_negative <- "test"
 
 statistical_methods_negative_short <- "Application of the ``amptester()`` function to detect negative amplification curves"
 
@@ -101,7 +107,7 @@ figure_autocorrelation_tau <- "Effect of tau"
 figure_autocorrelation_tau_short <- "Effect of tau"
 
 
-autocorrelation <- "Autocorrelation analysis for amplification curves of the `RAS002` dataset. A) Plot of all amplification curves of the `RAS002` dataset. B) Density plot of B) Positive curves and negative curves as determined by the `autocorrelation\\_test()` and a human expert. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details)."
+autocorrelation <- "Autocorrelation analysis for amplification curves of the `RAS002` dataset. A) Plot of all amplification curves of the `RAS002` dataset. B) Density plot of B) Positive curves and negative curves as determined by the `autocorrelation\\_test()` and a user. C) Performance analysis by the ``performeR()`` function (see \\autoref{section_performeR} for details)."
 
 autocorrelation_short <- "Autocorrelation analysis for amplification curves of the `RAS002` dataset)"
 
@@ -114,10 +120,6 @@ earlyreg_slopes_short <- "Analysis of the ground phase with the ``earlyreg()`` f
 figure_head2tailratio <- "Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) Plot of quantile normalized amplification curves from the `RAS002` dataset. ROIs of the head and and tail are highlighted by circles. The ranges for performing Robust Linear Regression are automatically selected using the 25\\% and 75\\% quantiles. Therefore not all data points are used in the regression model. The straight line is the regression line from the robust linear model. The slopes of the positive and negative amplification curves differ. B) Boxplot for the comparison of the $head/tail$ ratio. Positive amplification curves have a lower ratio than negative curves. The difference between the classes is significant. "
 
 figure_head2tailratio_short <- "Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve"
-
-plot_hookreg <- "Detection of the hook effect in amplification curves. Amplification curves of the `boggy` dataset were analyzed using the ``hookreg()`` function. The hook effect is characterized by a negative slope in the supposed plateau phase. Samples F1.1, F1.2, F2.1 and F2.2 (red) show a statistically significant negative slope. In the red rectangle the area of the hook effect is highlighted exemplary for the sample F1.1. No statistically significant negative slope (no hook effect) could be observed for the remaining amplification curves (black)."
-
-plot_hookreg_short <- "Detection of the hook effect in amplification curves"
 
 plot_mblrr <- "Robust local regression to analyze amplification curves. The amplification curves were arbitrarily selected from the `RAS002` dataset. Not the differences in slopes and intercepts (red and green lines). The ``mblrr()`` function is presumably useful for datasets which are accompanied by noise and artifacts. m, slop; n, intercept."
 
@@ -268,9 +270,23 @@ Further unit tests were implemented for all functions of the \texttt{PCRedux} pa
 
 The following sections describe the \texttt{PCRedux} regarding the analysis, numerical description and feature calculation from a sigmoid curve. A feature herein refers to a quantifiable *informative* property of a sigmoid curve. The features, sometimes referred to as descriptors, (\autoref{section_Functions_of_PCRedux}) can be used for applications such as data mining, machine learning and automatic classification of curves (e.&nbsp;g., positive, negative).
 
-The determination of quantification points such as the Cq value is a typical task during the analysis of qPCR experiments. This is briefly described in dedicated sections (\autoref{section_software}ff.). 
+Characteristics of amplification curves that can be used for the statistical and analytical description are discussed (\autoref{section_analysis_functions}) more in detail. The examples described focus on the concepts for **binary (dichotomous) classification** [@kruppa_probability_2014] as negative or positive. The mere binary classification into positive or negative is not necessarily the aim of the \texttt{PCRedux} package. Instead, it is aimed to provide a tool set for automatic **multicategory (polychotomus) classification** of amplification curves by any class conceivable. Such classification could be used for the quality of an amplification curve as negative, ambiguous and positive (\autoref{htPCR_nap}) \footnote{A definition for binary (dichotomous) classification and multicategory (polychotomus) classification is presented in \cite{kruppa_probability_2014}.}.
 
-Characteristics of amplification curves that can be used for the statistical and analytical description are discussed (\autoref{section_analysis_functions}) more in detail. The examples described focus on the concepts for **binary (dichotomous) classification** [@kruppa_probability_2014] as negative or positive. The mere binary classification into positive or negative is not necessarily the aim of the \texttt{PCRedux} package. Instead, it is aimed to provide a tool set for automatic **multicategory (polychotomus) classification** of amplification curves by any class conceivable. Such classification could be used for the quality of an amplification curve (e.&nbsp;g., unsatisfactory, acceptable, good and optimal)\footnote{A definition for binary (dichotomous) classification and multicategory (polychotomus) classification is presented in \cite{kruppa_probability_2014}.}.
+```{r htPCR_nap, echo=FALSE, fig.cap=htPCR_nap, fig.scap=htPCR_nap_short, fig.height=4}
+
+library(qpcR)
+matplot(
+    htPCR[, 1], htPCR[, c(552, 512, 616)], xlab = "Cycles", ylab = "RFU",
+        main = "", type = "l", lty = 1, lwd = 2
+)
+legend("topleft", c(
+    paste("negative ", colnames(htPCR)[552]),
+                    paste("ambiguos ", colnames(htPCR)[512]),
+                    paste("positive ", colnames(htPCR)[616])
+), col = 1:3, pch = 19, bty = "n")
+```
+
+The determination of quantification points such as the Cq value is a typical task during the analysis of qPCR experiments. This is briefly described in dedicated sections (\autoref{section_software}ff.). 
 
 ### Concepts of Machine Learning\label{section_technologies_amplification_curves_ML}
 
@@ -299,17 +315,70 @@ The logistic regression analysis is based on the maximum-likelihood estimation (
 \newpage
 
 
-### Why is there is need for this software?
+### Why is there is need for this software?\label{why_PCRedux}
 
 The binary classification of an amplification curve, for instance as negative or positive, is feasible using bioanalytical methods such as melting curve analysis [@roediger_RJ_2013] or electrophoretic separation [@westermeier2004]. However, this is not always possible or desirable. 
 
 - Melting curve analysis is used in some qPCRs as a post-processing step to identify samples which contain the specific target sequence (*positive*) based on a specific melting temperature. However, some detection probe systems like hydrolysis probes do not permit such classification. Moreover, nucleic acids with similar biochemical properties but different sequences may have the same melting temperature. 
 - An electrophoretic separation (classification of target DNA sequences by size and quantity) often requires too much effort for experiments with high sample throughput.
 - There are mathematical qPCR analysis algorithms such as \texttt{linreg} [@ruijter_amplification_2009] that require information on whether an amplification curve is negative or positive for subsequent calculation. 
-- Raw data of amplification curves can be fitted with sigmoid functions. Sigmoid functions are non-linear, real-valued, have an S-shaped curvature (\autoref{figure_sigmoid_curve_models}) and are differentiable (e.&nbsp;g., first derivative maximum, with one local minimum and one local maximum). With the model obtained, predictions can be made. For example, the position of the second derivative maximum can be calculated from this (\autoref{section_DataAnalysis}). In the context of amplification curves, the second derivative maximum is commonly used to describe the relationship between the cycle number and the PCR product formation (\autoref{section_DataAnalysis}). All softwares assume that the amplification resemble a sigmoid curve shape (ideal positive amplification reaction), or a flat low line (ideal negative amplification reaction). For example, @Ritz2008 published the \texttt{qpcR} \texttt{R} package that contains functions to fit several multi-parameter models. This includes the five-parameter Richardson function [@richards_flexible_1959] (\autoref{l5}).
-- Another example is the ``amptester()`` function, which is part of the \texttt{chipPCR} package [@roediger2015chippcr]. This function uses static thresholds and frequentist inference to identify amplification curves that exceed the threshold ($\mapsto$ classified as positive). However, the analysis can also lead to false-positive classifications as exemplified in \autoref{htPCR_nap}. Therefore, additional methods would be useful.
-- The \texttt{qpcR} package [@Ritz2008] contains an amplification curve test via the ``modlist()`` function. The parameter `check="uni2"` offers an analytical approach, as part of a method for the kinetic outlier detection. It checks for a sigmoid structure of the amplification curve. Then ``modlist()`` tests for the location of the first derivative maximum and the second derivative maximum. However, multi-parameter functions fit "successful" in most cases including noise and give false positive results. This will be shown in later sections.
-- The analysis and classification of sigmoid data (e.&nbsp;g., quantitative PCR) it is a manageable task if the data volume is low, or dedicated analysis software is available. An example for a low number of amplification curves is shown in \autoref{figure_sigmoid_curve}A. All `r ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape. It is trivial to classify them as positive by hand. In contrast, the vast number of amplification curves in \autoref{figure_sigmoid_curve}B is barely manageable with a reasonable effort by simple visual inspection. These data originate from a high-throughput experiment that encompasses in total `r suppressMessages(ncol(qpcR::htPCR))-1` amplification curves of which only 200 are shown. A manual analysis of the data is time-consuming and prone to errors. Even for a human expert it is difficult to classify the amplification curves unambiguously and reproducible as will be later shown in \autoref{section_data_sets}.
+- Raw data of amplification curves can be fitted with sigmoid functions. Sigmoid functions are non-linear, real-valued, have an S-shaped curvature (\autoref{figure_sigmoid_curve_models}) and are differentiable (e.&nbsp;g., first derivative maximum, with one local minimum and one local maximum). With the model obtained, predictions can be made. For example, the position of the second derivative maximum can be calculated from this (\autoref{section_DataAnalysis}). In the context of amplification curves, the second derivative maximum is commonly used to describe the relationship between the cycle number and the PCR product formation (\autoref{section_DataAnalysis}). All softwares assume that the amplification resemble a sigmoid curve shape (ideal positive amplification reaction), or a flat low line (ideal negative amplification reaction). For example, @Ritz2008 published the \texttt{qpcR} \texttt{R} package that contains functions to fit several multi-parameter models. This includes the five-parameter Richardson function [@richards_flexible_1959] (\autoref{l5}). The \texttt{qpcR} package [@Ritz2008] contains an amplification curve test via the ``modlist()`` function. The parameter `check="uni2"` offers an analytical approach, as part of a method for the kinetic outlier detection. It checks for a sigmoid structure of the amplification curve. Then ``modlist()`` tests for the location of the first derivative maximum and the second derivative maximum. However, multi-parameter functions fit "successful" in most cases including noise and give false positive results. This will be shown in later sections. This shown here exemplary in combination with the ``amptester()`` function, which is part of the \texttt{chipPCR} package [@roediger2015chippcr]. This function uses static thresholds and frequentist inference to identify amplification curves that exceed the threshold ($\mapsto$ classified as positive). However, the analysis can also lead to false-positive classifications as exemplified in \autoref{curve_fit_fail}. Therefore, additional classification concepts would be beneficial.
+
+
+```{r curve_fit_fail, echo=TRUE, fig.cap=curve_fit_fail, fig.scap=curve_fit_fail_short, fig.width=6}
+# Load the qpcR package for the model fit.
+suppressMessages(library(qpcR))
+library(chipPCR)
+
+# Select one positive and one negative amplification curve from the PCRedux 
+# package.
+
+amp_data <- PCRedux::RAS002[, c("cyc", "A01_gDNA.._unkn_B.Globin", 
+                                "B07_gDNA.._unkn_HPRT1")]
+
+colnames(amp_data) <- c("cyc", "positive", "negative")
+
+# Arrange graphs in an matrix and set the plot parameters. An plot the positive
+# and negative amplification curve.
+hight <- c(3100, 4100)
+
+plot(NA, NA, xlim = range(amp_data[, "cyc"]), 
+        ylim = range(amp_data[, c("positive", "negative")]),
+        xlab = "Cycles", ylab = "RFU", main = "")
+
+# Apply the amptester function from the chipPCR package to the amplification 
+# curve data and write the results to the main of the plots.
+
+for (i in 2:3) {
+    res.ampt <-  suppressMessages(amptester(amp_data[, i]))
+    
+    # Make a logical connection by two tests (shap.noisy, lrt.test and
+    # tht.dec) of amptester to decide if an amplification reaction is
+    # positive or negative.
+    decision <- ifelse(!res.ampt@decisions[1] &&
+    res.ampt@decisions[2] &&
+    res.ampt@decisions[4],
+    "positive", "negative"
+    )
+    # The amplification curves were fitted (l7 model) with pcrfit() function. 
+    # The Cq was determined with the efficiency() function.
+    
+    fit <- pcrfit(data = amp_data, cyc = 1, fluo = i, model = l7)
+    res <- efficiency(fit, plot = FALSE)
+    lines(predict(fit), pch = 19, lty = 1, xlab = "Cycles", ylab = "RFU", 
+          main = "", col = i - 1)
+    abline(h = res[["fluo"]], col = "grey")
+    points(res[["cpD2"]], res[["fluo"]], pch = 19)
+
+    legend(1, hight[i-1], paste0(colnames(amp_data)[i], 
+                                 "  curve ->  Decision: ", 
+                                 decision, "    Cq: ", res[["cpD2"]]), 
+           bty = "n", cex = 1, col = "red"
+          )
+}
+```
+
+- The analysis and classification of sigmoid data (e.&nbsp;g., quantitative PCR) it is a manageable task if the data volume is low, or dedicated analysis software is available. An example for a low number of amplification curves is shown in \autoref{figure_sigmoid_curve}A. All `r ncol(chipPCR::C127EGHP)-1` curves exhibit a sigmoid curve shape. It is trivial to classify them as positive by hand. In contrast, the vast number of amplification curves in \autoref{figure_sigmoid_curve}B is barely manageable with a reasonable effort by simple visual inspection. These data originate from a high-throughput experiment that encompasses in total `r suppressMessages(ncol(qpcR::htPCR))-1` amplification curves of which only 200 are shown. A manual analysis of the data is time-consuming and prone to errors. Even for a user it is difficult to classify the amplification curves unambiguously and reproducible as will be later shown in \autoref{section_data_sets}.
 - qPCRs are performed in thermo-cyclers, which are equipped with a real-time monitoring technology. There are numerous commercial manufactures, which produce thermo-cyclers (\autoref{table-datasets}). An example for a thermo-cycler that originated in scientific project is the VideoScan technology [@roediger_highly_2013]. Most of the thermo-cyclers have a thermal block with wells at certain positions. Reaction vessels containing the PCR mix are inserted into the wells. There are also thermo-cyclers that use capillary tubes (e.&nbsp;g., Roche Light Cycler 1.0). The capillaries are heated and cooled by air. The thermo-cycler raises and lowers the temperature in the reaction vessels in discrete, pre-programmed steps so that the PCR can take place. Instruments with a real-time monitoring function have sensors to measure changes of the fluorescence intensity in the reaction vessel. All thermo-cycler systems use software to processes the amplification curves. Plots of the fluorescence observations versus cycle number obtained from two different qPCR systems is shown in \autoref{figure_sigmoid_curve}A and B. The thermo-cyclers produce different amplification curve shapes even with the same sample material and PCR mastermix because of their technical design, sensors, and software. These factors need to be taken into account during the development of analysis algorithms.
 
 
@@ -402,10 +471,9 @@ There are several open source and closed source software tools for the analysis 
 
 However, a bottleneck of qPCR data analysis is the lack of features and software to build classifiers for amplification curves. A classifier herein refers to a vector of features that can be used to distinguish the amplification curves by their shape only. A feature is an entity that characterizes an object. A few potential features for amplification curves are described in the literature. These include:
 
-* the signal height and the slope in the base-line region (gradient and intersection),
-* the starting point of amplification,
+* the starting point (*takeoff*) of the amplification curve,
 * the Cq value and amplification efficiency, and 
-* the signal level including the slope of the plateau phase (slope, intercept).
+* the signal level (e.g., slope and intercept of the ground phase).
 
 These alone are presumably not enough to describe amplification curves sufficiently. The number of features should be large enough to describe the object accurately and small enough not to interfere with the learning process with redundant or information. There are no references of algorithms in the scientific literature for the calculation of additional features from amplification curves. This makes studies on machine learning and modeling difficult.
 
@@ -415,9 +483,8 @@ The shape of a positive amplification curve has in most cases a sigmoid shape. M
 
 1. **Ground phase**: This phase occurs during the first cycles of the PCR. The fluorescence emission is in most cases flat. During the ground phase, only a weak and flat fluorescence signal is generated. Noise but no product formation is detected by the sensor system. The PCR product signal is an insignificantly small component of the total signal. This is often referred to as base-line or background signal. Apparently, there is only a phase shift or no signal at all. This is primarily due to the limited sensitivity of the instrument. Even in a perfect PCR reaction (double amplification per cycle), qPCR instruments cannot detect the fluorescence signal from the amplification. Fragmentation, inhibitors and sample handling errors would result in a prolonged ground phase. Nevertheless, this may indicate some typical properties of the qPCR system or probe system. In many instruments, this phase is used to determine the base-line level for the calculation of the Cycle threshold (Ct). The Ct value is considered statistically relevant increase outside the noise range. A signal that is far enough above this threshold is considered coming from the amplicon. In some qPCR systems a flat amplification signal is expected in this phase. Slight deviations from this trend are presumably due to changes (e.&nbsp;g., disintegration of probes) in the fluorophores. Background correction algorithms are often used here to ensure that flat amplification curves without slope are generated. However, this can result in errors and inevitably leads to a loss of information via the waveform of the raw data [@nolan_2006]. The slope, level and variance of this phase can serve as features.
 2. **Exponential phase**: This phase follows the ground phase and is also called *log phase*. This phase is characterized by a strong increase of the emitted fluorescence. In this phase, the DNA amount doubles in each cycle under ideal conditions. The amount of the synthesized fluorescent labeled PCR product is high enough to be detected by the sensor system. This phase is used for the calculation of the quantification point (Cq) and for the calculation of the curve specific amplification efficiency. The most important measurement from qPCRs is the cycle of quantification (Cq), which signifies at which PCR cycle the fluorescence exceeds a ``threshold value``. There is an ongoing debate as to what a significant and robust threshold value is. An overview and performance comparison of Cq methods is given in @ruijter_evaluation_2013. There are several mathematical methods to calculate the Cq. 
-    - The 'classical' threshold value (cycle threshold, Ct) is the intersect between a manually defined straight horizontal line with the quasi-linear phase in the exponential amplification phase (\autoref{figure_quntifcation_points}A & B). This simple to implement method requires that amplification curves are properly base-lined prior to the analysis. The Ct method makes the assumption that the amplification efficiency (~ slope in the log-linear phase) is equal across all amplification curves compared [@ruijter_evaluation_2013]. Evidently, this is not always case as exemplified in \autoref{amplification_curve_ROI}C. The Ct method is widely used presumably due to the familiarity of users with this approach (e.g., chemical analysis procedures).  However, this method is statistically unreliable [@ruijter_evaluation_2013, @spiess_impact_2015, @spiess_system-specific_2016]. Moreover, the Ct method gives no stable in predictions if different users are given the same dataset to be analyzed.
-    - Another Cq method uses the maximum of second derivative (SDM) [@roediger2015r] ( \autoref{figure_quntifcation_points}C).
-In all cases the Cq value can be used to calculate the concentration of target sequence in a sample (low Cq \textrightarrow high target concentration). In contrast, negative or ambiguous amplification curves loosely resemble noise. This noise may appear linear or exhibit an curvature similar to a specific amplification curve (\autoref{htPCR_nap}). This however, may result in faulty interpretation of the amplification curves. Fragmentation, inhibitors and sample handling errors would decrease the slop of the amplification curve [@spiess_highly_2008, @Ritz2008]. The slope and variation can be considered as features. Since the Cq depends on the initial template amount, and the amplification efficiency there is no immediate use of the Cq as feature. 
+    - The 'classical' threshold value (cycle threshold, Ct) is the intersect between a manually defined straight horizontal line with the quasi-linear phase in the exponential amplification phase (\autoref{figure_quntifcation_points}A & B). This simple to implement method requires that amplification curves are properly base-lined prior to the analysis. The Ct method makes the assumption that the amplification efficiency (~ slope in the log-linear phase) is equal across all amplification curves compared [@ruijter_evaluation_2013]. Evidently, this is not always case as exemplified in \autoref{amplification_curve_ROI}C. The Ct method is widely used presumably due to the familiarity of users with this approach (e.g., chemical analysis procedures).  However, this method is statistically unreliable [@ruijter_evaluation_2013, @spiess_impact_2015, @spiess_system-specific_2016]. Moreover, the Ct method gives no stable in predictions if different users are given the same dataset to be analyzed. *Therefore, this method is not used within the \texttt{PCRedux} package*.
+    - Another Cq method uses the maximum of second derivative (SDM) [@roediger2015r] ( \autoref{figure_quntifcation_points}C). In all cases the Cq value can be used to calculate the concentration of target sequence in a sample (low Cq \textrightarrow high target concentration). In contrast, negative or ambiguous amplification curves loosely resemble noise. This noise may appear linear or exhibit an curvature similar to a specific amplification curve (\autoref{htPCR_nap}). This however, may result in faulty interpretation of the amplification curves. Fragmentation, inhibitors and sample handling errors would decrease the slop of the amplification curve [@spiess_highly_2008, @Ritz2008]. The slope and variation can be considered as features. Since the Cq depends on the initial template amount, and the amplification efficiency there is no immediate use of the Cq as feature. 
 3. **Plateau phase**: This phase follows the exponential phase. The cause for this lies in the exploitation of the limited resources (incl. primers, nucleotides, enzyme activity) in the reaction vessel. This limits the amplification reaction, so that the theoretical maximum amplification efficiency (doubling per cycle) no longer prevails. This turning point and the progressive limitation of resources finally leads to a plateau. In the plateau phase, there is sometime a signal decrease called *hook effect* [@barratt_improving_2002, @isaac_essentials_2009]. The slope (*hook effect*), level and variation can be considered as features. 
 
 If the amplification curve has only a slight positive slope and no perceptible exponential phase, it can be assumed that the amplification reaction did not occur (\autoref{amplification_curve_ROI}B). Causes may include poor specificity of the PCR primers (non-specific PCR products), degraded sample material, degraded probes or detector failures. If a lot of input DNA is present in a sample, the amplification curve starts to increase in early PCR cycles (1 - 12 cycles). Some PCR devices have software that corrects this data without checking it. This results in an amplification curve with a negative trend.
@@ -634,7 +701,7 @@ mtext("D    Positive", cex = 1.2, side = 3, adj = 0, font = 2)
 
 ## Technologies for Amplification Curve Classification and Classified Amplification Curves\label{section_data_sets}
 
-An extensive literature research showed that in the field of qPCR there are no openly accessible datasets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014].
+Many machine learning concepts exist. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve. An extensive literature research showed that there are no openly accessible classified amplification curve datasets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014].
 
 Therefore, a large number of records with amplification curves and their classification (negative, ambiguous, positive) were added to the \texttt{PCRedux} package.
 
@@ -646,9 +713,9 @@ For the amplification curves in \autoref{table-datasets}, a dichotomous classifi
 
 To answer this question, other methods such as agarosegel electrophoresis need to be used.
 
-### Manual Amplification Curve Classification
+### Manual Amplification Curve Classification\label{Manual_Amplification_Curve_Classification}
 
-For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This function was developed to help the human expert during the classification of amplification curves and melting curves. The human expert has to define classes (e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve datasets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` was set to randomly select individual amplification curves. All datasets were manually classified at least three times. The `htPCR` dataset (\autoref{figure_sigmoid_curve}B) was in total classified eight times (see \autoref{figure_curve_classification}) because many of the amplification curves are neither unequivocal classifiable as positive or negative.
+For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This function was developed to help the user during the classification of amplification curves and melting curves. The user has to define classes (e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve datasets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` was set to randomly select individual amplification curves. All datasets were manually classified at least three times. The `htPCR` dataset (\autoref{figure_sigmoid_curve}B) was in total classified eight times (see \autoref{figure_curve_classification}). Moste of the amplification curves are neither unequivocal classifiable as positive or negative.
 
 
 ```{r figure_curve_classification, echo=TRUE, eval=TRUE, fig.cap=figure_curve_classification, fig.scap=figure_curve_classification_short}
@@ -659,12 +726,12 @@ library(PCRedux)
 
 # Load the decision_res_htPCR.csv dataset from a csv file.
 filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
-decision_htPCR <- fread(filename, data.table = FALSE)
+decision_res_htPCR <- fread(filename, data.table = FALSE)
 
 #
 par(mfrow = c(2, 4))
 for (i in 2L:9) {
-    data_tmp <- table(as.factor(decision_htPCR[, i]))
+    data_tmp <- table(as.factor(decision_res_htPCR[, i]))
     
     barplot(data_tmp, col = adjustcolor("grey", alpha.f = 0.5),
             xlab = "Class", ylab = "Counts", border = "white")
@@ -673,21 +740,23 @@ for (i in 2L:9) {
 }
 ```
 
-The ``humanrater()`` function[@roediger2015chippcr] was developed with the aim that amplification curves are taken individually (randomly) from the datasets and presented by a human expert for classification. On the basis of his or her knowledge, the human expert is then able to undertake a classification. This approach is well suited and has been applied to classify a variety of amplification curves during the development of the \texttt{PCRedux} package. This methodological approach can, however, be time-consuming, depending on the size of the dataset. In addition, this approach can also be tiring for large datasets, especially when the amplification curves are similar. A high similarity between amplification curves exists, for example, in replicates and negative controls.
+This approach is well suited and has been applied to classify a variety of amplification curves during the development of the \texttt{PCRedux} package. From experience this is time-consuming and tiring for large datasets, especially when the amplification curves are similar in shape. A high similarity between amplification curves exists, for example, in replicates and negative controls.
 
-### Curve-shape based Group-wise Classification of Amplification Curves
+### Curve-shape based Group-wise Classification of Amplification Curves\label{shape_Amplification_Curve_Classification}
 
-In theory, the similarity between the amplification curves can be used to form groups with similar curves. The amplification curves in the groups can then be classified together in one run. In this way, a higher throughput can be achieved for classification. This approach has not yet been described for the analysis of qPCR data in the literature. The ``tReem()`` function was developed to perform a *curve-shape based group classification*. To use the ``tReem()`` function, the first column must contain the qPCR cycles and all subsequent columns must contain the amplification curves. Two measures of similarity are used within the ``tReem()`` function.
+The similarity of amplification curves can be used to form groups of similar shapes. The amplification curves in the groups can then be classified in a bulk. In this way, a higher throughput can be achieved. This concept has not been described for the analysis of qPCR data in the literature. 
 
-In the first measure (default), the  Pearson *correlation coefficient*s (*r*) are determined in pairs for all combinations of the amplification curves. The correlation coefficient is a statistical measure to describe the strength of the correlation between two or more variables. The correlation coefficient *r* is regarded as distance between the amplification curves. *r* is a dimensionless value and only takes values between -1 and 1. If *r = -1*, there is a maximum reciprocal relationship. If *r = 0* there is no correlation between the two variables. If *r = 1*, there is a maximum rectified correlation.
+The ``tReem()`` function was developed to perform a *curve-shape based group classification*. To use the ``tReem()`` function, the first column must contain the qPCR cycles and all subsequent columns must contain the amplification curves. Two measures of similarity are used within the ``tReem()`` function.
 
-In the second measure, the *Hausdorff distance* is used to determine the similarity between amplification curves. The Hausdorff distance is "the maximum of the distances from a point in any of the sets to the nearest point in the other set" [@rote_computing_1991, @herrera_multiple_2016]. The amplification curves are converted within the ``tReem()`` function using the ``qPCR2data()`` function.
+- In the first measure (default), the  Pearson *correlation coefficient*s (*r*) are determined in pairs for all combinations of the amplification curves. The correlation coefficient is a statistical measure to describe the strength of the correlation between two or more variables. The correlation coefficient *r* is regarded as distance between the amplification curves. *r* is a dimensionless value and only takes values between -1 and 1. If *r = -1*, there is a maximum reciprocal relationship. If *r = 0* there is no correlation between the two variables. If *r = 1*, there is a maximum rectified correlation.
 
-Both methods process the distances in the same steps. This involves the calculation of the distance matrix using the Euclidean distances of all distance measures to determine the distance between the lines of the data matrix. This is used to perform a hierarchical cluster analysis. In the last step, the cluster is divided into groups based on a user-defined *k* value. For example, two groups are created for *k = 2*. If the amplification curves are different, a larger *k* should be used.
+- In the second measure, the *Hausdorff distance* is used to determine the similarity between amplification curves. The Hausdorff distance is "the maximum of the distances from a point in any of the sets to the nearest point in the other set" [@rote_computing_1991, @herrera_multiple_2016]. The amplification curves are converted within the ``tReem()`` function using the ``qPCR2data()`` function.
 
-After a chain of processing steps, the ``tReem()`` function presents the human expert with a series of plots with a single amplification curve (no similarity to other curves) or groups of amplification curves (within a group there is a high similarity). The corresponding classes can then be assigned to the groups of amplification curves by the human expert using an input mask.
+Both methods process the distances in the same steps. This involves the calculation of the distance matrix using the Euclidean distances of all distance measures to determine the distance between the lines of the data matrix. 
 
-Grouping the amplification curves with the Pearson correlation coefficient as a distance measure is usually faster than the Hausdorff distance. Ideally, only a few iterations are necessary to complete the classification of a dataset. However, a prerequisite for this is that the amplification curves are similar.
+This is used to perform a hierarchical cluster analysis. In the last step, the cluster is divided into groups based on a user-defined *k* value. For example, two groups are created for *k = 2*. If the amplification curves shapes are highly diverse, a larger *k* should be used. After a chain of processing steps presents the ``tReem()`` function a series of plots with grouped of amplification curves. The corresponding classes can then be assigned to the groups of amplification curves by the user using an input mask.
+
+Grouping the amplification curves with the Pearson correlation coefficient as a distance measure is usually faster than the Hausdorff distance. The Hausdorff distance is an approximation of a shape metrics to define similarity measures between shapes. [@charpiat_shape_2003].
 
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -697,11 +766,86 @@ classification_result <- tReem(testdat[, 1:15], k = 3)
 classification_result
 ```
 
+#### ``decision_modus()`` - A Function to Get a Decision (Modus) from a Vector of Classes \label{section_decision_modus}
+
+For the systematic statistical analysis of classification datasets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. The mode is useful to consolidate large collections of different decisions into a single (most frequent) decision. 
+
+> Observed:*a*, *a*, *a*, *a*, *a*, *n*, *n*, *n* $\rightarrow$ frequencies 5 x *a*, 3 x *n* $\rightarrow$ mode: *a*. Since the class names are known, they only have to be interpreted by the user (e.&nbsp;g., "a",*n*,"y" -> "ambivalent","negative","positive"). 
+
+A manual classification was performed out for the `htPCR` dataset (for an example plot \autoref{figure_sigmoid_curve}B) with the ``humanrater()`` function. The classification of each amplification curve was performed eight times at different time points since many of the amplification curves did not resemble optimal curvatures (e.g., \autoref{htPCR_nap}). It is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) is considered as ambiguous or even positive (positive $\leftrightarrow$ ambivalent) by the users. 
+
+\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive. Since in total, the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`) a whole of 70864 amplification curves was analysed. In this classification experiment the amplification curves have been classified differently in `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` of the cases (e.&nbsp;g., line 1 "P01. W01").
+
+
+```{r, eval=TRUE, echo=FALSE, results='asis'}
+library(PCRedux)
+library(xtable)
+suppressMessages(library(data.table))
+library(magrittr)
+
+# filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
+# decision_res_htPCR <- fread(filename, data.table = FALSE)
+
+print(
+    xtable(
+        rbind(
+            head(subset(decision_res_htPCR, conformity == FALSE), 25),
+              head(subset(decision_res_htPCR, conformity == TRUE), 25)), 
+           caption = "Results of the `htPCR` dataset classification. 
+           All amplification curves of the `htPCR` dataset were classified as 
+           `negative`, `ambiguous` and `positive` by individuals in eight 
+           analysis cycles (`test.result.1` $\\ldots$ `test.result.8`). If an 
+           amplification curve has always been classified with the same class, 
+           the last column (`conformity`) shows `TRUE`. As an example, the table 
+           shows 25 amplification curves with consistent classes and 25 
+           amplification curves with differing classes (`conformity = FALSE`).", 
+           label = "tableheaddecision" ), include.rownames = FALSE, 
+      comment = FALSE, caption.placement = "top", size = "\\tiny"
+)
+```
+
+The ``decision_modus()`` function was applied to the record `decision_res_htPCR.csv` with all classification rounds (columns 2 to 9) and the mode was determined for each amplitude curve \autoref{htPCR_nap_frequency}.
+
+```{r, eval=TRUE, echo=TRUE}
+# Use decision_modus() to go through each row of all classification done by
+# a human.
+
+dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
+    decision_modus(decision_res_htPCR[i, 2:9])
+}) %>% unlist()
+
+names(dec) <- decision_res_htPCR[, 1]
+
+# Show statistic of the decisions
+summary(dec)
+```
+
+```{r htPCR_nap_frequency, echo=FALSE, fig.cap=htPCR_nap_frequency, fig.scap=htPCR_nap_short_frequency, fig.height=3}
+# Plot the Frequencies of the decisions
+barplot(
+    table(dec), xlab = "Decision", ylab = "Frequency",
+        main = "", col = c(2, 3, 1), border = "white"
+)
+```
+
+Another usage mode of ``decision_modus()`` is to set the parameter as `max_freq=FALSE`. This option specifies the number of all classifications.
+
+```{r, eval=TRUE, echo=TRUE}
+library(PCRedux)
+# Decisions for observation P01.W06
+res_dec_P01.W06 <- decision_modus(decision_res_htPCR[
+which(decision_res_htPCR[["htPCR"]] == "P01.W06"),
+                                  2L:9
+], max_freq = FALSE)
+print(res_dec_P01.W06)
+```
+
+The amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn into a `negative` decision.
+
+
 ### Classified Amplification Curve Datasets\label{chapter_humanrater}
 
-Amplification curves from different sources (e.g., detection chemistries, thermo-cyclers) were manually classified with the ``humanrater()`` function, as described in @roediger2015chippcr or with the ``tReem()`` function from the \texttt{PCRedux} package. The \autoref{chapter_humanrater} describes approaches to classify amplification curves.
-
-Raw amplification curve data were exported as comma separated values or via the \texttt{RDML} package in the Real-time PCR Data Markup Language (RDML) format. RDML is human readable data exchange format for qPCR experiments. A detailed description can be found in @roediger_enabling_2017. The following code section describes the import of an RDML file from the \texttt{PCRedux} package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
+Amplification curves from different sources (e.g., detection chemistries, thermo-cyclers) were manually classified with the ``humanrater()`` function (\autoref{Manual_Amplification_Curve_Classification}) or with the ``tReem()`` function  (\autoref{shape_Amplification_Curve_Classification}). Raw amplification curve data were exported as comma separated values or in the Real-time PCR Data Markup Language (RDML) format via the \texttt{RDML} package. RDML is human readable data exchange format for qPCR experiments. A detailed description can be found in @roediger_enabling_2017. The following code section describes the import of an RDML file from the \texttt{PCRedux} package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
 
 ```{r, echo=TRUE, eval=FALSE}
 library(RDML)
@@ -789,117 +933,15 @@ decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                &
 \newpage
 
 
-## Functions of the \texttt{PCRedux} Package \label{section_Functions_of_PCRedux}
+## Data Analysis Functions of the \texttt{PCRedux} Package \label{section_Functions_of_PCRedux}
 
 The \texttt{PCRedux} package contains functions for analyzing amplification curves. In the following, these are distinguished into helper functions  (\autoref{section_helper_functions}) and analysis functions (\autoref{section_analysis_functions}). 
 
-The helper functions can be used to manually classify amplification curves, convert them into other data formats or to visualize data structures.
-
-The analysis functions are used to calculate specific characteristic values (features) from the amplification curves. For example, these are slopes, turning points and change points.
-
 ### Helper Functions of the \texttt{PCRedux} Package  \label{section_helper_functions}
-
-
-#### ``decision_modus()`` - A Function to Get a Decision (Modus) from a Vector of Classes \label{section_decision_modus}
-
-Many approaches to machine learning exist. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve, similar to what was described in \autoref{section_introduction} and \autoref{section_DataAnalysis} and on the opinion of the individual(s). 
-
-A manual classification was performed out for the `htPCR` dataset (for an example plot \autoref{figure_sigmoid_curve}B) with the ``humanrater()`` function. The classification of each amplification curve was performed eight times at different time points since many of the amplification curves did not resemble optimal curvatures (e.g., \autoref{htPCR_nap}). It is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) is considered as ambiguous or even positive (positive $\leftrightarrow$ ambivalent) by the users. 
-
-\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive. Since in total, the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`) a whole of 70864 amplification curves was analysed.
-
-
-```{r, eval=TRUE, echo=FALSE, results='asis'}
-library(PCRedux)
-library(xtable)
-suppressMessages(library(data.table))
-library(magrittr)
-
-filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
-decision_res_htPCR <- fread(filename, data.table = FALSE)
-
-print(
-  xtable(
-    rbind(
-      head(subset(decision_res_htPCR, conformity == FALSE), 25),
-      head(subset(decision_res_htPCR, conformity == TRUE), 25)), 
-         caption = "Results of the `htPCR` dataset classification. 
-         All amplification curves of the `htPCR` dataset were classified as 
-         `negative`, `ambiguous` and `positive` by individuals in eight 
-         analysis cycles (`test.result.1` $\\ldots$ `test.result.8`). If an 
-         amplification curve has always been classified with the same class, 
-         the last column (`conformity`) shows `TRUE`. As an example, the table 
-         shows 25 amplification curves with consistent classes and 25 
-         amplification curves with differing classes (`conformity = FALSE`).", 
-         label = "tableheaddecision" ), include.rownames = FALSE, 
-      comment = FALSE, caption.placement = "top", size = "\\tiny"
-)
-```
-
-In this classification experiment the amplification curves have been classified differently in `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` of the cases (e.&nbsp;g., line 1 "P01. W01").
-
-For the systematic statistical analysis of classification datasets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. The mode is useful to consolidate large collections of different decisions into a single (most frequent) decision. 
-
-> Observed:*a*, *a*, *a*, *a*, *a*, *n*, *n*, *n* $\rightarrow$ frequencies 5 x *a*, 3 x *n* $\rightarrow$ mode:*a*
-
-Since the class names are known, they only have to be interpreted by the user (e.&nbsp;g., "a",*n*,"y" -> "ambivalent","negative","positive"). 
-
-The ``decision_modus()`` function was applied to the record `decision_res_htPCR.csv` with all classification rounds (columns 2 to 9) and the mode was determined for each amplitude curve.
-
-```{r, eval=TRUE, echo=TRUE}
-# Use decision_modus() to go through each row of all classification done by
-# a human.
-
-dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
-  decision_modus(decision_res_htPCR[i, 2:9])
-}) %>% unlist()
-
-names(dec) <- decision_res_htPCR[, 1]
-
-# Show statistic of the decisions
-summary(dec)
-```
-
-```{r htPCR_nap, echo=FALSE, fig.cap=htPCR_nap, fig.scap=htPCR_nap_short, fig.height=5.5, fig.width=11}
-layout(matrix(c(1, 1, 2), nrow=1, byrow=TRUE))
-
-library(qpcR)
-matplot(
-  htPCR[, 1], htPCR[, c(552, 512, 616)], xlab = "Cycles", ylab = "RFU",
-  main = "", type = "l", lty = 1, lwd = 2
-)
-legend("topleft", c(
-  paste("negative ", colnames(htPCR)[552]),
-  paste("ambiguos ", colnames(htPCR)[512]),
-  paste("positive ", colnames(htPCR)[616])
-), col = 1:3, pch = 19, bty = "n")
-mtext("A    htPCR dataset", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
-
-# Plot the Frequencies of the decisions
-barplot(
-  table(dec), xlab = "Decision", ylab = "Frequency",
-  main = "", col = c(2, 3, 1), border = "white"
-)
-mtext("B    Classified by human", side = 3, adj = 0, font = 2, las = 0)
-```
-
-Another usage mode of ``decision_modus()`` is to set the parameter as `max_freq=FALSE`. This option specifies the number of all classifications.
-
-```{r, eval=TRUE, echo=TRUE}
-library(PCRedux)
-# Decisions for observation P01.W06
-res_dec_P01.W06 <- decision_modus(decision_res_htPCR[
-  which(decision_res_htPCR[["htPCR"]] == "P01.W06"),
-  2L:9
-], max_freq = FALSE)
-print(res_dec_P01.W06)
-```
-
-The amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn into a `negative` decision.
 
 #### ``performeR()`` - Performance Analysis for Binary Classification \label{section_performeR}
 
-Statistical modeling and machine learning can be powerful but expose a risk to the user by introducing an unexpected bias. This may lead to an overestimation of the performance. The assessment of the performance by the sensitivity and specificity is fundamental to characterize the performance of a classifier or screening test [@james_introduction_2013]. Sensitivity is the percentage of true decisions that are identified and specificity is the percentage of negative decision that are correctly identified (\autoref{table-performance}). An example for the application of the ``performeR()`` function is shown in \autoref{section_autocorrelation_test}.
+Statistical modeling and machine learning is powerful but expose a risk to the user by introducing an unexpected bias. This may lead to an overestimation of the performance. The assessment of the performance by the sensitivity and specificity is fundamental to characterize a classifier or screening test [@james_introduction_2013]. Sensitivity is the percentage of true decisions that are identified and specificity is the percentage of negative decision that are correctly identified (\autoref{table-performance}). An example for the application of the ``performeR()`` function is shown in \autoref{section_autocorrelation_test}.
 
 
 \begin{table}[]
@@ -927,13 +969,15 @@ Cohen''s kappa (binary classification)     & $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}
 
 #### ``qPCR2fdata()`` - A Helper Function to Convert Amplification Curve Data to the `fdata` Format \label{section_qPCR2fdata}
 
-``qPCR2fdata()`` is a helper function to convert qPCR data to the functional `fdata` class as published by @Febrero_Bande_2012. This function prepares the data for further analysis, which includes utilities for functional data analysis. For example, it this can be used to determine the similarity measures between amplification curves shapes by the Hausdorff distance. Similarity herein refers to the difference in spatial location of two \textit{objects} (e.&nbsp;g., amplification curves). Objects with a close distance are presumably more similar. For single objects (e.&nbsp;g., points) one can use a vector distance, such as the Euclidean distance. The Hausdorff distance is an approximation of a shape metrics to define similarity measures between shapes. [@charpiat_shape_2003]. Several variants of the Hausdorff distance have been described (e.&nbsp;g., Minimal Hausdorff distance, Average Hausdorff distance, \textit{k}-th ranked Hausdorff distance) [@herrera_multiple_2016].
+``qPCR2fdata()`` is a helper function to convert amplification curve data to the functional `fdata` class [@Febrero_Bande_2012]. The `fdata` format is used for functional data analysis to determine the similarity measures between amplification curves shapes by the Hausdorff distance. Similarity herein refers to the difference in spatial location of two \textit{objects} (e.&nbsp;g., amplification curves). Objects with a close distance are presumably more similar. For single objects (e.&nbsp;g., points) one can use a vector distance, such as the Euclidean distance [@herrera_multiple_2016].
 
-The ``qPCR2fdata()`` function takes a dataset containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. Noise and missing values may affect the analysis adversely. Therefore, an instance of the ``CPP()`` function (\texttt{chipPCR} package [@roediger2015chippcr]) was integrated in ``qPCR2fdata()``. If \textit{preprocess=TRUE} in ``qPCR2fdata()``, then all curves are smoothed (Savitzky-Golay smoother), missing values are imputated and outliers in the ground phase get removed as described in @roediger2015chippcr. The non-smoothed amplification curves (\autoref{qPCR2fdata}A) have slightly more noise than the smoothed amplification curves (\autoref{qPCR2fdata}C).
+The ``qPCR2fdata()`` function takes a `data.frame` containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. 
 
-The following example illustrates the usage for the `testdat` dataset. Hierarchical cluster analysis is widely applied in data analysis. This method uses the elements of a proximity matrix to generate a dendrogram. The dendrogram can can be used to further analyze the clusters. There are methods to determine the number of clusters \textit{k} [@cook_interactive_2007]. However, for simplicity the number of clusters was determined visually in the present workflow.
+Noise and missing values may affect the analysis adversely. Therefore, an instance of the ``CPP()`` function (\texttt{chipPCR} package [@roediger2015chippcr]) was integrated in ``qPCR2fdata()``. If \textit{preprocess=TRUE} in ``qPCR2fdata()``, then all curves are smoothed (Savitzky-Golay smoother), missing values are imputated and outliers in the ground phase get removed as described in @roediger2015chippcr.
 
-Since the distance based on the Hausdorff metric was already done the next steps involved the ``cutree()`` function from the \texttt{stats} package to split the dendrogram into smaller junks. *A priori* was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k}=2 in the ``cutree()``.
+The following example illustrates a hierarchical cluster analysis the `testdat` dataset. The amplification curves of the `testdat` dataset remained as raw data or were pre-processed (smoothed). Subsequent, the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to a cluster analysis (Hausdorff distance). This method uses the elements of a proximity matrix to generate a dendrogram. The dendrogram can can be used to further analyze the clusters. There are methods to determine the number of clusters automatically \textit{k} [@cook_interactive_2007]. However, for simplicity the number of clusters was determined visually.
+
+The distance based on the Hausdorff metric was already done the next steps involved the ``cutree()`` function from the \texttt{stats} package to split the dendrogram into smaller junks. *A priori* was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k}=2 in the ``cutree()``.
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -958,14 +1002,21 @@ data_colors <- rainbow(length(columnames), alpha = 0.5)
 
 res_fdata_hclust <- metric.hausdorff(res_fdata)
 res_hclust <- hclust(as.dist(res_fdata_hclust))
+```
 
+The distance based on the Hausdorff metric was already done the next steps involved the ``cutree()`` function from the \texttt{stats} package to split the dendrogram into smaller junks. *A priori* was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k}=2 in the ``cutree()``.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Cluster of the unprocessed amplification curves
 res_cutree <- cutree(res_hclust, k = 2)
 res_cutree <- factor(res_cutree)
 levels(res_cutree) <- list(y = "1", n = "2")
 ```
 
-The results of the cluster analysis led two large clusters. A deeper inspection shows that the observations are correctly assigned to a cluster of positive or negative amplification curves. Moreover, the later increase of the fluorescence is reflected in the positive cluster (\autoref{qPCR2fdata}).
+The dendrogram shows that
+
+- the observations are correctly assigned to a cluster of positive or negative amplification curves and that 
+- the shift of the Cq (late increase of the fluorescence) is reflected in the positive cluster (\autoref{qPCR2fdata}).
 
 
 ```{r qPCR2fdata, echo=TRUE, fig.cap=qPCR2fdata, fig.scap=qPCR2fdata_short, fig.height=4, fig.width=8}
@@ -989,12 +1040,10 @@ rect(12.5, -3.5, 24.5, 0.5, border = "green")
 text(14, 1, "positive", col = "green", cex = 0.9)
 ```
 
-Clusters of the amplification curves after an analysis using the Hausdorff distance. The amplification curves of the `testdat` dataset remained as raw data or were pre-processed (smoothed). Subsequent, the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to a cluster analysis (Hausdorff distance). All observations were correctly assigned to cluster 1 (positive) or cluster 2 (negative).
-
-This workflow can be used to cluster amplification curve data according to their shape into smaller groups of similar amplification curves. Classification tasks can be preformed in batches of amplification curves. It is worth to mention that the calculation of the distances is a computing expensive step dependent on the number of amplification curves. Other distance metric than the Hausdorff distance should also be considered. For example, @luo_learning_2010 showed how for image data how shape models using local curve segments with multiple types of distance metrics can improve the shape classification and detection results.
+This workflow can be used to cluster amplification curve data according to their shape into groups of amplification curves with similar shape. Classification tasks can be preformed in batches of amplification curves. The calculation of the distances is a computing expensive step dependent on the number of amplification curves. 
 
 The following example illustrates the usage for the `HCU32_aggR.csv` dataset 
-from the 32 channel VideoScan heating and cooling unit. In this experiment the
+from the VideoScan platform with 32 heating and cooling units (equivalent of 32 PCR vessels). In this experiment the
 bacterial gene *aggR* from *E. coli* was amplified in 32 replicate qPCR reactions. Details of the experiment are described in the manual of the \texttt{PCRedux} package.
 The ambition was to test if the 32 amplification curves of the qPCR reaction 
 are identical. As before, the data were processed with the ``qPCR2fdata()`` 
@@ -1048,11 +1097,9 @@ data.frame(
 # 32     H4 15.73 1.117827
 ```
 
-Next, the amplification curves (\autoref{HCU32}A), the differences between base-line region and plateau region (\autoref{HCU32}B), the correlation between the Cq value and amplification efficiency (\autoref{HCU32}C) and the clusters based on the Hausdorff distance (\autoref{HCU32} were taken into account. In total, 32 real-time PCR reactions for the bacterial gen \textit{aggR} were measured in the VideoScan system. 
+Next, the amplification curves (\autoref{HCU32}A), the differences between base-line region and plateau region (\autoref{HCU32}B), the correlation between the Cq value and amplification efficiency (\autoref{HCU32}C) and the clusters based on the Hausdorff distance were taken into account.
 
-> **Note**: The raw data has not been modified to retain all characteristics of the amplification curves.
-
-Some amplification curves (\autoref{HCU32}A) showed stronger fluctuations and therefore no ideal sigmoid curve progression. In addition, it can be seen that the amplification curves in the base-line area have a negative non-linear trend and a shift around the zero point. By contrast, the trend in the plateau region appears to be positive. This is similar to the curve shown in \autoref{figure_sigmoid_curve}. The comparison of the base-line region and the plateau region showed a difference between the 32 amplification curves. The observations `E1`, `F1` and `H1` had the lowest differences between the base-line and plateau regions. The comparison of Cq values and amplification efficiency showed that most amplification curves exhibit similar behavior. Since there are 32 replicates, the similarity of the Cq values and amplification efficiencies was to be expected. However, there are also amplification curves that show a greater deviation from the median of all Cq values (\autoref{HCU32}C). The analysis by clustering of the Hausdorff distance did not yield any specific pattern (\autoref{HCU32}D).
+Some amplification curves (\autoref{HCU32}A) had stronger noise and all curves have a negative non-linear trend and a shift in the ground phase. The comparison of the ground phase and the plateau phase showed a difference between the 32 amplification curves. The observations `E1`, `F1` and `H1` were most close in the ground phase and plateau phase. The comparison of Cq values and amplification efficiency showed that most amplification curves are similar. However, there are also amplification curves that show a greater deviation from the median of all Cq values (\autoref{HCU32}C). The cluster analysis confirmed the shape similarity (\autoref{HCU32}D).
 
 ```{r HCU32, echo=TRUE, fig.cap=HCU32, fig.scap=HCU32_short, fig.height=8.5, fig.width=11} 
 
@@ -1146,77 +1193,14 @@ The analysis gives an overview of the variation of the amplification curve data.
 
 ### Amplification Curve Analysis Functions of the \texttt{PCRedux} package  \label{section_analysis_functions}
 
-On the basis of this observation, various concepts were developed and implemented in algorithms to describe amplification curves. The intent of @gunay_machine_2016 was to improve the determination of the Cq values. They postulated that they can achieve an improved prediction of Cq values using a modified sigmoid function (three parameters). An assumption of their approach is, that this model can be applied to any dataset. There are several reasons why such an assumption is not valid. In the chapters \autoref{section_hookreg}, for example, the functions ``hookreg()`` and ``hookregNL()`` are briefly displayed. These amplification curves deviate significantly from a three-parameter model. \autoref{plot_models} shows the distribution of models fitted to amplification curves. In most case models with six and seven parameters were automatically selected. In addition, non-linear functions also tend to fit models to noise (\autoref{curve_fit_fail}). It becomes clear in \autoref{plot_dat_Cq} that for a considerable proportion of manually negatively classified amplification curves a Cq value could be calculated. A computer-assisted decision would be helpful.
-
-
-```{r curve_fit_fail, echo=TRUE, fig.cap=curve_fit_fail, fig.scap=curve_fit_fail_short, fig.width=6}
-# Load the qpcR package for the model fit.
-suppressMessages(library(qpcR))
-library(chipPCR)
-
-# Select one positive and one negative amplification curve from the PCRedux 
-# package.
-
-amp_data <- PCRedux::RAS002[, c("cyc", "A01_gDNA.._unkn_B.Globin", 
-                                "B07_gDNA.._unkn_HPRT1")]
-
-colnames(amp_data) <- c("cyc", "positive", "negative")
-
-# Arrange graphs in an matrix and set the plot parameters. An plot the positive
-# and negative amplification curve.
-hight <- c(3100, 4100)
-
-plot(NA, NA, xlim = range(amp_data[, "cyc"]), 
-        ylim = range(amp_data[, c("positive", "negative")]),
-        xlab = "Cycles", ylab = "RFU", main = "")
-
-# Apply the amptester function from the chipPCR package to the amplification 
-# curve data and write the results to the main of the plots.
-
-for (i in 2:3) {
-    res.ampt <-  suppressMessages(amptester(amp_data[, i]))
-    
-    # Make a logical connection by two tests (shap.noisy, lrt.test and
-    # tht.dec) of amptester to decide if an amplification reaction is
-    # positive or negative.
-    decision <- ifelse(!res.ampt@decisions[1] &&
-    res.ampt@decisions[2] &&
-    res.ampt@decisions[4],
-    "positive", "negative"
-    )
-    # The amplification curves were fitted (l7 model) with pcrfit() function. 
-    # The Cq was determined with the efficiency() function.
-    
-    fit <- pcrfit(data = amp_data, cyc = 1, fluo = i, model = l7)
-    res <- efficiency(fit, plot = FALSE)
-    lines(predict(fit), pch = 19, lty = 1, xlab = "Cycles", ylab = "RFU", 
-          main = "", col = i - 1)
-    abline(h = res[["fluo"]], col = "grey")
-    points(res[["cpD2"]], res[["fluo"]], pch = 19)
-
-    legend(1, hight[i-1], paste0(colnames(amp_data)[i], 
-                                 "  curve ->  Decision: ", 
-                                 decision, "    Cq: ", res[["cpD2"]]), bty = "n", 
-           cex = 1, col = "red"
-          )
-}
-```
-
-Therefore, several characteristics of an amplification curve should be recorded first and then checked for their usefulness. There, it becomes clear that a three-parameter model adaptation can be adapted to noise and thus provides unreliable predictions.
-
-As shown in \autoref{amplification_curve_shapes} have positive amplification curves a typical sigmoid shape, while negative curves resemble random noise.
-
-Many properties (e.&nbsp;g., experiment condition (hydrolysis probe, DNA binding dye)) can be converted to binary classifiers (no == 0, yes == 1). From the amplification curve one can calculate the signal range before and after the amplification process.
-
-Next follows a brief introduction of the feature engineering process of this work. For doing this a set features which characterize amplification curves was needed. In total seven function were generated and integrated in \texttt{PCRedux} package. These functions features have not been described before in the literature for the classification of amplification curves.
-
-The function described following are aimed for experimental studies. It is important to note that the features proposed herein emerged during a critical reasoning process. The aim of the package is to propose a set of features, functions and data for an independent research.
+On the basis of this observation, various concepts were developed and implemented in algorithms to describe amplification curves. The function described following are aimed for experimental studies. It is important to note that the features proposed herein emerged during a critical reasoning process. The aim of the package is to propose a set of features, functions and data for an independent research.
 
 
 #### ``pcrfit_single()`` and ``encu()``- Functions to Calculate Features from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
 
-The following sections give a concise description of the algorithms used to calculate feature vectors by the ``pcrfit_single()`` function . Based on considerations and experience the algorithms of the ``pcrfit_single()`` function are restricted to ROIs <(\autoref{amplification_curve_ROI}) to calculate specific features. 
-The ``encu()`` function is a wrapper for the  ``pcrfit_single()`` function.   ``encu()`` can be used to process large records of amplification curve data arranged in columns. The progress of processing is displayed in the form of a progress bar and the estimated run-time. Additionally, the ``encu()`` allows to specify which monitoring chemistry (e.&nbsp;g., DNA binding dye, sequence specific probes) and which thermo-cycler was used. @ruijter_2014 have shown, among other things, that monitoring chemistry of the type of input DNA (single stranded, double stranded) can be important when analysing qPCR data. The ``encu()`` function is not discussed in more detail. 
+The following sections give a concise description of the algorithms used to calculate feature vectors by the ``pcrfit_single()`` function . Based on considerations and experience the algorithms of the ``pcrfit_single()`` function are restricted to ROIs (\autoref{amplification_curve_ROI}) to calculate specific features. 
+
+> The ``encu()`` function is a wrapper for the  ``pcrfit_single()`` function.   ``encu()`` can be used to process large records of amplification curve data arranged in columns. The progress of processing is displayed in the form of a progress bar and the estimated run-time. Additionally, the ``encu()`` allows to specify which monitoring chemistry (e.&nbsp;g., DNA binding dye, sequence specific probes) and which thermo-cycler was used. @ruijter_2014 have shown, among other things, that monitoring chemistry of the type of input DNA (single stranded, double stranded) can be important when analysing qPCR data. For simplicity, the documentation will describe the ``pcrfit_single()`` only.
 
 
 The underlying hypotheses and concepts are formulated and supported by  *exemplary applications*. The goal is not to examine the limits of their applicability, but rather to prove their basic functionality. Similar approaches are presented in groups.  The algorithms are divided into the following broad categories:
@@ -1243,30 +1227,33 @@ library(PCRedux)
 str(pcrfit_single(RAS002[, 2]))
 ```
 
-> To underscore the usability of the algorithms and their features, `r d <- PCRedux::data_sample; paste0(nrow(d), " observations ", "(", sum(d[["decision"]] == "n"), " negative amplification curves, ", sum(d[["decision"]] == "y"), " positive amplification curves)")` from the `batsch1`, `boggy`, `C126EG595`, `competimer`, `dil4reps94`, `guescini1`, `karlen1`, `lievens1`, `reps384`, `rutledge`, `testdat`, `vermeulen1`, `VIMCFX96_60`, `stepone_std`, `RAS002`, `RAS003`, `HCU32_aggR` and `lc96_bACTXY` were analyzed with the ``encu()`` function and the results (features) were combined in the file **`data_sample.rda`**. Users of this function should independently verify and validate the results of the methods for their applications. The ``encu()`` function is based on the ``pcrfit_single()`` function. 
+> To underscore the usability of the algorithms and their features, `r d <- PCRedux::data_sample; paste0(nrow(d), " observations ", "(", sum(d[["decision"]] == "n"), " negative amplification curves, ", sum(d[["decision"]] == "y"), " positive amplification curves)")` from the `batsch1`, `boggy`, `C126EG595`, `competimer`, `dil4reps94`, `guescini1`, `karlen1`, `lievens1`, `reps384`, `rutledge`, `testdat`, `vermeulen1`, `VIMCFX96_60`, `stepone_std`, `RAS002`, `RAS003`, `HCU32_aggR` and `lc96_bACTXY` were analyzed with the ``encu()`` function and the results (features) were combined in the file **`data_sample.rda`**. Users of this function should independently verify and validate the results of the methods for their applications.
 
+##### Amplification Curve Pre-Processing
 
-\subsection*{Amplification Curve Pre-processing}
+The ``pcrfit_single()`` function performs pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. Missing values (NA) are measuring points in a dataset where no measured values are available or if they have been removed arbitrarily. NAs may occur if no measurement has been carried out (e.&nbsp;g., defective detector) or lengths of the vectors differ (number of cyles) between the observation. Such missing values are automatically imputed by spline interpolation as described in @roediger2015chippcr. 
 
-Bothr the ``pcrfit_single()`` function and the ``encu()`` function perform pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. Missing values (NA) are measuring points in a dataset where no measured values are available or if they have been removed arbitrarily. NAs may occur if no measurement has been carried out (e.&nbsp;g., defective detector) or lengths of the vectors differ (number of cyles) between the observation. Such missing values are automatically imputed by spline interpolation as described in @roediger2015chippcr. 
-
-All values of an amplification curve are normalized to the 99\% quantile. The normalization is used to equalize the amplitudes differences of amplification curves from thermo-cyclers (sensor technology, software processing) and detection chemistries. To compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method.\footnote{Although there are other normalization methods (e. g., \textit{minimum-maximum normalization}, see \cite{roediger2015chippcr}, the normalization by the 99\% quantile should ensure that the information about the height of the background signal is not lost. That would be the case with a \textit{Min-Max-standardization}. A normalization to the maximum is not recommended, because outliers could have an unintentional influence on the normalization. Consequently, the 99\% quantile is a pragmatic compromise to take the aforementioned aspects into account in the processing chain.} The data in \autoref{plot_bg_pt}D show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. Inspired by `maxRFU` value, the minimum of the amplification curve is determined by the 1\% quantile to minimize the influence of outliers. It is referred to as `minRFU` (\autoref{plot_bg_pt}C).
+All values of an amplification curve are normalized to their 99\% quantile. The normalization is used to equalize the amplitudes differences of amplification curves from thermo-cyclers (sensor technology, software processing) and detection chemistries. To compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method.\footnote{Although there are other normalization methods (e. g., \textit{minimum-maximum normalization}, see \cite{roediger2015chippcr}, the normalization by the 99\% quantile preserves the information about the level of the background phase. A normalization to the maximum is not used to avoid strong extenuation by outliers.} The data in \autoref{plot_bg_pt}D show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. `minRFU` is the minimum of the amplification curve, which is determined at the 1\% quantile to minimize the influence of outliers (\autoref{plot_bg_pt}C).
 
 Selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` function from the \texttt{chipPCR} package to pre-process (e.&nbsp;g., base-lining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr.
 
-\subsection*{Handling of Missing Features}
+##### Handling of Missing Features
 
-Missing values (NA) can occur if a calculation of a specified value is impossible. It can occur if a logistical function is to be adapted to a measurement series, but the raw data is too noisy to allow model adaptation. As a consequence, no parameters would be determined from this model. The apparent lack of information is nevertheless still useful in the context of data analysis. For the case described above, it could be deduced from the missing values that the data series does not show a sigmoid curve progression. In this regard, NAs nonetheless provide an informational basis. 
+Missing values (NA) can occur if a calculation of a feature is impossible (e.g., if a logistic function cannot be adapted to noisy raw data). The lack of a feature is nevertheless a useful information (no feature calculate $\mapsto$ amplification curves deviate from sigmoid shape). The NAs were left unchanged in the \texttt{PCRedux} package up to version 0.2.5-1. Since version 0.2.6, however, the NAs have been replaced by numerical values (e.&nbsp;g., total number of cycles) or factors (e.&nbsp;g., *lNA* for non-fitted model). Under the term "imputation" there are a number of procedures based on statistical methods (e.&nbsp;g., neighboring median, spline interpolation) or on user-defined rules [@williams_rattle:_2009, @cook_interactive_2007, @hothorn_handbook_2014]. Rules are mainly used in function of \texttt{PCRedux} to relieve the user from the decision as to how to deal with missing values. For example, slope parameters of a model are to zero when it cannot be determined. The disadvantage is that rules do not necessarily concur to real world values. 
 
-However, NAs pose a difficulty in many analyses. Before an analysis is carried out, it must be clarified how to deal with the missing values. Under the term "imputation" there are a number of procedures based on statistical methods (e.&nbsp;g., neighboring median, spline interpolation) or on user-defined rules. Such a rule could, for example, consist of setting one of the slope parameters of a model to zero when it cannot be determined [@williams_rattle:_2009, @cook_interactive_2007, @hothorn_handbook_2014]. The application of fixed rules brings the advantage that the user is relieved of the decision as to how to deal with missing values. The disadvantage is that certain rules do not necessarily have to reflect a natural process. 
+#### Multi-parametric Models for Amplification Curve Fitting\label{section_models}
 
-The NAs were left unchanged in the \texttt{PCRedux} package up to version 0.2.5-1. Since version 0.2.6, however, the NAs have been replaced by numerical values (e.&nbsp;g., total number of cycles) or factors (e.&nbsp;g., *lNA* for non-fitted model).
+Both the ``pcrfit_single()`` function and the ``encu()`` function use four multi-parametric models based on the findings by @spiess_highly_2008 and @Ritz2008. The ``pcrfit_single()`` function starts by adjusting a seven-parameter model since this adapts *easier* to an dataset (\autoref{plot_models}). 
 
+* **l7**:
 
-#### Multiparametric Models for Amplification Curve Fitting\label{section_models}
+\begin{equation}\label{l7}
+f(x) = c + k1 \cdot x + k2 \cdot x^2 + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
+\end{equation}
 
-In \autoref{section_DataAnalysis}, it was postulated that a sigmoid curve can be fitted using logistic functions. There are four functions used in the \texttt{PCRedux} package, that were previously descried by @spiess_highly_2008 and @Ritz2008. This model is used as the starting point for to fit a model with four (*l4*, \autoref{l4}), five (*l5*, \autoref{l5}) or six parameters (*l6*, \autoref{l6}). The optimal model is selected on the basis of the Akaike information criterion. This model is used for all further calculations. The ``pcrfit_single()`` function returns `qPCRmodel` as a factor (*l4*, *l5*, *l6*, *l7*). The model found can also be interpreted as the quality of an amplification curve, since a model with many parameters differs more from an ideal sigmoid model. For instance, a four-parameter model, unlike the seven-parameter model, does not have a square component. The four-parameter model would be suitable for amplification curves with a slight slope in the ground phase and plateau phase. This would correspond to a simple sigmoid amplification curve. In case no model could be fitted, an *lNA* is returned.
+From that model, the ``pcrfit_single()`` function outputs the variables `b_slope` and `f_intercept`, which describe the slope and the intercept. The number of iterations required to adapt the model is also stored. That value is returned by the ``pcrfit_single()`` function as `convInfo_iteratons`. The higher the `convInfo_iteratons` value, the more iterations were necessary to converge from the start parameters (\autoref{plot_dat_EffTop}D). A low `convInfo_iteratons` value is an indicator for a sigmoid curve shape. High numbers of iterations imply noisy or non-sigmoid curves (\autoref{plot_dat_EffTop}L). 
 
+The amplification curve fitting process continues with four-parameter model (*l4*, \autoref{l4}). This is followed by a model with five parameters (*l5*, \autoref{l5}) and six parameters (*l6*, \autoref{l6}).
 
 * **l4**: 
 
@@ -1274,26 +1261,21 @@ In \autoref{section_DataAnalysis}, it was postulated that a sigmoid curve can be
     f(x) = c + \frac{d - c}{1 + exp(b(log(x) - log(e)))}
 \end{equation}
 
+
 * **l5**: 
 
 \begin{equation}\label{l5}
     f(x) = c + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 \end{equation}
-
-* **l6**: 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * **l6**: 
 
 \begin{equation}\label{l6}
     f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 \end{equation}
 
-* **l7**:
+The optimal model is selected on the basis of the Akaike information criterion. This optimal model is used for all further calculations. The ``pcrfit_single()`` function returns `qPCRmodel` as a factor (*l4*, *l5*, *l6*, *l7*). In case no model could be fitted, an *lNA* is returned.
 
-\begin{equation}\label{l7}
-    f(x) = c + k1 \cdot x + k2 \cdot x^2 + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
-\end{equation}
-
-
-The ``pcrfit_single()`` function starts by adjusting a seven-parameter model. As a matter of fact, models with many parameters adapt adapt *easier* to an dataset. From that model, the ``pcrfit_single()`` function outputs the variables `b_slope` and `f_intercept`, which describe the slope and the intercept. The number of iterations required to adapt the model is also stored. That value is returned by the ``pcrfit_single()`` function as `convInfo_iteratons`. The higher the `convInfo_iteratons` value, the more iterations were necessary to converge from the start parameters (\autoref{plot_dat_EffTop}D). Hence, a low `convInfo_iteratons` value implies a sigmoid curve and a high number of iterations implies a noisy or non-sigmoid curve. 
+The model is an indicator of the amplification curve shape. Model with many parameters deviate more from an ideal sigmoid model. For instance, a four-parameter model, unlike the six-parameter model, does not have a linear component. A negative linear slope in the plateau phase is an indicator of a *hook effect* [CITATION BDQ].
 
 
 ```{r plot_models, echo=FALSE, fig.cap=plot_models, fig.scap=plot_models_short, fig.height=3.5}
@@ -1354,14 +1336,9 @@ for(i in 1L:length(feature)) {
 ```
 
 
-
 #### Quantification Points, Ratios and Slopes\label{section_Areas_Ratios_Slopes}
 
-
-In the literature, statistical methods are described which can be used to describe quantitatively the product formation in a qPCR [@roediger2015chippcr, @ruijter_evaluation_2013]. As illustrated in  \autoref{figure_quntifcation_points} are these the Ct value, the first derivative maximum (`cpD1`) and the second derivative maximum (`cpD2`). The ``pcrfit_single()`` function  calculates the `cpD1` and `cpD2` (\autoref{plot_models}B). Both quantification points are not directly useful to distinguish between a positive and negative amplification curve. However, low `cpD1` and `cpD2` values (< 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high. The Ct value is not calculate for the reasons discussed in \autoref{section_software}. No further information shall be provided about these typical procedures.
-
-
-Further features from the ``pcrfit_single()`` function are: 
+The first derivative maximum (`cpD1`) and the second derivative maximum (`cpD2`) are used to describe the amplification reaction quantitatively (\autoref{plot_models}B). The ``pcrfit_single()`` function  calculates the `cpD1` and `cpD2` and uses them for further analysis. For example, low `cpD1` and `cpD2` values (< 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high. Further features from the ``pcrfit_single()`` function are: 
 
 - `eff` is the optimized PCR efficiency found within a sliding window (\autoref{figure_quntifcation_points}C). A linear model of cycles versus log(Fluorescence) is fit within a sliding window (for details see ``sliwin()`` function from the \texttt{qpcR} package). The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}A demonstrates that the classes are significantly different from each other.
 - `sliwin` is the PCR efficiency by the 'window-of-linearity' method [@spiess_highly_2008].
@@ -1429,7 +1406,7 @@ text(background@amp.stop, 0.3, "amp.stop", pos = 4, col = "grey", srt=90)
 - `top` is the *takeoff point*) as proposed by @tichopad_standardized_2003. The `top` is calculated using externally studentized residuals, which tested to be an outlier in terms of the t-distribution. The `top` signifies to first PCR cycle entering the exponential phase. 
 - `tdp` is the *takedown point*. This is an implementation in the ``pcrfit_single()`` function, which uses the rotated $f(x) \mapsto f_{1}(f(x))$ and flipped $g(x) = -(x)$ amplification curve for calculation \autoref{amplification_curve_ROI}A describes the location of `top` and `tdp`. The position (`f.top`, `f.tdp`) on the ordinate is also determined from these points. If an amplification curve is negative or neither `top` nor `tdp` can be calculated, then `top` & `tdp` will be assigned the number of cycles and `f.top` & `f.tdp` the value 1.
 The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat_EffTop}I-L. This figure shows that a `top` value and a `tdp` value enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values (\autoref{plot_dat_EffTop}J). The same applies inversely to the `tdp` values (\autoref{plot_dat_EffTop}L). In this way, amplification curves can be classified according to these values.
-
+- `peaks\_ratio` is based on a sequential chaining of functions. The ``diffQ()`` function (\\texttt{MBmca}) determines numerically the first derivative of an amplification curve. This derivative is passed to the ``mcaPeaks()`` function (\\texttt{MBmca}). In the output all minima and all maxima are contained. The ranges are calculated from the minima and maxima. The Lagged Difference is determined from the ranges of the minima and maxima. Finally, the ratio of the differences (maximum/minimum) is calculated.
 
 ```{r plot_dat_EffTop, echo=FALSE, fig.cap=plot_dat_EffTop, fig.scap=plot_dat_EffTop_short, fig.height=11, fig.width=11} 
 
@@ -1470,11 +1447,7 @@ for(i in 1L:length(feature)) {
 }
 ```
 
-
-In \autoref{amplification_curve_ROI} it was postulated that an amplification curve can be divided into different regions. One assumption is that the slope and intercept of positive amplification curves are markedly different in head (ground phase) and tail (plateau phase). The intercept in the head should be lower than in the tail. In a negative amplification curve, the intercept should be nearly identical. The slope in the tail should also provide some indication to determine whether the amplification reaction is completed. In order to quantify these values, a linear regression model can be used in these ROIs.
-
-
-An example is given for the internal parameter `loglin_slope` which is calculated from the slope determined by a linear model of the data points from the fluorescence at the minimum and maximum of the second derivative (\autoref{loglin_slope}). The coordinates of the minimum and the maximum were determined as described in @roediger_RJ_2013. This feature uses the exponential phase as ROI. Provided that the locations of the minimum of the second derivative and the maximum of the second derivative yield a *suitable* interval. As a precaution, the algorithm checks, for example, whether the distance between the minimum of the second derivative and the maximum of the second derivative is not more than nine PCR cycles. Failing this, the `loglin_slope` value is set to zero (no slope). In the following example, the data \autoref{loglin_slope}.
+The feature `loglin_slope` is calculated from the slope determined by a linear model of the data points from the cycle dependent fluorescence at the minimum of the second derivative and maximum of the second derivative (\autoref{loglin_slope}). Provided that the locations of the minimum of the second derivative and the maximum of the second derivative yield a *suitable* interval. As a precaution, the algorithm checks, for example, whether the distance between the minimum of the second derivative and the maximum of the second derivative is not more than nine PCR cycles. Failing this, the `loglin_slope` value is set to zero (no slope). In the following example, the data \autoref{loglin_slope}.
 
 
 ```{r loglin_slope, eval=TRUE, echo=FALSE, fig.cap=loglin_slope, fig.scap=loglin_slope_short, fig.height=4}
@@ -1521,10 +1494,7 @@ mtext("", side = 3, adj = 0, font = 2)
 }
 ```
 
-All manufacturers of thermo-cyclers use different sensors and data processing algorithms in their systems. Hence it can be assumed that the signal variation in the ground phase (\autoref{figure_sigmoid_curve_models}D) differs between the different systems. Moreover, users make use of different detection chemistries (e.&nbsp;g., hydrolysis probes, reporter dyes). However, the latter will not be discussed here. For the distinction between negative and positive amplification curves, it should be checked whether a difference can be determined on the basis of the standard deviation of the background fluorescence. 
-
-After analyzing all amplification curves with the ``pcrfit_single()`` function, the `sd_bg` feature was analyzed. The feature `sd_bg` is the standard deviation from the first PCR cycle to the takeoff point (\autoref{amplification_curve_ROI}A). If no takeoff point can be determined from an amplification curve, the value for `sd_bg` is calculated from the first to the eighth PCR cycle. The feature `sd_bg` in \autoref{plot_sd_bg} is broken down by the thermo-cycler and the output of the amplification reaction (negative, positive). It can be seen that the signal variation between the thermo-cyclers seems to be different. There is also a difference between negative and positive amplification curves. This is also in accordance with the observations from \autoref{amplification_curve_shapes}.
-
+Manufacturers of thermo-cyclers use different sensors and data processing algorithms. Same applies to the detection chemistry used in experiments \autoref{why_PCRedux}.The signal variation in the ground phase differs between the different systems (\autoref{figure_sigmoid_curve_models}D). The feature `sd_bg` is the standard deviation from the first PCR cycle to the takeoff point (\autoref{amplification_curve_ROI}A). If no takeoff point can be determined from an amplification curve, the value for `sd_bg` is calculated from the first to the eighth PCR cycle. The results for the feature `sd_bg` were broken down by the thermo-cycler and the output of the amplification reaction (negative, positive). It can be seen that the signal variation between the thermo-cyclers seems to be different. There is also a difference between negative and positive amplification curves \autoref{plot_sd_bg}.
 
 
 ```{r plot_sd_bg, echo=FALSE, fig.cap=plot_sd_bg, fig.scap=plot_sd_bg_short, fig.height=7}
@@ -1770,17 +1740,18 @@ RGt <- function(y) {
 }
 ```
 
+The negative amplification curve F1.3 (`testdat` dataset) was analyzed with algorithms of the ``amptester()`` function. A) The Threshold test (THt) is based on the Wilcoxon rank sum test. The test compares 20\\% of the head to 15\\% of the tail region. No significant difference between the two regions was found for the amplification curve F1.3. Since the p-value is $0.621$ the null hypothesis cannot be rejected. This is indicative of a negative amplification reaction. B) Quantile-Quantile plot (Q-Q plot) of the amplification curve. A Q-Q plot is a probability plot for a graphical comparison of two probability distributions by plotting their quantiles against each other. In this study the probability distribution of the amplification curve is compared to a theoretical normal distribution. The orange line is the theoretical normal quantile-quantile plot which passes through the probabilities of the first and third quartiles. The Shapiro-Wilk test (SHt) of normality checks whether the underlying population of a sample (amplification curve) is significantly ($\\alpha \\leq 5e^{-4}$) normal distributed. Since the p-value is $0.895$ the null hypothesis cannot be rejected. C) The Linear Regression test (LRt). This test determines the coefficient of determination ($R^{2}$) by an ordinary least squares linear (OLS) regression. Usually the non-linear part of an amplification curve has an $R^{2}$ smaller than 0.8.
 
+```{r statistical_methods_negative, echo = FALSE, fig.cap=statistical_methods_negative, fig.scap=statistical_methods_negative_short, fig.height=6.8}
 
-```{r statistical_methods_positive, echo = FALSE, fig.cap=statistical_methods_positive, fig.scap=statistical_methods_positive_short, fig.height=7}
+layout(matrix(c(1, 1, 2, 2, 1, 1, 3, 3, 
+                4, 4, 5, 5, 4, 4, 6, 6), 4, 4, byrow = TRUE))
 
 y_lim <- range(testdat[, 2]) * c(1, 1.3)
 
-layout(matrix(c(1, 1, 2, 2, 1, 1, 3, 3), 2, 4, byrow = TRUE), respect = TRUE)
-
 plot(
-  x, y.pos, ylim = y_lim, xlab = "Cycles",
-  ylab = "RFU", main = "", type = "b", pch = 19
+    x, y.pos, ylim = y_lim, xlab = "Cycles",
+     ylab = "RFU", main = "", type = "b", pch = 19
 )
 mtext("A    Positive amplification", side = 3, adj = 0, font = 2)
 abline(v = c(nh, length(x) - nt), lty = 3)
@@ -1793,36 +1764,35 @@ text(35, 10, "Signal\nmedian - 2 * MAD", col = "green", cex = 1)
 
 arrows(4.5, 12.5, 42.5, 12.5, length = 0.1, angle = 90, code = 3)
 text(25, 14.5, paste(
-  "W=", signif(res.wt.pos$statistic, 3), "\np-value = ",
-  signif(res.wt.pos$p.value, 3)
+    "W=", signif(res.wt.pos$statistic, 3), "\np-value = ",
+                     signif(res.wt.pos$p.value, 3)
 ))
 # text(25, 5, paste("Fold change: \n", round(ub.pos / lb.pos, 2)))
 
 qqnorm(y.pos, pch = 19, main = "")
 legend("bottomright", paste(
-  "SHt, W = ", signif(res.shapiro.pos$statistic, 3),
-  "\np-value = ", signif(res.shapiro.pos$p.value, 3)
+    "SHt, W = ", signif(res.shapiro.pos$statistic, 3),
+                            "\np-value = ", signif(res.shapiro.pos$p.value, 3)
 ), bty = "n")
 mtext("B", side = 3, adj = 0, font = 2)
 qqline(y.pos, col = "orange", lwd = 2)
 
 plot(
-  RGt(y.pos), xlab = "Cycles", ylab = expression(R ^ 2), main = "", pch = 19,
-  type = "b"
+    RGt(y.pos), xlab = "Cycles", ylab = expression(R ^ 2), main = "", pch = 19,
+     type = "b"
 )
 mtext("C    LRt", side = 3, adj = 0, font = 2)
 abline(h = 0.8, col = "black", lty = 2)
-```
 
-```{r statistical_methods_negative, echo = FALSE, fig.cap=statistical_methods_negative, fig.scap=statistical_methods_negative_short, fig.height=7}
-layout(matrix(c(1, 1, 2, 2, 1, 1, 3, 3), 2, 4, byrow = TRUE), respect = TRUE)
+#-----------------Negative
+
 y_lim <- range(testdat[, 4]) * c(1.5, 2.5)
 
 plot(
   x, y.neg, ylim = y_lim, xlab = "Cycles",
   ylab = "RFU", main = "", type = "b", pch = 19
 )
-mtext("B    Negative amplification", side = 3, adj = 0, font = 2)
+mtext("A    Negative amplification", side = 3, adj = 0, font = 2)
 abline(v = c(nh, length(x) - nt), lty = 3)
 
 abline(h = lb.neg, lty = 2, col = "red")
@@ -1836,10 +1806,6 @@ text(10, 0.06, paste(
   "W = ", res.wt.neg$statistic, "\np-value = ",
   signif(res.wt.neg$p.value, 3)
 ))
-# legend(
-#   "topright", paste("Fold change: \n", round(ub.neg / lb.neg, 2)),
-#   bty = "n"
-# )
 
 
 qqnorm(y.neg, pch = 19, main = "")
@@ -1920,7 +1886,7 @@ $c > 45$             | 14
 
 Then follows a significance test for correlation between paired observations (amplification curve data & lagged amplification curve data). The hypothesis is that the paired observation of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example.
 
-In addition, the decisions file `decision_res_RAS002.csv` from the human expert was analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
+In addition, the decisions file `decision_res_RAS002.csv` from the user was analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
 
 
 ```{r autocorrelation, echo=TRUE, fig.cap=autocorrelation, fig.scap=autocorrelation_short, fig.height=5.5, fig.width=11}
@@ -2067,7 +2033,7 @@ mtext("B    k-means, k = 5", cex = 1.2, side = 3, adj = 0, font = 2)
 
 The ratios from the ground and plateau phase can be used to search for patterns in amplification curves. Positive amplification curves have different slopes and intercepts at the start of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these regions are potentially useful to extract a feature for an amplification curve classification. Negative amplification curves (no slope) are assumed to have a ratio of about 1. In contrast, positive amplification curves should have a ratio of less than 1.
 
-The ``head2tailratio()`` function calculates the ratio of the head and the tail of a quantitative PCR amplification curve. As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no increase in amplification signals can be measured in the first six cycles and in the last six cycles, the amplification curve is usually about to transition into the plateau. This assumption is sometimes violated and might lead to false estimates. The amplification curves in \autoref{figure_head2tailratio} show an increase within the first three cycles and the amplification curves in \autoref{plot_hookreg} have a negative slope in the tail. The median is used to minimize the influence of outliers.
+The ``head2tailratio()`` function calculates the ratio of the head and the tail of a quantitative PCR amplification curve. As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no increase in amplification signals can be measured in the first six cycles and in the last six cycles, the amplification curve is usually about to transition into the plateau. This assumption is sometimes violated and might lead to false estimates. The amplification curves in \autoref{figure_head2tailratio} show a signal increase within the first three cycles and the amplification curves in \autoref{amplification_curve_ROI}C have a negative slope in the tail. The median is used to minimize the influence of outliers.
 
 
 ```{r figure_head2tailratio, echo=TRUE, fig.cap=figure_head2tailratio, fig.scap=figure_head2tailratio_short, fig.width=6}
@@ -2148,67 +2114,6 @@ mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 #### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effect-like Curvatures\label{section_hookreg}
 
 ``hookreg()`` and ``hookregNL()`` are functions to detect amplification curves bearing a hook effect [@barratt_improving_2002] or negative slope at the end of the amplification curve. Both functions calculate the slope and intercept of an amplification curve data. The idea is that a strong negative slope at the end of an amplification curve is indicative for a hook effect. ``hookreg()`` and ``hookregNL()`` are part of a peer-reviewed publication. For this reason, the functions will not be discussed here.
-
-Amplification curves with a hook effect like curvature are characterized by a negative trend in the late phase of the amplification reaction (\autoref{plot_hookreg} A, curve F1.1, F1.2, F2.1, F2.2, F3.1 and F3.2).
-
-
-```{r, eval=TRUE, echo=TRUE}
-# Calculate slope and intercept on noise (negative) amplification curve data
-# for the last eight cycles.
-library(qpcR)
-library(magrittr)
-
-res_hook <- sapply(2:ncol(boggy), function(i) {
-  hookreg(x = boggy[, 1], y = boggy[, i])
-}) %>%
-  t() %>%
-  data.frame(obs = colnames(boggy)[-1], .)
-```
-
-The results of the ``hookreg()`` analysis were transferred to a tabular format.
-
-```{r, eval=TRUE, echo=FALSE, results='asis'}
-library(xtable)
-print(
-  xtable(
-    res_hook, caption = "Screening results for the analysis with the 
-             hookreg algorithm. Samples withe a value of 1 in the hook column 
-             had all a hook effect like curvature. The observations F4.1, F4.2, F5.1, 
-             F5.2, F6.1 and F6.2 miss entries because the hoogreg algorithm 
-             could not fit a linear model. This is an expected behavior, since 
-             these amplification curves did not have a hook effect like 
-             curvature.",
-    label = "tablehookreg"
-  ), include.rownames = FALSE, comment = FALSE, caption.placement = "top",
-  size = "\\tiny"
-)
-```
-
-In \autoref{tablehookreg} is shown that the first amplification curves (F1.1, 
-F1.2, F2.1, F2.2, F3.1 and F3.2) appear to have a hook effect-like curvature 
-("hook" column=1.00). The function estimate reliably the start of the 
-hook effect-like region.
-
-The clusters for amplification curve were determined by k-means clustering in 
-this example. Next we plot the results of the analysis (\autoref{plot_hookreg}). 
-For the visualization the intercepts was plotted against the slope with the 
-clusters as determined by k-means clustering.
-
-```{r plot_hookreg, echo=TRUE, fig.cap=plot_hookreg, fig.scap=plot_hookreg_short, fig.height=5, fig.width=7}
-matplot(
-  x = boggy[, 1], y = boggy[, -1], xlab = "Cycles", ylab = "RFU",
-  main = "", type = "l", lty = 1, lwd = 2, col = res_hook$hook + 1
-)
-
-res_hook$hook.start[res_hook$hook.start == 0] <- "no hook"
-
-legend(
-  "topleft", paste(as.character(res_hook$obs), "Hook start cycle:", 
-                   res_hook$hook.start), pch = 19,
-  col = res_hook$hook + 1, bty = "n"
-)
-rect(26,2,40,2.3, border ="red")
-```
 
 #### ``mblrr()`` - A Function Perform the Quantile-filter Based Local Robust Regression \label{section_mblrr}
 
@@ -2445,6 +2350,7 @@ for(i in 1L:length(feature)) {
 }
 ```
 
+
 #### Change point analysis\label{section_change_point_analysis}
 
 Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. There exist several change point algorithms such as the binary segmentation algorithm [@scott_cluster_1974]. In the change point analysis one assumes independent ordered observations $X_{1}, X_{2}, \ldots, X_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. The case of qPCR this is simply the cycle-dependent fluorescence. This is be used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean, variance) of the change points at specific points, change point analysis using the Bayesian method produces a probability for the occurrence of a change point at certain points. CPA is used for example in econometrics and bioinformatics [@Killick_2014, @erdman_bcp:_2007]. For the analysis of the amplification curves it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves. 
@@ -2638,13 +2544,23 @@ mtext("C", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
 
-Dealing with an extensive volume of qPCR amplification curves is a serious challenge during the data analysis. During the setup of a qPCR assay, a manual analysis is a justified and reasonable approach to get acquainted with the characteristics the qPCR amplification curves. In qPCRs is sigmoid shape is characterized by a base-line region, an exponential region and a (maximum) plateau phase. At least hypothetically, it can hardly be denied that the trained human expert can best interpret the dataset. In particular, artifacts and outliers in a series of measurements can usually be readily identified by humans. 
+Dealing with an extensive volume of qPCR amplification curves is a serious challenge during the data analysis. During the setup of a qPCR assay, a manual analysis is a justified and reasonable approach to get acquainted with the characteristics the qPCR amplification curves. In qPCRs is sigmoid shape is characterized by a base-line region, an exponential region and a (maximum) plateau phase. At least hypothetically, it can hardly be denied that the trained user can best interpret the dataset. In particular, artifacts and outliers in a series of measurements can usually be readily identified by humans. 
 As a matter of fact, amplification curves are difficult to interpret and analyze if the curvature deviates from the ideal sigmoid shape, or the volume of curve data is to large for an economic manual analysis. 
 The objectivity of an expert can be questioned. The reproducible and objective analysis of amplification curve data exposes challenges to inexperienced users. Even among peers is not uncommon that they ``judge`` (classify) results differently. An example on this problem was given in \autoref{figure_sigmoid_curve}.
 
 Moreover, amplification curves may look acceptable for an inexperienced use but unacceptable for an expert. Therefore, there is a need for method of statistical interrogation and objective interpretation of results.
 
-qPCR software focused mainly on the calculation of features from amplification curves. These include the Cq and the amplification efficiency, which are used for the downstream processing such as expression analysis or genotyping [@pabinger_2014]. Numerous software tools were developed, which deal with theses analytical steps. For example @baebler_quantgenius:_2017 published \texttt{quantGenius} and @mallona_chainy:_nodate published \texttt{Chainy}. 
+qPCR software focused mainly on the calculation of features from amplification curves. These include the Cq and the amplification efficiency, which are used for the downstream processing such as expression analysis or genotyping [@pabinger_2014]. Numerous software tools were developed, which deal with theses analytical steps. For example @baebler_quantgenius:_2017 published \texttt{quantGenius} and @mallona_chainy:_nodate published \texttt{Chainy}.
+
+The intent of @gunay_machine_2016 was to improve the determination of the Cq values. They claimed to present an improved prediction of Cq values using a modified sigmoid function (three parameters). An assumption of their approach is, that this model can be applied to any dataset. There are several reasons why such an assumption is not valid. In the chapters \autoref{section_hookreg}, for example, the functions ``hookreg()`` and ``hookregNL()`` are briefly displayed. These amplification curves deviate significantly from a three-parameter model. \autoref{plot_models} shows the distribution of models fitted to amplification curves. In most case models with six and seven parameters were automatically selected. In addition, non-linear functions also tend to fit models to noise (\autoref{curve_fit_fail}). It becomes clear in \autoref{plot_dat_Cq} that for a considerable proportion of manually negatively classified amplification curves a Cq value could be calculated. A computer-assisted decision would be helpful.
+
+Therefore, several characteristics of an amplification curve should be recorded first and then checked for their usefulness. There, it becomes clear that a three-parameter model adaptation can be adapted to noise and thus provides unreliable predictions.
+
+As shown in \autoref{amplification_curve_shapes} have positive amplification curves a typical sigmoid shape, while negative curves resemble random noise.
+
+Many properties (e.&nbsp;g., experiment condition (hydrolysis probe, DNA binding dye)) can be converted to binary classifiers (no == 0, yes == 1). From the amplification curve one can calculate the signal range before and after the amplification process.
+
+Next follows a brief introduction of the feature engineering process of this work. For doing this a set features which characterize amplification curves was needed. New concepts were elaborated and integrated in \texttt{PCRedux} package. These functions features have not been described before in the literature for the classification of amplification curves.
 
 Besides the determination of quantification points, a classification of the amplification curves is also necessary. In a manual classification (e.g. negative, positive) the classification result is influenced by the subjective perception of the experimenter. Manual analysis is comparatively time-consuming. An automated amplification curve classification system is expected to objectify and generalize the process. However, none of them attempts to make use of characteristics of the amplification curve. Therefore, the aims were to
 
@@ -2677,7 +2593,9 @@ Many qPCR devices have build-in software that performs per-processiong steps lik
 
 Measures to minimize errors are the implementation of algorithms in open source package and public available datasets. In contrast to black box algorithms and hidden datasets can third parties review and modify all elements.
 
-It was shown how a given dataset of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves. This package \texttt{PCRedux} provides concepts for a sensitive and specific classification of amplification curves from qPCR experiments.
+It was shown how a given dataset of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves. This package \texttt{PCRedux} shows concepts for a sensitive and specific classification of amplification curves from qPCR experiments.
+
+Similar applies to the curve-shape based group-wise classification of amplification curves. This concept is new. Ideally, only a few iterations are necessary to complete the classification of a dataset. However, a prerequisite for this is that the amplification curves are similar. 
 
 The concepts might be applicable to melting analysis too. This needs to be investigated in further studies.
 
@@ -2693,7 +2611,7 @@ Likely, the concepts of the \texttt{PCRedux} package are not limited to qPCR amp
 
 When large amounts of data need to be processed, however, manual analysis is unfavorable. 
 
-In the ideal case, this should achieve a high degree of objectivity and reproducibility. It is not always possible to justify this ideal, because the algorithms can be biased as the human. One reason is that humans design the algorithms and  curate the dataset used for the learning. In particular, datasets can be biased if the human expert excludes seemingly problematic data.
+In the ideal case, this should achieve a high degree of objectivity and reproducibility. It is not always possible to justify this ideal, because the algorithms can be biased as the human. One reason is that humans design the algorithms and curate the dataset used for the learning. In particular, datasets can be biased if the user excludes seemingly problematic data.
 
 The model should then be able to bring new unknown data into a meaningful context. The selected features have a significant influence on the accuracy of the model. In machine learning, variables are features that are used to train a model [@saeys_review_2007]. Therefore, it is important to identify or generate new features potential features and to test them intensively. Regarding amplification curves, only a few features have been described in the literature so far. They are described in the following sections. Dedicated applications and descriptions of features in the peer-reviewed literature is not described.
 
