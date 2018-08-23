@@ -58,17 +58,25 @@ earlyreg <- function(x, y, range = 5, normalize = FALSE) {
 
   range_ht <- head(x, range)
 
+#   model <- try(suppressWarnings(lmrob(y[range_ht] ~ x[range_ht])), silent = TRUE)
+  model <- try(suppressWarnings(lm(y[range_ht] ~ x[range_ht])), silent = TRUE)
+  
   res_lm_fit <- try(suppressWarnings(
-    coefficients(
-#       lmrob(y[range_ht] ~ x[range_ht])
-      lm(y[range_ht] ~ x[range_ht])
-    )
+    coefficients(model)
   ), silent = TRUE)
+  
+  res_lm_sigma <- try(suppressWarnings(summary(model)$sigma), silent = TRUE)
 
   if (class(res_lm_fit) == "try-error") {
     res_lm_fit <- c(0, 0)
   }
+  
+  if (class(res_lm_sigma) == "try-error") {
+    res_lm_sigma <- c(0)
+  }
 
-  names(res_lm_fit) <- c("intercept", "slope")
-  res_lm_fit
+  output <- c(res_lm_fit, res_lm_sigma)
+  
+  names(output) <- c("intercept", "slope", "sigma")
+  output
 }
