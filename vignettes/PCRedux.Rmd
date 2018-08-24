@@ -41,25 +41,25 @@ htPCR_nap <- "Examples of negative, ambiguous and positive amplification curves.
 htPCR_nap_short <- "Examples of negative, ambiguous and positive amplification curves"
 
 
-htPCR_nap_frequency <- "Frequency of negative, ambiguous and positive amplification curves in the `htPCR` dataset. Negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` dataset."
+htPCR_nap_frequency <- "Frequency of amplification curve classes and conformity in the `htPCR` dataset. The `htPCR` dataset was classified by hand eight times. Due to the unusual amplification curve shape and input errors during classification, many amplification curves were classified differently. A) Frequency of negative (black), ambiguous (red) and positive (green) amplification curves in the `htPCR` dataset. The combined number of ambiguous and negative amplification curves appears to be higher, than the number of positive amplification curves. B) The number of observations where all classification cycles made the same decision (conformity == TRUE) accounts for only 5\\% of the total number of observations. TRUE, all classes of the amplification curve matched. FALSE, at least one in eight observations had a different class."
 
-htPCR_nap_short_frequency <- "Frequency of negative, ambiguous and positive amplification curves in the `htPCR` dataset"
+htPCR_nap_short_frequency <- "Frequency of amplification curve classes and conformity in the `htPCR` dataset."
 
 
-qPCR2fdata <- "Shape-based grouping of amplification curves. A) The grouping of the gain curves of the `testdat` data set (A) was based on the Hausdorff distance. B) The gain curves were converted with the ``qPCR2fdata()`` function and the Hausdorff distance of the curves to each other was determined by a cluster analysis. There was no errors in distinguishing between negative (n) and positive (y) gain curves."
+qPCR2fdata <- "Shape-based grouping of amplification curves. A) The grouping of the amplification curves of the `testdat` data set (A) was based on the Hausdorff distance. B) The amplification curves were converted with the ``qPCR2fdata()`` function and the Hausdorff distance of the curves to each other was determined by a cluster analysis. There was no errors in distinguishing between negative (n) and positive (y) amplification curves."
 
 qPCR2fdata_short <- "Shape-based grouping of amplification curves"
 
 
-HCU32 <- "Clustering and variation analysis of amplification curves. The gain curves of the 32HCU were processed with the ``qPCR2fdata()`` function and then processed by cluster analysis (Hausdorff distance). A) Amplification curves were plotted from the raw data. B) Overall, signal-to-noise ratios of the amplification curves between all cavities were similar. C) The Cq values and amplification efficiency (eff) were calculated using the ``efficiency(pcrfit())`` function (``qpcR`` package). The median Cq is shown as a vertical line. Cqs greater or less than 0,1 of Cq $\tilde{x}$ are marked with observation labels. D) The cluster analysis showed no specific pattern with respect to the amplification curve signals. It appears that the observations D1, E1, F1, F3, G3 and H1 differ most from the other amplification curves."
+HCU32 <- "Clustering and variation analysis of amplification curves. The amplification curves of the 32HCU were processed with the ``qPCR2fdata()`` function and then processed by cluster analysis (Hausdorff distance). A) Amplification curves were plotted from the raw data. B) Overall, signal-to-noise ratios of the amplification curves between all cavities were similar. C) The Cq values and amplification efficiency (eff) were calculated using the ``efficiency(pcrfit())`` function (``qpcR`` package). The median Cq is shown as a vertical line. Cqs greater or less than 0,1 of Cq $\tilde{x}$ are marked with observation labels. D) The cluster analysis showed no specific pattern with respect to the amplification curve signals. It appears that the observations D1, E1, F1, F3, G3 and H1 differ most from the other amplification curves."
 
 HCU32_short <- "Clustering and variation analysis of amplification curves"
 
-curve_fit_fail <- "Incorrect model adjustment for amplification curves. A positive (black) and a negative amplification curve (red) were randomly selected from the `RAS002` dataset. The positive amplification curve has a baseline signal of about 2500 RFU and has a definite sigmoidal shape. The negative amplification curve has a baseline signal of approx. 4200 RFU, but only moderately positive slope (no sigmoidal shape). A logistic function with seven parameters (`l7`) has been fitted to both amplification curves. A Cq value of 25.95 was determined for the positive amplification curve. The negative gain curve had a Cq value of 9.41. However, it can be seen that the latter model fitting is not appropriate for calculating a trustworthy Cq value. An automatic calculation without user control would give a false-positive result."
+curve_fit_fail <- "Incorrect model adjustment for amplification curves. A positive (black) and a negative amplification curve (red) were randomly selected from the `RAS002` dataset. The positive amplification curve has a baseline signal of about 2500 RFU and has a definite sigmoidal shape. The negative amplification curve has a baseline signal of approx. 4200 RFU, but only moderately positive slope (no sigmoidal shape). A logistic function with seven parameters (`l7`) has been fitted to both amplification curves. A Cq value of 25.95 was determined for the positive amplification curve. The negative amplification curve had a Cq value of 9.41. However, it can be seen that the latter model fitting is not appropriate for calculating a trustworthy Cq value. An automatic calculation without user control would give a false-positive result."
 
 curve_fit_fail_short <- "Incorrect model adjustment for amplification curves"
 
-plot_models <- "Frequencies of the fitted multiparametric models and Cq values. The amplification curves (n = 3302) of the `data\\_sample` dataset were analyzed with the ``encu()`` function. A) The optimal multiparametric model was selected for each amplification curve based on the Akaike information criterion. lNA stands for `no model` and l4 \\ldots l7 for a model with four to seven parameters. B) All Cq values were calculated from optimal multiparametric models. Cqs of positive amplification curves accumulate in the range between 15 and 30 PCR cycles (50\\%). For the negative amplification curves, the Cqs are distributed over the entire span of the cycles. Note: The Cqs of the negative amplification curves are false-positive!"
+plot_models <- "Frequencies of the fitted multiparametric models and Cq values. The amplification curves (n = 3302) of the `data\\_sample` dataset were analyzed with the ``encu()`` function. The amplification curves have been broken down according to their classes (negative: grey, positive: green). A) The optimal multiparametric model was selected for each amplification curve based on the Akaike information criterion. lNA stands for `no model` and l4 \\ldots l7 for a model with four to seven parameters. B) All Cq values were calculated from optimal multiparametric models. Cqs of positive amplification curves accumulate in the range between 15 and 30 PCR cycles (50\\%). For the negative amplification curves, the Cqs are distributed over the entire span of the cycles. Note: The Cqs of the negative amplification curves are false-positive!"
 
 plot_models_short <- "Frequencies of the fitted multiparametric models and Cq values"
 
@@ -89,7 +89,7 @@ plot_Logistic_Regression <- "Machine classification by means of binomial logisti
 plot_Logistic_Regression_short <- "Machine classification by means of binomial logistic regression using the `polyarea` feature"
 
 
-statistical_methods_amptester <- "Analysis of amplification curves with the ``amptester()`` function. A \\& B) The threshold test (THt) is based on the Wilcoxon ranksum test and compares 20\\% of the fluorescence values of the ground phase with 15\\% of the plateau phase. In the example, a significant difference ($p = 0.000512$) was found for the positive amplification curve. However, this did not apply to the negative amplification curve ($p = 0.621$). C \\& D) A Q-Q diagram is used to graphically compare two probability distributions.  In this study the probability distribution of the amplification curve was compared with a theoretical normal distribution. The orange line is the theoretically normal quantil-quantile plot that passes through the probabilities of the first and third quartiles. The Shapiro-Wilk test (SHt) of normality checks whether the underlying measurement data of the amplification curve is significantly normally distributed. Since the p-value of the positive amplification curve ($7.09 e^{-9}$) is $\\alpha \\leq 5e^{-4}$, the null hypothesis is rejected. However, this does not apply to the negative amplification curve ($p = 0.895$). E \\& F) The linear regression test (LRt) calculates the coefficient of determination ($R^{2}$) using an ordinary least square regression where all measured values are integrated into the model in a cycle-dependent manner. Experience shows that the non-linear part of a gain curve has a $R^{2}$ smaller than 0.8, which is also shown in the example."
+statistical_methods_amptester <- "Analysis of amplification curves with the ``amptester()`` function. A \\& B) The threshold test (THt) is based on the Wilcoxon ranksum test and compares 20\\% of the fluorescence values of the ground phase with 15\\% of the plateau phase. In the example, a significant difference ($p = 0.000512$) was found for the positive amplification curve. However, this did not apply to the negative amplification curve ($p = 0.621$). C \\& D) A Q-Q diagram is used to graphically compare two probability distributions.  In this study the probability distribution of the amplification curve was compared with a theoretical normal distribution. The orange line is the theoretically normal quantil-quantile plot that passes through the probabilities of the first and third quartiles. The Shapiro-Wilk test (SHt) of normality checks whether the underlying measurement data of the amplification curve is significantly normally distributed. Since the p-value of the positive amplification curve ($7.09 e^{-9}$) is $\\alpha \\leq 5e^{-4}$, the null hypothesis is rejected. However, this does not apply to the negative amplification curve ($p = 0.895$). E \\& F) The linear regression test (LRt) calculates the coefficient of determination ($R^{2}$) using an ordinary least square regression where all measured values are integrated into the model in a cycle-dependent manner. Experience shows that the non-linear part of a amplification curve has a $R^{2}$ smaller than 0.8, which is also shown in the example."
 
 statistical_methods_amptester_short <- "Analysis of amplification curves with the ``amptester()`` function"
 
@@ -98,17 +98,17 @@ figure_autocorrelation_tau <- "Effect of tau"
 figure_autocorrelation_tau_short <- "Effect of tau"
 
 
-autocorrelation <- "Autocorrelation analysis of the gain curves of the `RAS002` data set. A) Display of all gain curves of the data set `RAS002`. Negative amplification curves are shown in red and positive amplification curves in black. The `autocorrelation\\_test()` function was used to analyze all amplification curves. B) The density diagram of the autocorrelation of positive and negative amplification curves shows a bimodal distribution. C) The cdplot calculates the conditional densities of x based on the values of y weighted by the boundary distribution of y. The densities are derived cumulatively via the values of y. The probability that the Decission is negative (n) when autocorrelation equals 0.85 is approximately 100\\%. D) Performance analysis using the ``performeR()`` function (see \\autoref{section_performeR} for details)."
+autocorrelation <- "Autocorrelation analysis of the amplification curves of the `RAS002` data set. A) Display of all amplification curves of the data set `RAS002`. Negative amplification curves are shown in red and positive amplification curves in black. The `autocorrelation\\_test()` function was used to analyze all amplification curves. B) The density diagram of the autocorrelation of positive and negative amplification curves shows a bimodal distribution. C) The cdplot calculates the conditional densities of x based on the values of y weighted by the boundary distribution of y. The densities are derived cumulatively via the values of y. The probability that the decision is negative (n) when autocorrelation equals 0.85 is approximately 100\\%. D) Performance analysis using the ``performeR()`` function (see \\autoref{section_performeR} for details)."
 
 autocorrelation_short <- "Autocorrelation analysis for amplification curves of the `RAS002` dataset)"
 
 
-earlyreg_slopes <- "Analysis of the soil phase with the ``earlyreg()`` function . A) The amplification curves (`C127EGHP` data set, n = 64) have different slopes and intercepts in the first cycles of the ground phase (ROI: Cycles 1 to 5) of the qPCR. Both the slope and the intercept of each amplification curve were used for a cluster analysis (k-mean, Hartigan-Wong algorithm, number of centers \\textit{k = 2}). The amplification curves were assigned to five clusters, depending on their slope and their intersection (red, black)."
+earlyreg_slopes <- "Analysis of the soil phase with the ``earlyreg()`` function . The amplification curves (`C127EGHP` data set, n = 64 amplification curves). This dataset consists of 32 samples, which were simultaneously monitored with the intercalator EvaGreen or hydrolysis probes . A) All amplification curves have slightly different slopes and intercepts in the first cycles of the ground phase (ROI: Cycles 1 to 8). Both the slope and the intercept of each amplification curve were used for a cluster analysis (k-means, Hartigan-Wong algorithm, number of centers \\textit{k = 2}). B) The amplification curves were assigned to five clusters, depending on their slope and their intersection (red, black). C) Finally, the clusters were associated to the detection chemistries (EvaGreen (EG) or hydrolysis probes (HP))."
 
 earlyreg_slopes_short <- "Analysis of the ground phase with the ``earlyreg()`` function"
 
 
-figure_head2tailratio <- "Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) Plot of quantile normalized amplification curves from the `RAS002` dataset. ROIs of the head and and tail are highlighted by circles. The ranges for performing Robust Linear Regression are automatically selected using the 25\\% and 75\\% quantiles. Therefore not all data points are used in the regression model. The straight line is the regression line from the robust linear model. The slopes of the positive and negative amplification curves differ. B) Boxplot for the comparison of the $head/tail$ ratio. Positive amplification curves have a lower ratio than negative curves. The difference between the classes is significant. "
+figure_head2tailratio <- "Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve. A) Plot of quantile normalized amplification curves from the `RAS002` dataset. ROIs of the head and and tail are highlighted by circles. The ranges for performing Robust Linear Regression are automatically selected using the 25\\% and 75\\% quantiles. Therefore not all data points are used in the regression model. The straight line is the regression line from the robust linear model. The slopes of the positive and negative amplification curves differ. B) Boxplot for the comparison of the $head/tail$ ratio. Positive amplification curves have a lower ratio than negative curves. The difference between the classes is significant."
 
 figure_head2tailratio_short <- "Calculation of the ratio between the head and the tail of a quantitative PCR amplification curve"
 
@@ -665,7 +665,7 @@ To answer this question, other methods such as agarosegel electrophoresis need t
 
 ### Manual Amplification Curve Classification\label{Manual_Amplification_Curve_Classification}
 
-For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This function was developed to help the user during the classification of amplification curves and melting curves. The user has to define classes (e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve datasets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` was set to randomly select individual amplification curves. All datasets were manually classified at least three times. The `htPCR` dataset (\autoref{figure_sigmoid_curve}B) was in total classified eight times (see \autoref{figure_curve_classification}). Moste of the amplification curves are neither unequivocal classifiable as positive or negative.
+For machine learning and method validation it was important to classify the amplification curves individually. In @roediger2015chippcr the  ``humanrater()``  function was introduced. This function was developed to help the user during the classification of amplification curves and melting curves. The user has to define classes (e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("p")) which get assigned to an amplification curve after expert has entered the class in input mask. All amplification curve datasets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` was set to randomly select individual amplification curves. All datasets were manually classified at least three times. The `htPCR` dataset (\autoref{figure_sigmoid_curve}B) was in total classified eight times (see \autoref{figure_curve_classification}). Most of the amplification curves are neither unequivocal classifiable as positive or negative.
 
 
 ```{r figure_curve_classification, echo=TRUE, eval=TRUE, fig.cap=figure_curve_classification, fig.scap=figure_curve_classification_short}
@@ -760,22 +760,43 @@ The ``decision_modus()`` function was applied to the record `decision_res_htPCR.
 # Use decision_modus() to go through each row of all classification done by
 # a human.
 
-dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
-    decision_modus(decision_res_htPCR[i, 2:9])
-}) %>% unlist()
+# Determine the number of observations where all classifications were 
+# the same (conformity == TRUE).
+conformity <- decision_res_htPCR[["conformity"]]
 
-names(dec) <- decision_res_htPCR[, 1]
+# List all classifications.
+dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
+    decision_modus(decision_res_htPCR[i, 2:9])[1]
+}) %>% unlist()
 
 # Show statistic of the decisions
 summary(dec)
 ```
 
-```{r htPCR_nap_frequency, echo=FALSE, fig.cap=htPCR_nap_frequency, fig.scap=htPCR_nap_short_frequency, fig.height=3}
+```{r htPCR_nap_frequency, echo=FALSE, fig.cap=htPCR_nap_frequency, fig.scap=htPCR_nap_short_frequency, fig.higth=3}
 # Plot the Frequencies of the decisions
+
+layout(matrix(c(1,1,2), 1, 3, byrow = TRUE))
 barplot(
-    table(dec), xlab = "Decision", ylab = "Frequency",
-        main = "", col = c(2, 3, 1), border = "white"
+    table(dec), xlab = "Class decision", ylab = "Frequency",
+        main = "", col = c("red", "black", "green"), border = "white"
 )
+text(c(0.7, 1.9, 3.1), rep(4000,3), 
+        c(paste("n = ", table(dec)[1]), 
+          paste("n = ", table(dec)[2]), 
+          paste("n = ", table(dec)[3])),
+    col = c("black", "white", "black"))
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
+
+barplot(
+    table(conformity), xlab = "Comformity", ylab = "Frequency",
+        main = "", col = c("black", "green"), border = "white"
+)
+text(c(0.7, 1.85), rep(8000,2), 
+        c(paste("n = ", table(conformity)[1]), 
+        paste("n = ", table(conformity)[2])), 
+        col = c("white", "black"))
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 ```
 
 Another usage mode of ``decision_modus()`` is to set the parameter as `max_freq=FALSE`. This option specifies the number of all classifications.
@@ -945,7 +966,7 @@ res_fdata <- qPCR2fdata(testdat)
 
 # Extract column names and create rainbow color to label the data
 columnames <- testdat[-1] %>% colnames()
-data_colors <- rainbow(length(columnames), alpha = 0.5)
+colors <- rainbow(length(columnames), alpha = 0.5)
 
 # Calculate the Hausdorff distance (fda.usc) package and plot the distances
 # as clustered data.
@@ -974,20 +995,17 @@ The dendrogram shows that
 par(mfrow = c(1, 2))
 res_fdata %>% plot(
     ., xlab = "Cycles", ylab = "RFU", main = "", type = "l",
-    lty = 1, lwd = 2, col = data_colors
+    lty = 1, lwd = 2, col = colors
 )
 legend(
     "topleft", paste0(as.character(columnames), ": ", res_cutree),
-       pch = 19, col = data_colors, bty = "n", ncol = 2, cex = 0.7
+       pch = 19, col = colors, bty = "n", ncol = 2, cex = 0.7
 )
 mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 plot(res_hclust, main = "", xlab = "", sub="")
+text(c(5.5,18), rep(6.5,2), c("negative", "positive"), col = c("black", "green"), cex = 0.9, srt = 90)
 mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
-rect(0.5, -3.5, 12.25, 0.5, border = "red")
-text(7, 1, "negative", col = "red")
-rect(12.5, -3.5, 24.5, 0.5, border = "green")
-text(14, 1, "positive", col = "green", cex = 0.9)
 ```
 
 This workflow can be used to cluster amplification curve data according to their shape into groups of amplification curves with similar shape. Classification tasks can be preformed in batches of amplification curves. The calculation of the distances is a computing expensive step dependent on the number of amplification curves. 
@@ -1017,7 +1035,7 @@ data_32HCU <- data.table::fread(filename, data.table = FALSE)
 res_fdata <- qPCR2fdata(data_32HCU)
 # Extract column names and create rainbow color to label the data
 columnames <- data_32HCU[-1] %>% colnames()
-data_colors <- rainbow(length(columnames), alpha = 0.55)
+colors <- rainbow(length(columnames), alpha = 0.55)
 ```
 In advance the Cq values were calculated by the following code:
 
@@ -1081,11 +1099,11 @@ calculated_effs <- c(
 layout(matrix(c(1, 2, 3, 4, 4, 4), 2, 3, byrow = TRUE))
 res_fdata %>% plot(
     ., xlab = "Cycles", ylab = "RFU", main = "HCU32_aggR", type = "l",
-    lty = 1, lwd = 2, col = data_colors
+    lty = 1, lwd = 2, col = colors
 )
 legend(
     "topleft", as.character(columnames), pch = 19,
-       col = data_colors, bty = "n", ncol = 4
+       col = colors, bty = "n", ncol = 4
 )
 mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
@@ -1093,7 +1111,7 @@ mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 
 boxplot(
     data_32HCU[, -1] - apply(data_32HCU[, -1], 2, min),
-        col = data_colors, las = 2, main = "Signal to noise ratio",
+        col = colors, las = 2, main = "Signal to noise ratio",
         xlab = "Sample", ylab = "RFU"
 )
 mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
@@ -1105,7 +1123,7 @@ mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
 plot(
     calculated_Cqs, calculated_effs, xlab = "Cq (SDM)",
      ylab = "eff", main = "Cq vs. Amplification Efficiency",
-     type = "p", pch = 19, lty = 1, lwd = 2, col = data_colors
+     type = "p", pch = 19, lty = 1, lwd = 2, col = colors
 )
 
 median_Cq <- median(calculated_Cqs)
@@ -1239,13 +1257,15 @@ res_fw <- rbind(negative = table(y[x == "n"]),
 )
 
 
-colors <- c(adjustcolor("red", alpha.f = 0.25), adjustcolor("green", alpha.f = 0.25))
+colors <- c(adjustcolor("black", alpha.f = 0.25), adjustcolor("green", alpha.f = 0.25))
 
 par(mfrow = c(1,2))
 
 barplot(res_fw / sum(res_fw) * 100, beside = TRUE, col = colors, xlab = "", 
         ylab = "Percentage", border = "white")
-legend("top", legend = c("Negative", "Positive"), fill = colors, bty = "n")
+legend("top", c(
+    paste0("Negative (n =", length(y[x == "n"]),")"), paste0("Positive (n =", length(y[x == "y"]),")")
+), fill = colors, bty = "n")
 mtext("A    Fitted models", cex = 1.2, side = 3, adj = 0, font = 2)
 
 
@@ -1265,14 +1285,14 @@ for(i in 1L:length(feature)) {
     
     par(bg=NA)
     stripchart(y ~ x, vertical = TRUE, ylab = "Cq (cpD2)",
-               method = "jitter", pch = 19, cex = 0.85, 
-               col = adjustcolor("darkgrey", alpha.f = 0.65), 
+               method = "jitter", pch = 20, cex = 0.7, 
+               col = adjustcolor("black", alpha.f = 0.8), 
                ylim = c(l * 0.95, h * 1.05))
     
     polygon(y_density_neg$y * 5 + 1.35, y_density_neg$x, col = colors[1], border = NA)
     polygon(y_density_pos$y * 5 + 1.35, y_density_pos$x, col = adjustcolor("green", alpha.f = 0.25), border = NA)
-    arrows(1,30,1.5,32, length = 0.1)
-    arrows(2,5,1.5,7, length = 0.1)
+    arrows(1,-0.25,1.5,25, length = 0.1)
+    arrows(2,-0.25,1.5,5, length = 0.1)
     
     boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
     
@@ -1280,7 +1300,7 @@ for(i in 1L:length(feature)) {
            cex = 1, bty = "n")
     
     mtext(paste0("B", "   ", feature[i]), cex = 1.2, side = 3, 
-          adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
+          adj = 0, font = 2, col = ifelse(signif(res[["p.value"]], 2) < 0.05, 
                                           "black", "red"))
 }
 ```
@@ -1464,7 +1484,7 @@ for(i in 1L:length(devices)) {
     
     par(bg=NA)
     stripchart(y ~ x, vertical = TRUE, 
-               xlab = "Decision",
+               xlab = "Class decision",
                ylab = "Standard Deviation",
                method = "jitter", pch = 19, cex = 1, 
                col = adjustcolor("darkgrey", alpha.f = 0.65))
@@ -1694,7 +1714,6 @@ RGt <- function(y) {
 }
 ```
 
-The negative amplification curve F1.3 (`testdat` dataset) was analyzed with algorithms of the ``amptester()`` function. A) The Threshold test (THt) is based on the Wilcoxon rank sum test. The test compares 20\% of the head to 15\% of the tail region. No significant difference between the two regions was found for the amplification curve F1.3. Since the p-value is $0.621$ the null hypothesis cannot be rejected. This is indicative of a negative amplification reaction. B) Quantile-Quantile plot (Q-Q plot) of the amplification curve. A Q-Q plot is a probability plot for a graphical comparison of two probability distributions by plotting their quantiles against each other. In this study the probability distribution of the amplification curve is compared to a theoretical normal distribution. The orange line is the theoretical normal quantile-quantile plot which passes through the probabilities of the first and third quartiles. The Shapiro-Wilk test (SHt) of normality checks whether the underlying population of a sample (amplification curve) is significantly ($\alpha \leq 5e^{-4}$) normal distributed. Since the p-value is $0.895$ the null hypothesis cannot be rejected. C) The Linear Regression test (LRt). This test determines the coefficient of determination ($R^{2}$) by an ordinary least squares linear (OLS) regression. Usually the non-linear part of an amplification curve has an $R^{2}$ smaller than 0.8.
 
 ```{r statistical_methods_amptester, echo = FALSE, fig.cap=statistical_methods_amptester, fig.scap=statistical_methods_amptester_short, fig.height=6.8}
 
@@ -1800,55 +1819,100 @@ After the cluster analysis this could also be observed (\autoref{earlyreg_slopes
 ```{r earlyreg_slopes, echo = TRUE, fig.cap =earlyreg_slopes, fig.scap=earlyreg_slopes_short, fig.height=7}
 library(PCRedux)
 
+# Function for the Box-Cox transformation of data
+
+box_cox <- function(x, lambda = 1, offset = 0) {
+    if (lambda == 0) {
+        log(x + offset)
+    } else 
+    {
+        ((x + offset)^lambda - 1)/lambda
+    }
+}
+
+# Load the C127EGHP data set
+
 data <- C127EGHP[, -1]
-
-x_roi <- 1:6
-
-rfu_range <- range(data[x_roi, -1])
 
 # Normalize each amplification curve to their 0.99 percentile and use the
 # earlyreg function to determine the slope and intercept of the first
 # cycles 'user_range'
 
-user_range <- 5
+user_range <- 8
 
 res_earlyreg <- do.call(rbind, lapply(2L:ncol(data), function(i) {
   earlyreg(x = data[, 1], y = data[, i], range = user_range, normalize = TRUE)
-}))
+})) %>% box_cox(.)
 
 # Label the observation with their names
 rownames(res_earlyreg) <- substr(colnames(data)[-1], 1, 10)
 
+# Show the first five lines of the res_earlyreg data matrix
+
 head(res_earlyreg)
 
+# Perform k-means clustering on the res_earlyreg data matrix
 cl <- kmeans(res_earlyreg, centers = 2)
 
-layout(matrix(c(1, 1, 2, 3, 4, 4), 3, 2, byrow = TRUE))
+# Plot the results
+# Use x_roi (cycles) and rfu_range (RFU values) to limit the 
+# range for the detailed plot of first cycles. 
+
+x_roi <- 1:(user_range + 1)
+rfu_range <- range(data[x_roi, -1])
+
+layout(matrix(c(1, 2, 1, 2, 3, 3), 3, 2, byrow = TRUE))
+
+# Plot of raw amplification curves
 
 matplot(
-    data[, 1], data[, -1], ylim = range(data[, -1]), pch = 19, lty = 1, type = "l",
-    xlab = "Cycles", ylab = "RFU", main = "", col = "grey"
+    data[, 1], data[, -1], ylim = range(data[, -1]), pch = 19, lty = 1, 
+        type = "l", xlab = "Cycles", ylab = "RFU", main = "", col = "grey"
 )
-mtext(LETTERS[1], cex = 1.2, side = 3, adj = 0, font = 2)
+mtext("A", cex = 1.2, side = 3, adj = 0, font = 2)
 abline(v = c(1,user_range))
 text(3, range(data[, -1])[2], "ROI")
 
+# Detailed plot of the first cycles and the clusters according
+# to the k-means clustering
+# Define some user colors (blue: EvaGreen, orange: Hydrolysis probes)
+colors <- c(
+    adjustcolor("blue", alpha.f = 0.5),
+            adjustcolor("orange", alpha.f = 0.8)
+)
+
+matplot(NA, NA, xlim = range(x_roi), ylim = rfu_range, xlab = "Cycles", 
+        ylab = "RFU", main = "")
 
 for(i in 1L:length(unique(cl$cluster))) {
 cl_id <- which(cl[["cluster"]] == i) + 1
-
-matplot(
-  data[x_roi, 1], data[x_roi, cl_id], ylim = rfu_range, pch = 19, lty = 1, type = "l",
-  xlab = "Cycles", ylab = "RFU", main = "", col = i
-)
-mtext(paste0(LETTERS[i + 1], "  k-means cluster ", i), cex = 1.2, side = 3, adj = 0, font = 2)
-abline(v = c(1,user_range))
-text(3, rfu_range[2], "ROI")
+par(new=TRUE)
+matplot(data[x_roi, 1], xlab = "", ylab = "", xaxt = "n", yaxt = "n", 
+        data[x_roi, cl_id], ylim = rfu_range, pch = 19, lty = 1, type = "l", 
+        col = colors[i])
 }
 
-barplot(cl$cluster, las = 2, yaxt = "n", col = cl[["cluster"]], border = "white")
-mtext(LETTERS[4], cex = 1.2, side = 3, adj = 0, font = 2)
-legend("topleft", c("cluster 1", "cluster 2"), pch = 15, col = c(1,2), bty = "n")
+
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2)
+abline(v = c(1,user_range))
+text(3, rfu_range[2], "ROI")
+legend("topright", c("Cluster 1", "Cluster 2"), pch = 15, col = colors, 
+       bty = "n")
+
+# Overview of clusters and corresponding detection chemistry
+
+eghp <- rep(1.3, length(cl$cluster))
+names(eghp) <- names(cl$cluster)
+
+barplot(eghp, las = 2, col = colors[cl[["cluster"]]], 
+        border = "white", xlab = "", ylab = "", 
+        yaxt = "n", ylim = c(0,2))
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2)
+legend("topleft", c("Cluster 1", "Cluster 2"), pch = 15, col = colors, 
+       bty = "n", box.col =  "white")
+arrows(0.5, 2, 38, 2, angle = 90, code = 3)
+arrows(39, 2, 76.5, 2, angle = 90, code = 3)
+text(c(18.75, 57.5), c(1.8, 1.8), c("EvaGreen", "Hydrolysis\nprobes"))
 ```
 
 
@@ -1889,11 +1953,11 @@ data_normalized <- cbind(
   })
 )
 
-# Assign color to the positive and negative decisions
+# Assign colors to the classes (n: black, y: green).
 colors <- as.character(factor(
   data_decisions, levels = c("y", "n"),
   labels = c(
-      adjustcolor("black", alpha.f = 0.25), adjustcolor("red", alpha.f = 0.25))
+      adjustcolor("green", alpha.f = 0.25), adjustcolor("black", alpha.f = 0.25))
 ))
 
 res_wilcox.test <- stats::wilcox.test(res ~ data_decisions)
@@ -1907,7 +1971,7 @@ par(mfrow = c(1, 2), las = 0, bty = "o", oma = c(0, 0, 0, 0))
 
 matplot(
   data_normalized[, 1], data_normalized[, -1],
-  xlab = "Cycles", ylab = "normalized RFU", main = "RAS002 dataset",
+  xlab = "Cycles", ylab = "normalized RFU", main = "",
   type = "l", lty = 1, lwd = 2, col = colors
 )
 for (i in 1L:(ncol(data_normalized) - 1)) {
@@ -1959,6 +2023,10 @@ library(PCRedux)
 
 data <- RAS002[, c(1, 2, 3, 4, 5)]
 
+colors <- c(
+            adjustcolor("blue", alpha.f = 0.5),
+            adjustcolor("orange", alpha.f = 0.8)
+           )
 
 par(mfrow = c(2, 2))
 
@@ -1981,10 +2049,10 @@ for (i in 2L:ncol(data)) {
   
   mtext(paste0(LETTERS[i], "   ", colnames(data)[i]), cex = 1, side = 3, 
         adj = 0, font = 2)
-  abline(res_q25_lm, col = "red")
-  points(x[res_q25], y_tmp[res_q25], cex = 2.5, col = "red")
-  abline(res_q75_lm, col = "green")
-  points(x[res_q75], y_tmp[res_q75], cex = 2.5, col = "green")
+  abline(res_q25_lm, col = colors[1])
+  points(x[res_q25], y_tmp[res_q25], cex = 2.5, col = colors[1])
+  abline(res_q75_lm, col = colors[2])
+  points(x[res_q75], y_tmp[res_q75], cex = 2.5, col = colors[2])
 }
 ```
 
@@ -2359,6 +2427,142 @@ barplot(t(as.matrix(sort(res_importance[, 2]))),
 mtext("C", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
 ```
 
+##### ``autocorrelation_test()`` - A Function to Detect Positive Amplification Curves \label{section_autocorrelation_test}
+
+Autocorrelation analysis is a technique that is used in the field of time series analysis. It can be used to reveal regularly occurring patterns in one-dimensional data [@spiess_system-specific_2016]. The autocorrelation measures the correlation of a signal $f(t)$ with itself shifted by some time delay $f(t - \tau)$.
+
+The ``autocorrelation_test()`` function coercers the amplification curve data to an object of the class "zoo" (\texttt{zoo} package) as indexed totally ordered observations. Next follows the computation of a lagged version of the amplification curve data. The shifting the amplification curve data is based on the number of observations (number of cylces 'c') with the following $\tau$.
+
+Number of Cycles (c) | $\tau$
+---------------------|----------------
+$c \leq 35$          | 8
+$35 > c \leq 40$     | 10
+$40 < c \leq 45$     | 12
+$c > 45$             | 14
+
+
+Then follows a significance test for correlation between paired observations (amplification curve data & lagged amplification curve data). The hypothesis is that the paired observation of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example.
+
+In addition, the decisions file `decision_res_RAS002.csv` from the user was analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
+
+
+```{r autocorrelation, echo=TRUE, fig.cap=autocorrelation, fig.scap=autocorrelation_short, fig.height=5.5, fig.width=11}
+# Test for autocorrelation in amplification curve data
+# Load the libraries magrittr for pipes and the amplification curve the data
+# The amplification curve data from the `htPCR` dataset was used.
+# The data.table package was used for fast import of the csv data
+library(magrittr)
+library(PCRedux)
+
+# Load the decision_res_htPCR.csv dataset from a csv file.
+filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
+decision_res_htPCR <- data.table::fread(filename, data.table = FALSE)
+
+# Select only amplification curves (obs) were all 
+# classifications were in concordance ("conformity == TRUE" ).
+# This subset of the htPCR dataset contains the classes 
+# n: negative
+# a: ambiguous
+# p: positive
+
+obs_number <- which(decision_res_htPCR[["conformity"]] == TRUE)
+decs <- decision_res_htPCR[obs_number, "test.result.1"] %>% unlist(.)
+
+# Give tabular output of classes
+table(decs)
+
+# Load only the amplification curves from the htPCR data set that could be 
+# uniquely assigned to a class.
+
+data <- qpcR::htPCR[, c(1, obs_number + 1)]
+
+# Since the number of ambiguous is low (n = 2), they were re-assigned to the 
+# class negative
+
+decs[decs == "a"] <- "n"
+
+table(decs)
+
+# Assign colors to the classes (n: black, y: green).
+
+colors <- factor(decs, levels = c("y", "n"), label = c("black", "green"))
+
+
+# Test for autocorrelation in the RAS002 dataset
+
+res_ac <- sapply(2:ncol(data), function(i) {
+  autocorrelation_test(data[, i], ns_2_numeric = TRUE)
+})
+
+# Curves classified by a human after analysis of the overview. 1 = positive,
+# 0 = negative
+
+# # dec <- data.table::fread(system.file(
+# #   "decision_res_RAS002.csv",
+# #   package = "PCRedux"
+# # ))
+
+head(dec)
+
+
+# decs <- sapply(1L:nrow(dec), function(i) {
+#   res <- decision_modus(dec[i, 2L:(ncol(dec) - 1)])
+#   if (length(res) > 1) res[[1]] <- "n"
+#   res[[1]]
+# }) %>% unlist()
+
+
+# Plot curve data as overview
+# Names of the observations
+
+layout(matrix(c(1, 2, 3, 1, 4, 4), 2, 3, byrow = TRUE))
+matplot(
+  data[, 1], data[, -1], xlab = "Cycles", ylab = "RFU",
+  main = "", type = "l", lty = 1,
+  col = colors, lwd = 2
+)
+legend("topleft", c("positive", "negative"), pch = 19, col = c(1, 2), bty = "n")
+mtext("A    RAS002 dataset", cex = 1.2, side = 3, adj = 0, font = 2)
+
+
+# Convert the n.s. (not significant) in 0 and others to 1.
+# Combine the results of the aromatic autocorrelation_test as variable "ac",
+# the human classified values as variable "hc" in a new data frame (res_ac_hc).
+
+cutoff <- 0.85
+
+res_ac_hc <- data.frame(
+  ac = ifelse(res_ac > cutoff, 1, 0),
+  hc = ifelse(decs == "y", 0, 1)
+) %>% as.matrix()
+res_performeR <- performeR(s = res_ac_hc[, "ac"], r = res_ac_hc[, "hc"])
+
+
+plot(density(res_ac), xlab = "Autocorrelation", ylab = "Density", main = "")
+rug(res_ac)
+
+abline(v = cutoff)
+mtext("B", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
+
+
+cdplot(
+  as.factor(decs) ~ res_ac, xlab = "Autocorrelation",
+  ylab = "Class decision"
+)
+mtext("C", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
+
+barplot(
+  as.matrix(res_performeR[, c(1:10, 12)]), yaxt = "n", ylab = "",
+  main = "Performance of autocorrelation_test",
+  col = adjustcolor("grey", alpha.f = 0.5), border = "white"
+)
+
+axis(2, at = c(0, 1), labels = c("0", "1"), las = 2)
+mtext("D", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
+```
+
+As shown in this example, the ``autocorrelation_test()`` function is able to distinguish between positive and negative amplification curves. Negative amplification curve were in all cases non-significant. In contrast, the coefficients of correlation for positive amplification curves ranged between `r signif(range(as.numeric(res_ac), na.rm = TRUE), 3)[1]` and `r signif(range(as.numeric(res_ac), na.rm = TRUE), 3)[2]` at a significance level of 0.01 and a lag of 3.
+
 \newpage
 
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
@@ -2415,114 +2619,5 @@ Machine-learning algorithms require careful data pre-processing and quality mana
 The scope of the \texttt{PCRedux} package is presumably wide. The quantitation of nucleic acids by curve parameters such as the quantification point (Cq) and the amplification efficiency (AE) is meaningful only if the kinetics has a sigmoid shape [@ruijter_evaluation_2013, @ruijter_2014, @Ritz2008]. In principle, this can be checked out with the \texttt{PCRedux} package. The concepts may also be applied to other bioanalytical methods (e.g. enzyme kinetics) with sigmoidal curves. This will require further studies. Possibly the \texttt{PCRedux} software can also be coupled with other technologies, e.g. Next Generation Sequencing. A typical situation is that the result classes are positive, negative or ambiguous. Ambiguous amplification curves are a big challenge for the user, as both classes (positive and negative) can be true. In most cases, however, the user is interested in an automatic distinction between positive and negative samples. This is important for screening applications. Next generation sequencing depends on pre-tests of the input DNA before sequencing. qPCR is used for pre-testing and as a confirmation test for RNA-Seq quantification. For this purpose, automated quality control and decision support are conceivable.
 
 \newpage
-
-
-# Functions Under Development  \label{under_develpment}
-
-## ``autocorrelation_test()`` - A Function to Detect Positive Amplification Curves \label{section_autocorrelation_test}
-
-Autocorrelation analysis is a technique that is used in the field of time series analysis. It can be used to reveal regularly occurring patterns in one-dimensional data [@spiess_system-specific_2016]. The autocorrelation measures the correlation of a signal $f(t)$ with itself shifted by some time delay $f(t - \tau)$.
-
-The ``autocorrelation_test()`` function coercers the amplification curve data to an object of the class "zoo" (\texttt{zoo} package) as indexed totally ordered observations. Next follows the computation of a lagged version of the amplification curve data. The shifting the amplification curve data is based on the number of observations (number of cylces 'c') with the following $\tau$.
-
-Number of Cycles (c) | $\tau$
----------------------|----------------
-$c \leq 35$          | 8
-$35 > c \leq 40$     | 10
-$40 < c \leq 45$     | 12
-$c > 45$             | 14
-
-
-Then follows a significance test for correlation between paired observations (amplification curve data & lagged amplification curve data). The hypothesis is that the paired observation of positive amplification curves has a significant correlation (`stats::cor.test`, significance level is 0.01) in contrast to negative amplification curves (noise). The application of the ``autocorrelation_test()`` function is shown in the following example.
-
-In addition, the decisions file `decision_res_RAS002.csv` from the user was analyzed for the most frequent decision (modus) using the ``decision_modus()`` function (\autoref{section_decision_modus}).
-
-
-```{r autocorrelation, echo=TRUE, fig.cap=autocorrelation, fig.scap=autocorrelation_short, fig.height=5.5, fig.width=11}
-# Test for autocorrelation in amplification curve data
-# Load the libraries magrittr for pipes and the amplification curve the data
-# The amplification curve data from the `RAS002` dataset was used.
-# The data.table package was used for fast import of the csv data
-library(magrittr)
-library(PCRedux)
-library(data.table)
-
-data <- RAS002
-
-# Test for autocorrelation in the RAS002 dataset
-
-res_ac <- sapply(2:ncol(data), function(i) {
-  autocorrelation_test(data[, i], ns_2_numeric = TRUE)
-})
-
-# Curves classified by a human after analysis of the overview. 1 = positive,
-# 0 = negative
-
-human_classification <- fread(system.file(
-  "decision_res_RAS002.csv",
-  package = "PCRedux"
-))
-
-head(human_classification)
-
-
-decs <- sapply(1L:nrow(human_classification), function(i) {
-  res <- decision_modus(human_classification[i, 2L:(ncol(human_classification) - 1)])
-  if (length(res) > 1) res[[1]] <- "n"
-  res[[1]]
-}) %>% unlist()
-
-
-# Plot curve data as overview
-# Names of the observations
-
-layout(matrix(c(1, 2, 3, 1, 4, 4), 2, 3, byrow = TRUE))
-matplot(
-  data[, 1], data[, -1], xlab = "Cycles", ylab = "RFU",
-  main = "", type = "l", lty = 1,
-  col = decs, lwd = 2
-)
-legend("topleft", c("positive", "negative"), pch = 19, col = c(1, 2), bty = "n")
-mtext("A    RAS002 dataset", cex = 1.2, side = 3, adj = 0, font = 2)
-
-
-# Convert the n.s. (not significant) in 0 and others to 1.
-# Combine the results of the aromatic autocorrelation_test as variable "ac",
-# the human classified values as variable "hc" in a new data frame (res_ac_hc).
-
-cutoff <- 0.8
-
-res_ac_hc <- data.frame(
-  ac = ifelse(res_ac > cutoff, 1, 0),
-  hc = as.numeric(as.factor(decs)) - 1
-) %>% as.matrix()
-res_performeR <- performeR(res_ac_hc[, "ac"], res_ac_hc[, "hc"])
-
-
-plot(density(res_ac), ylab = "Autocorrelation", main = "")
-rug(res_ac)
-
-abline(v = cutoff)
-mtext("B", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
-
-
-cdplot(
-  as.factor(decs) ~ res_ac, xlab = "Autocorrelation",
-  ylab = "Decision"
-)
-mtext("C", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
-
-barplot(
-  as.matrix(res_performeR[, c(1:10, 12)]), yaxt = "n", ylab = "",
-  main = "Performance of autocorrelation_test",
-  col = adjustcolor("grey", alpha.f = 0.5), border = "white"
-)
-
-axis(2, at = c(0, 1), labels = c("0", "1"), las = 2)
-mtext("D", cex = 1.2, side = 3, adj = 0, font = 2, las = 0)
-```
-
-As shown in this example, the ``autocorrelation_test()`` function is able to distinguish between positive and negative amplification curves. Negative amplification curve were in all cases non-significant. In contrast, the coefficients of correlation for positive amplification curves ranged between `r signif(range(as.numeric(res_ac), na.rm = TRUE), 3)[1]` and `r signif(range(as.numeric(res_ac), na.rm = TRUE), 3)[2]` at a significance level of 0.01 and a lag of 3.
-
 
 # References
