@@ -398,6 +398,7 @@ pcrfit_single <- function(x) {
     fluo = res_efficiency_tmp[["fluo"]],
     slope_bg = res_lm_fit[["slope"]],
     intercept_bg = res_lm_fit[["intercept"]],
+    sigma_bg = res_lm_fit[["sigma"]],
     sd_bg = sd_bg,
     head2tail_ratio = res_head2tail_ratio,
     mblrr_slope_pt = res_mblrr[5],
