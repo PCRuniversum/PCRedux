@@ -29,8 +29,8 @@ Output Description
   "slope_bg" \tab slope of the first cycles \tab numeric \cr
   "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
-  "changepoint_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-  "changepoint_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
+  "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
+  "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr

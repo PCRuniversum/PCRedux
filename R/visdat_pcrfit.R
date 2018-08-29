@@ -81,7 +81,7 @@ visdat_pcrfit <- function(data, type="all", interactive=TRUE) {
     "runs", "eff", "cpD1", "cpD2", "fluo", "init2", "top",
 #   "runs", "eff", "cpD1", "cpD2", "fluo", "init1", "init2", "top",
     "f.top", "sliwin", "cpDdiff", "slope_bg",
-    "intercept_bg", "polyarea", "changepoint_e.agglo", "changepoint_bcp",
+    "intercept_bg", "polyarea", "cp_e.agglo", "cp_bcp",
     "qPCRmodel", "amptester_shapiro", "amptester_lrt", "amptester_rgt",
     "amptester_tht", "amptester_slt", "amptester_polygon",
     "amptester_slope.ratio", "minRFU", "maxRFU",

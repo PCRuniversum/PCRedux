@@ -1,6 +1,11 @@
 Version 0.2.6-2 [July 2018]
 * make autocorrelation_test more robust
 * Improved documentation
+* More examples
+* rules for pcrfit_single improved
+* grammar and spelling
+* changepoint_bcp and changepoint_e.agglo renamed to cp_bcp and cp_e.agglo
+* hookreg and hookregNL are peer-reviewed now ()
 
 Version 0.2.6-1 [June 2018]
 * Fix for qpcR package

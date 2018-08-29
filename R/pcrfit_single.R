@@ -50,8 +50,8 @@
 #'   "slope_bg" \tab slope of the first cycles \tab numeric \cr
 #'   "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
 #'   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
-#'   "changepoint_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-#'   "changepoint_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
+#'   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
+#'   "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
 #'   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
 #'   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
 #'   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
@@ -142,6 +142,7 @@ pcrfit_single <- function(x) {
 
   # Determine the head to tail ratio
   res_head2tail_ratio <- PCRedux::head2tailratio(x)
+  if(res_head2tail_ratio > 50) {res_head2tail_ratio <- 0}
 
   # Determine the slope from the cycles 2 to 11
   res_lm_fit <- PCRedux::earlyreg(x = cycles, x)
@@ -184,7 +185,7 @@ pcrfit_single <- function(x) {
 
   res_mcaPeaks <- try(MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2]), silent = TRUE)
   peaks_ratio <- try(base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2])), silent = TRUE)
-  if (is.infinite(peaks_ratio) || class(peaks_ratio) == "try-error") {
+  if (is.infinite(peaks_ratio) || class(peaks_ratio) == "try-error" || is.na(peaks_ratio)) {
     peaks_ratio <- 0
   }
 
@@ -201,6 +202,7 @@ pcrfit_single <- function(x) {
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && cpD2_range > 1 && cpD2_range < 9) {
     ROI <- round(c(res_diffQ2[[1]], res_diffQ2[[3]]))
     res_loglin_slope <- try(coefficients(lm(x[ROI] ~ ROI))[["ROI"]], silent = FALSE)
+    if(res_loglin_slope > 0.45) {res_loglin_slope <- 0}
   } else {
     res_loglin_slope <- 0
   }
@@ -217,7 +219,6 @@ pcrfit_single <- function(x) {
   if (class(res_coef) == "try-error") {
     res_coef <- c(b = 0, f = 20000)
   }
-
 
   res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
   if (class(res_convInfo_iteratons) == "try-error") {
@@ -318,8 +319,14 @@ pcrfit_single <- function(x) {
       )],
       silent = TRUE
     )
+    
+    
     if (class(res_efficiency_tmp) != "try-error") {
       res_cpDdiff <- try(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]))
+      
+      if(res_efficiency_tmp$init2 < -200 || as.character(res_efficiency_tmp$init2) == "NaN") {res_efficiency_tmp$init2 <- 0}
+      if(res_efficiency_tmp$eff > 2.2 || as.character(res_efficiency_tmp$eff) == "NaN") {res_efficiency_tmp$eff <- 0}
+      
     } else {
       res_efficiency_tmp <- list(
         eff = 0,
@@ -412,8 +419,8 @@ pcrfit_single <- function(x) {
     peaks_ratio = peaks_ratio,
     autocorellation = res_autocorrelation,
     # Change points
-    changepoint_e.agglo = res_changepoint_e.agglo,
-    changepoint_bcp = res_bcp,
+    cp_e.agglo = res_changepoint_e.agglo,
+    cp_bcp = res_bcp,
     # Amptester
     amptester_shapiro = res_amptester@decisions["shap.noisy"][[1]],
     amptester_lrt = res_amptester@decisions["lrt.test"][[1]],
