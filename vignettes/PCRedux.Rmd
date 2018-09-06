@@ -132,7 +132,7 @@ plot_cpa <- "Bayesian and energy agglomerative change point analysis on negative
 
 plot_cpa_short <- "Bayesian and energy agglomerative change point analysis on negative and positive amplification curves"
 
-plot_random_forest <- " The predictors `amptester\\_lrt` (lrt), `amptester\\_rgt` (rgt), `amptester\\_tht` (tht), `amptester\\_slt` (slt), `amptester\\_polygon`(polygon) and `amptester\\_slope.ratio` (slope.ratio) were used for classification using random forest. A) This plot shows the error depending on the number of trees. The error decreases as more and more trees are added and averaged. B). C)."
+plot_random_forest <- " The predictors `amptester\\_lrt` (lrt), `amptester\\_rgt` (rgt), `amptester\\_tht` (tht), `amptester\\_slt` (slt), `amptester\\_polygon`(polygon) and `amptester\\_slope.ratio` (slope.ratio) were used for classification using random forest. A) This plot shows the error depending on the number of trees. The error decreases as more and more trees are added and averaged. B). Mean Decrease Accuracy shown how much the model accuracy decreases if a variable is dropped. C) Mean Decrease Gini shows the importance of a variable based on the Gini impurity index used for the calculation of splits in trees."
 
 plot_random_forest_short <- "Random Forest"
 
@@ -261,7 +261,7 @@ Further unit tests were implemented for all functions of the \texttt{PCRedux} pa
 
 The following sections describe the \texttt{PCRedux} regarding the analysis, numerical description and predictor calculation from a sigmoid curve. A predictor herein refers to a quantifiable *informative* property of a sigmoid curve. The predictors, sometimes referred to as descriptors, (\autoref{section_Functions_of_PCRedux}) can be used for applications such as data mining, machine learning and automatic classification (e.&nbsp;g., negative or positive amplification). The determination of quantification points such as the Cq value is a typical task during the analysis of qPCR experiments. This is briefly described in dedicated sections (\autoref{section_software}ff.).
 
-Characteristics of amplification curves that can be used for the statistical and analytical description are discussed (\autoref{section_analysis_functions}) more in detail. The examples described focus on the concepts for **binary (dichotomous) classification** [@kruppa_probability_2014] as negative or positive. The mere binary classification into positive or negative is not necessarily the aim of the \texttt{PCRedux} package. Instead, it is aimed to provide a tool set for automatic **multicategory (polychotomus) classification** of amplification curves by any class conceivable. Such classification could be used for the quality of an amplification curve as negative, ambiguous and positive (\autoref{htPCR_nap}A & B) \footnote{A definition for binary (dichotomous) classification and multicategory (polychotomus) classification is presented in \cite{kruppa_probability_2014}.}.
+Characteristics of amplification curves that can be used for the statistical and analytical description are discussed (\autoref{section_analysis_functions}) more in detail. The examples described focus on the concepts for **binary (dichotomous) classification** [@kruppa_probability_2014] as negative or positive. The mere binary classification into positive or negative is not necessarily the aim of the \texttt{PCRedux} package. Instead, it is aimed to provide a tool set for automatic **multicategory (polychotomus) classification** of amplification curves by any class conceivable. Such classification could be used for the quality of an amplification curve as negative, ambiguous and positive (\autoref{htPCR_nap}A & B). A definition for binary (dichotomous) classification and multicategory (polychotomus) classification is presented in @kruppa_probability_2014.
 
 ```{r htPCR_nap, echo=FALSE, fig.cap=htPCR_nap, fig.scap=htPCR_nap_short}
 # Create graphic device for the plot(s)
@@ -643,7 +643,7 @@ Most commercial qPCR systems do not display the raw data of the amplification cu
 
 The ordinate often does not display the measured fluorescence, but rather the change in fluorescence per cycle ($\varDelta RFU = RFU_{cycle  + 1} - RFU_{cycle}$). Some qPCR systems have a periodicity in the amplification curve data. Periodicity exposes the risk of introducing artificially shifts in the Cq values [@spiess_system-specific_2016]. 
 
-In particular the cycle threshold method (Ct method) (\autoref{section_DataAnalysis}) is affected by these factors [@spiess_impact_2015, @spiess_system-specific_2016]. Therefore, it is advisable to clarify beforehand, which processing steps the amplification curves have been subjected to. Failure to do so may result in misinterpretations and incorrect models [@nolan_2006, @roediger2015r, @roediger2015chippcr, @spiess_impact_2015].
+In particular the cycle threshold method (Ct method) (\autoref{section_DataAnalysis}) is affected by these factors [@spiess_impact_2015, @spiess_system-specific_2016]. Therefore, it is advisable to clarify beforehand, which processing steps the amplification curves have been subjected to. Failure to do so may result in misinterpretations and incorrect amplification curve fitting models [@nolan_2006, @roediger2015r, @roediger2015chippcr, @spiess_impact_2015].
 
 
 
@@ -1212,7 +1212,7 @@ The analysis gives an overview of the variation of the amplification curve data.
 
 ### Amplification Curve Analysis Functions of the \texttt{PCRedux} package  \label{section_analysis_functions}
 
-On the basis of this observation, various concepts were developed and implemented in algorithms to describe amplification curves. The function described following are aimed for experimental studies. It is important to note that the *concepts for the predictors* proposed herein emerged by a critical reasoning process. The aim of the package is to propose a set of predictors, functions and data for an independent research.
+On the basis of this observation, **concepts for predictors** (*features*) were developed and implemented in algorithms to describe amplification curves. The function described following are aimed for experimental studies. It is important to note that the concepts for the predictors proposed herein emerged by a *critical reasoning* process and *domain knowledge* of the \texttt{PCRedux} package creator. The aim of the package is to propose a set of predictors, functions and data for an independent research. 
 
 #### ``pcrfit_single()`` and ``encu()``- Functions to Calculate Predictors from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
 
@@ -2070,7 +2070,7 @@ text(c(18.75, 57.5), c(1.6, 1.6), c("EvaGreen", "Hydrolysis probes"))
 
 The ratios from the ground and plateau phase can be used to search for patterns in amplification curves. Positive amplification curves have different slopes and intercepts at the start of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these regions are potentially useful to extract a predictor for an amplification curve classification. Negative amplification curves (no slope) are assumed to have a ratio of about 1. In contrast, positive amplification curves should have a ratio of less than 1.
 
-The ``head2tailratio()`` function calculates the ratio of the head and the tail of a quantitative PCR amplification curve. As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no increase in amplification signals can be measured in the first six cycles and in the last six cycles, the amplification curve is usually about to transition into the plateau. This assumption is sometimes violated and might lead to false estimates.
+The $n$-dimensional space of all predictor variables $X_{1,2 \ldots n}$ is also called feature space. In the present study the feature space was extended by domian knowledge using known features. The``head2tailratio()``-function is an example for this. Here the feature $X_{3}\equiv head2tail\_ratio$ could be generated by determining the ratio of the $X_{1}\equiv$ *fluorescence intensity in the head region* and $X_{2}\equiv$ *fluorescence intensity in the tail region* of a quantitative PCR amplification curve ($X_{3} = \frac{X_{1}}{X_{2}}$). As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no increase in amplification signals can be measured in the first six cycles and in the last six cycles, the amplification curve is usually about to transition into the plateau. This assumption is sometimes violated and might lead to false estimates.
 
 
 ```{r, echo = TRUE}
@@ -2624,9 +2624,9 @@ legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19),
        col = c("red", "green"), bty="n")
 ```
 
-Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014, @erdman_bcp:_2007]. There exist several change point algorithms such as the binary segmentation algorithm [@scott_cluster_1974]. In the change point analysis one assumes independent ordered observations $X_{1}, X_{2}, \ldots, X_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. The case of qPCR this is simply the cycle-dependent fluorescence. This is be used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean, variance) of the change points at specific points, change point analysis using the Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
+Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014, @erdman_bcp:_2007]. There exist several change point algorithms such as the binary segmentation algorithm [@scott_cluster_1974]. In the change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. The case of qPCR this is simply the cycle-dependent fluorescence. This is be used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean, variance) of the change points at specific points, change point analysis using the Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
 
-The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` [\texttt{bcp}] function [@erdman_bcp:_2007] and the ``e.agglo()`` [\texttt{ecp}] function [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurement from the qPCR systems typically shows noise that typically has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As result the analysis returns the posterior probability of a change point at each $X_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_cp_area}E & F).
+The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` [\texttt{bcp}] function [@erdman_bcp:_2007] and the ``e.agglo()`` [\texttt{ecp}] function [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurement from the qPCR systems typically shows noise that typically has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As result the analysis returns the posterior probability of a change point at each $x_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_cp_area}E & F).
 
 #### Frequentist Approaches to Test the Class of an Amplification Reaction\label{section_amptester}
 
@@ -2645,8 +2645,7 @@ A part of the ``pcrfit_single()`` function is the ``amptester()`` [\texttt{chipP
 Random Forest is an enhancement of decision tree algorithms. Random Forest uses *n* random data subsets. The subset is to be used to capture trends precisely without taking into account the whole data. To do this, an ensemble consisting of *n* small decision trees is generated. Each decision tree contains a biased classifier. The majority of the previous classes are then selected for classification.
 Compared to a single tree classifier, the Random Forest has a high robustness against noise, outliers and over-fitting [@williams_rattle:_2009, @breiman_random_2001].
 
-In the following example, the ``randomForest()`` [\texttt{randomForest}] function [@liaw_classification_2002] was used for the classification. The aim was to find the most important predictors for the classification of positive and negative amplification curves. 
-As response vector ($y$) served `decision` with its possible finite classes labeled as "positive" and "negative". With classification problems we try to predict a discrete number of values. Thus in this case it is a binary classification. The response vector `decision` must be a vector.
+In the following example, the ``randomForest()`` [\texttt{randomForest}] function [@liaw_classification_2002] was used for the classification. With classification problems we try to predict a discrete number of values. Thus in this case it is a binary classification. The aim of this **proof-pf-concept** *in silico* experiment was to find the most important predictors for the classification of positive and negative amplification curves. As response vector ($y$) served `decision` with its possible finite classes labeled as "positive" and "negative". The response vector `decision` must be a vector.
 
 - `amptester_shapiro`, 
 - `amptester_lrt`, 
@@ -2660,6 +2659,7 @@ As response vector ($y$) served `decision` with its possible finite classes labe
 ```{r, echo=TRUE}
 library(randomForest)
 library(PCRedux)
+set.seed(1999) 
 
 # Dimensions of the data_sample_subset_balanced object
 dim(data_sample_subset_balanced)
@@ -2694,40 +2694,46 @@ summary(data)
 
 n_train <- round(nrow(data) * 0.7)
 paste0("Percentage of observations (n = ", n_train, ") -> ", 
-       signif((n_train/nrow(data)*100),3), "%")
-
-# index_test is the index of observations to be selected for the training
-index_test <- sample(1L:nrow(data), size = n_train)
+       signif((n_train/nrow(data)*100), 3), "%")
 
 # index_test is the index of observations to be selected for the testing
+index_test <- sample(1L:nrow(data), size = n_train)
+
+# index_test is the index of observations to be selected for the training
 index_training <- which(!(1L:nrow(data) %in% index_test))
 
-# train_data contains the data used for training
 
-train_data <- data[index_test, ]
-
-# test_data contains the data used for training
-
-test_data <- data[index_training, ]
-
-# The randomForest() function was used to train a forest of 300 trees.
+# The randomForest() function was used to train a forest of 200 trees.
 # Convert decision into factor, since randomForest() uses type="regression", 
-# instead of type="classification" by default.
+# instead of type="classification" by default. Each tree is trained on 63.2 %
+# of the training data. Each observation is drawn at random with replacement 
+# from the original data.
+# The predictor variables are drawn at random out of the feature space 
+# "amptester_shapiro", "amptester_lrt", "amptester_rgt", "amptester_tht", 
+# "amptester_slt", "amptester_polygon" and "amptester_slope.ratio".
 
-
-model_rf <- randomForest(as.factor(decision) ~ ., data = data, subset = index_training, 
+model_rf <- randomForest(as.factor(decision) ~ ., data = data, 
+                         subset = index_training, 
                          ntree = 200, importance = TRUE)
 
 # The prediction accuracy of the random forest is summarized
 model_rf
+```
 
+The number of variables randomly selected at each split is *mtry = *`r model_rf$mtry` (as starter the square root of total number of all predictors). The out-of-bag (OOB) error ($=$ misclassification rate) is `r paste0(signif(mean(model_rf$ err.rate) * 100, 3), "%")`.
+error rate was. To fine tune a random forest model the number of *ntree* values must be varied and plotted against the OOB rate. Select mtry value with minimum OOB error. This was not done in the presented example.
+
+```{r, eval=TRUE, echo=TRUE, results='asis'}
 # Determine variable importance
 res_importance <- importance(model_rf)
 
-res_importance
+print(xtable::xtable(res_importance, caption = "Results of the random fores 
+classification.",
+label = "randomforstresults"
+), comment = FALSE, caption.placement = "top")
 ```
 
-The variables %IncMSE and IncNodePurity are used to determine the importance of the variables from a `Random Forest` model. %IncMSE is a robust quantity that indicates the increase in Mean Squared Error (MSE) when the specified variable is randomly permuted (estimated with out-of-bag CV). The higher the %IncMSE value of a variable, the more important it is. IncNodePurity refers to the loss function selected by best splits. More useful variables achieve a higher increase in node purities. This results in a split with a high inter node variance and a low intra node variance. The number of variables randomly selected at each split is `r model_rf$mtry`.
+The variables *MeanDecreaseAccuracy* and *MeanDecreaseGini* are used to determine the importance of the variables for a classification from a `Random Forest` model. MeanDecreaseAccuracy tells how much removing each variable reduces the accuracy of the model. Mean Decrease Gini tells how important a variable is based on the Gini impurity index used for the calculation of splits in trees. The higher their values are, the more significant they are.
 
 
 ```{r plot_random_forest, echo=TRUE, fig.cap=plot_random_forest, fig.scap=plot_random_forest_short, fig.height=3}
@@ -2741,21 +2747,25 @@ mtext("A", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
 rownames(res_importance) <- substr(rownames(res_importance), 11, 22)
 
-# Show the predictors sorted by their importance using %IncMSE and IncNodePurity
+# Show the predictors sorted by their importance using MeanDecreaseAccuracy
+# and MeanDecreaseGini
 
-barplot(t(as.matrix(sort(res_importance[, 1]))), 
-        ylab = "%IncMSE", ylim = c(0, max(res_importance[, 1]) + 5), main = "", 
-        las = 2, col = adjustcolor("grey", alpha.f = 0.5), border = "white")
+barplot(t(as.matrix(sort(res_importance[, "MeanDecreaseAccuracy"]))), 
+        ylab = "MeanDecreaseAccuracy", 
+        ylim = c(0, max(res_importance[, "MeanDecreaseAccuracy"]) + 5), 
+        main = "", las = 2, col = adjustcolor("grey", alpha.f = 0.5), 
+        border = "white")
 mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
-barplot(t(as.matrix(sort(res_importance[, 2]))), 
-        ylab = "IncNodePurity", ylim = c(0, max(res_importance[, 2]) + 10), 
+barplot(t(as.matrix(sort(res_importance[, "MeanDecreaseGini"]))), 
+        ylab = "MeanDecreaseGini", 
+        ylim = c(0, max(res_importance[, "MeanDecreaseGini"]) + 10), 
         main = "", las = 2, col = adjustcolor("grey", alpha.f = 0.5), 
         border = "white")
 mtext("C", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 ```
 
-The top three important predictors are `shapiro` (`r res <- signif(res_importance[rownames(res_importance) == "shapiro"], 4); paste0("%IncMSE = ", res[1],  ", IncNodePurity = ", res[2])`), `polygon` (`r res <- signif(res_importance[rownames(res_importance) == "polygon"], 4); paste0("%IncMSE = ", res[1],  ", IncNodePurity = ", res[2])`) and `slt` (`r res <- signif(res_importance[rownames(res_importance) == "slt"], 4); paste0("%IncMSE = ", res[1],  ", IncNodePurity = ", res[2])`).
+The top two important predictors are `polygon` (`r res <- signif(res_importance[rownames(res_importance) == "polygon"], 4); paste0("MeanDecreaseAccuracy = ", res[3],  ", MeanDecreaseGini = ", res[4])`) and `slt` (`r res <- signif(res_importance[rownames(res_importance) == "slt"], 4); paste0("MeanDecreaseAccuracy = ", res[3],  ", MeanDecreaseGini = ", res[4])`).
 
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
 
@@ -2800,7 +2810,7 @@ Although the data set in the \texttt{PCRedux} package is large compared to what 
     + which results are reported.
 
 
-For the examples in the \texttt{PCRedux} package, the question was not clarified whether imbalances in the data sets cause a confirmation distortion.
+For the examples in the \texttt{PCRedux} package, the question was not clarified whether class imbalances in the data sets cause a confirmation distortion.  However, a class imbalance may result in lose of the prediction strength, because some classifiers make the assumption of similar class distributions [@herrera_multiple_2016].
 
 A new concept for the fast groupwise classification of amplification curves was introduced within the \texttt{PCRedux} package. Based on experience with the collected data sets it can be said that only a few iterations are necessary to classify a large data set. This technology is intended to be a handy assistance for the users of the package.
 
