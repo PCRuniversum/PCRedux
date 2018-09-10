@@ -1326,9 +1326,11 @@ str(pcrfit_single(RAS002[, 2]))
 
 The ``pcrfit_single()`` function performs pre-processing steps before each calculation. That includes checking whether an amplification curve contains missing values. Missing values (NA) are measuring points in a data set where no measured values are available or if they have been removed arbitrarily. NAs may occur if no measurement has been carried out (e.&nbsp;g., defective detector) or lengths of the vectors differ (number of cyles) between the observation. Such missing values are automatically imputed by spline interpolation as described in @roediger2015chippcr. 
 
-All values of an amplification curve are normalized to their 99\% quantile. The normalization is used to equalize the amplitudes differences of amplification curves from thermo-cyclers (sensor technology, software processing) and detection chemistries. To compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., \textit{minimum-maximum normalization, see \cite{roediger2015chippcr}, the normalization by the 99\% quantile preserves the information about the level of the background phase. A normalization to the maximum is not used to avoid strong extenuation by outliers.} The data in \autoref{plot_bg_pt}D show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves. `minRFU` is the minimum of the amplification curve, which is determined at the 1\% quantile to minimize the influence of outliers (\autoref{plot_bg_pt}C).
+All values of an amplification curve are normalized to their 99\% quantile. The normalization is used to equalize the amplitudes differences of amplification curves from thermo-cyclers (sensor technology, software processing) and detection chemistries. To compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., minimum-maximum normalization, see [@roediger2015chippcr, the normalization by the 99\% quantile preserves the information about the level of the background phase. A normalization to the maximum is not used to avoid strong extenuation by outliers. The data in \autoref{plot_bg_pt}D show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves.
 
 Selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` [\texttt{chipPCR}] function to pre-process (e.&nbsp;g., base-lining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr.
+
+During the analysis several values are determined to describe the amplitude of an amplification curve. The resulting potential predictors are `minRFU` (minimum of the amplification curve, which is determined at the 1\% quantile to minimize the influence of outliers), `init2` (the initial template fluorescence from an exponential model) and `fluo` (raw fluorescence value at the second derivative maximum). The `minRFU`, `init2` and `fluo` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}C, E & F).
 
 ##### Handling of Missing Predictors
 
@@ -1455,10 +1457,10 @@ The ``pcrfit_single()`` function  calculates the `cpD1` and `cpD2` and uses them
 
 Further predictors from the ``pcrfit_single()`` function are: 
 
-- `eff` is the optimized PCR efficiency found within a sliding window (\autoref{figure_quntifcation_points}C). A linear model of cycles versus log(Fluorescence) is fit within a sliding window (for details see ``sliwin()`` [\texttt{qpcR}] function). The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}A demonstrates that the classes are significantly different from each other.
-- `sliwin` is the PCR efficiency by the 'window-of-linearity' method [@spiess_highly_2008] (\autoref{plot_dat_EffTop}B).
-- `cpDdiff` is the difference between the first (`cpD1`) and the second derivative maximum `cpD2` ($cpDdiff = cpD1 - cpD2$) **from the fitted model** (\autoref{figure_quntifcation_points}C). Provided that a model can be exactly fitted, the estimates of the difference are reliable. Higher `cpDdiff` values indicate a negative amplification reaction or a very low amplification efficiency. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}C demonstrates that the classes are significantly different from each other. In the event that the `cpDdiff` value cannot be determined (NA), it is replaced by zero.
-- `cpD2_range` is the absolute value of the difference between the minimum and the maximum of the second derivative maximum ($cpD2\_range = |cpD2m - cpD2|$) from the ``diffQ2()`` function (**no model fitted**) (\autoref{figure_cpD2_range}E). The `cpD2_range` value does not require an adjustment of a multiparametric model. The approximate first and second derivatives are determined using a five-point stencil [@roediger2015chippcr]. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}E shows that the classes differ significantly from each other. In the event that the `cpD2_range` value cannot be determined (NA), it is replaced by zero.
+- `eff` is the optimized PCR efficiency found within a sliding window (\autoref{figure_quntifcation_points}C). A linear model of cycles versus log(Fluorescence) is fit within a sliding window (for details see ``sliwin()`` [\texttt{qpcR}] function). The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}A demonstrates that the classes are significantly different from each other. The `eff` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}A).
+- `sliwin` is the PCR efficiency by the 'window-of-linearity' method [@spiess_highly_2008] (\autoref{plot_dat_EffTop}B). The `sliwin` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}B).
+- `cpDdiff` is the difference between the first (`cpD1`) and the second derivative maximum `cpD2` ($cpDdiff = cpD1 - cpD2$) **from the fitted model** (\autoref{figure_quntifcation_points}C). Provided that a model can be exactly fitted, the estimates of the difference are reliable. Higher `cpDdiff` values indicate a negative amplification reaction or a very low amplification efficiency. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}C demonstrates that the classes are significantly different from each other. In the event that the `cpDdiff` value cannot be determined (NA), it is replaced by zero. The `cpDdiff` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}C).
+- `cpD2_range` is the absolute value of the difference between the minimum and the maximum of the second derivative maximum ($cpD2\_range = |cpD2m - cpD2|$) from the ``diffQ2()`` function (**no model fitted**) (\autoref{figure_cpD2_range}E). The `cpD2_range` value does not require an adjustment of a multiparametric model. The approximate first and second derivatives are determined using a five-point stencil [@roediger2015chippcr]. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}E shows that the classes differ significantly from each other. In the event that the `cpD2_range` value cannot be determined (NA), it is replaced by zero. The `cpD2_range` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}E).
 
 
 ```{r figure_cpD2_range, echo=FALSE, results='hide', fig.cap=figure_cpD2_range, fig.scap=figure_cpD2_range_short, fig.height=4} 
@@ -1515,13 +1517,13 @@ abline(v = background@amp.stop, col = "grey")
 text(background@amp.stop, 0.3, "amp.stop", pos = 4, col = "grey", srt=90)
 ```
 
-- `bg.stop` (\autoref{figure_cpD2_range}) is the end of the ground phase estimated by the ``bg.max()`` function [@roediger2015chippcr]. 
-- `amp.stop` (\autoref{figure_cpD2_range}) is the end of the exponential phase estimated by the ``bg.max()`` function [@roediger2015chippcr].
+- `bg.stop` is the end of the ground phase and `amp.stop` is the end of the exponential phase estimated by the ``bg.max()`` [\texttt{chipPCR}] function [@roediger2015chippcr]. A graphical presentation of the locations in the amplification curve are shown in \autoref{figure_cpD2_range}. The `bg.stop` and `bg.stop` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}J & K).
 
-- `top` is the *takeoff point* as proposed by @tichopad_standardized_2003. The `top` is calculated using externally studentized residuals, which tested to be an outlier in terms of the t-distribution. The `top` signifies to first PCR cycle entering the exponential phase. 
-- `tdp` is the *takedown point*. This is an implementation in the ``pcrfit_single()`` function, which uses the rotated $f(x) \mapsto f_{1}(f(x))$ and flipped $g(x) = -(x)$ amplification curve for calculation. \autoref{amplification_curve_ROI}A describes the location of `top` and `tdp`. The position (`f.top`, `f.tdp`) on the ordinate is also determined from these points. If an amplification curve is negative or neither `top` nor `tdp` can be calculated, then `top` & `tdp` will be assigned the number of cycles and `f.top` & `f.tdp` the value 1.
-The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat_EffTop}F-I. This figure shows that a `top` value and a `tdp` value enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values The same applies inversely to the `tdp` values. In this way, amplification curves can be classified according to these values.
+- `top` is the *takeoff point* as proposed by @tichopad_standardized_2003. The `top` is calculated using externally studentized residuals, which tested to be an outlier in terms of the t-distribution. The `top` signifies to first PCR cycle entering the exponential phase. `tdp` is the *takedown point*. This is an implementation in the ``pcrfit_single()`` function, which uses the rotated $f(x) \mapsto f_{1}(f(x))$ and flipped $g(x) = -(x)$ amplification curve for calculation. \autoref{amplification_curve_ROI}A describes the location of `top` and `tdp`. The position (`f.top`, `f.tdp`) on the ordinate is also determined from these points. If an amplification curve is negative or neither `top` nor `tdp` can be calculated, then `top` & `tdp` will be assigned the number of cycles and `f.top` & `f.tdp` the value 1.
+The distribution of `top`, `tdp`, `f.top` and `f.tdp` is shown in \autoref{plot_dat_EffTop}F-I. The `top`, `tdp`, `f.top` and `f.tdp` values differ significantly between negative and positive amplification curves. Potentially they enable a qualitative classification of the amplification reaction. An interesting aspect is that the positive `f.top` values are markedly lower than the negative `f.top` values The same applies inversely to the `tdp` values. In this way, amplification curves can be classified according to these values.
+
 - `peaks_ratio` is based on a sequential chaining of functions. The ``diffQ()`` [\texttt{MBmca}] function determines numerically the first derivative of an amplification curve. This derivative is passed to the ``mcaPeaks()`` [\texttt{MBmca}] function. In the output all minima and all maxima are contained. The ranges are calculated from the minima and maxima. The Lagged Difference is determined from the ranges of the minima and maxima. Finally, the ratio of the differences (maximum/minimum) is calculated.
+The `peaks_ratio` values differ significantly between negative and positive amplification curves (\autoref{plot_cp_area}B).
 
 ```{r plot_dat_EffTop, echo=FALSE, fig.cap=plot_dat_EffTop, fig.scap=plot_dat_EffTop_short, fig.height=11, fig.width=11} 
 
@@ -1565,7 +1567,7 @@ for(i in 1L:length(predictor)) {
 }
 ```
 
-- `loglin_slope` is calculated from the slope determined by a linear model of the data points from the cycle dependent fluorescence at the minimum of the second derivative and maximum of the second derivative (\autoref{loglin_slope}). Provided that the locations of the minimum of the second derivative and the maximum of the second derivative yield a *suitable* interval. As a precaution, the algorithm checks, for example, whether the distance between the minimum of the second derivative and the maximum of the second derivative is not more than nine PCR cycles. Failing this, the `loglin_slope` value is set to zero (no slope). In the following example, the data \autoref{loglin_slope}.
+- `loglin_slope` is calculated from the slope determined by a linear model of the data points from the cycle dependent fluorescence at the minimum of the second derivative and maximum of the second derivative (\autoref{loglin_slope}). Provided that the locations of the minimum of the second derivative and the maximum of the second derivative yield a *suitable* interval. As a precaution, the algorithm checks, for example, whether the distance between the minimum of the second derivative and the maximum of the second derivative is not more than nine PCR cycles. Failing this, the `loglin_slope` value is set to zero (no slope). In the following example, the data \autoref{loglin_slope}. The `loglin_slope` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}D).
 
 
 ```{r loglin_slope, eval=TRUE, echo=FALSE, fig.cap=loglin_slope, fig.scap=loglin_slope_short, fig.height=3}
@@ -1724,7 +1726,7 @@ The sensitivity, specificity and further parameters for estimating the predictio
 To proof the results, further methods such as Likelihood Ratio Test, McFadden’s $R^{2}$, k-fold cross-validation, Receiver Operating Characteristic (ROC) analysis and model interpretation should be used [@arlot_survey_2010, @mcfadden_conditional_1974, @sing_rocr:_2005].
 
 
-- `sd_bg` is the standard deviation from the first PCR cycle to the takeoff point (\autoref{amplification_curve_ROI}A). Manufacturers of thermo-cyclers use different sensors and data processing algorithms. Same applies to the detection chemistry used in experiments \autoref{why_PCRedux}. The signal variation in the ground phase differs between the different systems (\autoref{figure_sigmoid_curve_models}D). If no takeoff point can be determined from an amplification curve, the value for `sd_bg` is calculated from the first to the eighth PCR cycle. The results for the predictor `sd_bg` were broken down by the thermo-cycler and the output of the amplification reaction (negative, positive). It can be seen that the signal variation between the thermo-cyclers seems to be different. There is also a difference between negative and positive amplification curves \autoref{plot_sd_bg}.
+- `sd_bg` is the standard deviation from the first PCR cycle to the takeoff point (\autoref{amplification_curve_ROI}A). Manufacturers of thermo-cyclers use different sensors and data processing algorithms. Same applies to the detection chemistry used in experiments \autoref{why_PCRedux}. The signal variation in the ground phase differs between the different systems (\autoref{figure_sigmoid_curve_models}D). If no takeoff point can be determined from an amplification curve, the value for `sd_bg` is calculated from the first to the eighth PCR cycle. The results for the predictor `sd_bg` were broken down by the thermo-cycler and the output of the amplification reaction (negative, positive). It can be seen that the signal variation between the thermo-cyclers seems to be different. There is also a difference between negative and positive amplification curves \autoref{plot_sd_bg}. The `sd_bg` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}J).
 
 
 ```{r plot_sd_bg, echo=FALSE, fig.cap=plot_sd_bg, fig.scap=plot_sd_bg_short, fig.height=3}
@@ -1964,7 +1966,9 @@ In addition, the ``earlyreg()`` function was developed. This function uses an or
 
 - `slope_bg`, which is the slope of the ordinary least squares linear regression model,
 - `intercept_bg`, which is the intercept of the linear model and
-- `sigma_bg`, which is the square root of the estimated variance of the random error.
+- `sigma_bg`, which is the square root of the estimated variance of the random error. 
+
+The `slope_bg`, `intercept_bg` and `sigma_bg` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}G-I).
 
 [//]: # ( $\sigma^{2} = \frac{1}{n-p} \sum (w_{i} R_{i}^2)$, where $R_{i}$ is the i$_{th}$ residual, residuals$_{i}$)
 
@@ -1997,7 +2001,7 @@ user_range <- 8
 
 res_earlyreg <- do.call(rbind, lapply(2L:ncol(data), function(i) {
   earlyreg(x = data[, 1], y = data[, i], range = user_range, normalize = TRUE)
-})) ->.; box_cox(.)
+})) %>% box_cox(.)
 
 # Label the observation with their names
 rownames(res_earlyreg) <- substr(colnames(data)[-1], 1, 10)
@@ -2076,7 +2080,7 @@ text(c(18.75, 57.5), c(1.6, 1.6), c("EvaGreen", "Hydrolysis probes"))
 
 The ratios from the ground and plateau phase can be used to search for patterns in amplification curves. Positive amplification curves have different slopes and intercepts at the start of the amplification curve (head, background region) and the end of the amplification curve (tail, plateau region). Therefore, these regions are potentially useful to extract a predictor for an amplification curve classification. Negative amplification curves (no slope) are assumed to have a ratio of about 1. In contrast, positive amplification curves should have a ratio of less than 1.
 
-The $n$-dimensional space of all predictor variables $X_{1,2 \ldots n}$ is also called feature space. In the present study the feature space was extended by domian knowledge using known features. The``head2tailratio()``-function is an example for this. Here the feature $X_{3}\equiv head2tail\_ratio$ could be generated by determining the ratio of the $X_{1}\equiv$ *fluorescence intensity in the head region* and $X_{2}\equiv$ *fluorescence intensity in the tail region* of a quantitative PCR amplification curve ($X_{3} = \frac{X_{1}}{X_{2}}$). As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no increase in amplification signals can be measured in the first six cycles and in the last six cycles, the amplification curve is usually about to transition into the plateau. This assumption is sometimes violated and might lead to false estimates.
+The $n$-dimensional space of all predictor variables $X_{1,2 \ldots n}$ is also called feature space. In the present study the feature space was extended by domian knowledge using known features. The``head2tailratio()``-function is an example for this. Here the feature $X_{3}\equiv head2tail\_ratio$ could be generated by determining the ratio of the $X_{1}\equiv$ *fluorescence intensity in the head region* and $X_{2}\equiv$ *fluorescence intensity in the tail region* of a quantitative PCR amplification curve ($X_{3} = \frac{X_{1}}{X_{2}}$). As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no significant increase in amplification signals can be measured in the first six cycles and in the last six cycles, the amplification curve is usually about to transition into the plateau. This assumption is sometimes violated (e.g.. *hook effect*) and might lead to false estimates.
 
 
 ```{r, echo = TRUE}
@@ -2161,6 +2165,8 @@ mtext("B", cex = 1, side = 3, adj = 0, font = 2)
 ```
 
 In \autoref{section_DataAnalysis} and in \autoref{htPCR_nap} it was shown that negative amplification curves may have a slope with the positive or negative sign. The is no consent in the literate and among peers how to deal with this during the processing. One solution is to include the slope as factor in the ratio calculation. The ``head2tailratio()`` function uses a linear model that calculates the slope between the ground and plateau phases. If the slope of the model is significant, then the ratio from the head and tail is normalized to this slope. This requires setting the `slope_normalizer` parameter in the ``head2tailratio()`` function. By default, this parameter is not set.
+
+The `head2tail_ratio` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}K).
 
 
 #### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effect-like Curvatures\label{section_hookreg}
@@ -2369,7 +2375,7 @@ decision_res_htPCR <- data.table::fread(filename, data.table = FALSE)
 # p: positive
 
 obs_number <- which(decision_res_htPCR[["conformity"]] == TRUE)
-dec <- decision_res_htPCR[obs_number, "test.result.1"] ->.; unlist(.)
+dec <- decision_res_htPCR[obs_number, "test.result.1"] %>% unlist(.)
 
 # Give tabular output of classes
 table(dec)
