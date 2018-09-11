@@ -25,7 +25,7 @@ visdat_pcrfit_plot <- "Application of ``visdat\\_pcrfit()`` for the visualizatio
 visdat_pcrfit_plot_short <- "Application of ``visdat\\_pcrfit()`` for the visualization of the data structure after an analysis by ``pcrfit\\_single()``"
 ```
 
-The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/blob/master/docs/articles/PCRedux_visdat_pcrfit.pdf).
+The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/raw/master/docs/articles/PCRedux_visdat_pcrfit.pdf).
 
 #### ``visdat_pcrfit()`` - A Function to Visualize the Content of Data From an Analysis with the ``pcrfit_single()`` Function \label{section_visdat_pcrfit_parallel}
 

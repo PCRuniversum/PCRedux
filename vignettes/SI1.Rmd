@@ -20,7 +20,7 @@ vignette: >
 }
 \end{figure}
 
-The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/blob/master/docs/articles/SI1.pdf).
+The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/raw/master/docs/articles/SI1.pdf).
 
 # Abstract
 This is a supplemental document for the study *Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves*.
