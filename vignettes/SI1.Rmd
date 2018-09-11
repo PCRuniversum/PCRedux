@@ -20,8 +20,9 @@ vignette: >
 }
 \end{figure}
 
+The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/blob/master/docs/articles/SI1.pdf).
+
 # Abstract
-abstract: |
 This is a supplemental document for the study *Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves*.
 Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics [@dvinge_htqpcr:_2009, @martins_dna_2015, @sauer_differentiation_2016].
 
