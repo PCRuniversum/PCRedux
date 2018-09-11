@@ -87,6 +87,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/PCRedux_visdat_pcrfit.html">PCRedux Package - Visualization Data Structure</a>
+    </li>
+    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
@@ -94,12 +97,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/devSJR/PCRedux">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
