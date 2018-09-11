@@ -1022,7 +1022,7 @@ data <- qpcR::testdat
 res_fdata <- qPCR2fdata(data)
 
 # Extract column names and create rainbow color to label the data
-columnames <- data[-1] ->.; colnames(.)
+columnames <- data[-1] %>% colnames(.)
 colors <- rainbow(length(columnames), alpha = 0.5)
 
 # Calculate the Hausdorff distance (fda.usc) package and plot the distances
@@ -1092,7 +1092,7 @@ data_32HCU <- data.table::fread(filename, data.table = FALSE)
 
 res_fdata <- qPCR2fdata(data_32HCU)
 # Extract column names and create rainbow color to label the data
-columnames <- data_32HCU[-1] ->.; colnames(.)
+columnames <- data_32HCU[-1] %>% colnames(.)
 colors <- rainbow(length(columnames), alpha = 0.55)
 ```
 In advance the Cq values were calculated by the following code:
@@ -1157,9 +1157,8 @@ calculated_effs <- c(
 
 layout(matrix(c(1, 2, 3, 4, 4, 4), 2, 3, byrow = TRUE))
 
-res_fdata ->.; 
 
-plot(., xlab = "Cycles", ylab = "RFU", main = "HCU32_aggR", type = "l",
+plot(res_fdata, xlab = "Cycles", ylab = "RFU", main = "HCU32_aggR", type = "l",
          lty = 1, lwd = 2, col = colors)
 
 legend("topleft", as.character(columnames), pch = 19, col = colors, 
@@ -1600,8 +1599,7 @@ ROI <- round(c(res_diffQ2[[1]], res_diffQ2[[3]]))
 # Build a linear model from der second derivative of res_diffQ2
 res_loglin_lm <- lm(data_tmp[ROI, 2] ~ ROI)
 
-data_tmp ->.; plot(
-    ., xlab = "Cycles", ylab = "normalized RFU", main = "", type = "l",
+plot(data_tmp, xlab = "Cycles", ylab = "normalized RFU", main = "", type = "l",
     lty = 1, lwd = 2, col = "black", ylim = c(0.6,1)
 )
 abline(res_loglin_lm, col = "red", lwd = 2)
