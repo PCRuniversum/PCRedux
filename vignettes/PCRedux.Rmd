@@ -1599,8 +1599,7 @@ ROI <- round(c(res_diffQ2[[1]], res_diffQ2[[3]]))
 # Build a linear model from der second derivative of res_diffQ2
 res_loglin_lm <- lm(data_tmp[ROI, 2] ~ ROI)
 
-plot(data_tmp
-    ., xlab = "Cycles", ylab = "normalized RFU", main = "", type = "l",
+plot(data_tmp, xlab = "Cycles", ylab = "normalized RFU", main = "", type = "l",
     lty = 1, lwd = 2, col = "black", ylim = c(0.6,1)
 )
 abline(res_loglin_lm, col = "red", lwd = 2)
