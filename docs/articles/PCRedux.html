@@ -88,6 +88,7 @@
     
     
 
+<p>The PDF version of this document is available <a href="https://github.com/devSJR/PCRedux/raw/master/docs/articles/PCRedux.pdf">online</a>.</p>
 <div id="development-implementation-and-installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#development-implementation-and-installation" class="anchor"></a>Development, Implementation and Installation </h2>
@@ -1015,22 +1016,22 @@ res_performeR &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.2643  -0.1835  -0.1835   0.0058   2.8608  
+## -3.6085  -0.1770  -0.1770   0.0022   2.8858  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -4.0754     0.4759  -8.564   &lt;2e-16 ***
-## loglin_slope 207.8395    24.3486   8.536   &lt;2e-16 ***
+## (Intercept)   -4.1484     0.4908  -8.452  &lt; 2e-16 ***
+## loglin_slope 235.6816    30.3761   7.759 8.58e-15 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 631.931  on 455  degrees of freedom
-## Residual deviance:  68.728  on 454  degrees of freedom
-## AIC: 72.728
+##     Null deviance: 631.834  on 455  degrees of freedom
+## Residual deviance:  59.541  on 454  degrees of freedom
+## AIC: 63.541
 ## 
-## Number of Fisher Scoring iterations: 8</code></pre>
+## Number of Fisher Scoring iterations: 9</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(Intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates a strong association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new data set, further steps are necessary. <code>predict()</code> [] is a generic function for prediction from the results of a model fitting function. All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code>predict()</code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(PCRedux)

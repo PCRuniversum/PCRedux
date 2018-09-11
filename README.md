@@ -16,3 +16,7 @@ can install the latest development version of the code using the following code:
 ```R
 source("https://install-github.me/devSJR/PCRedux")
 ```
+
+## Manual
+
+The manual is available [online](https://devsjr.github.io/PCRedux/).
