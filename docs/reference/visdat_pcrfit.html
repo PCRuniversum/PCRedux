@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Visualizing the content of data from an analysis with the pcrfit_single function — visdat_pcrfit" />
 
-<meta property="og:description" content="gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the vis_dat function by Tierney (2017). The colored indicators show the class (e.g., missing values, factors)." />
+<meta property="og:description" content="In all data science projects it is important to look at a new dataset to gain an insight into what is contained therein and, which potential problems might emerge during the further analysis. The ``pcrfit_single()`` function uses various algorithms to calculate parameters (features) that are returned as factors (e.&amp;amp;nbsp;g., fitted model) or numbers (e.&amp;amp;nbsp;g., Cq value). In some cases are selected  algorithms not able to calculate certain features. As a result missing values (NA) are extreme values are output instead. ``visdat_pcrfit()`` function gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the vis_dat function by Tierney (2017) and creates heatmap-like visualizations. The Heatmapt displays each amplification curve line by line and reads from top to bottom. The characteristics are presented column by column. The structure of the output is the same as for the ``pcrfit_single()`` and ``encu()`` functions. The colored indicators show the class (e.g., missing values, factors)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -87,6 +87,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/PCRedux_visdat_pcrfit.html">PCRedux Package - Visualization Data Structure</a>
+    </li>
+    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
@@ -94,12 +97,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/devSJR/PCRedux">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -113,13 +111,13 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Visualizing the content of data from an analysis with the pcrfit_single function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/visdat_pcrfit.R'><code>R/visdat_pcrfit.R</code></a></small>
+    
     <div class="hidden name"><code>visdat_pcrfit.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the <a href='http://visdat.njtierney.com//reference/vis_dat.html'>vis_dat</a> function by Tierney (2017). The colored indicators show the class (e.g., missing values, factors).</p>
+    <p>In all data science projects it is important to look at a new dataset to gain an insight into what is contained therein and, which potential problems might emerge during the further analysis. The ``pcrfit_single()`` function uses various algorithms to calculate parameters (features) that are returned as factors (e.&amp;nbsp;g., fitted model) or numbers (e.&amp;nbsp;g., Cq value). In some cases are selected  algorithms not able to calculate certain features. As a result missing values (NA) are extreme values are output instead. ``visdat_pcrfit()`` function gives a `ggplot` or interactive `ggplotly` object (default) of a 'pcrfit_single' data frame. The function is based on the <a href='http://visdat.njtierney.com//reference/vis_dat.html'>vis_dat</a> function by Tierney (2017) and creates heatmap-like visualizations. The Heatmapt displays each amplification curve line by line and reads from top to bottom. The characteristics are presented column by column. The structure of the output is the same as for the ``pcrfit_single()`` and ``encu()`` functions. The colored indicators show the class (e.g., missing values, factors).</p>
     
     </div>
 
@@ -161,7 +159,35 @@ Journal of Open Source Software</em>. 2 (2017). doi:10.21105/joss.00355.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'># First Example
+# The observations "A01", "A02", "A04" and "B04" from the 
+# ``C126EG685`` dataset were analyzed with the ``encu()`` 
+# function. Finally, the data were visualized with the 
+# ``visdat_pcrfit()`` function. In this example the static 
+# plot is shown (\autoref{visdat_pcrfit_plot}). It is also 
+# possible to run the function interactively by setting the 
+# parameter `interactive=TRUE`. In this case starts an 
+# interactive, browser-based charting library that uses 
+# ECMA Script. The interactive plot are rendered entirely 
+# locally, through a HTML widgets framework.
+# Calculate curve features of an amplification curve 
+# dataset. Use the C126EG685 dataset from the chipPCR 
+# package and analyze the observationsA01, A02, A04 and B05.
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>chipPCR</span>)
+<span class='fu'>library</span>(<span class='no'>PCRedux</span>)
+
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='encu.html'>encu</a></span>(<span class='no'>C126EG685</span>[, <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>17</span>)])
+
+<span class='co'># Show all results in a plot. Note that the interactive parameter is set to</span>
+<span class='co'># FALSE. For each observation, the classes (factor, </span>
+<span class='co'># integer, logical, numeric, NA) are presented. </span>
+<span class='co'># For the observations 2 and 4 the parameter </span>
+<span class='co'># `loglin\\_slope` could not be calculated (returned NA).</span>
+
+<span class='fu'>visdat_pcrfit</span>(<span class='no'>res</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span><div class='input'>
+<span class='co'># Second Example</span>
 <span class='co'># Calculate curve features of an amplification curve data. Note that not all</span>
 <span class='co'># available CPU cores are used. If need set "all" to use all available cores.</span>
 <span class='fu'>library</span>(<span class='no'>qpcR</span>)
@@ -175,9 +201,9 @@ Journal of Open Source Software</em>. 2 (2017). doi:10.21105/joss.00355.</p>
         <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"testdat data set"</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='input'><span class='fu'>legend</span>(<span class='st'>"topleft"</span>, <span class='fu'>paste</span>(<span class='fu'>colnames</span>(<span class='no'>test_data</span>)[-<span class='fl'>1</span>], <span class='fu'>c</span>(<span class='st'>"pos"</span>, <span class='st'>"neg"</span>)),
        <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='img'><img src='visdat_pcrfit-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Analyze the amplification curves with the pcrfit_single function</span>
-<span class='no'>res_1</span> <span class='kw'>&lt;-</span> <span class='fu'>cbind</span>(<span class='kw'>runs</span><span class='kw'>=</span><span class='st'>"F1.1"</span>, <span class='fu'><a href='pcrfit_single.html'>pcrfit_single</a></span>(<span class='no'>test_data</span>[, <span class='fl'>2</span>]))</div><div class='output co'>#&gt; N:45, idsize:45, idval1:1, idval22:22
-#&gt; mm: 1, nn2: 45, N:45, cumksize.size: 45</div><div class='input'><span class='no'>res_2</span> <span class='kw'>&lt;-</span> <span class='fu'>cbind</span>(<span class='kw'>runs</span><span class='kw'>=</span><span class='st'>"F1.3"</span>, <span class='fu'><a href='pcrfit_single.html'>pcrfit_single</a></span>(<span class='no'>test_data</span>[, <span class='fl'>3</span>]))</div><div class='output co'>#&gt; N:45, idsize:45, idval1:1, idval22:22
-#&gt; mm: 1, nn2: 45, N:45, cumksize.size: 45</div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='kw'>F1.1</span><span class='kw'>=</span><span class='no'>res_1</span>, <span class='kw'>F1.3</span><span class='kw'>=</span><span class='no'>res_2</span>)
+<span class='no'>res_1</span> <span class='kw'>&lt;-</span> <span class='fu'>cbind</span>(<span class='kw'>runs</span><span class='kw'>=</span><span class='st'>"F1.1"</span>, <span class='fu'><a href='pcrfit_single.html'>pcrfit_single</a></span>(<span class='no'>test_data</span>[, <span class='fl'>2</span>]))
+<span class='no'>res_2</span> <span class='kw'>&lt;-</span> <span class='fu'>cbind</span>(<span class='kw'>runs</span><span class='kw'>=</span><span class='st'>"F1.3"</span>, <span class='fu'><a href='pcrfit_single.html'>pcrfit_single</a></span>(<span class='no'>test_data</span>[, <span class='fl'>3</span>]))
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='kw'>F1.1</span><span class='kw'>=</span><span class='no'>res_1</span>, <span class='kw'>F1.3</span><span class='kw'>=</span><span class='no'>res_2</span>)
 
 <span class='co'># Show all results in an interactive plot</span>
 <span class='fu'>visdat_pcrfit</span>(<span class='no'>res</span>)</div></pre>

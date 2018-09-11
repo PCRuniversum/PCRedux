@@ -97,6 +97,9 @@ large data sets. Science, 334, 1518-1524 (2011))." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/PCRedux_visdat_pcrfit.html">PCRedux Package - Visualization Data Structure</a>
+    </li>
+    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
@@ -104,12 +107,7 @@ large data sets. Science, 334, 1518-1524 (2011))." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/devSJR/PCRedux">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -124,7 +122,7 @@ large data sets. Science, 334, 1518-1524 (2011))." />
     <div class="page-header">
     <h1>A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/earlyreg.R'><code>R/earlyreg.R</code></a></small>
+    
     <div class="hidden name"><code>earlyreg.Rd</code></div>
     </div>
 
@@ -182,8 +180,8 @@ data should be normalized to the 99 percent percentile of the amplification curv
 <span class='co'># Plot the data</span>
 <span class='fu'>plot</span>(<span class='no'>C316.amp</span>[, <span class='fl'>2</span>], <span class='kw'>y</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>3</span>], <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Cycle"</span>, <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"RFU"</span>,
      <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"C316.amp data set"</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>)</div><div class='img'><img src='earlyreg-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>earlyreg</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>2</span>], <span class='kw'>y</span><span class='kw'>=</span><span class='no'>C316.amp</span>[, <span class='fl'>3</span>], <span class='kw'>range</span><span class='kw'>=</span><span class='fl'>5</span>)
-<span class='no'>res</span></div><div class='output co'>#&gt; intercept     slope 
-#&gt; 123.90651 -27.50786 </div></pre>
+<span class='no'>res</span></div><div class='output co'>#&gt;  intercept      slope      sigma 
+#&gt; 123.906508 -27.507859   4.414113 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

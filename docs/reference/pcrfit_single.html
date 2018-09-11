@@ -90,6 +90,9 @@ An example is given in the vignette." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/PCRedux_visdat_pcrfit.html">PCRedux Package - Visualization Data Structure</a>
+    </li>
+    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
@@ -97,12 +100,7 @@ An example is given in the vignette." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/devSJR/PCRedux">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +114,7 @@ An example is given in the vignette." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>pcrfit_single - A function to extract features from an amplification curve</h1>
-    <small class="dont-index">Source: <a href='https://github.com/devSJR/PCRedux/blob/master/R/pcrfit_single.R'><code>R/pcrfit_single.R</code></a></small>
+    
     <div class="hidden name"><code>pcrfit_single.Rd</code></div>
     </div>
 
@@ -159,8 +157,8 @@ An example is given in the vignette.</p>
 <tr><td>numeric</td><td>"slope_bg"</td><td>slope of the first cycles</td></tr>
 <tr><td>numeric</td><td>"intercept_bg"</td><td>intercept of the first cycles</td></tr>
 <tr><td>numeric</td><td>"polyarea"</td><td>area of a polygon given by the vertices in the vectors cycles and fluorescence</td></tr>
-<tr><td>numeric</td><td>"changepoint_e.agglo"</td><td>agglomerative hierarchical estimate for multiple change points</td></tr>
-<tr><td>numeric</td><td>"changepoint_bcp"</td><td>change point by Bayesian analysis methods</td></tr>
+<tr><td>numeric</td><td>"cp_e.agglo"</td><td>agglomerative hierarchical estimate for multiple change points</td></tr>
+<tr><td>numeric</td><td>"cp_bcp"</td><td>change point by Bayesian analysis methods</td></tr>
 <tr><td>numeric</td><td>"qPCRmodel"</td><td>non-linear model determined for the analysis</td></tr>
 <tr><td>factor</td><td>"amptester_shapiro"</td><td>tests based on the Shapiro-Wilk normality test if the amplification curve is just noise</td></tr>
 <tr><td>binary</td><td>"amptester_lrt"</td><td>performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold</td></tr>
@@ -238,8 +236,7 @@ pre-process raw data of amplification curves</em>, <em>Bioinformatics</em>. 31 (
     <pre class="examples"><div class='input'><span class='co'># Load the chipPCR package and analyze from the C126EG685 the first qPCR run</span>
 <span class='co'># "A01" (column 2).</span>
 <span class='fu'>library</span>(<span class='no'>chipPCR</span>)
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>pcrfit_single</span>(<span class='no'>C126EG685</span>[, <span class='fl'>2</span>])</div><div class='output co'>#&gt; N:36, idsize:36, idval1:1, idval22:22
-#&gt; mm: 1, nn2: 36, N:36, cumksize.size: 36</div></pre>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>pcrfit_single</span>(<span class='no'>C126EG685</span>[, <span class='fl'>2</span>])</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
