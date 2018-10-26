@@ -55,5 +55,4 @@ Suggests:
     rmarkdown,
     xtable
 NeedsCompilation: no
-VignetteBuilder: knitr
 RoxygenNote: 6.1.0
