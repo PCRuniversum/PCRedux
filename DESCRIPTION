@@ -55,4 +55,4 @@ Suggests:
     rmarkdown,
     xtable
 NeedsCompilation: no
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
