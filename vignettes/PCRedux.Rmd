@@ -50,9 +50,9 @@ HCU32 <- "Clustering and variation analysis of amplification curves. The amplifi
 
 HCU32_short <- "Clustering and variation analysis of amplification curves"
 
-winklR <- "describe what winklR does"
+winklR <- "Analysis of the amplification curves of the `RAS002` data set with the winklR() function. All amplification curves of the data set `RAS002` were analyzed. Negative amplification curves are shown in red and positive amplification curves in black. The winklR() function was used to analyze all amplification curves. B) The stripchart of the analysis of positive and negative amplification curves shows separation. C) The cdplot calculates the conditional densities of x based on the values of y weighted by the boundary distribution of y. The densities are derived cumulatively via the values of y. The probability that the decision is negative (n) when the angle equals 30 is approximately 100\\%."
 
-winklR_short <- "short: describe what winklR does"
+winklR_short <- "Variation analysis of amplification curves with the winklR() function"
 
 curve_fit_fail <- "Incorrect model adjustment for amplification curves. A positive (black), and a negative (red) amplification curve were randomly selected from the `RAS002` data set. The positive amplification curve has a baseline signal of about 2500 RFU and has a definite sigmoidal shape. The negative amplification curve has a baseline signal of approx. 4200 RFU, but only moderately positive slope (no sigmoidal shape). A logistic function with seven parameters (`l7`) has been fitted to both amplification curves. A Cq value of 25.95 was determined for the positive amplification curve. The negative amplification curve had a Cq value of 9.41. However, it can be seen that the latter model fitting is not appropriate for calculating a trustworthy Cq value. An automatic calculation without user control would give a false-positive result."
 
@@ -1318,6 +1318,40 @@ str(pcrfit_single(RAS002[, 2]))
 ``winklR()`` is a function to calculate the in the trajectory of the first and the second derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
 
 ```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=8.5, fig.width=11} 
+# Calculate the angles for amplification curve data from the RAS002 data set.
+library(PCRedux)
+
+
+# Load the amplification curves from the RAS002 data set.
+
+DATA <- PCRedux::RAS002
+
+# Load the RAS002_decisions data set.
+dec <- RAS002_decisions
+
+# Give tabular output of classes
+table(dec)
+
+# Assign colors to the classes (n: black, y: green).
+
+colors <- factor(dec, levels = c("y", "n"), 
+                 label = c("black", "red"))
+
+# Test for the angles via the winklR() function on the RAS002 data set
+
+res_winklR <- sapply(2L:ncol(DATA), function(i) {
+    winklR(DATA[, 1], DATA[, i])$angle
+})
+
+par(mfrow = c(1,2))
+
+stripchart(res_winklR ~ dec, method = "jitter", 
+           vertical = TRUE, pch = 19)
+mtext("A", cex = 1, side = 3, adj = 0, font = 2, las = 0)
+
+cdplot(as.factor(dec) ~ res_winklR, 
+       xlab = "angle", ylab = "decision")
+mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
 ```
 
