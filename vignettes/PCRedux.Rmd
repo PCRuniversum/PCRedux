@@ -1,5 +1,5 @@
 ---
-title: "PCRedux: Data Mining and Machine Learning Helper Tool for qPCR Curves"
+title: "PCRedux package - an overview"
 author: "Stefan R&ouml;diger"
 date: "`r Sys.Date()`"
 output: 
@@ -26,7 +26,6 @@ amplification_curve_ROI <- "Phases of amplification curves as Region of Interest
 
 amplification_curve_ROI_short <- "Phases of amplification curves as Region of Interest (ROI)"
 
-
 figure_quantification_points <- "Frequently used methods for the analysis of quantification points. A) The amplification curve is intersected by a gray horizontal line. This is the background signal (3$\\sigma$) determined from the \\textit{68-95-99.7 rule} from the fluorescence emission of cycles 1 to 10. The black horizontal line is the user-defined threshold (Ct value) in the exponential phase. Based on this, the cycle at which the amplification curve differs significantly from the background is calculated. B) The amplification curve can also be analyzed by fitting a multi-parametric model (black line, five parameters). The red line is the first derivative of the amplification curve with a maximum of 17.59 cycles. The first derivative maximum (`cpD1`) is used as a quantification point (Cq value) in some qPCR systems. The green line shows the second derivative of the amplification curve, with a maximum at 15.68 cycles a minimum at 19.5 cycles. The maximum of the second derivative (`cpD2`) is used as the Cq value in many systems. The blue line shows the amplification efficiency estimated from the trajectory of the exponential region. The `Eff` value of 1.795 means that the amplification efficiency is approximately 89\\%. `cpDdiff` is the difference between the first and second derivative maximum ($cpDdiff = cpD1 - cpD2$)."
 
 figure_quantification_points_short <- "Frequently used methods for the analysis of quantification points"
@@ -35,25 +34,25 @@ figure_curve_classification <- "Variations in the classification of amplificatio
 
 figure_curve_classification_short <- "Variations of the classification of amplification curves"
 
-
 htPCR_nap <- "Examples of negative, ambiguous and positive amplification curves. A) A negative (black), ambiguous (red) and positive (green) amplification curve were selected from the `htPCR` data set. The negative amplification curve is non-sigmoid and has a positive trend. The ambiguous amplification curve is similar to a sigmoidic amplification curve, but shows a positive slope in ground phase (cycle 1 $\\rightarrow$ 5). The positive amplification curve (green) is sigmoid. It starts with a flat baseline (cycle 5 $\\rightarrow$ 25). This is followed by the exponential phase (cycle 5 $\\rightarrow$ 25) and ends in a flat plateau phase (cycle 26 $\\rightarrow$ 35). B) Amplification curves of the `vermeulen1` data set were divided into groups with \\textit{negative}, \\textit{ambiguous} and \\textit{positive} classification. Negative amplification curves have a low signal level. Interesting is the spontaneous increase (probably due to a sensor calibration) in cycles 1 to 2 followed by a linear signal decrease. In principle, the ambiguous amplification curves have a sigmoid curve shape. However, the plateau phase is fairly broad. One of the ambiguous amplification curves begins to rise sharply at Cycle 45. The positive amplification curves have a characteristic sigmoid curve shape."
 
 htPCR_nap_short <- "Examples of negative, ambiguous and positive amplification curves"
-
 
 htPCR_nap_frequency <- "Frequency of amplification curve classes and conformity in the `htPCR` data set. The `htPCR` data set was classified by hand eight times. Due to the unusual amplification curve shape and input errors during classification, many amplification curves were classified differently. A) Frequency of negative (black), ambiguous (red) and positive (green) amplification curves in the `htPCR` data set. The combined number of ambiguous and negative amplification curves appears to be higher, than the number of positive amplification curves. B) The number of observations where all classification cycles made the same decision (conformity == TRUE) accounts for only 5\\% of the total number of observations. TRUE, all classes of the amplification curve matched. FALSE, at least one in eight observations had a different class."
 
 htPCR_nap_short_frequency <- "Frequency of amplification curve classes and conformity in the `htPCR` data set."
 
-
 qPCR2fdata <- "Shape-based clustering of amplification curves. A) The clustering of the amplification curves of the `testdat` data set (A) was based on the Hausdorff distance. B) The amplification curves were converted with the qPCR2fdata() function, and the Hausdorff distance of the curves was determined by cluster analysis. There were no errors in distinguishing between negative (n) and positive (y) amplification curves."
 
 qPCR2fdata_short <- "Shape-based grouping of amplification curves"
 
-
 HCU32 <- "Clustering and variation analysis of amplification curves. The amplification curves of the 32HCU were processed with the qPCR2fdata() function and then processed by cluster analysis (Hausdorff distance). A) Amplification curves were plotted from the raw data. B) Overall, signal-to-noise ratios of the amplification curves between all cavities were similar. C) The Cq values and amplification efficiency were calculated using the efficiency(pcrfit()) [\\texttt{qpcR}] function. The median Cq is shown as a vertical line. Cqs greater or less than 0. 1 of Cq $\\tilde{x}$ are marked with observation labels. D) The cluster analysis showed no specific pattern with respect to the amplification curve signals. It appears that the observations D1, E1, F1, F3, G3 and H1 differ most from the other amplification curves."
 
 HCU32_short <- "Clustering and variation analysis of amplification curves"
+
+winklR <- "describe what winklR does"
+
+winklR_short <- "short: describe what winklR does"
 
 curve_fit_fail <- "Incorrect model adjustment for amplification curves. A positive (black), and a negative (red) amplification curve were randomly selected from the `RAS002` data set. The positive amplification curve has a baseline signal of about 2500 RFU and has a definite sigmoidal shape. The negative amplification curve has a baseline signal of approx. 4200 RFU, but only moderately positive slope (no sigmoidal shape). A logistic function with seven parameters (`l7`) has been fitted to both amplification curves. A Cq value of 25.95 was determined for the positive amplification curve. The negative amplification curve had a Cq value of 9.41. However, it can be seen that the latter model fitting is not appropriate for calculating a trustworthy Cq value. An automatic calculation without user control would give a false-positive result."
 
@@ -66,7 +65,6 @@ plot_models_short <- "Frequencies of the fitted multiparametric models and Cq va
 figure_cpD2_range <- "Location of the predictors `cpD2\\_range`, `bg.start`, `bg.stop` within an amplification curve. The minimum (cpD2m) and maximum (cpD2) of the second derivative were calculated numerically using the diffQ2() function. This function also returns the maximum of the first derivative (cpD1). The `cpD2\\_range` is defined as $cpD2\\_range = |cpD2 - cpD2m|$. Large `cpD2\\_range` values indicate a low amplification efficiency or a negative amplification reaction. The predictor `bg.start` is an estimate for the end of the ground phase. `bg.start` is an approximation for the onset of the plateau phase."
 
 figure_cpD2_range_short <- "Location of the of the predictors `cpD2\\_range`, `bg.start`, `bg.stop` within an amplification curve"
-
 
 plot_dat_EffTop <- "Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the `data\\_sample\\_subset` data set were used as they contain positive and negative amplification curves, and amplification curves that exhibit a \\textit{hook effect} or non-sigmoid shapes. A) `eff`, optimized PCR efficiency found within a sliding window. B) `sliwin`, PCR efficiency by the ‘window-of-linearity’ method. C) `cpDdiff`, difference between the Cq values calculated from the first and the second derivative maximum. D) `loglin\\_slope`, slope from the cycle at the second derivative maximum to the second derivative minimum. E) `cpD2\\_range`, absolute value of the difference between the minimum and the maximum of the second derivative maximum. F) `top`, takeoff point. G) `f.top`, fluorescence intensity at takeoff point. H) `tdp`,  takedown point. I) `f.tdp`, fluorescence intensity at takedown point. J) `bg.stop`, estimated end of the ground phase. K) `amp.stop`, estimated end of the exponential phase. L) `convInfo\\_iteratons`, number of iterations until convergence."
 
@@ -88,7 +86,6 @@ plot_Logistic_Regression <- "Machine classification by means of binomial logisti
 
 plot_Logistic_Regression_short <- "Machine classification by means of binomial logistic regression using the `loglin\\_slope` predictor"
 
-
 statistical_methods_amptester <- "Analysis of amplification curves with the ``amptester()`` function. A \\& B) The threshold test (THt) is based on the Wilcoxon ranksum test and compares 20\\% of the fluorescence values of the ground phase with 15\\% of the plateau phase. In the example, a significant difference ($p = 0.000512$) was found for the positive amplification curve. However, this did not apply to the negative amplification curve ($p = 0.621$). C \\& D) A Q-Q diagram is used to graphically compare two probability distributions.  In this study the probability distribution of the amplification curve was compared with a theoretical normal distribution. The orange line is the theoretically normal quantil-quantile plot that passes through the probabilities of the first and third quartiles. The Shapiro-Wilk test (SHt) of normality checks whether the underlying measurement data of the amplification curve is significantly normal distributed. Since the p-value of $7.09 e^{-9}$ of the positive amplification curve is $\\alpha \\leq 5e^{-4}$, the null hypothesis is rejected. However, this does not apply to the negative amplification curve ($p = 0.895$). E \\& F) The linear regression test (LRt) calculates the coefficient of determination ($R^{2}$) using an ordinary least square regression where all measured values are integrated into the model in a cycle-dependent manner. Experience shows that the non-linear part of an amplification curve has a $R^{2}$ smaller than 0.8, which is also shown in the example."
 
 statistical_methods_amptester_short <- "Analysis of amplification curves with the amptester() function"
@@ -97,16 +94,13 @@ figure_autocorrelation_tau <- "Effect of tau"
 
 figure_autocorrelation_tau_short <- "Effect of tau"
 
-
 autocorrelation <- "Autocorrelation analysis of the amplification curves of the `RAS002` data set. A) Display of all amplification curves of the data set `RAS002`. Negative amplification curves are shown in red and positive amplification curves in black. The autocorrelation\\_test() function was used to analyze all amplification curves. B) The density diagram of the autocorrelation of positive and negative amplification curves shows a bimodal distribution. C) The cdplot calculates the conditional densities of x based on the values of y weighted by the boundary distribution of y. The densities are derived cumulatively via the values of y. The probability that the decision is negative (n) when autocorrelation equals 0.85 is approximately 100\\%. D) Performance analysis using the performeR() function (see \\autoref{section_performeR} for details)."
 
 autocorrelation_short <- "Autocorrelation analysis for amplification curves of the `RAS002` data set)"
 
-
 earlyreg_slopes <- "Analysis of the ground phase with the earlyreg() function and the `C127EGHP` data set (n = 64 amplification curves). This data set consists of 32 samples, which were simultaneously monitored with the intercalator EvaGreen or hydrolysis probes. A) All amplification curves possess slightly different slopes and intercepts in the first cycles of the ground phase (ROI: Cycles 1 to 8). Both the slope and the intercept of each amplification curve were used for cluster analysis (k-means, Hartigan-Wong algorithm, number of centers \\textit{k = 2}). B) The amplification curves were assigned to five clusters, depending on their slope and their intersection (red, black). C) Finally, the clusters were associated to the detection chemistries (EvaGreen (EG) or hydrolysis probes (HP))."
 
 earlyreg_slopes_short <- "Analysis of the ground phase with the earlyreg() function"
-
 
 figure_head2tailratio <- "Ratio between the head and the tail of a quantitative PCR amplification curve. A) Plot of quantile normalized amplification curves from the `RAS002` data set. Data points used in the head and and tail are highlighted by circles. The intervals for the Robust Linear Regression are automatically selected using the 25\\% and 75\\% quantiles. Therefore, not all data points are used in the regression model. The straight line is the regression line from the robust linear model. The slopes of the positive and negative amplification curves differ. B) Boxplot for the comparison of the $head/tail$ ratio. Positive amplification curves have a lower ratio than negative curves. The difference between the classes is significant."
 
@@ -1237,7 +1231,6 @@ A new data set called `data_sample_subset_balanced` has been compiled from the `
 - the amplification curves should represent typical amplification curves (subjective criterion).
 The compilation of the data sets `batsch1`, `HCU32_aggR`, `lc96_bACTXY`, `RAS002`, `RAS003` and `stepone_std` met this requirement satisfactorily.
 
-, `rutledge`, `testdat`
 
 ```{r, echo=TRUE}
 data_sample_subset_balanced <- data_sample[data_sample$dataset %in% 
@@ -1318,6 +1311,14 @@ The output below shows the predictors and their data type (`num`, numeric; `int`
 library(PCRedux)
 # Calculate predictor vector of column two from the RAS002 data set.
 str(pcrfit_single(RAS002[, 2]))
+```
+
+#### ``winklR()`` - A function to calculate the angle based on the first and the second derivative of an amplification curve data
+
+``winklR()`` is a function to calculate the in the trajectory of the first and the second derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
+
+```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=8.5, fig.width=11} 
+
 ```
 
 ##### Amplification Curve Pre-Processing
@@ -1809,7 +1810,7 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-### Integration of the ``amptester()`` function in \texttt{PCRedux}
+#### Integration of the ``amptester()`` function in \texttt{PCRedux}
 
 `amptester_polygon` is another method to calculate the area under an amplification curve. `amptester_polygon`\footnote{This predictor is determined from the points in an amplification curve (like a polygon, in particular non-convex polygons) in a `clockwise` order. The sum over the edges result in a positive value if the amplification curve is `clockwise` and is negative if the curve is `counter-clockwise`.} is part of the ``amptester()`` [\texttt{chipPCR}] package [@roediger2015chippcr]. In contrast to the implementation in ``amptester()``, `amptester_polygon` has values normalized to the total number of cycles, thereby allowing comparable predictions (\autoref{plot_cp_area}Ds).
 
@@ -2554,7 +2555,11 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-#### Change point analysis\label{section_change_point_analysis}
+#### Frequentist and Baysian Change point analysis\label{section_change_point_analysis}
+
+Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014; @erdman_bcp:_2007]. Several change point algorithms exist, such as the binary segmentation algorithm [@scott_cluster_1974]. In change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. In the case of qPCR, this is simply the cycle-dependent fluorescence, used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean) of the change points at specific points, change point analysis using Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves, it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
+
+The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` [\texttt{bcp}]  [@erdman_bcp:_2007] and the ``e.agglo()`` [\texttt{ecp}] function [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurements from the qPCR systems typically show noise that has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves, that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As a result, the analysis returns the posterior probability of a change point at each $x_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_cp_area}E & F).
 
 ```{r plot_cpa, echo=FALSE, fig.cap=plot_cpa,fig.scap=plot_cpa_short, fig.height=5}
 
@@ -2636,10 +2641,6 @@ mtext("F   Changepoints", cex = 1, side = 3, adj = 0, font = 2)
 legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 ```
-
-Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014; @erdman_bcp:_2007]. Several change point algorithms exist, such as the binary segmentation algorithm [@scott_cluster_1974]. In change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. In the case of qPCR, this is simply the cycle-dependent fluorescence, used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean) of the change points at specific points, change point analysis using Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves, it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
-
-The ``pcrfit_single()`` function uses two independent approaches for change point analysis. These are the ``bcp()`` [\texttt{bcp}]  [@erdman_bcp:_2007] and the ``e.agglo()`` [\texttt{ecp}] function [@james_ecp:_2013]. The ``e.agglo()`` function performs a non-parametric change point analysis based on agglomerative hierarchical estimation and is useful to "detect changes within the marginal distributions" [@james_ecp:_2013]. Measurements from the qPCR systems typically show noise that has rapidly changing components. Differentiators amplify these rapidly changing noise components [@roediger_RJ_2013]. Therefore, the first derivation of the amplification curve was used for both change point analyses. It was assumed for the change point analysis of amplification curves, that this leads to larger differences between positive and negative amplification curves. An example is shown on \autoref{plot_cpa}. In contrast the ``bcp()`` [\texttt{bcp}] function performs a change point analysis based on a Bayesian approach. This method can detect changes in the mean of independent Gaussian observations. As a result, the analysis returns the posterior probability of a change point at each $x_{i}$. An example is shown on \autoref{plot_cpa}. Both the change point analysis methods provide additional information to distinguish positive and negative amplification curves \autoref{plot_cp_area}E & F).
 
 #### Frequentist Approaches to Test the Class of an Amplification Reaction\label{section_amptester}
 
