@@ -20,7 +20,7 @@
 #' The cycles to be analyzed is defined by the user. 
 #' The output contains the angle.
 #'
-#' @param x is the cycle numbers (x-axis). By default the frist seven cycles are removed.
+#' @param x is the cycle numbers (x-axis). By default the frist ten cycles are removed.
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param normalize is a logical parameters, which indicates if the amplification curve
 #' data should be normalized to the 99 percent percentile of the amplification curve.
@@ -54,7 +54,7 @@
 #' @export winklR
 
 
-winklR <- function(x, y, normalize = FALSE) {
+winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
   data <- na.omit(cbind(x = x, y = y))
 
   x <- data[, "x"]
@@ -72,10 +72,13 @@ winklR <- function(x, y, normalize = FALSE) {
   
   # Smooth data with Savitzky-Golay smoothing filter for other data
   # analysis steps.
-  dat_smoothed <- chipPCR::smoother(x, y)
-  
+  if(preprocess) {
+    y <- chipPCR::smoother(x, y)
+  } else {
+      y <- data[, "y"]
+}
   # Calculate the point of the first and the second derivatives
-  res <- try(suppressMessages(MBmca::diffQ2(cbind(x[-c(1:7)], dat_smoothed[-c(1:7)]), 
+  res <- try(suppressMessages(MBmca::diffQ2(cbind(x[-c(1:10)], y[-c(1:10)]), 
                                             inder = TRUE, verbose = TRUE, 
                                             fct = min)), silent=TRUE)
 
