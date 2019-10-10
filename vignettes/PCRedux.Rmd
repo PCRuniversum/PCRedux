@@ -156,7 +156,7 @@ Therefore, the aim of the study was to:
 3. evaluate pipelines that can be used for an automatic classification of amplification curves based on the curve shape and
 4. to bundle the findings in a public repository open source software and open data package.
 
-# Introduction to the Detection and Quantification of Nucleic Acids\label{label1}
+# Introduction to the Detection and Quantification of Nucleic Acids and the Realtion to Machine Learning\label{label1}
 
 In \autoref{NucleicAcids} the reader finds a concise introduction to nucleic acids, including nucleic acid detection methods for the analysis of forensic sample material. Special intention is paid to the quantitative Polymerase Chain Reaction (qPCR), since this method is the *de facto* standard for the detection and high-precision quantification of nucleic acids. 
 
@@ -223,6 +223,10 @@ With the **quantitative PCR** (qPCR) technology, the number of start copies of a
 
 Applications of qPCR include the quantification of human nuclear DNA and mitochondrial DNA from forensic evidence [@alonso_real-time_2007] and analysis of gene expression [@pabinger_2014; @george_development_2016]. qPCR was used in this work to generate amplification curve data sets. In the later chapters, this work will only focus on qPCR technology.
 
+In the Life Science sector, qPCR has become indispensable. For one, qPCR is used to investigate biological relationships by gene expression analysis. The qPCR is also used for the preparation and post-processing of NGS experiment [@nassirpour_identification_2014;@cristino_deep_2011]. The RNA-Seq assumes that all transcripts can be sequenced unbiased. In reality, certain DNA sequences (e.g., GC-rich regions) are more poorly processed and so their quantity is often underestimated. Normalization of RNA-Seq data is based on the assumption that each sample contains the equal total amount of expressed mRNA. That does not necessarily have to be the case. NGS data are derived by mapping the sequenced DNA fragments to a genome reference. Mutations and single nucleotide polymorphisms (SNPs) are sometimes ignored.
+As a consequence, results vary depending on which mismatches are allowed. The qPCR is used for qualitative and quantitative characterization of the material to be sequenced. Moreover, qPCR is a highly sensitive method for checking the "library DNA" of NGS reactions. Analysis of sequencing data is not the end of an NGS experiment. Sequence variations or expression changes need to be verified reliably. 
+qPCR is used to confirm found differences in the follow-up. There are undisputed qualities of qPCR in terms of sensitivity and specificity. The above described problems play only a minor role in qPCR. For this reason, qPCR is usually used for validation of NGS experiments. In particular, the technical progress of commercially available qPCR technologies has led to the development of easy-to-use devices that enable users to compile large volumes of data on their specific research questions. This involves the requirement to evaluate data objectively and reproducibly [@roediger2015r]. 
+
 The **digital PCR** (dPCR) is a variation of the PCR which predates qPCR. Due to the technical complexity of dPCRs, it was predominantly used in academia. Technical advances make it widely available to the mass market since 2008. The biochemical foundation of dPCR is similar to qPCR but the reaction mix is partitioned into thousands of small partitions (nanoliter volume). These partitions separate the amplification reactions (“clonal amplification”), which in combination with Poisson statistics, enables an absolute quantification of DNA [@pabinger_2014; @burdukiewicz_methods_2016].
 
 An alternative to PCR is **isothermal amplification**. Isothermal amplification is a continuous reaction at a constant temperature (isothermal) and involves enzymes that differ from the conventional PCRs. An example is the loop-mediated amplification (LAMP) [@rodiger_alternative_2011] that is gaining interest in forensics for point-of-care testing and microfluidic devices. Recent advances in the development of technologies for bioanalytical microfluidic devices, medium-throughput and high-throughput technologies were achieved. A device for forensic applications was shown for the analysis of STRs, but also for quantitative assays [@Horsman2007].
@@ -250,9 +254,9 @@ as recommended by @wilson_good_2016. The proposed work-flow for the study is to:
 6. improve the results and finally
 7. present the results as part of an open source software package for reproducible research. 
 
-For the generation of negative amplification curves, a set of experiments was conducted to amplify sequences of the Human papillomaviruses (HPV). The availability of negative amplification curves is limited, since in most cases only a few negative controls are included in qPCR experiments. All PCR conditions were taken from @senkel_entwicklung_2017. Biomarkers such as human papilloma virus (HPV) DNA was previously used in forensic applications[^1]. The findings and data set used in this study were made available as open data bundled in the open source software package called \texttt{PCRedux} (`r citation("PCRedux")$url`).
+For the generation of negative amplification curves, a set of experiments was conducted to amplify sequences of the Human papillomaviruses (HPV). The availability of negative amplification curves is limited, since in most cases only a few negative controls are included in qPCR experiments. The findings and data set used in this study were made available as open data bundled in the open source software package called \texttt{PCRedux} (`r citation("PCRedux")$url`).
 
-All statistical analysis was performed using \texttt{RKWard} [@roediger_rkward_2012] v. >= 0.7.0z+0.7.1+devel1. \texttt{RKWard} is an integrated development environment and graphical user interface for the \texttt{R} (v. `r getRversion()`) statistical computing language. It has been shown that \texttt{R} is a powerful environment for reproducible and transparent data analysis in a highly customizable cross-platform environment [@roediger2015r].
+All statistical analysis was performed using \texttt{RKWard} [@roediger_rkward_2012] v. $\geq$ 0.7.0z+0.7.1+devel1. \texttt{RKWard} is an integrated development environment and graphical user interface for the \texttt{R} (v. `r getRversion()`) statistical computing language. It has been shown that \texttt{R} is a powerful environment for reproducible and transparent data analysis in a highly customizable cross-platform environment [@roediger2015r].
 
 ## Development, Implementation and Installation \label{section_Development_Implementation_and_Installation}
 
@@ -977,133 +981,6 @@ print(res_dec_P01.W06)
 
 The amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn `negative`.
 
-
-### Classified Amplification Curve Datasets\label{chapter_humanrater}
-
-Amplification curves from different sources (e.g., detection chemistries, thermo-cyclers) were manually classified with the ``humanrater()`` function (\autoref{Manual_Amplification_Curve_Classification}) or with the ``tReem()`` function  (\autoref{shape_Amplification_Curve_Classification}). Raw amplification curve data were exported as comma separated values or in the Real-time PCR Data Markup Language (RDML) format via the \texttt{RDML} package. RDML is human readable data exchange format for qPCR experiments. A detailed description can be found in @roediger_enabling_2017. The following code section describes the import of an RDML file from the \texttt{PCRedux} package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
-
-At least the following datasets with a dichotomous decision (positive, negative) are included.
-
-- decision_res_batsch1.csv
-- decision_res_batsch2.csv
-- decision_res_batsch3.csv
-- decision_res_batsch4.csv
-- decision_res_batsch5.csv
-- decision_res_boggy.csv
-- decision_res_C126EG595.csv
-- decision_res_C127EGHP.csv
-- decision_res_C316.amp.csv
-- decision_res_C317.amp.csv
-- decision_res_C60.amp.csv
-- decision_res_CD74.csv
-- decision_res_competimer.csv
-- decision_res_dil4reps94.csv
-- decision_res_guescini1.csv
-- decision_res_guescini2.csv
-- decision_res_HCU32_aggR.csv
-- decision_res_htPCR.csv
-- decision_res_karlen1.csv
-- decision_res_karlen2.csv
-- decision_res_karlen3.csv
-- decision_res_lc96_bACTXY.csv
-- decision_res_lievens1.csv
-- decision_res_lievens2.csv
-- decision_res_lievens3.csv
-- decision_res_RAS002.csv
-- decision_res_RAS003.csv
-- decision_res_reps2.csv
-- decision_res_reps384.csv
-- decision_res_reps3.csv
-- decision_res_reps.csv
-- decision_res_rutledge.csv
-- decision_res_stepone_std.csv
-- decision_res_testdat.csv
-- decision_res_vermeulen1.csv
-- decision_res_vermeulen2.csv
-- decision_res_VIMCFX96_60.csv
-
-
-```{r, echo=TRUE, eval=FALSE}
-library(RDML)
-# Load the RDML package and use its functions to import the amplification curve
-#  data
-library(RDML)
-filename <- system.file("RAS002.rdml", package = "PCRedux")
-raw_data <- RDML$new(filename = filename)
-```
-
-The following example shows the export of the `RAS002.rdml` file from the RDML format to the csv format.
-
-```{r, echo=TRUE, eval=FALSE}
-# Export the RDML data from the PCRedux package as the objects RAS002 and RAS003.
-library(RDML)
-library(PCRedux)
-library(data.table)
-
-RAS002 <- data.frame(RDML$new(paste0(
-    path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData()
-    )
-
-# The obbject RAS002 can be stored in the working directory as CSV file with
-# the name RAS002_amp.csv.
-write.csv(RAS002, "RAS002_amp.csv", row.names = FALSE)
-```
-
-RDML data file           | Device    | Target gene           | Detection chemistry
--------------------------|-----------|-----------------------|------------------------------
-RAS002.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
-RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
-hookreg.rdml             | Bio-Rad   | various               | Taqman, DNA binding dyes
-
-\begin{table}[]
-\centering
-\caption{Classified amplification curve data sets. Decision data sets in \texttt{PCRedux}: table with results of manual classification as comma separated values. qPCR data set: name of original amplification curve data set. Package: name of the \texttt{R} package containing the amplification curves. Device: is the device used to measure the amplification reaction. \texttt{Note: The original data sets contain information about the detection chemistry used within the corresponding qPCR experiments.} AB, Applied Biosystems.}
-\label{table-datasets}
-\begin{tabular}{llll}
-\hline
-Decision Datasets in PCRedux                    & qPCR Dataset               & Package              & Device         \\ \hline
-decision\_res\_RAS002.csv                        & RAS002.rdml                 & \texttt{PCRedux}   & CFX96, Bio-Rad \\
-decision\_res\_RAS003.csv                        & RAS003.rdml                 & \texttt{PCRedux}   & CFX96, Bio-Rad \\
-decision\_res\_batsch1.csv                       & batsch1                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
-decision\_res\_batsch2.csv                       & batsch2                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
-decision\_res\_batsch3.csv                       & batsch3                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
-decision\_res\_batsch4.csv                       & batsch4                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
-decision\_res\_batsch5.csv                       & batsch5                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
-decision\_res\_lc96\_bACTXY.csv                  & lc96\_bACTXY.rdml           & \texttt{RDML}      & Light Cycler 1.0, Roche \\
-decision\_res\_boggy.csv                         & boggy                       & \texttt{qpcR}      & Light Cycler 96, Roche \\
-decision\_res\_C126EG595.csv                     & C126EG595                   & \texttt{chipPCR}   & Chromo4, Bio-Rad \\
-decision\_res\_C127EGHP.csv                      & C127EGHP                    & \texttt{chipPCR}   & iQ5, Bio-Rad \\
-decision\_res\_C316.amp.csv                      & C316.amp                    & \texttt{chipPCR}   & iQ5, Bio-Rad \\
-decision\_res\_C317.amp.csv                      & C317.amp                    & \texttt{chipPCR}   & iQ5, Bio-Rad \\
-decision\_res\_C60.amp.csv                       & C60.amp                     & \texttt{chipPCR}   & iQ5, Bio-Rad \\
-decision\_res\_CD74.csv                          & CD74                        & \texttt{chipPCR}   & iQ5, Bio-Rad \\
-decision\_res\_competimer.csv                    & competimer                  & \texttt{qpcR}      & Light Cycler 480, Roche \\
-decision\_res\_dil4reps94.csv                    & dil4reps94                  & \texttt{qpcR}      & CFX384, Bio-Rad \\
-decision\_res\_guescini1.csv                     & guescini1                   & \texttt{qpcR}      & Light Cycler 480, Roche \\
-decision\_res\_guescini2.csv                     & guescini2                   & \texttt{qpcR}      & Light Cycler 480, Roche \\
-decision\_res\_htPCR.csv                         & htPCR                       & \texttt{qpcR}      & Biomark HD, Fluidigm \\
-decision\_HCU32\_aggR.csv                        & HCU32\_aggR.csv             & \texttt{PCRedux}   & VideoScan \\
-decision\_res\_karlen1.csv                       & karlen1                     & \texttt{qpcR}      & ABI Prism 7700, AB \\
-decision\_res\_karlen2.csv                       & karlen2                     & \texttt{qpcR}      & ABI Prism 7700, AB \\
-decision\_res\_karlen3.csv                       & karlen3                     & \texttt{qpcR}      & ABI Prism 7700, AB \\
-decision\_res\_lievens1.csv                      & lievens1                    & \texttt{qpcR}      & ABI7300, ABI \\
-decision\_res\_lievens2.csv                      & lievens2                    & \texttt{qpcR}      & ABI7300, ABI \\
-decision\_res\_lievens3.csv                      & lievens3                    & \texttt{qpcR}      & ABI7300, ABI \\
-decision\_res\_reps.csv                          & reps                        & \texttt{qpcR}      & MXPro3000P, Stratagene \\
-decision\_res\_reps2.csv                         & reps2                       & \texttt{qpcR}      & MXPro3000P, Stratagene \\
-decision\_res\_reps3.csv                         & reps3                       & \texttt{qpcR}      & MXPro3000P, Stratagene \\
-decision\_res\_reps384.csv                       & reps384                     & \texttt{qpcR}      & CFX384, Bio-Rad \\
-decision\_res\_rutledge.csv                      & rutledge                    & \texttt{qpcR}      & Opticon 2, MJ Research \\
-decision\_res\_stepone\_std.csv                  & stepone\_std                & \texttt{RDML}      & StepOne, AB
-\\
-decision\_res\_testdat.csv                       & testdat                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
-decision\_res\_vermeulen1.csv                    & vermeulen1                  & \texttt{qpcR}      & Light Cycler 480, Roche \\
-decision\_res\_vermeulen2.csv                    & vermeulen2                  & \texttt{qpcR}      & Light Cycler 480, Roche \\
-decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                & \texttt{chipPCR}   & CFX96, Bio-Rad \\ \hline
-\end{tabular}
-\end{table}
-
-
 \newpage
 
 
@@ -1464,54 +1341,6 @@ library(PCRedux)
 str(pcrfit_single(RAS002[, 2]))
 ```
 
-#### ``winklR()`` - A function to calculate the angle based on the first and the second derivative of an amplification curve data
-
-``winklR()`` is a function to calculate the in the trajectory of the first and the second derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
-
-```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=8.5, fig.width=11} 
-# Calculate the angles for amplification curve data from the RAS002 data set.
-library(PCRedux)
-
-
-# Load the amplification curves from the RAS002 data set.
-
-DATA <- PCRedux::RAS002
-
-# Load the RAS002_decisions data set.
-dec <- RAS002_decisions
-
-# Give tabular output of classes
-table(dec)
-
-# Assign colors to the classes (n: black, y: green).
-
-colors <- factor(dec, levels = c("y", "n"), 
-                 label = c("black", "red"))
-
-# Test for the angles via the winklR() function on the RAS002 data set
-
-res_winklR <- sapply(2L:ncol(DATA), function(i) {
-    winklR(DATA[, 1], DATA[, i])$angle
-})
-
-# Plot the results
-par(mfrow = c(1,2))
-
-# Use a stripchart to show the angles of positive (y)
-# and negative (n) amplification curves
-stripchart(res_winklR ~ dec, method = "jitter", 
-           vertical = TRUE, pch = 19)
-mtext("A", cex = 1, side = 3, adj = 0, font = 2, las = 0)
-
-# Use a calculates the conditional densities of the angles 
-# based on the values of y weighted by the boundary 
-# distribution of y
-
-cdplot(as.factor(dec) ~ res_winklR, 
-       xlab = "angle", ylab = "decision")
-mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
-
-```
 
 ##### Amplification Curve Pre-Processing
 
@@ -1647,6 +1476,55 @@ for(i in 1L:length(predictor)) {
           adj = 0, font = 2, col = ifelse(signif(res[["p.value"]], 2) < 0.05, 
                                           "black", "red"))
 }
+```
+
+#### ``winklR()`` - A function to calculate the angle based on the first and the second derivative of an amplification curve data
+
+``winklR()`` is a function to calculate the in the trajectory of the first and the second derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
+
+```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=8.5, fig.width=11} 
+# Calculate the angles for amplification curve data from the RAS002 data set.
+library(PCRedux)
+
+
+# Load the amplification curves from the RAS002 data set.
+
+DATA <- PCRedux::RAS002
+
+# Load the RAS002_decisions data set.
+dec <- RAS002_decisions
+
+# Give tabular output of classes
+table(dec)
+
+# Assign colors to the classes (n: black, y: green).
+
+colors <- factor(dec, levels = c("y", "n"), 
+                 label = c("black", "red"))
+
+# Test for the angles via the winklR() function on the RAS002 data set
+
+res_winklR <- sapply(2L:ncol(DATA), function(i) {
+    winklR(DATA[, 1], DATA[, i])$angle
+})
+
+# Plot the results
+par(mfrow = c(1,2))
+
+# Use a stripchart to show the angles of positive (y)
+# and negative (n) amplification curves
+stripchart(res_winklR ~ dec, method = "jitter", 
+           vertical = TRUE, pch = 19)
+mtext("A", cex = 1, side = 3, adj = 0, font = 2, las = 0)
+
+# Use a calculates the conditional densities of the angles 
+# based on the values of y weighted by the boundary 
+# distribution of y
+
+cdplot(as.factor(dec) ~ res_winklR, 
+       xlab = "angle", ylab = "decision")
+mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
+
 ```
 
 
@@ -2974,6 +2852,134 @@ The top two important predictors are `polygon` (`r res <- signif(res_importance[
 
 \newpage
 
+## Classified Amplification Curve Datasets\label{chapter_humanrater}
+
+Amplification curves from different sources (e.g., detection chemistries, thermo-cyclers) were manually classified with the ``humanrater()`` function (\autoref{Manual_Amplification_Curve_Classification}) or with the ``tReem()`` function  (\autoref{shape_Amplification_Curve_Classification}). Raw amplification curve data were exported as comma separated values or in the Real-time PCR Data Markup Language (RDML) format via the \texttt{RDML} package. RDML is human readable data exchange format for qPCR experiments. A detailed description can be found in @roediger_enabling_2017. The following code section describes the import of an RDML file from the \texttt{PCRedux} package. The RDML file contains amplification curve data of a duplex qPCR (HPV 16 & HPV 18) performed in the CFX96 (Bio-Rad).
+
+At least the following datasets with a dichotomous decision (positive, negative) are included.
+
+- decision_res_batsch1.csv
+- decision_res_batsch2.csv
+- decision_res_batsch3.csv
+- decision_res_batsch4.csv
+- decision_res_batsch5.csv
+- decision_res_boggy.csv
+- decision_res_C126EG595.csv
+- decision_res_C127EGHP.csv
+- decision_res_C316.amp.csv
+- decision_res_C317.amp.csv
+- decision_res_C60.amp.csv
+- decision_res_CD74.csv
+- decision_res_competimer.csv
+- decision_res_dil4reps94.csv
+- decision_res_guescini1.csv
+- decision_res_guescini2.csv
+- decision_res_HCU32_aggR.csv
+- decision_res_htPCR.csv
+- decision_res_karlen1.csv
+- decision_res_karlen2.csv
+- decision_res_karlen3.csv
+- decision_res_lc96_bACTXY.csv
+- decision_res_lievens1.csv
+- decision_res_lievens2.csv
+- decision_res_lievens3.csv
+- decision_res_RAS002.csv
+- decision_res_RAS003.csv
+- decision_res_reps2.csv
+- decision_res_reps384.csv
+- decision_res_reps3.csv
+- decision_res_reps.csv
+- decision_res_rutledge.csv
+- decision_res_stepone_std.csv
+- decision_res_testdat.csv
+- decision_res_vermeulen1.csv
+- decision_res_vermeulen2.csv
+- decision_res_VIMCFX96_60.csv
+
+
+```{r, echo=TRUE, eval=FALSE}
+library(RDML)
+# Load the RDML package and use its functions to import the amplification curve
+#  data
+library(RDML)
+filename <- system.file("RAS002.rdml", package = "PCRedux")
+raw_data <- RDML$new(filename = filename)
+```
+
+The following example shows the export of the `RAS002.rdml` file from the RDML format to the csv format.
+
+```{r, echo=TRUE, eval=FALSE}
+# Export the RDML data from the PCRedux package as the objects RAS002 and RAS003.
+library(RDML)
+library(PCRedux)
+library(data.table)
+
+RAS002 <- data.frame(RDML$new(paste0(
+    path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData()
+    )
+
+# The obbject RAS002 can be stored in the working directory as CSV file with
+# the name RAS002_amp.csv.
+write.csv(RAS002, "RAS002_amp.csv", row.names = FALSE)
+```
+
+RDML data file           | Device    | Target gene           | Detection chemistry
+-------------------------|-----------|-----------------------|------------------------------
+RAS002.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
+RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
+hookreg.rdml             | Bio-Rad   | various               | Taqman, DNA binding dyes
+
+\begin{table}[]
+\centering
+\caption{Classified amplification curve data sets. Decision data sets in \texttt{PCRedux}: table with results of manual classification as comma separated values. qPCR data set: name of original amplification curve data set. Package: name of the \texttt{R} package containing the amplification curves. Device: is the device used to measure the amplification reaction. \texttt{Note: The original data sets contain information about the detection chemistry used within the corresponding qPCR experiments.} AB, Applied Biosystems.}
+\label{table-datasets}
+\begin{tabular}{llll}
+\hline
+Decision Datasets in PCRedux                    & qPCR Dataset               & Package              & Device         \\ \hline
+decision\_res\_RAS002.csv                        & RAS002.rdml                 & \texttt{PCRedux}   & CFX96, Bio-Rad \\
+decision\_res\_RAS003.csv                        & RAS003.rdml                 & \texttt{PCRedux}   & CFX96, Bio-Rad \\
+decision\_res\_batsch1.csv                       & batsch1                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
+decision\_res\_batsch2.csv                       & batsch2                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
+decision\_res\_batsch3.csv                       & batsch3                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
+decision\_res\_batsch4.csv                       & batsch4                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
+decision\_res\_batsch5.csv                       & batsch5                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
+decision\_res\_lc96\_bACTXY.csv                  & lc96\_bACTXY.rdml           & \texttt{RDML}      & Light Cycler 1.0, Roche \\
+decision\_res\_boggy.csv                         & boggy                       & \texttt{qpcR}      & Light Cycler 96, Roche \\
+decision\_res\_C126EG595.csv                     & C126EG595                   & \texttt{chipPCR}   & Chromo4, Bio-Rad \\
+decision\_res\_C127EGHP.csv                      & C127EGHP                    & \texttt{chipPCR}   & iQ5, Bio-Rad \\
+decision\_res\_C316.amp.csv                      & C316.amp                    & \texttt{chipPCR}   & iQ5, Bio-Rad \\
+decision\_res\_C317.amp.csv                      & C317.amp                    & \texttt{chipPCR}   & iQ5, Bio-Rad \\
+decision\_res\_C60.amp.csv                       & C60.amp                     & \texttt{chipPCR}   & iQ5, Bio-Rad \\
+decision\_res\_CD74.csv                          & CD74                        & \texttt{chipPCR}   & iQ5, Bio-Rad \\
+decision\_res\_competimer.csv                    & competimer                  & \texttt{qpcR}      & Light Cycler 480, Roche \\
+decision\_res\_dil4reps94.csv                    & dil4reps94                  & \texttt{qpcR}      & CFX384, Bio-Rad \\
+decision\_res\_guescini1.csv                     & guescini1                   & \texttt{qpcR}      & Light Cycler 480, Roche \\
+decision\_res\_guescini2.csv                     & guescini2                   & \texttt{qpcR}      & Light Cycler 480, Roche \\
+decision\_res\_htPCR.csv                         & htPCR                       & \texttt{qpcR}      & Biomark HD, Fluidigm \\
+decision\_HCU32\_aggR.csv                        & HCU32\_aggR.csv             & \texttt{PCRedux}   & VideoScan \\
+decision\_res\_karlen1.csv                       & karlen1                     & \texttt{qpcR}      & ABI Prism 7700, AB \\
+decision\_res\_karlen2.csv                       & karlen2                     & \texttt{qpcR}      & ABI Prism 7700, AB \\
+decision\_res\_karlen3.csv                       & karlen3                     & \texttt{qpcR}      & ABI Prism 7700, AB \\
+decision\_res\_lievens1.csv                      & lievens1                    & \texttt{qpcR}      & ABI7300, ABI \\
+decision\_res\_lievens2.csv                      & lievens2                    & \texttt{qpcR}      & ABI7300, ABI \\
+decision\_res\_lievens3.csv                      & lievens3                    & \texttt{qpcR}      & ABI7300, ABI \\
+decision\_res\_reps.csv                          & reps                        & \texttt{qpcR}      & MXPro3000P, Stratagene \\
+decision\_res\_reps2.csv                         & reps2                       & \texttt{qpcR}      & MXPro3000P, Stratagene \\
+decision\_res\_reps3.csv                         & reps3                       & \texttt{qpcR}      & MXPro3000P, Stratagene \\
+decision\_res\_reps384.csv                       & reps384                     & \texttt{qpcR}      & CFX384, Bio-Rad \\
+decision\_res\_rutledge.csv                      & rutledge                    & \texttt{qpcR}      & Opticon 2, MJ Research \\
+decision\_res\_stepone\_std.csv                  & stepone\_std                & \texttt{RDML}      & StepOne, AB
+\\
+decision\_res\_testdat.csv                       & testdat                     & \texttt{qpcR}      & Light Cycler 1.0, Roche \\
+decision\_res\_vermeulen1.csv                    & vermeulen1                  & \texttt{qpcR}      & Light Cycler 480, Roche \\
+decision\_res\_vermeulen2.csv                    & vermeulen2                  & \texttt{qpcR}      & Light Cycler 480, Roche \\
+decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                & \texttt{chipPCR}   & CFX96, Bio-Rad \\ \hline
+\end{tabular}
+\end{table}
+
+
+\newpage
+
 # Summary and Conclusions  \label{section_Summary_and_conclusions}
 
 Extensive amounts of data represent a serious challenge in the analysis of qPCR amplification curves. In a manual classification (e.g. negative, positive) the result is usually characterized by the subjective perception of the experimenter. In addition, the time required for a manual analysis is high. An automatic system for amplification curve analysis might objectify and generalize the decision process. Interestingly, so far most authors focused on the extraction of single predictors from amplification curves. These are mainly the Cq and the amplification efficiency, which are used for the downstream processing such as expression analysis or genotyping [@pabinger_2014]. 
@@ -3029,9 +3035,9 @@ Although data sets in the \texttt{PCRedux} package are large compared to what ha
     + how the models are tested and
     + which results are reported.
 
-Accordingly, the domain knowledge, biases, and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training data set. The model is intended to be in accordance with the human operator. The implications can be serve. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. As illustrated in chapter XYZ, every human operator will make an association between the shape of an amplification curve and the class it belongs to.
+Accordingly, the domain knowledge, biases, and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training data set. The model is intended to be in accordance with the human operator. The implications can be serve. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. As illustrated in \autoref{section_reasoning_and_analysis}, every human operator will make an association between the shape of an amplification curve and the class it belongs to.
 
-Measures to minimize errors are the implementation of algorithms in open source package and public available data sets. In contrast to black box algorithms and hidden data sets can third parties review and modify all elements. Many qPCR devices have build-in software that performs per-processiong steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr, @spiess_impact_2015, @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied throughly.
+Measures to minimize errors are the implementation of algorithms in open source package and public available data sets. In contrast to black box algorithms and hidden data sets can third parties review and modify all elements. Many qPCR devices have build-in software that performs per-processiong steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr; @spiess_impact_2015; @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied throughly.
 
 For the examples in the \texttt{PCRedux} package, the question could not be clarified whether class imbalances in the data sets cause a confirmation distortion. However, a class imbalance may result in loss of prediction strength, because some classifiers make the assumption of similar class distributions [@herrera_multiple_2016].
 
@@ -3043,10 +3049,9 @@ Machine-learning algorithms require careful data pre-processing and quality mana
 
 The scope of the \texttt{PCRedux} package is wide. The quantitation of nucleic acids by curve parameters such as the Cq and amplification efficiency is meaningful only if the amplification curves have a sigmoid shape [@ruijter_evaluation_2013; @ruijter_2014; @Ritz2008], which in principle, can now be verified with the \texttt{PCRedux} package. 
 
-It was shown how a given data set of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves. The algorithms provide means for a sensitive and specific classification of amplification curves from qPCR experiments in both supervised an unsupervised analysis mode. However, this method might be applicable to melting analysis too. This needs to be investigated in further studies.
+In this study, it was shown how a given data set of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves. The algorithms provide means for a sensitive and specific classification of amplification curves from qPCR experiments in both supervised an unsupervised analysis mode. However, this method might be applicable to melting analysis too. This needs to be investigated in further studies.
 
-Importantly, the concepts elucidated in this work may also be applied to other bioanalytical methods (e.g. enzyme kinetics, receptor binding studies, ELISA results, biological growth curves) with sigmoidal structure, however this requires more detailed interrogation. The \texttt{PCRedux} software may also be coupled with other technologies like Next Generation Sequencing. qPCR is used for pre-testing (DNA quality) and as a confirmation test for RNA-Seq quantification. For this purpose, automated quality control and decision support are conceivable.
-
+Importantly, the concepts elucidated in this work may also be applied to other bioanalytical methods (e.g. enzyme kinetics, receptor binding studies, ELISA results, biological growth curves) with sigmoidal structure, however this requires more detailed interrogation. The \texttt{PCRedux} software may also be coupled with other technologies like Next Generation Sequencing. qPCR is used for pre-testing (DNA quality) and as a confirmation test for RNA-Seq quantification [@nassirpour_identification_2014]. For this purpose, automated quality control and decision support are conceivable.
 
 \newpage
 
