@@ -22,9 +22,9 @@
 #'
 #' @param x is the cycle numbers (x-axis). By default the frist ten cycles are removed.
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
-#' @param normalize is a logical parameters, which indicates if the amplification curve
+#' @param normalize is a logical parameter, which indicates if the amplification curve
 #' data should be normalized to the 99 percent percentile of the amplification curve.
-#' @param preprocess is a logical parameters, which indicates if the amplification curve
+#' @param preprocess is a logical parameter, which indicates if the amplification curve
 #' data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagged data).
 #' @author Stefan Roediger
 #' @keywords angle derivative
