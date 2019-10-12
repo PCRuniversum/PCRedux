@@ -24,6 +24,8 @@
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param normalize is a logical parameters, which indicates if the amplification curve
 #' data should be normalized to the 99 percent percentile of the amplification curve.
+#' @param preprocess is a logical parameters, which indicates if the amplification curve
+#' data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagged data).
 #' @author Stefan Roediger
 #' @keywords angle derivative
 #' @seealso
@@ -77,6 +79,9 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
   } else {
       y <- data[, "y"]
 }
+  
+  guess_direction <- ifelse(median(head(y, 5)) > median(tail(y, 5)), "max", "min")
+  
   # Calculate the point of the first and the second derivatives
   res <- try(suppressMessages(MBmca::diffQ2(cbind(x[-c(1:10)], y[-c(1:10)]), 
                                             inder = TRUE, verbose = TRUE, 

@@ -50,6 +50,10 @@ HCU32 <- "Clustering and variation analysis of amplification curves. The amplifi
 
 HCU32_short <- "Clustering and variation analysis of amplification curves"
 
+winklR_principle <- "Concept of the winklR() function. Analysis of the amplification curves of the `RAS002` data set with the winklR() function. Two amplification curves (A: positive, B: negative) were used. The red point shows the origin (first negative derivative maximum) while the green and blue points show the minimum and maximum of the second negative derivative. The angle is calculated from these points. Positive curves have smaller angles than negative curves."
+
+winklR_principle_short <- "Concept of the winklR() function"
+
 winklR <- "Analysis of the amplification curves of the `RAS002` data set with the winklR() function. All amplification curves of the data set `RAS002` were analyzed. Negative amplification curves are shown in red and positive amplification curves in black. The winklR() function was used to analyze all amplification curves. B) The stripchart of the analysis of positive and negative amplification curves shows separation. C) The cdplot calculates the conditional densities of x based on the values of y weighted by the boundary distribution of y. The densities are derived cumulatively via the values of y. The probability that the decision is negative (n) when the angle equals 30 is approximately 100\\%."
 
 winklR_short <- "Variation analysis of amplification curves with the winklR() function"
@@ -147,7 +151,7 @@ The PDF version of this document is available [online](https://github.com/devSJR
 
 # Aims of the Project
 
-A review of the literature (1984-01-01 - `r Sys.Date()`) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable *informative* property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub\footnote{\url{https://github.com/}}, Bitbucket\footnote{\url{https://bitbucket.org/}}, SourceForge\footnote{\url{https://sourceforge.net/}} or Kaggle\footnote{\url{https://www.kaggle.com/}}.
+A review of the literature (PubMed, Google Scholar; 1984-01-01 - `r Sys.Date()`) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable *informative* property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub\footnote{\url{https://github.com/}}, Bitbucket\footnote{\url{https://bitbucket.org/}}, SourceForge\footnote{\url{https://sourceforge.net/}} or Kaggle\footnote{\url{https://www.kaggle.com/}}.
 
 Therefore, the aim of the study was to:
 
@@ -1484,12 +1488,44 @@ for(i in 1L:length(predictor)) {
 
 #### ``winklR()`` - A function to calculate the angle based on the first and the second derivative of an amplification curve data
 
-``winklR()`` is a function to calculate the in the trajectory of the first and the second derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
+``winklR()`` is a function to calculate the in the trajectory of the first negative and the second negative derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
+
+```{r, echo = FALSE, fig.cap=winklR_principle, fig.scap=winklR_principle_short, fig.height=8.5, fig.width=11}
+
+par(mfrow = c(1,2))
+for(i in 1:2){
+
+columns <- c(2,3) + 2
+
+class <- c("positive", "negative")
+
+res <- winklR(RAS002[, 1], RAS002[, columns[i]], preprocess = TRUE)
+
+y_lim_range <- range(c(RAS002[, columns[i]], res$origin[2], res[["p1"]][2], res[["p2"]][2]))
+
+plot(RAS002[, 1], RAS002[, columns[i]], type = "l", ylim = y_lim_range, 
+     xlab = "Cycles", ylab = "RFU")
+
+mtext(paste0(LETTERS[i], "   ", class[i]), cex = 1, side = 3, 
+          adj = 0, font = 2)
+
+
+points(res$origin, col = "red", pch = 19)
+points(res[["p1"]], col = "green", pch = 19)
+points(res[["p2"]], col = "blue", pch = 19)
+
+arrows(res$origin[[1]], res$origin[[2]], res[["p1"]][[1]], res[["p1"]][[2]], length = .05, col = "green")
+arrows(res$origin[[1]], res$origin[[2]], res[["p2"]][[1]], res[["p2"]][[2]], length = .05, col = "blue")
+
+text(res$origin[1], res$origin[2] + 250, signif(res[["angle"]], 2))
+}
+
+```
+
 
 ```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=8.5, fig.width=11} 
 # Calculate the angles for amplification curve data from the RAS002 data set.
 library(PCRedux)
-
 
 # Load the amplification curves from the RAS002 data set.
 
