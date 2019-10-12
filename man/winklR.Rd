@@ -56,13 +56,13 @@ res <- winklR(x=RAS002[, 1], y=RAS002[, 7])
 res
 plot(rbind(res$origin, res$p1, res$p2), col = c("black","green","blue"))
 
-res_angles <- unlist(lapply(2:ncol(RAS002), function(i) {winklR(RAS002[, 1], RAS002[, i])$angle}))
-cdplot(as.factor(RAS002_decisions) ~ res_angles, xlab = "angle", ylab = "decision")
+res_angles <- unlist(lapply(2:21, function(i) {winklR(RAS002[, 1], RAS002[, i])$angle}))
+cdplot(RAS002_decisions[1L:20] ~ res_angles, xlab = "angle", ylab = "decision")
 
 
 }
 \seealso{
-\code{\link[stats]{acos}}
+\code{\link[base]{acos}}
  \code{\link[MBmca]{diffQ2}}
 }
 \author{

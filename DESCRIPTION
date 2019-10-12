@@ -46,9 +46,7 @@ Imports:
     utils,
     visdat,
     zoo
-Suggests:
-    data.table,
-    dplyr,
+Suggests: 
     knitr,
     RDML,
     readxl,
@@ -56,4 +54,5 @@ Suggests:
     xtable
 NeedsCompilation: no
 VignetteBuilder: knitr
+Encoding: UTF-8
 RoxygenNote: 6.1.1

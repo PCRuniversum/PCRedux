@@ -406,10 +406,10 @@ plot(NA, NA, xlim = c(0,1), ylim = c(0,1), xlab ="", ylab = "", xaxt ="n", yaxt=
 
 # Load the decision_res_htPCR.csv data set from a csv file.
 filename <- system.file("decision_res_vermeulen1.csv", package = "PCRedux")
-dec <- data.table::fread(filename, data.table = FALSE)[, 2]
+dec <- read.csv(filename)[, 2]
 
 usr_colors <- c(
-    adjustcolor("black", alpha.f = 0.80),                                adjustcolor("red", alpha.f = 0.80),                                         adjustcolor("green", alpha.f = 0.80)
+    adjustcolor("black", alpha.f = 0.80), adjustcolor("red", alpha.f = 0.80),                                         adjustcolor("green", alpha.f = 0.80)
 )
 
 colors <- as.character(factor(dec, 
@@ -848,7 +848,7 @@ library(PCRedux)
 
 # Load the decision_res_htPCR.csv data set from a csv file.
 filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
-decision_res_htPCR <- data.table::fread(filename, data.table = FALSE)
+decision_res_htPCR <- read.csv(filename)
 
 # Create graphic device for the plot(s)
 par(mfrow = c(2, 4))
@@ -1109,14 +1109,13 @@ curves form only few clusters.
 # Calculate slope and intercept on positive amplification curve data from the
 # VideoScan 32 cavity real-time PCR device.
 # Use the fda.usc package for functional data analysis
-library(data.table)
 library(fda.usc)
 
 # Load the qPCR data from the HCU32_aggR.csv data set
 # Convert the qPCR data set to the fdata format
 
 filename <- system.file("HCU32_aggR.csv", package = "PCRedux")
-data_32HCU <- data.table::fread(filename, data.table = FALSE)
+data_32HCU <- read.csv(filename)
 
 res_fdata <- qPCR2fdata(data_32HCU)
 # Extract column names and create rainbow color to label the data
@@ -2310,7 +2309,7 @@ data <- RAS002[, c(1, amplification_curves)]
 
 # Load the decision_res_htPCR.csv data set from a csv file.
 filename <- system.file("decision_res_RAS002.csv", package = "PCRedux")
-decision_res <- data.table::fread(filename, data.table = FALSE)
+decision_res <- read.csv(filename)
 
 # Overview of the amplicon curve classifications
 res_decision <- decision_res[amplification_curves - 1, -c(3,4)]
@@ -2473,13 +2472,12 @@ In addition, the decisions file `decision_res_RAS002.csv` from the user was anal
 
 ```{r autocorrelation, echo=TRUE, fig.cap=autocorrelation, fig.scap=autocorrelation_short, fig.height=5.5, fig.width=11}
 # Test for autocorrelation in amplification curve data. The amplification 
-# curve data from the `htPCR` data set was used. The data.table package was 
-# used for fast import of the csv data.
+# curve data from the `htPCR` data set was used. 
 library(PCRedux)
 
 # Load the decision_res_htPCR.csv data set from a csv file.
 filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
-decision_res_htPCR <- data.table::fread(filename, data.table = FALSE)
+decision_res_htPCR <- read.csv(filename)
 
 # Select only amplification curves (obs) were all 
 # classifications were in concordance ("conformity == TRUE" ).
@@ -2489,7 +2487,7 @@ decision_res_htPCR <- data.table::fread(filename, data.table = FALSE)
 # p: positive
 
 obs_number <- which(decision_res_htPCR[["conformity"]] == TRUE)
-dec <- decision_res_htPCR[obs_number, "test.result.1"] %>% unlist(.)
+dec <- unlist(decision_res_htPCR[obs_number, "test.result.1"])
 
 # Give tabular output of classes
 table(dec)
@@ -2538,10 +2536,10 @@ mtext("A    RAS002 data set", cex = 1, side = 3, adj = 0, font = 2)
 
 cutoff <- 0.85
 
-res_ac_hc <- data.frame(
+res_ac_hc <- as.matrix(data.frame(
     ac = ifelse(res_ac > cutoff, 1, 0),
                         hc = ifelse(dec == "y", 0, 1)
-) %>% as.matrix()
+))
 res_performeR <- performeR(s = res_ac_hc[, "ac"], r = res_ac_hc[, "hc"])
 
 
@@ -2552,10 +2550,8 @@ abline(v = cutoff)
 mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
 
-cdplot(
-    as.factor(dec) ~ res_ac, xlab = "Autocorrelation",
-       ylab = "Class decision"
-)
+cdplot(res_ac, droplevels(dec), xlab = "Autocorrelation", ylab = "Class decision")
+
 mtext("C", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
 barplot(
@@ -2952,7 +2948,6 @@ The following example shows the export of the `RAS002.rdml` file from the RDML f
 # Export the RDML data from the PCRedux package as the objects RAS002 and RAS003.
 library(RDML)
 library(PCRedux)
-library(data.table)
 
 RAS002 <- data.frame(RDML$new(paste0(
     path.package("PCRedux"), "/", "RAS002.rdml"))$GetFData()

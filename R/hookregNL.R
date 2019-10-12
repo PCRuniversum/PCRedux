@@ -39,19 +39,19 @@
 hookregNL <- function(x, y, plot=FALSE, level=0.995, simple=TRUE, manualtrim=5) {
   # Create data, remove missing values (manualtrim) and remove first 5 cycles to
   # avoid fitting baseline slopes.
-
+  
   data <- na.omit(data.frame(cycles = x, fluo = y))
   data <- data[-(1:manualtrim), ]
-
+  
   # fit a 6-parameter log-logistic model
   fit <- try(pcrfit(data, 1, 2, l6), silent = TRUE)
   l6 <- NULL
   if (inherits(fit, "try-error")) {
     message("fitting failed.")
   }
-
+  
   if (plot && !inherits(fit, "try-error")) plot(fit)
-
+  
   # Confidence interval for slope parameter 'k'
   if (inherits(fit, "try-error")) {
     slope <- NA
@@ -64,21 +64,23 @@ hookregNL <- function(x, y, plot=FALSE, level=0.995, simple=TRUE, manualtrim=5) 
       confslope <- c(NA, NA)
     }
   }
-
+  
   # Decision
-  hook <- ifelse(!is.na(confslope[1]) &&
-    confslope[1] < 0 &&
-    confslope[2] < 0 &&
-    class(fit) != "try-error",
-  1, 0
-  )
-
+  hook <- if(!is.na(confslope[1]) &&
+             confslope[1] < 0 &&
+             confslope[2] < 0 &&
+             !("try-error" %in% class(fit))) {
+    1
+  }  else {
+    0 
+  }
+  
   confslope_simple <- if (!is.na(confslope[1])) {
     data.frame(CI.low = confslope[[1]], CI.up = confslope[[2]])
   } else {
     data.frame(CI.low = NA, CI.up = NA)
   }
-
+  
   # Output
   if (simple) {
     res <- data.frame(slope = slope[[1]], CI.low = confslope_simple[[1]], CI.up = confslope_simple[[2]], hook = hook)

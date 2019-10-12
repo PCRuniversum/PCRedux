@@ -33,15 +33,13 @@ decision_modus(c("a","a","y","n","b"))
 
 # Second example
 # Analyze data from the decision_res_testdat.csv data file
-library(data.table)
-library(magrittr)
 filename <- system.file("decision_res_testdat.csv", package = "PCRedux")
-my_data <- as.data.frame(fread(filename))
+my_data <- read.csv(filename)
 head(my_data)
 
-dec <- lapply(1L:nrow(my_data), function(i) {
+dec <- unlist(lapply(1L:nrow(my_data), function(i) {
        decision_modus(my_data[i, 2:4])
-}) \%>\% unlist
+}))
 
 names(dec) <- my_data[, 1]
 dec
