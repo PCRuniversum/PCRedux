@@ -28,7 +28,6 @@ Depends:
 Imports:
     bcp,
     changepoint,
-    caret,
     chipPCR,
     ecp,
     fda.usc,

@@ -104,11 +104,6 @@ G. James, D. Witten, T. Hastie, R. Tibshirani, An Introduction to Statistical
 Learning, \emph{Springer New York, New York, NY}, (2013).
 doi:10.1007/978-1-4614-7138-7.
 }
-\seealso{
-\code{\link[caret]{sensitivity}}
- \code{\link[caret]{specificity}}
- \code{\link[caret]{negPredValue}}
-}
 \author{
 Stefan Roediger, Michal Burdukiewcz
 }

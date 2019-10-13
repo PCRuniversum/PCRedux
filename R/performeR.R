@@ -9,10 +9,6 @@
 #' system.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords sensitivity specificity precision accuracy
-#' @seealso
-#'  \code{\link[caret]{sensitivity}}
-#'  \code{\link[caret]{specificity}}
-#'  \code{\link[caret]{negPredValue}}
 #' @references H. Brenner, O. Gefeller, others, Variation of sensitivity,
 #' specificity, likelihood ratios and predictive values with disease prevalence,
 #' \emph{Statistics in Medicine}. 16 (1997) 981--991.
