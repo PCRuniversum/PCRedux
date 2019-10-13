@@ -19,6 +19,10 @@ matrix:
 before_install:
   - export DISPLAY=:99.0
 
+apt_packages:
+  - libgl1-mesa-dev 
+  - libglu1-mesa-dev
+
 services:
   - xvfb
 
