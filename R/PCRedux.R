@@ -13,13 +13,11 @@
 #' @importFrom graphics abline matplot par
 #' @importFrom grDevices rainbow
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
-#' @importFrom plotly ggplotly
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
 #' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm median na.omit quantile sd wilcox.test
 #' @importFrom utils head tail data
-#' @importFrom visdat vis_dat
 #' @importFrom zoo as.zoo
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 #' @docType package
