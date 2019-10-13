@@ -169,7 +169,7 @@ pcrfit_single <- function(x) {
   # Bayesian analysis of change points
   res_bcp_tmp <- try(bcp::bcp(res_diffQ[["d(F) / dT"]]), silent = TRUE)
   res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.6, silent = TRUE)
-  res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length()))
+  res_bcp <- try(length(which(as.factor(res_bcp_tmp) == TRUE)))
   if (class(res_bcp) == "try-error") {
     res_bcp <- 0
   }

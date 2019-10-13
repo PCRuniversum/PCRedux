@@ -32,25 +32,22 @@ Imports:
     chipPCR,
     ecp,
     fda.usc,
-    FFTrees,
-    magrittr,
     MBmca,
     pbapply,
-    plotly,
     pracma,
     qpcR,
     robustbase,
-    randomForest,
     stats,
-    testthat,
     utils,
-    visdat,
     zoo
 Suggests: 
+    FFTrees,
     knitr,
     RDML,
+    randomForest,
     readxl,
     rmarkdown,
+    testthat,
     xtable
 NeedsCompilation: no
 VignetteBuilder: knitr

@@ -24,8 +24,7 @@
 #'  \code{\link[stats]{cor.test}}
 #' @examples
 #' # Test for autocorrelation in amplification curve data
-#' # Load the libraries magrittr for pipes and qpcR for the data
-#' library(magrittr)
+#' # Load qpcR for the data
 #' library(qpcR)
 #' # Test for autocorrelation in the testdat data set
 #' res_ac <- sapply(2:ncol(testdat), function(i) {
@@ -52,8 +51,8 @@
 #' # Convert the n.s. (not significant) to 0 and others to 1.
 #' # Combine the results of the aromatic autocorrelation_test as variable "ac",
 #' # the human rated values as variable "hr" in a new data frame (res_ac_hr).
-#' res_ac_hr <- data.frame(ac=ifelse(res_ac=="n.s.", 0, 1),
-#'                         hr=human_rating) %>% as.matrix
+#' res_ac_hr <- as.matrix(data.frame(ac=ifelse(res_ac=="n.s.", 0, 1),
+#'                                   hr=human_rating))
 #' res_performeR <- performeR(res_ac_hr[, "ac"], res_ac_hr[, "hr"])
 #'
 #' # Add ratings by human and autocorrelation_test to the plot

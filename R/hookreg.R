@@ -26,11 +26,10 @@
 #' # for the last eight cycles.
 #'
 #' library(qpcR)
-#' library(magrittr)
 #'
-#'  res_hook <- sapply(2:ncol(boggy), function(i) {
-#'      hookreg(x=boggy[, 1], y=boggy[, i])}) %>% t %>%
-#'      data.frame(sample=colnames(boggy)[-1],.)
+#' res_hook <- data.frame(sample=colnames(boggy)[-1], 
+#'                        t(sapply(2:ncol(boggy), function(i) {
+#'                        hookreg(x=boggy[, 1], y=boggy[, i])})))
 #' res_hook
 #'
 #' data_colors <- rainbow(ncol(boggy[, -1]), alpha=0.5)

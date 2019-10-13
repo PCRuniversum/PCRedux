@@ -10,18 +10,14 @@
 #' @importFrom chipPCR amptester bg.max CPP smoother
 #' @importFrom ecp e.agglo
 #' @importFrom fda.usc fdata metric.hausdorff
-#' @importFrom FFTrees FFTrees
 #' @importFrom graphics abline matplot par
 #' @importFrom grDevices rainbow
-#' @importFrom magrittr %>%
 #' @importFrom MBmca diffQ diffQ2 mcaPeaks
 #' @importFrom plotly ggplotly
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
-#' @importFrom randomForest randomForest importance
 #' @importFrom robustbase lmrob
 #' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm median na.omit quantile sd wilcox.test
-#' @importFrom testthat context test_that
 #' @importFrom utils head tail data
 #' @importFrom visdat vis_dat
 #' @importFrom zoo as.zoo

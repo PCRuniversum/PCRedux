@@ -42,11 +42,11 @@ decision_modus <- function(data, variables=c("a", "n", "y"), max_freq=TRUE) {
   # read in data and unlist them for the processing
   unlisted_data <- unlist(data)
   #  find the unique elements
-  unique_variables <- unlisted_data %>% unique()
+  unique_variables <- unique(unlisted_data)
   # traverse over the vector with the decision elements and apply the sum
   # function to the to get the total number for each decision element.
   sum_unique_variables <- sapply(1L:length(unique_variables), function(i) {
-    unlisted_data %in% unique_variables[i] %>% sum()
+    sum(unlisted_data %in% unique_variables[i])
   })
   # Perform a logical operation on the summarized decision elements.
   # Either report the most common element or total statistics about the decision
