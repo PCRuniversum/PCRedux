@@ -8,11 +8,13 @@
 
 <title>Performance analysis for binary classification — performeR • PCRedux</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,13 +34,14 @@
 
 
 
-<meta property="og:title" content="Performance analysis for binary classification — performeR" />
 
+<meta property="og:title" content="Performance analysis for binary classification — performeR" />
 <meta property="og:description" content="This function performs an analysis sensitivity and specificity
 to asses the performance of a binary classification test. For further reading
 the studies by Brenner and Gefeller 1997, James 2013 by Kuhn 2008 are a good
 starting point." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -100,7 +103,6 @@ starting point." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -122,16 +124,14 @@ starting point." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function performs an analysis sensitivity and specificity
 to asses the performance of a binary classification test. For further reading
 the studies by Brenner and Gefeller 1997, James 2013 by Kuhn 2008 are a good
 starting point.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>performeR</span>(<span class='no'>sample</span>, <span class='no'>reference</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -145,7 +145,7 @@ starting point.</p>
 system.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>TP, true positive; FP, false positive; TN, true negative; FN, false
@@ -187,7 +187,6 @@ kappa=(p0-pc)/(1-p0)</p>
 <p>$$n = a + b + c + d$$</p>
 <p>pc=((a+b)/n)((a+c)/n)+((c+d)/n)((b+d)/n)</p>
 <p>po=(a+d)/n</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>H. Brenner, O. Gefeller, others, Variation of sensitivity,
@@ -198,7 +197,6 @@ specificity, likelihood ratios and predictive values with disease prevalence,
 <p>G. James, D. Witten, T. Hastie, R. Tibshirani, An Introduction to Statistical
 Learning, <em>Springer New York, New York, NY</em>, (2013).
 doi:10.1007/978-1-4614-7138-7.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Produce some arbitrary binary decisions data</span>
@@ -221,11 +219,8 @@ doi:10.1007/978-1-4614-7138-7.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

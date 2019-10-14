@@ -1355,7 +1355,7 @@ The ``pcrfit_single()`` function performs pre-processing steps before each calcu
 
 All values of an amplification curve are normalized to their 99\% quantile. The normalization is used to equalize the amplitudes differences of amplification curves from thermo-cyclers (sensor technology, software processing) and detection chemistries. To compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e.&nbsp;g., minimum-maximum normalization, see @roediger2015chippcr, the normalization by the 99\% quantile preserves the information about the level of the background phase. A normalization to the maximum is not used to avoid strong extenuation by outliers. The data in \autoref{plot_bg_pt}D show that the `maxRFU` values after normalization are approximately 1. There is no statistical significant difference between `maxRFU` values of positive and negative amplification curves.
 
-Selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` [\texttt{chipPCR}] function to pre-process (e.&nbsp;g., base-lining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr. Until package version 0.2.6-4 was the ``visdat_pcrfit()`` part of the package. ``visdat_pcrfit()`` was used for visualizing the content of data from an analysis with the ``pcrfit_single()`` function. There are other more powerfull packages such as \texttt{visdat} by @Tierney2017.
+Selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` [\texttt{chipPCR}] function to pre-process (e.&nbsp;g., base-lining, smoothing, imputation of missing values) the amplification curves. Further details are given in @roediger2015chippcr. Until package version 0.2.6-4 was the ``visdat_pcrfit()`` part of the package. ``visdat_pcrfit()`` was used for visualizing the content of data from an analysis with the ``pcrfit_single()`` function. There are other more powerfull packages such as \texttt{visdat} by @Tierney2017 and \texttt{xray} by @Seibelt_xray.
 
 During the analysis, several values are determined to describe the amplitude of an amplification curve. The resulting potential predictors are `minRFU` (minimum of the amplification curve, which is determined at the 1\% quantile to minimize the influence of outliers), `init2` (the initial template fluorescence from an exponential model) and `fluo` (raw fluorescence value at the second derivative maximum). The `minRFU`, `init2` and `fluo` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}C, E & F).
 
@@ -2389,10 +2389,11 @@ colnames(output_res_mblrr) <- c(
 )
 
 print(xtable(
-  output_res_mblrr, caption = "Selected results of predictors from the mblrr() function. nBG, intercept of 
-             head region; mBG, slope of head region; rBG, Pearson 
-             correlation of head region; nTP, intercept of tail region; mTP, 
-             slope of tail region; rBG, Pearson correlation of tail region",
+  output_res_mblrr, caption = "Selected results of predictors from the mblrr() 
+             function. nBG, intercept of head region; mBG, slope of head region; 
+             rBG, Pearson correlation of head region; nTP, intercept of tail 
+             region; mTP, slope of tail region; rBG, Pearson correlation of 
+             tail region",
   label = "tablemblrrintroduction"
 ), comment = FALSE, caption.placement = "top")
 ```
