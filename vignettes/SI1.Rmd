@@ -8,50 +8,50 @@ output:
     toc: true
 bibliography: "literature.bib"
 vignette: >
-  %\VignetteIndexEntry{Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves}
+%\VignetteIndexEntry{Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
----
-
-\begin{figure}[ht]
-\centering
-\scalebox{0.6}{
-\includegraphics[clip=true,trim=1cm 1cm 1cm 1cm]{Logo.pdf}
-}
-\end{figure}
-
-The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/raw/master/docs/articles/SI1.pdf).
-
-# Abstract
-This is a supplemental document for the study *Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves*.
-Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics [@dvinge_htqpcr:_2009, @martins_dna_2015, @sauer_differentiation_2016].
-
-Numerous algorithms have been developed to extract features from amplification curves such as the cylce of quantification and the amplification efficiency [@ruijter_evaluation_2013]. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance [@kemperman_mircomp-shiny:_2017]. But at an earlier level it is important to have a solid foundation for the data preprocessing [@spiess_impact_2015, @spiess_system-specific_2016, @ronde_practical_2017].
-Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.
-
-The aim of the study is to provide software tools and algorithms, which assist qPCR users during the analysis and quality management of their data. In particular, this study shows how it is possible to automatically detect hook effects (see @barratt_improving_2002) or hook effect-like curvatures. 
-
-
-# Introduction
-
-The functions and data 
-presented in the paper are available from <https://github.com/devSJR/PCRedux>. 
-The data, including the RDML file, are part of the \texttt{PCRedux} package and are 
-made available in the CSV or RDML format [@roediger_enabling_2017] for vendor 
-independent analysis.
-
-All analyses were implemented and conducted with the **R** statistical computing 
-language [@R_language, @roediger2015r] and dedicated integrated development 
-environments such as **RKWard** [@roediger_rkward_2012]. Further documentation 
-can be found in the help files of the **R** packages.
-
-
-
-# Installation
-
-The **hookreg()** and **hookregNL()** functions are part of the \texttt{PCRedux} package for the **R** statistical computing language.  Download from CRAN <http://cran.r-project.org/> the **R** version for the required operating system and install **R**. Then start **R** and type in the prompt:
-
-```{R, eval=FALSE, echo=TRUE}
+  ---
+  
+  \begin{figure}[ht]
+  \centering
+  \scalebox{0.6}{
+  \includegraphics[clip=true,trim=1cm 1cm 1cm 1cm]{Logo.pdf}
+  }
+  \end{figure}
+  
+  The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/raw/master/docs/articles/SI1.pdf).
+  
+  # Abstract
+  This is a supplemental document for the study *Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves*.
+  Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics [@dvinge_htqpcr:_2009, @martins_dna_2015, @sauer_differentiation_2016].
+  
+  Numerous algorithms have been developed to extract features from amplification curves such as the cylce of quantification and the amplification efficiency [@ruijter_evaluation_2013]. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance [@kemperman_mircomp-shiny:_2017]. But at an earlier level it is important to have a solid foundation for the data preprocessing [@spiess_impact_2015, @spiess_system-specific_2016, @ronde_practical_2017].
+  Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.
+  
+  The aim of the study is to provide software tools and algorithms, which assist qPCR users during the analysis and quality management of their data. In particular, this study shows how it is possible to automatically detect hook effects (see @barratt_improving_2002) or hook effect-like curvatures. 
+  
+  
+  # Introduction
+  
+  The functions and data 
+  presented in the paper are available from <https://github.com/devSJR/PCRedux>. 
+  The data, including the RDML file, are part of the \texttt{PCRedux} package and are 
+  made available in the CSV or RDML format [@roediger_enabling_2017] for vendor 
+  independent analysis.
+  
+  All analyses were implemented and conducted with the **R** statistical computing 
+  language [@R_language, @roediger2015r] and dedicated integrated development 
+  environments such as **RKWard** [@roediger_rkward_2012]. Further documentation 
+  can be found in the help files of the **R** packages.
+  
+  
+  
+  # Installation
+  
+  The **hookreg()** and **hookregNL()** functions are part of the \texttt{PCRedux} package for the **R** statistical computing language.  Download from CRAN <http://cran.r-project.org/> the **R** version for the required operating system and install **R**. Then start **R** and type in the prompt:
+  
+  ```{R, eval=FALSE, echo=TRUE}
 # Select your local mirror
 install.packages("PCRedux")
 ```
@@ -85,11 +85,10 @@ the used samples and the qPCR detection chemistries and the classification by tw
 
 ```{r eval=TRUE, echo=FALSE, results="asis"}
 # Load the RDML package for reading of the hookreg.rdml-file from the PCRedux
-# package. The magrittr package is used for pipes.
+# package.
 
 library(RDML)
 library(PCRedux)
-library(magrittr)
 
 # A comprehensive description of the RDML-file import can be found in Rödiger 
 # et al. (2017) Bioinformatics
@@ -97,10 +96,10 @@ library(magrittr)
 raw_data <- RDML$new(filename=system.file("hookreg.rdml", package="PCRedux"))
 
 raw_data_tab <- raw_data$AsTable(name.pattern=paste(
-    react$position,
-    react$sample$id,
-    # run id added to names
-    sep="~"))
+  react$position,
+  react$sample$id,
+  # run id added to names
+  sep="~"))
 data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
 ```
 All amplification curves were plotted according to their experiment conditions. They differed in the target molecules (e.g., \textit{MLC-2v}, \textit{BRCA1}) and the detection chemistries (e.g., EvaGreen, SybrGreen, hydrolysis probes). Figure \ref{ampcurves} shows seven plots for the corresponding experiments. The amplification curves were not preprocessed to preserve the curvature. Selected amplification curves were noisy (e.g., Figure \ref{ampcurves}F), had overshots or undershot in the background phase (e.g., Figure \ref{ampcurves}E-G), a short hook phase (e.g., Figure \ref{ampcurves}D). Amplifcation curves of Figure \ref{ampcurves}A, D, F and F exhibited a clearly visible hook effect or a hook like effect.
@@ -164,13 +163,13 @@ samples names, data source (origin of data either from an existing data set or
 prepared for this study), the detection chemistries (intercalator (Syto-13, 
 SyberGreenI, EvaGreen), hydrolysis probes (TaqMan (Cy5/BHQ2) , TaqMan 
 (HEX/BHQ1))) and calculations by tow humans.", 
-             label='Table_human_rated'),
-      size = "\\tiny",
-      include.rownames = FALSE,
-      include.colnames = TRUE,
-      caption.placement = "top",
-      comment=FALSE,
-      table.placement = "!ht", scalebox='0.65'
+label='Table_human_rated'),
+size = "\\tiny",
+include.rownames = FALSE,
+include.colnames = TRUE,
+caption.placement = "top",
+comment=FALSE,
+table.placement = "!ht", scalebox='0.65'
 )
 ```
 
@@ -192,16 +191,15 @@ The following code was used to analyze the `hookreg.rdml` data set with **hookre
 # Load PCRedux package to obtain the data and make the hookreg() function
 # available.
 library(PCRedux)
-# Load the magrittr to use the %>% pipe-operator
-library(magrittr)
 
 # `data` is a temporary data frame of the hook.rdml amplification curve data file.
 # Apply the hookreg() function over the amplification curves and arrange the 
 # results in the data frame `res_hookreg`.
 
-res_hookreg <- sapply(2L:ncol(data), function(i) {
-    hookreg(x=data[, 1], y=data[, i])
-}) %>% t %>% data.frame(sample=colnames(data)[-1],.)
+res_hookreg <-  data.frame(sample=colnames(data)[-1], 
+                           t(sapply(2L:ncol(data), function(i) {
+                             hookreg(x=data[, 1], y=data[, i])
+                           })))
 
 # Fetch the calculated parameters from the calculations with the hookreg() 
 # function as a table `res_hookreg_table`.
@@ -243,15 +241,15 @@ print(xtable(res_hookreg_table,
 The results of the **hookreg()** function are fairly comprehensive. The meaning of the columns is as followed:
 
 \begin{itemize}
-    \item \emph{intercept}, is the intercept from the start of the potential hook to the end of the amplification curve.
-    \item \emph{slope} is the slope from the start of the potential hook to the end of the amplification curve. A negative slope is indicative for a hook effect.
-    \item \emph{hook.start} is the estimated starting cycle of the hook region. 
-    \item \emph{hook.delta} is the number of cycles from the \emph{hook.start} to the end of the amplification curve. 
-    \item \emph{p.value} describes the significant relationship between the variables in the linear regression model.
-    \item \emph{CI.low} and \emph{CI.up} is the confidence interval (low and up) for the slope parameters in the fitted linear model.
-    \item \emph{hook.fit} is a logical parameter indicating if the fit is significant at a default threshold of 0.005.
-    \item \emph{hook.CI} is a logical parameter indicating if the slope of fitted linear model is within the confidence interval (0.995).
-    \item \emph{ hook} is a logical parameter, which combines the significance test and confidence interval test (negative slope).
+\item \emph{intercept}, is the intercept from the start of the potential hook to the end of the amplification curve.
+\item \emph{slope} is the slope from the start of the potential hook to the end of the amplification curve. A negative slope is indicative for a hook effect.
+\item \emph{hook.start} is the estimated starting cycle of the hook region. 
+\item \emph{hook.delta} is the number of cycles from the \emph{hook.start} to the end of the amplification curve. 
+\item \emph{p.value} describes the significant relationship between the variables in the linear regression model.
+\item \emph{CI.low} and \emph{CI.up} is the confidence interval (low and up) for the slope parameters in the fitted linear model.
+\item \emph{hook.fit} is a logical parameter indicating if the fit is significant at a default threshold of 0.005.
+\item \emph{hook.CI} is a logical parameter indicating if the slope of fitted linear model is within the confidence interval (0.995).
+\item \emph{ hook} is a logical parameter, which combines the significance test and confidence interval test (negative slope).
 \end{itemize}
 
 
@@ -262,14 +260,14 @@ The following code was used to analyze the `hookreg.rdml` data set with **hookre
 The **hookreg()** function fits a six parameter sigmoidal model to amplification curve. The non-linear model 
 
 $$
-    f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
-    \newline
+f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
+\newline
 $$
 
 is used to decide, based on the *k* parameter, if the amplification curve as a hook effect or hook effect-like curvature.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
-# Note that the PCRedux package and the magrittr package need to be loaded (see above).
+# Note that the PCRedux package needs to be loaded (see above).
 # Load the qpcR package to prevent messages during the start.
 suppressMessages(library(qpcR))
 
@@ -278,9 +276,10 @@ suppressMessages(library(qpcR))
 # results in the data frame `res_hookregNL`.
 # Not that `suppressMessages()` to prevent warning messages from the qpcR package.
 
-res_hookregNL <- suppressMessages(sapply(2L:ncol(data), function(i) {
-    hookregNL(x=data[, 1], y=data[, i])
-}) %>% t %>% data.frame(sample=colnames(data)[-1],.))
+res_hookregNL <- data.frame(sample=colnames(data)[-1],
+                            t(suppressMessages(sapply(2L:ncol(data), function(i) {
+                              hookregNL(x=data[, 1], y=data[, i])
+                            }))))
 
 res_hookregNL_table <- data.frame(sample=as.character(res_hookregNL[["sample"]]),
                                   slope=signif(as.numeric(res_hookregNL[["slope"]]), 1),
@@ -297,9 +296,9 @@ the following code with the code shown next.
 The results of the **hookregNL()** function are less comprehensive then from the **hookreg()** function . The meaning of the columns is as followed:
 
 \begin{itemize}
-    \item \emph{slope} is the slope from the start of the potential hook to the end of the amplification curve that was fitted by a six parameter model. A negative slope is indicative for a hook effect.
-    \item \emph{CI.low} and \emph{CI.up} is the confidence interval (low and up) for the slope parameters in the fitted linear model.
-    \item \emph{ hook} is a logical parameter, which combines the significance test and confidence interval test (negative slope).
+\item \emph{slope} is the slope from the start of the potential hook to the end of the amplification curve that was fitted by a six parameter model. A negative slope is indicative for a hook effect.
+\item \emph{CI.low} and \emph{CI.up} is the confidence interval (low and up) for the slope parameters in the fitted linear model.
+\item \emph{ hook} is a logical parameter, which combines the significance test and confidence interval test (negative slope).
 \end{itemize}
 
 ```{r results='asis', echo=TRUE, message=FALSE, warning=FALSE}
@@ -331,9 +330,6 @@ The decisions from the human classification (see Table \ref{Table_human_rated}) 
 
 library(readxl)
 
-# The dplyr package was used for data manipulation.
-library(dplyr)
-
 # Read the data as EXCEL file.
 Table_human_rated <- read_xlsx(path=system.file("Table_human_rated.xlsx", 
                                                 package="PCRedux"))
@@ -362,7 +358,7 @@ aggregated data set with the following code was prepared:
 # curvature, if either the hookreg() or hookregNL() function are positive.
 
 meta_hookreg <- sapply(1:nrow(res), function(i){
-    ifelse(res[i, "hookreg"] == 1 || res[i, "hookregNL"] == 1, 1, 0)
+  ifelse(res[i, "hookreg"] == 1 || res[i, "hookregNL"] == 1, 1, 0)
 })
 
 res_out <- data.frame(Sample=res[["Sample"]], res[["Human rater"]], 
@@ -384,9 +380,9 @@ options(xtable.comment=FALSE)
 print(xtable(res_out, digits=0, 
              caption = "Aggregated decisions from the human classification and 
 the results from the machine decision of the hookreg() and hookregNL() 
-functions.", label='method_comparision'), ,
-      caption.placement = "top",
-      scalebox='0.65')
+functions.", label='method_comparision'), 
+caption.placement = "top",
+scalebox='0.65')
 ```
 
 The performance of the **hookreg()** and **hookregNL()** functions was analyzed 
@@ -399,12 +395,12 @@ coefficient and kappa by Cohen are described in the documentation of the
 \texttt{PCRedux} package.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-res_performeR <- rbind(
-    hookreg=performeR(res_out[["hookreg"]], res_out[["Human rater"]]),
-                       hookregNL=performeR(res_out[["hookregNL"]], res_out[["Human rater"]]),
-                       combined_hookreg=performeR(res_out[["hookreg and hoohkreNL combined"]], 
-                                                  res_out[["Human rater"]])
-) %>% t %>% signif(4)
+res_performeR <- signif(t(rbind(
+  hookreg=performeR(res_out[["hookreg"]], res_out[["Human rater"]]),
+  hookregNL=performeR(res_out[["hookregNL"]], res_out[["Human rater"]]),
+  combined_hookreg=performeR(res_out[["hookreg and hoohkreNL combined"]], 
+                             res_out[["Human rater"]])
+)), 4)
 
 colnames(res_performeR) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 ```
@@ -423,18 +419,18 @@ TPR; Specificity, SPC; Precision, PPV; Negative predictive value, NPV; Fall-out,
 FPR; False negative rate, FNR; False discovery rate, FDR; Accuracy, ACC; F1 
 score, F1; Matthews correlation coefficient, MCC, Cohen's kappa (binary 
 classification), $\\kappa$", label='res_performeR'),
-      size = "normalsize",
-      include.rownames = TRUE,
-      include.colnames = TRUE,
-      caption.placement = "top",
-      comment=FALSE,
-      table.placement = "!ht", scalebox='0.75'
+size = "normalsize",
+include.rownames = TRUE,
+include.colnames = TRUE,
+caption.placement = "top",
+comment=FALSE,
+table.placement = "!ht", scalebox='0.75'
 )
 ```
 
 # Funding
-  This work was funded by the Federal Ministry of Education and Research (BMBF) InnoProfile-Transfer-Project 03IPT611X and in part by "digilog: Digitale und analoge Begleiter für eine alternde Bevölkerung" (Gesundheitscampus Brandenburg, Brandenburg Ministry for Science, Research and Culture).
-  We thank Franziska Dinter (BTU) for reevaluation of the amplification curve data and Maria Tokarenko (Evrogen JSC) for wet lab experiments conduction.
-  
-  
+This work was funded by the Federal Ministry of Education and Research (BMBF) InnoProfile-Transfer-Project 03IPT611X and in part by "digilog: Digitale und analoge Begleiter für eine alternde Bevölkerung" (Gesundheitscampus Brandenburg, Brandenburg Ministry for Science, Research and Culture).
+We thank Franziska Dinter (BTU) for reevaluation of the amplification curve data and Maria Tokarenko (Evrogen JSC) for wet lab experiments conduction.
+
+
 # References

@@ -8,7 +8,7 @@ from a quantitative PCR experiment.}
 winklR(x, y, normalize = FALSE, preprocess = TRUE)
 }
 \arguments{
-\item{x}{is the cycle numbers (x-axis). By default the frist ten cycles are removed.}
+\item{x}{is the cycle numbers (x-axis). By default the first ten cycles are removed.}
 
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}
 
@@ -19,23 +19,23 @@ data should be normalized to the 99 percent percentile of the amplification curv
 data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagged data).}
 }
 \description{
-\code{winklR} is a function to calculate the in the trajectory of the first 
-and the second derivatives maxima and minima  of an amplification curve data 
-from a quantitative PCR experiment. For the determination of the angle, the 
-origin is the maximum of the first derivative. On this basis, the vectors to 
-the minimum and maximum of the second figure are determined. The vectors 
-result from the relation of the maximum of the first derivative to the 
-minimum of the second derivative and from the maximum of the first 
-derivative to the maximum of the second derivative. In a simple 
-trigonometric approach, the scalar product of the two vectors is formed 
-first. Then the absolute values are calculated and multiplied by each other. 
-Finally, the value is converted into an angle with the cosine. The 
-assumption is that flat (negative amplification curves) have a large angle 
-and sigmoid (positive amplification curves) have a smaller angle. Another 
-assumption is that this angle is independent of the rotation of the 
-amplification curve. This means that systematic off-sets, such as those 
+\code{winklR} is a function to calculate the in the trajectory of the first
+and the second derivatives maxima and minima  of an amplification curve data
+from a quantitative PCR experiment. For the determination of the angle, the
+origin is the maximum of the first derivative. On this basis, the vectors to
+the minimum and maximum of the second figure are determined. The vectors
+result from the relation of the maximum of the first derivative to the
+minimum of the second derivative and from the maximum of the first
+derivative to the maximum of the second derivative. In a simple
+trigonometric approach, the scalar product of the two vectors is formed
+first. Then the absolute values are calculated and multiplied by each other.
+Finally, the value is converted into an angle with the cosine. The
+assumption is that flat (negative amplification curves) have a large angle
+and sigmoid (positive amplification curves) have a smaller angle. Another
+assumption is that this angle is independent of the rotation of the
+amplification curve. This means that systematic off-sets, such as those
 caused by incorrect background correction, are of no consequence.
-The cycles to be analyzed is defined by the user. 
+The cycles to be analyzed is defined by the user.
 The output contains the angle.
 }
 \examples{
@@ -44,22 +44,26 @@ The output contains the angle.
 data(RAS002)
 
 # Plot the data
-plot(RAS002[, 1], y=RAS002[, 2], xlab="Cycle", ylab="RFU",
-     main="RAS002 data set", lty=1, type="l")
-res <- winklR(x=RAS002[, 1], y=RAS002[, 2])
+plot(RAS002[, 1],
+  y = RAS002[, 2], xlab = "Cycle", ylab = "RFU",
+  main = "RAS002 data set", lty = 1, type = "l"
+)
+res <- winklR(x = RAS002[, 1], y = RAS002[, 2])
 res
-plot(rbind(res$origin, res$p1, res$p2), col = c("black","green","blue"))
+plot(rbind(res$origin, res$p1, res$p2), col = c("black", "green", "blue"))
 
-plot(RAS002[, 1], y=RAS002[, 7], xlab="Cycle", ylab="RFU",
-     main="RAS002 data set", lty=1, type="l")
-res <- winklR(x=RAS002[, 1], y=RAS002[, 7])
+plot(RAS002[, 1],
+  y = RAS002[, 7], xlab = "Cycle", ylab = "RFU",
+  main = "RAS002 data set", lty = 1, type = "l"
+)
+res <- winklR(x = RAS002[, 1], y = RAS002[, 7])
 res
-plot(rbind(res$origin, res$p1, res$p2), col = c("black","green","blue"))
+plot(rbind(res$origin, res$p1, res$p2), col = c("black", "green", "blue"))
 
-res_angles <- unlist(lapply(2:21, function(i) {winklR(RAS002[, 1], RAS002[, i])$angle}))
+res_angles <- unlist(lapply(2:21, function(i) {
+  winklR(RAS002[, 1], RAS002[, i])$angle
+}))
 cdplot(RAS002_decisions[1L:20] ~ res_angles, xlab = "angle", ylab = "decision")
-
-
 }
 \seealso{
 \code{\link[base]{acos}}
