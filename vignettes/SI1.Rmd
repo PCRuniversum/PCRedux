@@ -8,7 +8,7 @@ output:
     toc: true
 bibliography: "literature.bib"
 vignette: >
-  %\VignetteIndexEntry{PCRedux package - an overview}
+  %\VignetteIndexEntry{Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
