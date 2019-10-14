@@ -57,7 +57,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/SI1.html">UNKNOWN TITLE</a>
+      <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
 </li>
@@ -78,7 +78,7 @@
       <h1>PCRedux package - an overview</h1>
                         <h4 class="author">Stefan Rödiger et al.</h4>
             
-            <h4 class="date">2019-10-14</h4>
+            <h4 class="date">2019-10-15</h4>
       
       
       <div class="hidden name"><code>PCRedux.Rmd</code></div>
@@ -93,7 +93,7 @@
 <div id="aims-of-the-project" class="section level1">
 <h1 class="hasAnchor">
 <a href="#aims-of-the-project" class="anchor"></a>Aims of the Project</h1>
-<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-14) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
+<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-15) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
 <p>Therefore, the aim of the study was to:</p>
 <ol style="list-style-type: decimal">
 <li>create a collection of classified amplification curve data,</li>
@@ -1122,22 +1122,22 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.2988  -0.1652   0.0000   0.0061   2.9330  
+## -3.2813  -0.2068  -0.2068   0.0058   2.7769  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -4.2876     0.5361  -7.998 1.26e-15 ***
-## loglin_slope 215.0438    25.4998   8.433  &lt; 2e-16 ***
+## (Intercept)    -3.834      0.429  -8.938   &lt;2e-16 ***
+## loglin_slope  203.738     23.764   8.573   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 631.931  on 455  degrees of freedom
-## Residual deviance:  59.901  on 454  degrees of freedom
-## AIC: 63.901
+##     Null deviance: 631.720  on 455  degrees of freedom
+## Residual deviance:  77.079  on 454  degrees of freedom
+## AIC: 81.079
 ## 
-## Number of Fisher Scoring iterations: 9</code></pre>
+## Number of Fisher Scoring iterations: 8</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates a strong association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new data set, further steps are necessary. <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> [] is a generic function for predicting the results of a model fitting function. All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>
