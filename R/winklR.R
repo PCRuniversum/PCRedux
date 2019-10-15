@@ -26,7 +26,6 @@
 #' data should be normalized to the 99 percent percentile of the amplification curve.
 #' @param preprocess is a logical parameter, which indicates if the amplification curve
 #' data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagged data).
-#' @param degree is a logical parameter, which indicates if the angle should be shown in degree.
 #' @author Stefan Roediger
 #' @keywords angle derivative
 #' @seealso
@@ -61,7 +60,7 @@
 #' @export winklR
 
 
-winklR <- function(x, y, normalize = FALSE, preprocess = TRUE, degree = FALSE) {
+winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
   data <- na.omit(cbind(x = x, y = y))
 
   x <- data[, "x"]
@@ -119,11 +118,10 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE, degree = FALSE) {
   length_of_vectors <- sqrt(sum(u^2)) * sqrt(sum(v^2))
 
   # Calculate angle
-  if(degree) {
-  angle <- acos(dot_product / length_of_vectors) * 180 / pi
-  } else {
-    angle <- dot_product / length_of_vectors
-}
+
+  # angle <- acos(dot_product / length_of_vectors) * 180 / pi
+
+  angle <- dot_product / length_of_vectors
 
   rownames(origin) <- "origin"
   colnames(origin) <- c("x", "y")
