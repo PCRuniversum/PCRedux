@@ -22,7 +22,7 @@ vignette: >
   
   The PDF version of this document is available [online](https://github.com/devSJR/PCRedux/raw/master/docs/articles/SI1.pdf).
   
-  **The document is part of the publication *M. Burdukiewicz, A.-N. Spiess, K.A. Blagodatskikh, W. Lehmann, P. Schierack, S. Rödiger, Algorithms for automated detection of hook effect-bearing amplification curves, Biomolecular Detection and Quantification. (2018). doi:10.1016/j.bdq.2018.08.001.*.**
+  **The document is part of the publication *M. Burdukiewicz, A.-N. Spiess, K.A. Blagodatskikh, W. Lehmann, P. Schierack, S. Rödiger, Algorithms for automated detection of hook effect-bearing amplification curves, Biomolecular Detection and Quantification. (2018). doi:10.1016/j.bdq.2018.08.001.***
 
   
 # Abstract

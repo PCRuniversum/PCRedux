@@ -1122,22 +1122,22 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.2813  -0.2068  -0.2068   0.0058   2.7769  
+## -3.4690  -0.0954  -0.0954   0.0008   3.2848  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)    -3.834      0.429  -8.938   &lt;2e-16 ***
-## loglin_slope  203.738     23.764   8.573   &lt;2e-16 ***
+## (Intercept)   -5.3903     0.8779  -6.140 8.25e-10 ***
+## loglin_slope 277.3018    41.1969   6.731 1.68e-11 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 631.720  on 455  degrees of freedom
-## Residual deviance:  77.079  on 454  degrees of freedom
-## AIC: 81.079
+##     Null deviance: 631.440  on 455  degrees of freedom
+## Residual deviance:  28.796  on 454  degrees of freedom
+## AIC: 32.796
 ## 
-## Number of Fisher Scoring iterations: 8</code></pre>
+## Number of Fisher Scoring iterations: 9</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates a strong association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new data set, further steps are necessary. <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> [] is a generic function for predicting the results of a model fitting function. All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>
