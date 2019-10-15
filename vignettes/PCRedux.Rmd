@@ -435,7 +435,7 @@ mtext(labels[i], cex = 1, side = 3, adj = 0, font = 2)
 }
 ```
 
-### Concepts of Machine Learning\label{section_technologies_amplification_curves_ML}
+### Relation of Machine Learning to the Classification of Amplification Curves\label{section_technologies_amplification_curves_ML}
 
 Data mining and machine learning can be used for descriptive and predictive tasks during the analysis of complex data sets. Data mining uses specific methods from statistical inference, software engineering and domain knowledge to get a better understanding of the data, and to extract *hidden knowledge* from the pre-processed data [@kruppa_probability_2014; @herrera_multiple_2016]. All this implies that a human being interacts with the data at the different stages of the whole process as part of the workflow in data mining. Elements of the data mining process are the pre-processing of the data, the description of the data, the exploration of the data and the search for connections and causes.
 
@@ -451,7 +451,7 @@ The logit model is a robust and versatile classification method to explain a dep
 
 $\eta_{i}$ establishes the link between the probability of the occurrence and the independent variables. For this reason, $\eta_{i}$ is referred to as a link function. The distribution function of the normal distribution is an alternative to the logistical distribution function. By using the normal distribution, the Probit model is obtained. However, since this is more difficult to interpret, it is less widely used in practice. Since probabilities are used, it is possible to make a prediction about the probability of occurrence of an event. 
 
-When analyzing amplification curves, diagnosis can be made whether a reaction was unsuccessful (0) or successful (1). For the prediction, independent metric variables (predictors) are used. The metric variables have interpretable distances with a defined order. Their codomain is [-$\infty$,$\infty$]. The logistic distribution function on the independent variables determines the probability for $Y_{i} = 0$ or $Y_{i} = 1$. A logistic regression model can be formulated as follows:
+For example, when analyzing amplification curves, diagnosis can be made whether a reaction was unsuccessful (0) or successful (1). For the prediction, independent metric variables (predictors) are used. The metric variables have interpretable distances with a defined order. Their codomain is [-$\infty$,$\infty$]. The logistic distribution function on the independent variables determines the probability for $Y_{i} = 0$ or $Y_{i} = 1$. A logistic regression model can be formulated as follows:
 
 $F(\eta)=\frac{1}{1+exp(-\eta)}$
 
@@ -818,437 +818,15 @@ mtext(paste0("C   ",  "cpDdiff: ", cpDdiff), cex = 1, side = 3, adj = 0,
 \newpage
 
 
-## Technologies for Amplification Curve Classification and Classified Amplification Curves\label{section_data_sets}
-
-Many machine learning concepts exist. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve. An extensive literature research showed that there are no openly accessible classified amplification curve data sets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014].
-
-Therefore, a large number of records with amplification curves and their classification (negative, ambiguous, positive) were added to the \texttt{PCRedux} package.
-
-For the amplification curves in \autoref{table-datasets}, a dichotomous classification was performed (roughly sigmoid or negative amplification reaction with a flat curve shape). Consequently, this does not rule out 
-
-- if an unspecific amplification product has been synthesized, 
-- if a contamination has been amplified or 
-- if only primer-dimers have been amplified. 
-
-To answer this question, other methods such as agarose gel electrophoresis need to be used.
-
-### Manual Amplification Curve Classification\label{Manual_Amplification_Curve_Classification}
-
-For machine learning and method validation, it was important to classify the amplification curves individually. In @roediger2015chippcr, the ``humanrater()`` [\texttt{chipPCR}] function was described. This function was developed to help the user during the classification of amplification curves and melting curves. The user has to define classes, which get assigned to an amplification curve after an expert has entered the class in input mask. 
-
-> By convention, class labels were specified as e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("y") in the \texttt{PCRedux} package. 
-
-All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` [\texttt{chipPCR}] was set to randomly select individual amplification curves. All data sets were manually classified at least three times. The `htPCR` data set (\autoref{figure_sigmoid_curve}B) was classified eight times in total (see \autoref{figure_curve_classification}). Most of the amplification curves are neither unequivocal classifiable as positive or negative.
-
-
-```{r figure_curve_classification, echo=TRUE, eval=TRUE, fig.cap=figure_curve_classification, fig.scap=figure_curve_classification_short}
-# Suppress messages and load the packages for reading the data of the classified
-# amplification curves.
-library(PCRedux)
-
-# Load the decision_res_htPCR.csv data set from a csv file.
-filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
-decision_res_htPCR <- read.csv(filename)
-
-# Create graphic device for the plot(s)
-par(mfrow = c(2, 4))
-for (i in 2L:9) {
-    data_tmp <- table(as.factor(decision_res_htPCR[, i]))
-    
-    barplot(data_tmp, col = adjustcolor("grey", alpha.f = 0.5),
-            xlab = "Class", ylab = "Counts", border = "white")
-    text(c(0.7, 1.9, 3.1), rep(quantile(data_tmp, 0.25), 3), 
-         data_tmp, srt = 90)
-    mtext(LETTERS[i - 1], cex = 1, side = 3, adj = 0, font = 2)
-}
-```
-
-This approach is well suited and has been applied to classify a variety of amplification curves during the development of the \texttt{PCRedux} package. From experience this is time-consuming and tiring for large data sets, especially when the amplification curves are similar in shape. A high similarity between amplification curves exists, for example, in replicates and negative controls.
-
-### ``tReem()`` - A Function for Shape-based Group-wise Classification of Amplification Curves\label{shape_Amplification_Curve_Classification}
-
-The similarity of amplification curves can be used to form groups of similar shapes. The amplification curves in the groups can then be classified in bulk. In this way, a higher throughput can be achieved, a concept yet not described for the analysis of qPCR data in the literature. 
-
-The ``tReem()`` function was developed to perform a *shape-based group classification*. To use the ``tReem()`` function, the first column must contain the qPCR cycles and all subsequent columns must contain the amplification curves. Two measures of similarity are used within the ``tReem()`` function.
-
-- In the first measure (default), the  Pearson *correlation coefficient*s (*r*) are determined in pairs for all combinations of the amplification curves. The correlation coefficient is a statistical measure to describe the strength of the correlation between two or more variables. The correlation coefficient *r* is regarded as distance between the amplification curves. *r* is a dimensionless value and only takes values between -1 and 1. If *r = -1*, there is a maximum reciprocal relationship. If *r = 0* there is no correlation between the two variables. If *r = 1*, there is a maximum rectified correlation.
-
-- In the second measure, the *Hausdorff distance* is used to determine the similarity between amplification curves. The Hausdorff distance is "the maximum of the distances from a point in any of the sets to the nearest point in the other set" [@rote_computing_1991; @herrera_multiple_2016]. The amplification curves are converted within the ``tReem()`` function using the ``qPCR2data()`` function.
-
-Both methods process the distances in the same steps. This involves the calculation of the distance matrix using the Euclidean distances of all distance measures to determine the distance between the lines of the data matrix. 
-
-This is used to perform a hierarchical cluster analysis. In the last step, the cluster is divided into groups based on a user-defined *k* value. For example, two groups are created for *k = 2*. If the amplification curves shapes are highly diverse, a larger *k* should be used. After a chain of processing steps presents the ``tReem()`` function a series of plots with grouped of amplification curves. The corresponding classes can then be assigned to the groups of amplification curves by the user using an input mask.
-
-Grouping the amplification curves with the Pearson correlation coefficient as a distance measure is usually faster than the Hausdorff distance. The Hausdorff distance is an approximation of a shape metrics to define similarity measures between shapes. [@charpiat_shape_2003].
-
-
-```{r, echo=TRUE, eval=FALSE}
-# Classify amplification curve data by correlation coefficients (r)
-data <- qpcR::testdat
-
-classification_result <- tReem(data[, 1:15], k = 3)
-classification_result
-```
-
-### ``decision_modus()`` - A Function to Get a Decision (Modus) from a Vector of Classes \label{section_decision_modus}
-
-For the systematic statistical analysis of classification data sets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. The mode is useful to consolidate large collections of different decisions into a single (most frequent) decision. 
-
-> Observed:*a*, *a*, *a*, *a*, *a*, *n*, *n*, *n* $\rightarrow$ frequencies 5 x *a*, 3 x *n* $\rightarrow$ mode: *a*. Since the class names are known, they only have to be interpreted by the user (e.&nbsp;g., "a",*n*,"y" -> "ambivalent","negative","positive"). 
-
-A manual classification was performed out for the `htPCR` data set (for an example plot \autoref{figure_sigmoid_curve}B) with the ``humanrater()`` function. The classification of each amplification curve was performed eight times at different time points since many of the amplification curves did not resemble optimal curvatures (e.&nbsp;g., \autoref{htPCR_nap}). It is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) is considered as ambiguous or even positive (positive $\leftrightarrow$ ambivalent) by the users. 
-
-\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive. Since in total, the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`) a whole of 70864 amplification curves was analysed. In this classification experiment the amplification curves have been classified differently in `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` of the cases (e.&nbsp;g., line 1 "P01. W01").
-
-
-```{r, eval=TRUE, echo=FALSE, results='asis'}
-library(PCRedux)
-library(xtable)
-
-print(
-    xtable(
-        rbind(
-            head(subset(decision_res_htPCR, conformity == FALSE), 25),
-              head(subset(decision_res_htPCR, conformity == TRUE), 25)), 
-           caption = "Results of the `htPCR` data set classification. 
-           All amplification curves of the `htPCR` data set were classified as 
-           `negative`, `ambiguous` and `positive` by individuals in eight 
-           analysis cycles (`test.result.1` $\\ldots$ `test.result.8`). If an 
-           amplification curve was always classified with the same class, 
-           the last column (`conformity`) shows `TRUE`. As an example, the table 
-           shows 25 amplification curves with consistent classes and 25 
-           amplification curves with differing classes (`conformity = FALSE`).", 
-           label = "tableheaddecision" ), include.rownames = FALSE, 
-      comment = FALSE, caption.placement = "top", size = "\\tiny"
-)
-```
-
-The ``decision_modus()`` function was applied to the record `decision_res_htPCR.csv` with all classification rounds (columns 2 to 9) and the mode was determined for each amplitude curve \autoref{htPCR_nap_frequency}.
-
-```{r, eval=TRUE, echo=TRUE}
-# Use decision_modus() to go through each row of all classifications done by
-# a human.
-
-# Determine the number of observations where all classifications were 
-# the same (conformity == TRUE).
-conformity <- decision_res_htPCR[["conformity"]]
-
-# List all classifications.
-dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
-    decision_modus(decision_res_htPCR[i, 2:9])[1]
-}) %>% unlist()
-
-# Show statistic of the decisions
-summary(dec)
-```
-
-```{r htPCR_nap_frequency, echo=FALSE, fig.cap=htPCR_nap_frequency, fig.scap=htPCR_nap_short_frequency, fig.higth=2}
-# Plot the Frequencies of the decisions
-# Create graphic device for the plot(s)
-
-layout(matrix(c(1,1,2), 1, 3, byrow = TRUE))
-# Show the counts of negative, ambiguous and positive amplification 
-# curves in a bar plot
-# Build a contingency table of the counts at each
-# combination of factor levels.
-dec_table <- table(dec)
-
-barplot(
-    dec_table, xlab = "Class decision", ylab = "Frequency",
-        main = "", col = c("red", "black", "green"), border = "white"
-)
-text(c(0.7, 1.9, 3.1), rep(4000,3), 
-     c(paste("n = ", dec_table[1]), 
-       paste("n = ", dec_table[2]), 
-       paste("n = ", dec_table[3])),
-    col = c("black", "white", "black"))
-mtext("A", cex = 1, side = 3, adj = 0, font = 2)
-
-barplot(
-    table(conformity), xlab = "Comformity", ylab = "Frequency",
-        main = "", col = c("black", "green"), border = "white"
-)
-text(c(0.7, 1.85), rep(8000,2), 
-        c(paste("n = ", table(conformity)[1]), 
-        paste("n = ", table(conformity)[2])), 
-        col = c("white", "black"))
-mtext("B", cex = 1, side = 3, adj = 0, font = 2)
-```
-
-Another usage mode of ``decision_modus()`` is to set the parameter as `max_freq=FALSE`. This option specifies the number of all classifications.
-
-```{r, eval=TRUE, echo=TRUE}
-library(PCRedux)
-# Decisions for observation P01.W06
-res_dec_P01.W06 <- decision_modus(decision_res_htPCR[
-which(decision_res_htPCR[["htPCR"]] == "P01.W06"),
-                                  2L:9
-], max_freq = FALSE)
-print(res_dec_P01.W06)
-```
-
-The amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn `negative`.
-
-\newpage
-
-
 ## Data Analysis Functions of the \texttt{PCRedux} Package \label{section_Functions_of_PCRedux}
 
 The \texttt{PCRedux} package contains functions for analyzing amplification curves. In the following, these are distinguished into helper functions (\autoref{section_helper_functions}) and analysis functions (\autoref{section_analysis_functions}). 
-
-### Helper Functions of the \texttt{PCRedux} Package  \label{section_helper_functions}
-
-#### ``performeR()`` - Performance Analysis for Binary Classification \label{section_performeR}
-
-Statistical modeling and machine learning are powerful but expose a risk to the user by introducing an unexpected bias. This may lead to an overestimation of the performance. The assessment of the performance by sensitivity and specificity is fundamental to characterize a classifier or screening test [@james_introduction_2013]. Sensitivity is the percentage of true decisions that are identified and specificity is the percentage of negative decisions that are correctly identified (\autoref{table-performance}). An example for the application of the ``performeR()`` function is shown in \autoref{section_autocorrelation_test}.
-
-
-\begin{table}[]
-\centering
-\caption{Measures for performance analysis for binary classification. TP, true positive; FP, false positive; TN, true negative; FN, false negative}
-\label{table-performance}
-\begin{tabular}{ll}
-Measure                                    & Formula   \\ \hline
-Sensitivity - TPR, true positive rate      & $TPR=\frac{TP}{TP + FN}$   \\
-Specificity - SPC, true negative rate      & $SPC=\frac{TN}{TN + FP}$   \\
-Precision - PPV, positive predictive value & $PPV=\frac{TP}{TP +  FP}$   \\
-Negative predictive value - NPV            & $NPV=\frac{TN}{TN + FN}$   \\
-Fall-out, FPR, false positive rate         & $FPR=\frac{FP}{FP + TN}=1 - SPC$   \\
-False negative rate - FNR                  & $FNR=\frac{FN}{TN + FN}=1 - TPR$   \\
-False discovery rate - FDR                 & $FDR=\frac{FP}{TP + FP}=1 - PPV$   \\
-Accuracy - ACC                             & $ACC= \frac{(TP + TN)}{(TP + FP + FN + TN)}$   \\
-F1 score - F1                              & $F1=\frac{2TP}{(2TP + FP + FN)}$   \\
-Matthews correlation coefficient - MCC     & $MCC=\frac{(TP*TN - FP*FN)}{\sqrt{(TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)}}$   \\
-Likelihood ratio positive - LRp            & $LRp=\frac{TPR}{1-SPC}$   \\
-Cohen''s kappa (binary classification)     & $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}$   \\ \hline
-\hline
-\end{tabular}
-\end{table}
-
-
-#### ``qPCR2fdata()`` - A Helper Function to Convert Amplification Curve Data to the `fdata` Format \label{section_qPCR2fdata}
-
-``qPCR2fdata()`` is a helper function to convert amplification curve data to the functional `fdata` class [@Febrero_Bande_2012]. The `fdata` format is used for functional data analysis to determine the similarity measures between amplification curves shapes by the Hausdorff distance. Similarity herein refers to the difference in spatial location of two \textit{objects} (e.&nbsp;g., amplification curves). Objects with a close distance are presumably more similar. For single objects (e.&nbsp;g., points) one can use a vector distance, such as the Euclidean distance [@herrera_multiple_2016].
-
-The ``qPCR2fdata()`` function takes a `data.frame` containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. 
-
-Noise and missing values may affect the analysis adversely. Therefore, an instance of the ``CPP()`` [\texttt{chipPCR}] function [@roediger2015chippcr] was integrated in ``qPCR2fdata()``. If \textit{preprocess=TRUE} in ``qPCR2fdata()``, then all curves are smoothed (Savitzky-Golay smoother), missing values are imputated and outliers in the ground phase get removed as described in @roediger2015chippcr.
-
-The following example illustrates a hierarchical cluster analysis of the `testdat` data set. The amplification curves of the `testdat` data set remained as raw data or were pre-processed (smoothed). Subsequent, the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to cluster analysis (Hausdorff distance). This method uses the elements of a proximity matrix to generate a dendrogram. The dendrogram can then be used to further analyze the clusters. There are methods to determine the number of clusters automatically \textit{k} [@cook_interactive_2007]. However, for simplicity, the number of clusters was determined visually.
-
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-# Calculate the Hausdorff distance of the amplification curves
-# cluster the curves.
-# Load additional packages for data and pipes.
-library(fda.usc)
-
-data <- qpcR::testdat
-
-# Convert the qPCR data set to the fdata format
-# Use unprocessed data from the testdat data set
-res_fdata <- qPCR2fdata(data)
-
-# Extract column names and create rainbow color to label the data
-columnames <- data[-1] %>% colnames(.)
-colors <- rainbow(length(columnames), alpha = 0.5)
-
-# Calculate the Hausdorff distance (fda.usc) package and plot the distances
-# as clustered data.
-
-res_fdata_hclust <- metric.hausdorff(res_fdata)
-res_hclust <- hclust(as.dist(res_fdata_hclust))
-```
-
-The distance based on the Hausdorff metric was already calculated in the next steps involving the ``cutree()`` [\texttt{stats}] function to split the dendrogram into smaller junks. *A priori* it was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k}=2 in the ``cutree()``.
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-# Cluster of the unprocessed amplification curves
-res_cutree <- cutree(res_hclust, k = 2)
-res_cutree <- factor(res_cutree)
-levels(res_cutree) <- list(y = "1", n = "2")
-```
-
-The dendrogram shows that
-
-- the observations are correctly assigned to a cluster of positive or negative amplification curves and that 
-- the shift of the Cq (late increase of the fluorescence) is reflected in the positive cluster (\autoref{qPCR2fdata}).
-
-
-```{r qPCR2fdata, echo=TRUE, fig.cap=qPCR2fdata, fig.scap=qPCR2fdata_short, fig.height=4, fig.width=8}
-# Plot the converted qPCR data
-# Create graphic device for the plot(s)
-par(mfrow = c(1, 2))
-
-plot(res_fdata, xlab = "Cycles", ylab = "RFU", main = "", type = "l",
-        lty = 1, lwd = 2, col = colors
-)
-legend(
-    "topleft", paste0(as.character(columnames), ": ", res_cutree),
-       pch = 19, col = colors, bty = "n", ncol = 2, cex = 0.7
-)
-mtext("A", cex = 1, side = 3, adj = 0, font = 2)
-
-plot(res_hclust, main = "", xlab = "", sub="")
-text(c(5.5,18), rep(6.5,2), c("negative", "positive"), 
-     col = c("black", "green"), cex = 0.9, srt = 90)
-mtext("B", cex = 1, side = 3, adj = 0, font = 2)
-```
-
-This workflow can be used to cluster amplification curve data according to similar shape. Classification tasks can be preformed in batches of amplification curves. The calculation of the distances is a computation expensive step dependent on the number of amplification curves. 
-
-The following example illustrates the usage for the `HCU32_aggR.csv` data set 
-from the VideoScan platform with 32 heating and cooling units (equivalent of 32 PCR vessels). In this experiment, the
-bacterial gene *aggR* from *E. coli* was amplified in 32 replicate qPCR reactions. Details of the experiment are described in the manual of the \texttt{PCRedux} package.
-The ambition was to test if the 32 amplification curves of the qPCR reaction 
-are identical. As before, the data were processed with the ``qPCR2fdata()`` 
-function and compared by the Hausdorff distance. Ideally, the amplification 
-curves form only few clusters.
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-# Calculate slope and intercept on positive amplification curve data from the
-# VideoScan 32 cavity real-time PCR device.
-# Use the fda.usc package for functional data analysis
-library(fda.usc)
-
-# Load the qPCR data from the HCU32_aggR.csv data set
-# Convert the qPCR data set to the fdata format
-
-filename <- system.file("HCU32_aggR.csv", package = "PCRedux")
-data_32HCU <- read.csv(filename)
-
-res_fdata <- qPCR2fdata(data_32HCU)
-# Extract column names and create rainbow color to label the data
-columnames <- data_32HCU[-1] %>% colnames(.)
-colors <- rainbow(length(columnames), alpha = 0.55)
-```
-In advance the Cq values were calculated by the following code:
-
-```{r, echo=TRUE, eval=FALSE}
-# Load the qpcR package to calculate the Cq values by the second derivative
-# maximum method.
-library(qpcR)
-
-res_Cq <- sapply(2L:ncol(data_32HCU), function(i) {
-    efficiency(pcrfit(data_32HCU, cyc = 1, fluo = i, model = l6))
-})
-
-data.frame(
-    obs = colnames(data_32HCU)[-1],
-           Cq = unlist(res_Cq["cpD2", ]), eff = unlist(res_Cq["eff", ])
-)
-
-#        Results
-#
-# obs    Cq      eff
-# 1      A1 14.89 1.092963
-# 2      B1 15.68 1.110480
-# 3      C1 15.63 1.111474
-# ...
-# 30     F4 15.71 1.109634
-# 31     G4 15.70 1.110373
-# 32     H4 15.73 1.117827
-```
-
-Next, the amplification curves (\autoref{HCU32}A), the differences between base-line region and plateau region (\autoref{HCU32}B), the correlation between the Cq value and amplification efficiency (\autoref{HCU32}C) and the clusters based on the Hausdorff distance were taken into account.
-
-Some amplification curves (\autoref{HCU32}A) had stronger noise, and all curves exhibited a negative non-linear trend and shift in the ground phase. The comparison of the ground phase and the plateau phase showed a difference between the 32 amplification curves. The observations `E1`, `F1` and `H1` were most close in the ground and plateau phase. The comparison of Cq values and amplification efficiency showed that most amplification curves are similar. However, there are also amplification curves that show a greater deviation from the median of all Cq values (\autoref{HCU32}C). The cluster analysis confirmed the shape similarity (\autoref{HCU32}D).
-
-```{r HCU32, echo=TRUE, fig.cap=HCU32, fig.scap=HCU32_short, fig.height=8.5, fig.width=11} 
-# Use the fda.usc package for functional data analysis
-library(fda.usc)
-
-# To save computing time, the Cq values and amplification efficiencies were 
-# calculated beforehand and transferred as a hard copy here.
-
-calculated_Cqs <- c(
-    14.89, 15.68, 15.63, 15.5, 15.54, 15.37, 15.78, 15.24, 15.94,
-    15.88, 15.91, 15.77, 15.78, 15.74, 15.84, 15.78, 15.64, 15.61,
-    15.66, 15.63, 15.77, 15.71, 15.7, 15.79, 15.8, 15.72, 15.7, 15.82,
-    15.62, 15.71, 15.7, 15.73
-)
-
-calculated_effs <- c(
-    1.09296326515231, 1.11047987547324, 1.11147389307153, 1.10308929700635,
-    1.10012176315852, 1.09136717687619, 1.11871308210321, 1.08006168654712,
-    1.09500422011318, 1.1078777171126, 1.11269436700649, 1.10628580163733,
-    1.1082009954558, 1.11069683827291, 1.11074914659374, 1.10722949813473,
-    1.10754282514113, 1.10098387264025, 1.1107026749644, 1.11599641663658,
-    1.11388510347017, 1.11398547396991, 1.09410798249025, 1.12422338092929,
-    1.11977386646464, 1.11212436173214, 1.12145338871426, 1.12180879952503,
-    1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295
-)
-
-# Plot the converted qPCR data
-# Create graphic device for the plot(s)
-
-layout(matrix(c(1, 2, 3, 4, 4, 4), 2, 3, byrow = TRUE))
-
-
-plot(res_fdata, xlab = "Cycles", ylab = "RFU", main = "HCU32_aggR", type = "l",
-         lty = 1, lwd = 2, col = colors)
-
-legend("topleft", as.character(columnames), pch = 19, col = colors, 
-       bty = "n", ncol = 4)
-mtext("A", cex = 1, side = 3, adj = 0, font = 2)
-
-# Plot the background and plateau phase.
-
-boxplot(
-    data_32HCU[, -1] - apply(data_32HCU[, -1], 2, min),
-        col = colors, las = 2, main = "Signal to noise ratio",
-        xlab = "Sample", ylab = "RFU"
-)
-mtext("B", cex = 1, side = 3, adj = 0, font = 2)
-
-# Plot the Cqs and the amplification efficiencies.
-# Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs
-# of the median or more then 0.1 Cqs of the median Cq.
-
-plot(
-    calculated_Cqs, calculated_effs, xlab = "Cq (SDM)",
-     ylab = "eff", main = "Cq vs. Amplification Efficiency",
-     type = "p", pch = 19, lty = 1, lwd = 2, col = colors
-)
-
-median_Cq <- median(calculated_Cqs)
-abline(v = median_Cq)
-
-text(median_Cq + 0.01, 1.085, expression(paste(tilde(x))))
-labeled <- c(
-    which(calculated_Cqs < median_Cq - 0.1),
-             which(calculated_Cqs > median_Cq + 0.1)
-)
-
-text(
-    calculated_Cqs[labeled], calculated_effs[labeled],
-     as.character(columnames)[labeled]
-)
-mtext("C", cex = 1, side = 3, adj = 0, font = 2)
-
-# Calculate the Hausdorff distance using the fda.usc package and cluster the
-# the distances.
-
-res_fdata_hclust <- metric.hausdorff(res_fdata)
-cluster <- hclust(as.dist(res_fdata_hclust))
-
-# plot the distances as clustered data and label the leafs with the Cq values
-# and colored dots.
-
-plot(cluster, main = "Clusters of the amplification\n
-curves as calculated by the Hausdorff distance", xlab = "", sub="")
-mtext("D", cex = 1, side = 3, adj = 0, font = 2)
-```
-
-The analysis gives an overview on the variation of the amplification curve data.
-
-\newpage
 
 ### Amplification Curve Analysis Functions of the \texttt{PCRedux} package  \label{section_analysis_functions}
 
 On the basis of these observations, **concepts** for predictors (*features*) were developed and implemented in algorithms to describe amplification curves. The functions described in the following are aimed for experimental studies. It is important to note that the concepts for the predictors proposed herein emerged by a *critical reasoning* process and *domain knowledge* of the \texttt{PCRedux} package creator. The aim of the package is to propose a set of predictors, functions and data for an independent research. 
 
-#### ``pcrfit_single()`` and ``encu()``- Functions to Calculate Predictors from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
+### ``pcrfit_single()`` and ``encu()``- Functions to Calculate Predictors from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
 
 The following sections give a concise description of the algorithms used to calculate predictor vectors by the ``pcrfit_single()`` function . Based on considerations and experience, the algorithms of the ``pcrfit_single()`` function are restricted to ROIs (\autoref{amplification_curve_ROI}) to calculate specific predictors. 
 
@@ -1349,7 +927,7 @@ str(pcrfit_single(RAS002[, 2]))
 ```
 
 
-##### Amplification Curve Pre-Processing
+### Amplification Curve Pre-Processing
 
 The ``pcrfit_single()`` function performs pre-processing steps before each calculation, including checking whether an amplification curve contains missing values. Missing values (NA) are measuring points in a data set where no measured values are available or have been removed arbitrarily. NAs may occur if no measurement has been carried out (e.&nbsp;g., defective detector) or lengths of the vectors differ (number of cyles) between the observations. Such missing values are automatically imputed by spline interpolation as described in @roediger2015chippcr. 
 
@@ -1359,11 +937,11 @@ Selected algorithms of the ``pcrfit_single()`` function use the ``CPP()`` [\text
 
 During the analysis, several values are determined to describe the amplitude of an amplification curve. The resulting potential predictors are `minRFU` (minimum of the amplification curve, which is determined at the 1\% quantile to minimize the influence of outliers), `init2` (the initial template fluorescence from an exponential model) and `fluo` (raw fluorescence value at the second derivative maximum). The `minRFU`, `init2` and `fluo` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}C, E & F).
 
-##### Handling of Missing Predictors
+### Handling of Missing Predictors
 
 Missing values (NA) can occur if a calculation of a predictor is impossible (e.&nbsp;g., if a logistic function cannot be adapted to noisy raw data). The lack of a predictor is nevertheless an useful information (no predictor calculate $\mapsto$ amplification curves deviate from sigmoid shape). The NAs were left unchanged in the \texttt{PCRedux} package up to version 0.2.5-1. Since version 0.2.6 the NAs are replaced by numerical values (e.&nbsp;g., total number of cycles) or factors (e.&nbsp;g., *lNA* for non-fitted model). Under the term "imputation", there are a number of procedures based on statistical methods (e.&nbsp;g., neighboring median, spline interpolation) or on user-defined rules [@williams_rattle:_2009; @cook_interactive_2007; @hothorn_handbook_2014]. Rules are mainly used in the functions of \texttt{PCRedux} to relieve the user from the decision as to how to deal with missing values. For example, slope parameters of a model are set to zero when it cannot be determined. The disadvantage is that rules do not necessarily concur to real world values. 
 
-#### Multi-parametric Models for Amplification Curve Fitting\label{section_models}
+### Multi-parametric Models for Amplification Curve Fitting\label{section_models}
 
 Both the ``pcrfit_single()`` function and the ``encu()`` function use four multi-parametric models based on the findings of @spiess_highly_2008 and @Ritz2008. The ``pcrfit_single()`` function starts by adjusting a seven-parameter model since this adapts *easier* and more frequent to a data set (\autoref{plot_models}). 
 
@@ -1485,7 +1063,7 @@ for(i in 1L:length(predictor)) {
 }
 ```
 
-#### ``winklR()`` - A function to calculate the angle based on the first and the second derivative of an amplification curve data
+### ``winklR()`` - A function to calculate the central angle based on the first and the second derivative of an amplification curve data
 
 ``winklR()`` is a function to calculate the in the trajectory of the first negative and the second negative derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
 
@@ -1567,7 +1145,7 @@ mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 ```
 
 
-#### Quantification Points, Ratios and Slopes\label{section_Areas_Ratios_Slopes}
+### Quantification Points, Ratios and Slopes\label{section_Areas_Ratios_Slopes}
 
 The ``pcrfit_single()`` function  calculates `cpD1` and `cpD2` and uses them for further analysis. Both the `cpD1` and `cpD2` value are used to describe the amplification reaction quantitatively. For example, low `cpD1` and `cpD2` values (< 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high. \autoref{plot_models}B 
 
@@ -1919,7 +1497,7 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-#### Integration of the ``amptester()`` function in \texttt{PCRedux}
+### Integration of the ``amptester()`` function in \texttt{PCRedux}
 
 `amptester_polygon` is another method to calculate the area under an amplification curve. `amptester_polygon`\footnote{This predictor is determined from the points in an amplification curve (like a polygon, in particular non-convex polygons) in a `clockwise` order. The sum over the edges result in a positive value if the amplification curve is `clockwise` and is negative if the curve is `counter-clockwise`.} is part of the ``amptester()`` [\texttt{chipPCR}] package [@roediger2015chippcr]. In contrast to the implementation in ``amptester()``, `amptester_polygon` has values normalized to the total number of cycles, thereby allowing comparable predictions (\autoref{plot_cp_area}Ds).
 
@@ -2073,7 +1651,7 @@ abline(h = 0.8, col = "black", lty = 2)
 \newpage
 
 
-#### ``earlyreg()`` - A Function to Calculate the Slope and Intercept in the Ground Phase of an Amplification Curve \label{section_earlyreg}
+### ``earlyreg()`` - A Function to Calculate the Slope and Intercept in the Ground Phase of an Amplification Curve \label{section_earlyreg}
 
 The signal height and the slope in the first cylces (1 - 10) of amplification curves are potentially useful because some qPCR systems calibrate themselves by fluorescence intensity of the first cycles. This is noticeable as strong signal changes which appear spontaneously between the first and second cycle (e.&nbsp;g., \autoref{htPCR_nap}B). Furthermore, the signal level can be used to determine which background signal is present and whether the ground phase already has a slope. Moreover, characteristics of the detection probe system are noticeable (see \autoref{section_DataAnalysis}). From the slope, it may be deduced whether amplification has already started (see \autoref{section_DataAnalysis}). 
 
@@ -2191,7 +1769,7 @@ text(c(18.75, 57.5), c(1.6, 1.6), c("EvaGreen", "Hydrolysis probes"))
 ```
 
 
-#### ``head2tailratio()`` - A Function to Calculate the Ratio of the Head and the Tail of a Quantitative PCR Amplification Curve\label{section_head2tailratio}
+### ``head2tailratio()`` - A Function to Calculate the Ratio of the Head and the Tail of a Quantitative PCR Amplification Curve\label{section_head2tailratio}
 
 The ratios from the ground and plateau phase can be used to search for patterns in amplification curves. Positive amplification curves have different slopes and intercepts at the start (head, background region) and the end (tail, plateau region) of the amplification curve. Hence, these regions are potentially useful to extract a predictor for amplification curve classification. Negative amplification curves (no slope) are assumed to have a ratio of about 1. In contrast, positive amplification curves should have a ratio of less than 1.
 
@@ -2284,11 +1862,11 @@ In \autoref{section_DataAnalysis} and in \autoref{htPCR_nap}, it was shown that 
 The `head2tail_ratio` values differ significantly between negative and positive amplification curves (\autoref{plot_bg_pt}K).
 
 
-#### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effect-like Curvatures\label{section_hookreg}
+### ``hookreg()`` and ``hookregNL()`` - Functions to Detect Hook Effect-like Curvatures\label{section_hookreg}
 
 ``hookreg()`` and ``hookregNL()`` are functions to detect amplification curves bearing a *hook effect* [@barratt_improving_2002] or negative slope at the end of the amplification curve. Both functions calculate the slope and intercept of an amplification curve data. The assumption is that a strong negative slope at the end of an amplification curve is indicative for a *hook effect*. ``hookreg()`` and ``hookregNL()`` are part of a peer-reviewed publication [@burdukiewicz_algorithms_2018]. For this reason, the functions will not be discussed here.
 
-#### ``mblrr()`` - A Function to Perform the Quantile-filter Based Local Robust Regression \label{section_mblrr}
+### ``mblrr()`` - A Function to Perform the Quantile-filter Based Local Robust Regression \label{section_mblrr}
 
 
 ``mblrr()`` is a function to perform the \textbf{m}edian \textbf{b}ased \textbf{l}ocal \textbf{r}obust \textbf{r}egression (mblrr) from a quantitative PCR experiment. In detail, this function attempts to break the amplification curve in two ROIs (head (~background) and tail (~plateau)). As opposed to the ``earlyreg()`` function, the ``mblrr()`` function does not use a fixed interval. Instead, the ``mblrr()`` function dynamically determines cut points for each amplification curve. It was defined that:
@@ -2452,7 +2030,7 @@ plot(res_mblrr.fft, decision.lables = c("Positive", "Negative"))
 
 \texttt{R} offers several packages like \texttt{party} [@hothorn_unbiased_2006], \texttt{rpart} [@rpart_2017] and \texttt{Rattle} [@williams_rattle:_2009] for creating and visualizing decision trees. 
 
-#### ``autocorrelation_test()`` - A Function to Detect Positive Amplification Curves \label{section_autocorrelation_test}
+### ``autocorrelation_test()`` - A Function to Detect Positive Amplification Curves \label{section_autocorrelation_test}
 
 Autocorrelation analysis is a technique that is used in the field of time series analysis. It can be used to reveal regularly occurring patterns in one-dimensional data [@spiess_system-specific_2016]. Autocorrelation measures the correlation of a signal $f(t)$ with itself shifted by some time delay $f(t - \tau)$.
 
@@ -2662,7 +2240,7 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-#### Frequentist and Baysian Change point analysis\label{section_change_point_analysis}
+### Frequentist and Baysian Change point analysis\label{section_change_point_analysis}
 
 Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014; @erdman_bcp:_2007]. Several change point algorithms exist, such as the binary segmentation algorithm [@scott_cluster_1974]. In change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. In the case of qPCR, this is simply the cycle-dependent fluorescence, used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean) of the change points at specific points, change point analysis using Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves, it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
 
@@ -2749,7 +2327,7 @@ legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19),
        col = c("red", "green"), bty="n")
 ```
 
-#### Frequentist Approaches to Test the Class of an Amplification Reaction\label{section_amptester}
+### Frequentist Approaches to Test the Class of an Amplification Reaction and Application of the ``amptester()`` Predictors\label{section_amptester}
 
 A part of ``pcrfit_single()`` is the ``amptester()`` [\texttt{chipPCR}] function, which contains tests to determine whether an amplification curve is positive or negative. The input values for the function differ due to the different pre-processing steps in the ``pcrfit_single()`` function. Therefore, the concepts of the tests are briefly described below.
 
@@ -2760,8 +2338,6 @@ A part of ``pcrfit_single()`` is the ``amptester()`` [\texttt{chipPCR}] function
 - The fifth test is called *Signal level test* (SLt). The test compares the signals of the head and the tail by a robust "sigma" rule (median + 2 * MAD) and the comparison of the head/tail ratio. If the returned value is less than 1.25 (25 percent), then the amplification curve is likely negative. The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single()`` function is `amptester_slt`.
 - The sixth test is called *Polygon test* (pco). The pco test determines if the points in an amplification curve (like a polygon) are in a "clockwise" order. The sum over the edges result in a positive value if the amplification curve is "clockwise" and is negative if the curve is counter-clockwise. Experience states that noise is positive and "true" amplification curves are "highly" negative. In contrast to the implementation in the ``amptester()`` function, the result is normalized by a division to the number of PCR cycles. The output is numeric. The output name of the ``pcrfit_single()`` function is `amptester_polygon`.
 - The seventh test is the *Slope Ratio test* (SlR). This test uses the approximated first derivative maximum, the second derivative minimum and the second derivative maximum of the amplification curve. Next, the raw fluorescence at the approximated second derivative minimum and the second derivative maximum are taken from the original data set. The fluorescence intensities are normalized to the maximum fluorescence of this data and then employed in a linear regression, using the estimated slope. The output is numeric and the output name of the ``pcrfit_single()`` function is `amptester_slope.ratio`.
-
-#### Application of the ``amptester()`` Predictors
 
 Random Forest is an enhancement of decision tree algorithms. Random Forest uses *n* random data subsets, by creating an ensemble consisting of *n* small decision trees. Each decision tree contains a biased classifier. Only classes that provide reliable prediction to the outcome are then selected for classification.
 Compared to a single tree classifier, Random Forests display a high robustness against noise, outliers and over-fitting [@williams_rattle:_2009; @breiman_random_2001].
@@ -3013,6 +2589,426 @@ decision\_res\_VIMCFX96\_60.csv                  & VIMCFX96\_60                &
 \end{tabular}
 \end{table}
 
+
+## Technologies for Amplification Curve Classification and Classified Amplification Curves\label{section_data_sets}
+
+Many machine learning concepts exist. One method is supervised machine learning, where the goal is to derive a property from user-defined (classified) training data. Categories such as negative, ambiguous or positive are assigned depending on the form of the amplification curve. An extensive literature research showed that there are no openly accessible classified amplification curve data sets. Open Data is meant in the sense that data are freely available, free of charge, free to use and that data can be republished, without restrictions from copyright, patents or other mechanisms of control [@kitchin2014].
+
+Therefore, a large number of records with amplification curves and their classification (negative, ambiguous, positive) were added to the \texttt{PCRedux} package.
+
+For the amplification curves in \autoref{table-datasets}, a dichotomous classification was performed (roughly sigmoid or negative amplification reaction with a flat curve shape). Consequently, this does not rule out 
+
+- if an unspecific amplification product has been synthesized, 
+- if a contamination has been amplified or 
+- if only primer-dimers have been amplified. 
+
+To answer this question, other methods such as agarose gel electrophoresis need to be used.
+
+### Manual Amplification Curve Classification\label{Manual_Amplification_Curve_Classification}
+
+For machine learning and method validation, it was important to classify the amplification curves individually. In @roediger2015chippcr, the ``humanrater()`` [\texttt{chipPCR}] function was described. This function was developed to help the user during the classification of amplification curves and melting curves. The user has to define classes, which get assigned to an amplification curve after an expert has entered the class in input mask. 
+
+> By convention, class labels were specified as e.&nbsp;g., negative ("n"), ambiguous ("a"), positive ("y") in the \texttt{PCRedux} package. 
+
+All amplification curve data sets listed in \autoref{table-datasets} were classified in interactive, semi-blinded sessions. ``humanrater()`` [\texttt{chipPCR}] was set to randomly select individual amplification curves. All data sets were manually classified at least three times. The `htPCR` data set (\autoref{figure_sigmoid_curve}B) was classified eight times in total (see \autoref{figure_curve_classification}). Most of the amplification curves are neither unequivocal classifiable as positive or negative.
+
+
+```{r figure_curve_classification, echo=TRUE, eval=TRUE, fig.cap=figure_curve_classification, fig.scap=figure_curve_classification_short}
+# Suppress messages and load the packages for reading the data of the classified
+# amplification curves.
+library(PCRedux)
+
+# Load the decision_res_htPCR.csv data set from a csv file.
+filename <- system.file("decision_res_htPCR.csv", package = "PCRedux")
+decision_res_htPCR <- read.csv(filename)
+
+# Create graphic device for the plot(s)
+par(mfrow = c(2, 4))
+for (i in 2L:9) {
+    data_tmp <- table(as.factor(decision_res_htPCR[, i]))
+    
+    barplot(data_tmp, col = adjustcolor("grey", alpha.f = 0.5),
+            xlab = "Class", ylab = "Counts", border = "white")
+    text(c(0.7, 1.9, 3.1), rep(quantile(data_tmp, 0.25), 3), 
+         data_tmp, srt = 90)
+    mtext(LETTERS[i - 1], cex = 1, side = 3, adj = 0, font = 2)
+}
+```
+
+This approach is well suited and has been applied to classify a variety of amplification curves during the development of the \texttt{PCRedux} package. From experience this is time-consuming and tiring for large data sets, especially when the amplification curves are similar in shape. A high similarity between amplification curves exists, for example, in replicates and negative controls.
+
+### ``tReem()`` - A Function for Shape-based Group-wise Classification of Amplification Curves\label{shape_Amplification_Curve_Classification}
+
+The similarity of amplification curves can be used to form groups of similar shapes. The amplification curves in the groups can then be classified in bulk. In this way, a higher throughput can be achieved, a concept yet not described for the analysis of qPCR data in the literature. 
+
+The ``tReem()`` function was developed to perform a *shape-based group classification*. To use the ``tReem()`` function, the first column must contain the qPCR cycles and all subsequent columns must contain the amplification curves. Two measures of similarity are used within the ``tReem()`` function.
+
+- In the first measure (default), the  Pearson *correlation coefficient*s (*r*) are determined in pairs for all combinations of the amplification curves. The correlation coefficient is a statistical measure to describe the strength of the correlation between two or more variables. The correlation coefficient *r* is regarded as distance between the amplification curves. *r* is a dimensionless value and only takes values between -1 and 1. If *r = -1*, there is a maximum reciprocal relationship. If *r = 0* there is no correlation between the two variables. If *r = 1*, there is a maximum rectified correlation.
+
+- In the second measure, the *Hausdorff distance* is used to determine the similarity between amplification curves. The Hausdorff distance is "the maximum of the distances from a point in any of the sets to the nearest point in the other set" [@rote_computing_1991; @herrera_multiple_2016]. The amplification curves are converted within the ``tReem()`` function using the ``qPCR2data()`` function.
+
+Both methods process the distances in the same steps. This involves the calculation of the distance matrix using the Euclidean distances of all distance measures to determine the distance between the lines of the data matrix. 
+
+This is used to perform a hierarchical cluster analysis. In the last step, the cluster is divided into groups based on a user-defined *k* value. For example, two groups are created for *k = 2*. If the amplification curves shapes are highly diverse, a larger *k* should be used. After a chain of processing steps presents the ``tReem()`` function a series of plots with grouped of amplification curves. The corresponding classes can then be assigned to the groups of amplification curves by the user using an input mask.
+
+Grouping the amplification curves with the Pearson correlation coefficient as a distance measure is usually faster than the Hausdorff distance. The Hausdorff distance is an approximation of a shape metrics to define similarity measures between shapes. [@charpiat_shape_2003].
+
+
+```{r, echo=TRUE, eval=FALSE}
+# Classify amplification curve data by correlation coefficients (r)
+data <- qpcR::testdat
+
+classification_result <- tReem(data[, 1:15], k = 3)
+classification_result
+```
+
+### ``decision_modus()`` - A Function to Get a Decision (Modus) from a Vector of Classes \label{section_decision_modus}
+
+For the systematic statistical analysis of classification data sets, the ``decision_modus()`` function has been developed. This allows the most common decision (mode) to be determined. The mode is useful to consolidate large collections of different decisions into a single (most frequent) decision. 
+
+> Observed:*a*, *a*, *a*, *a*, *a*, *n*, *n*, *n* $\rightarrow$ frequencies 5 x *a*, 3 x *n* $\rightarrow$ mode: *a*. Since the class names are known, they only have to be interpreted by the user (e.&nbsp;g., "a",*n*,"y" -> "ambivalent","negative","positive"). 
+
+A manual classification was performed out for the `htPCR` data set (for an example plot \autoref{figure_sigmoid_curve}B) with the ``humanrater()`` function. The classification of each amplification curve was performed eight times at different time points since many of the amplification curves did not resemble optimal curvatures (e.&nbsp;g., \autoref{htPCR_nap}). It is likely that the amplification curve (`r colnames (htPCR)[512]`, \autoref{htPCR_nap}) is considered as ambiguous or even positive (positive $\leftrightarrow$ ambivalent) by the users. 
+
+\autoref{tableheaddecision} shows from a total of `r ncol(qpcR:: htPCR)-1` amplification curves the first 25 lines classified as negative (*conformity=TRUE*) and the first 25 lines classified as positive. Since in total, the curves were classified eight times (`test.result.1` $\ldots$ `test.result.8`) a whole of 70864 amplification curves was analysed. In this classification experiment the amplification curves have been classified differently in `r paste0(signif(sum(decision_res_htPCR$conformity == FALSE) / nrow(decision_res_htPCR) * 100, 3), "%")` of the cases (e.&nbsp;g., line 1 "P01. W01").
+
+
+```{r, eval=TRUE, echo=FALSE, results='asis'}
+library(PCRedux)
+library(xtable)
+
+print(
+    xtable(
+        rbind(
+            head(subset(decision_res_htPCR, conformity == FALSE), 25),
+              head(subset(decision_res_htPCR, conformity == TRUE), 25)), 
+           caption = "Results of the `htPCR` data set classification. 
+           All amplification curves of the `htPCR` data set were classified as 
+           `negative`, `ambiguous` and `positive` by individuals in eight 
+           analysis cycles (`test.result.1` $\\ldots$ `test.result.8`). If an 
+           amplification curve was always classified with the same class, 
+           the last column (`conformity`) shows `TRUE`. As an example, the table 
+           shows 25 amplification curves with consistent classes and 25 
+           amplification curves with differing classes (`conformity = FALSE`).", 
+           label = "tableheaddecision" ), include.rownames = FALSE, 
+      comment = FALSE, caption.placement = "top", size = "\\tiny"
+)
+```
+
+The ``decision_modus()`` function was applied to the record `decision_res_htPCR.csv` with all classification rounds (columns 2 to 9) and the mode was determined for each amplitude curve \autoref{htPCR_nap_frequency}.
+
+```{r, eval=TRUE, echo=TRUE}
+# Use decision_modus() to go through each row of all classifications done by
+# a human.
+
+# Determine the number of observations where all classifications were 
+# the same (conformity == TRUE).
+conformity <- decision_res_htPCR[["conformity"]]
+
+# List all classifications.
+dec <- lapply(1L:nrow(decision_res_htPCR), function(i) {
+    decision_modus(decision_res_htPCR[i, 2:9])[1]
+}) %>% unlist()
+
+# Show statistic of the decisions
+summary(dec)
+```
+
+```{r htPCR_nap_frequency, echo=FALSE, fig.cap=htPCR_nap_frequency, fig.scap=htPCR_nap_short_frequency, fig.higth=2}
+# Plot the Frequencies of the decisions
+# Create graphic device for the plot(s)
+
+layout(matrix(c(1,1,2), 1, 3, byrow = TRUE))
+# Show the counts of negative, ambiguous and positive amplification 
+# curves in a bar plot
+# Build a contingency table of the counts at each
+# combination of factor levels.
+dec_table <- table(dec)
+
+barplot(
+    dec_table, xlab = "Class decision", ylab = "Frequency",
+        main = "", col = c("red", "black", "green"), border = "white"
+)
+text(c(0.7, 1.9, 3.1), rep(4000,3), 
+     c(paste("n = ", dec_table[1]), 
+       paste("n = ", dec_table[2]), 
+       paste("n = ", dec_table[3])),
+    col = c("black", "white", "black"))
+mtext("A", cex = 1, side = 3, adj = 0, font = 2)
+
+barplot(
+    table(conformity), xlab = "Comformity", ylab = "Frequency",
+        main = "", col = c("black", "green"), border = "white"
+)
+text(c(0.7, 1.85), rep(8000,2), 
+        c(paste("n = ", table(conformity)[1]), 
+        paste("n = ", table(conformity)[2])), 
+        col = c("white", "black"))
+mtext("B", cex = 1, side = 3, adj = 0, font = 2)
+```
+
+Another usage mode of ``decision_modus()`` is to set the parameter as `max_freq=FALSE`. This option specifies the number of all classifications.
+
+```{r, eval=TRUE, echo=TRUE}
+library(PCRedux)
+# Decisions for observation P01.W06
+res_dec_P01.W06 <- decision_modus(decision_res_htPCR[
+which(decision_res_htPCR[["htPCR"]] == "P01.W06"),
+                                  2L:9
+], max_freq = FALSE)
+print(res_dec_P01.W06)
+```
+
+The amplification curve `P01. W06` was classified as `r paste0(res_dec_P01.W06$variable[1], "=", res_dec_P01.W06$freq[1])` times and as `r paste0(res_dec_P01.W06$variable[2], "=", res_dec_P01.W06$freq[2])` times. Therefore, the decision would turn `negative`.
+
+\newpage
+
+
+## Helper Functions of the \texttt{PCRedux} Package  \label{section_helper_functions}
+
+### ``performeR()`` - Performance Analysis for Binary Classification \label{section_performeR}
+
+Statistical modeling and machine learning are powerful but expose a risk to the user by introducing an unexpected bias. This may lead to an overestimation of the performance. The assessment of the performance by sensitivity and specificity is fundamental to characterize a classifier or screening test [@james_introduction_2013]. Sensitivity is the percentage of true decisions that are identified and specificity is the percentage of negative decisions that are correctly identified (\autoref{table-performance}). An example for the application of the ``performeR()`` function is shown in \autoref{section_autocorrelation_test}.
+
+
+\begin{table}[]
+\centering
+\caption{Measures for performance analysis for binary classification. TP, true positive; FP, false positive; TN, true negative; FN, false negative}
+\label{table-performance}
+\begin{tabular}{ll}
+Measure                                    & Formula   \\ \hline
+Sensitivity - TPR, true positive rate      & $TPR=\frac{TP}{TP + FN}$   \\
+Specificity - SPC, true negative rate      & $SPC=\frac{TN}{TN + FP}$   \\
+Precision - PPV, positive predictive value & $PPV=\frac{TP}{TP +  FP}$   \\
+Negative predictive value - NPV            & $NPV=\frac{TN}{TN + FN}$   \\
+Fall-out, FPR, false positive rate         & $FPR=\frac{FP}{FP + TN}=1 - SPC$   \\
+False negative rate - FNR                  & $FNR=\frac{FN}{TN + FN}=1 - TPR$   \\
+False discovery rate - FDR                 & $FDR=\frac{FP}{TP + FP}=1 - PPV$   \\
+Accuracy - ACC                             & $ACC= \frac{(TP + TN)}{(TP + FP + FN + TN)}$   \\
+F1 score - F1                              & $F1=\frac{2TP}{(2TP + FP + FN)}$   \\
+Matthews correlation coefficient - MCC     & $MCC=\frac{(TP*TN - FP*FN)}{\sqrt{(TP+FP)*(TP+FN)*(TN+FP)*(TN+FN)}}$   \\
+Likelihood ratio positive - LRp            & $LRp=\frac{TPR}{1-SPC}$   \\
+Cohen''s kappa (binary classification)     & $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}$   \\ \hline
+\hline
+\end{tabular}
+\end{table}
+
+
+### ``qPCR2fdata()`` - A Helper Function to Convert Amplification Curve Data to the `fdata` Format \label{section_qPCR2fdata}
+
+``qPCR2fdata()`` is a helper function to convert amplification curve data to the functional `fdata` class [@Febrero_Bande_2012]. The `fdata` format is used for functional data analysis to determine the similarity measures between amplification curves shapes by the Hausdorff distance. Similarity herein refers to the difference in spatial location of two \textit{objects} (e.&nbsp;g., amplification curves). Objects with a close distance are presumably more similar. For single objects (e.&nbsp;g., points) one can use a vector distance, such as the Euclidean distance [@herrera_multiple_2016].
+
+The ``qPCR2fdata()`` function takes a `data.frame` containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. 
+
+Noise and missing values may affect the analysis adversely. Therefore, an instance of the ``CPP()`` [\texttt{chipPCR}] function [@roediger2015chippcr] was integrated in ``qPCR2fdata()``. If \textit{preprocess=TRUE} in ``qPCR2fdata()``, then all curves are smoothed (Savitzky-Golay smoother), missing values are imputated and outliers in the ground phase get removed as described in @roediger2015chippcr.
+
+The following example illustrates a hierarchical cluster analysis of the `testdat` data set. The amplification curves of the `testdat` data set remained as raw data or were pre-processed (smoothed). Subsequent, the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to cluster analysis (Hausdorff distance). This method uses the elements of a proximity matrix to generate a dendrogram. The dendrogram can then be used to further analyze the clusters. There are methods to determine the number of clusters automatically \textit{k} [@cook_interactive_2007]. However, for simplicity, the number of clusters was determined visually.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Calculate the Hausdorff distance of the amplification curves
+# cluster the curves.
+# Load additional packages for data and pipes.
+library(fda.usc)
+
+data <- qpcR::testdat
+
+# Convert the qPCR data set to the fdata format
+# Use unprocessed data from the testdat data set
+res_fdata <- qPCR2fdata(data)
+
+# Extract column names and create rainbow color to label the data
+columnames <- data[-1] %>% colnames(.)
+colors <- rainbow(length(columnames), alpha = 0.5)
+
+# Calculate the Hausdorff distance (fda.usc) package and plot the distances
+# as clustered data.
+
+res_fdata_hclust <- metric.hausdorff(res_fdata)
+res_hclust <- hclust(as.dist(res_fdata_hclust))
+```
+
+The distance based on the Hausdorff metric was already calculated in the next steps involving the ``cutree()`` [\texttt{stats}] function to split the dendrogram into smaller junks. *A priori* it was defined that two classes (\textit{positive} & \textit{negative}) are expected. Therefore, the \textit{group} parameter was set to \textit{k}=2 in the ``cutree()``.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Cluster of the unprocessed amplification curves
+res_cutree <- cutree(res_hclust, k = 2)
+res_cutree <- factor(res_cutree)
+levels(res_cutree) <- list(y = "1", n = "2")
+```
+
+The dendrogram shows that
+
+- the observations are correctly assigned to a cluster of positive or negative amplification curves and that 
+- the shift of the Cq (late increase of the fluorescence) is reflected in the positive cluster (\autoref{qPCR2fdata}).
+
+
+```{r qPCR2fdata, echo=TRUE, fig.cap=qPCR2fdata, fig.scap=qPCR2fdata_short, fig.height=4, fig.width=8}
+# Plot the converted qPCR data
+# Create graphic device for the plot(s)
+par(mfrow = c(1, 2))
+
+plot(res_fdata, xlab = "Cycles", ylab = "RFU", main = "", type = "l",
+        lty = 1, lwd = 2, col = colors
+)
+legend(
+    "topleft", paste0(as.character(columnames), ": ", res_cutree),
+       pch = 19, col = colors, bty = "n", ncol = 2, cex = 0.7
+)
+mtext("A", cex = 1, side = 3, adj = 0, font = 2)
+
+plot(res_hclust, main = "", xlab = "", sub="")
+text(c(5.5,18), rep(6.5,2), c("negative", "positive"), 
+     col = c("black", "green"), cex = 0.9, srt = 90)
+mtext("B", cex = 1, side = 3, adj = 0, font = 2)
+```
+
+This workflow can be used to cluster amplification curve data according to similar shape. Classification tasks can be preformed in batches of amplification curves. The calculation of the distances is a computation expensive step dependent on the number of amplification curves. 
+
+The following example illustrates the usage for the `HCU32_aggR.csv` data set 
+from the VideoScan platform with 32 heating and cooling units (equivalent of 32 PCR vessels). In this experiment, the
+bacterial gene *aggR* from *E. coli* was amplified in 32 replicate qPCR reactions. Details of the experiment are described in the manual of the \texttt{PCRedux} package.
+The ambition was to test if the 32 amplification curves of the qPCR reaction 
+are identical. As before, the data were processed with the ``qPCR2fdata()`` 
+function and compared by the Hausdorff distance. Ideally, the amplification 
+curves form only few clusters.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Calculate slope and intercept on positive amplification curve data from the
+# VideoScan 32 cavity real-time PCR device.
+# Use the fda.usc package for functional data analysis
+library(fda.usc)
+
+# Load the qPCR data from the HCU32_aggR.csv data set
+# Convert the qPCR data set to the fdata format
+
+filename <- system.file("HCU32_aggR.csv", package = "PCRedux")
+data_32HCU <- read.csv(filename)
+
+res_fdata <- qPCR2fdata(data_32HCU)
+# Extract column names and create rainbow color to label the data
+columnames <- data_32HCU[-1] %>% colnames(.)
+colors <- rainbow(length(columnames), alpha = 0.55)
+```
+In advance the Cq values were calculated by the following code:
+
+```{r, echo=TRUE, eval=FALSE}
+# Load the qpcR package to calculate the Cq values by the second derivative
+# maximum method.
+library(qpcR)
+
+res_Cq <- sapply(2L:ncol(data_32HCU), function(i) {
+    efficiency(pcrfit(data_32HCU, cyc = 1, fluo = i, model = l6))
+})
+
+data.frame(
+    obs = colnames(data_32HCU)[-1],
+           Cq = unlist(res_Cq["cpD2", ]), eff = unlist(res_Cq["eff", ])
+)
+
+#        Results
+#
+# obs    Cq      eff
+# 1      A1 14.89 1.092963
+# 2      B1 15.68 1.110480
+# 3      C1 15.63 1.111474
+# ...
+# 30     F4 15.71 1.109634
+# 31     G4 15.70 1.110373
+# 32     H4 15.73 1.117827
+```
+
+Next, the amplification curves (\autoref{HCU32}A), the differences between base-line region and plateau region (\autoref{HCU32}B), the correlation between the Cq value and amplification efficiency (\autoref{HCU32}C) and the clusters based on the Hausdorff distance were taken into account.
+
+Some amplification curves (\autoref{HCU32}A) had stronger noise, and all curves exhibited a negative non-linear trend and shift in the ground phase. The comparison of the ground phase and the plateau phase showed a difference between the 32 amplification curves. The observations `E1`, `F1` and `H1` were most close in the ground and plateau phase. The comparison of Cq values and amplification efficiency showed that most amplification curves are similar. However, there are also amplification curves that show a greater deviation from the median of all Cq values (\autoref{HCU32}C). The cluster analysis confirmed the shape similarity (\autoref{HCU32}D).
+
+```{r HCU32, echo=TRUE, fig.cap=HCU32, fig.scap=HCU32_short, fig.height=8.5, fig.width=11} 
+# Use the fda.usc package for functional data analysis
+library(fda.usc)
+
+# To save computing time, the Cq values and amplification efficiencies were 
+# calculated beforehand and transferred as a hard copy here.
+
+calculated_Cqs <- c(
+    14.89, 15.68, 15.63, 15.5, 15.54, 15.37, 15.78, 15.24, 15.94,
+    15.88, 15.91, 15.77, 15.78, 15.74, 15.84, 15.78, 15.64, 15.61,
+    15.66, 15.63, 15.77, 15.71, 15.7, 15.79, 15.8, 15.72, 15.7, 15.82,
+    15.62, 15.71, 15.7, 15.73
+)
+
+calculated_effs <- c(
+    1.09296326515231, 1.11047987547324, 1.11147389307153, 1.10308929700635,
+    1.10012176315852, 1.09136717687619, 1.11871308210321, 1.08006168654712,
+    1.09500422011318, 1.1078777171126, 1.11269436700649, 1.10628580163733,
+    1.1082009954558, 1.11069683827291, 1.11074914659374, 1.10722949813473,
+    1.10754282514113, 1.10098387264025, 1.1107026749644, 1.11599641663658,
+    1.11388510347017, 1.11398547396991, 1.09410798249025, 1.12422338092929,
+    1.11977386646464, 1.11212436173214, 1.12145338871426, 1.12180879952503,
+    1.1080276005651, 1.10963449004393, 1.11037302758388, 1.11782689816295
+)
+
+# Plot the converted qPCR data
+# Create graphic device for the plot(s)
+
+layout(matrix(c(1, 2, 3, 4, 4, 4), 2, 3, byrow = TRUE))
+
+
+plot(res_fdata, xlab = "Cycles", ylab = "RFU", main = "HCU32_aggR", type = "l",
+         lty = 1, lwd = 2, col = colors)
+
+legend("topleft", as.character(columnames), pch = 19, col = colors, 
+       bty = "n", ncol = 4)
+mtext("A", cex = 1, side = 3, adj = 0, font = 2)
+
+# Plot the background and plateau phase.
+
+boxplot(
+    data_32HCU[, -1] - apply(data_32HCU[, -1], 2, min),
+        col = colors, las = 2, main = "Signal to noise ratio",
+        xlab = "Sample", ylab = "RFU"
+)
+mtext("B", cex = 1, side = 3, adj = 0, font = 2)
+
+# Plot the Cqs and the amplification efficiencies.
+# Determine the median of the Cq values and label all Cqs, which a less 0.1 Cqs
+# of the median or more then 0.1 Cqs of the median Cq.
+
+plot(
+    calculated_Cqs, calculated_effs, xlab = "Cq (SDM)",
+     ylab = "eff", main = "Cq vs. Amplification Efficiency",
+     type = "p", pch = 19, lty = 1, lwd = 2, col = colors
+)
+
+median_Cq <- median(calculated_Cqs)
+abline(v = median_Cq)
+
+text(median_Cq + 0.01, 1.085, expression(paste(tilde(x))))
+labeled <- c(
+    which(calculated_Cqs < median_Cq - 0.1),
+             which(calculated_Cqs > median_Cq + 0.1)
+)
+
+text(
+    calculated_Cqs[labeled], calculated_effs[labeled],
+     as.character(columnames)[labeled]
+)
+mtext("C", cex = 1, side = 3, adj = 0, font = 2)
+
+# Calculate the Hausdorff distance using the fda.usc package and cluster the
+# the distances.
+
+res_fdata_hclust <- metric.hausdorff(res_fdata)
+cluster <- hclust(as.dist(res_fdata_hclust))
+
+# plot the distances as clustered data and label the leafs with the Cq values
+# and colored dots.
+
+plot(cluster, main = "Clusters of the amplification\n
+curves as calculated by the Hausdorff distance", xlab = "", sub="")
+mtext("D", cex = 1, side = 3, adj = 0, font = 2)
+```
+
+The analysis gives an overview on the variation of the amplification curve data.
 
 \newpage
 
