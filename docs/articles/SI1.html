@@ -107,18 +107,18 @@
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>The <strong>hookreg()</strong> and <strong>hookregNL()</strong> functions are part of the  package for the <strong>R</strong> statistical computing language. Download from CRAN <a href="http://cran.r-project.org/" class="uri">http://cran.r-project.org/</a> the <strong>R</strong> version for the required operating system and install <strong>R</strong>. Then start <strong>R</strong> and type in the prompt:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Select your local mirror</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"PCRedux"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># Select your local mirror</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"PCRedux"</span>)</a></code></pre></div>
 <p>The  package should just install. If this fails make sure you have write access to the destination directory and follow the instructions of the <strong>R</strong> documentation:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># The following command points to the help for download and install of packages </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># from CRAN-like repositories or from local files.</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">?<span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># The following command points to the help for download and install of packages </span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co"># from CRAN-like repositories or from local files.</span></a>
+<a class="sourceLine" id="cb2-3" title="3">?<span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>()</a></code></pre></div>
 <p>The package can be installed as the latest development version using the <a href="https://cran.r-project.org/package=devtools">devtools</a> R package.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Install devtools, if you haven't already.</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"devSJR/PCRedux"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Install devtools, if you haven't already.</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"devSJR/PCRedux"</span>)</a></code></pre></div>
 <p>It is recommended to use software with an integrated development environment such as  <span class="citation">(Rödiger et al. 2012)</span>. To work with RDML data it is recommend to use the  package (<span class="math inline">\(\geq\)</span><sub>v.</sub>0.9-9) by invoking the <strong>rdmlEdit()</strong> function (for details see <span class="citation">Rödiger et al. (2017)</span>) or the rdmlEdit GUI web server (section ). The RDML file <code>hookreg.rdml</code> contains the amplification curve data. However, other software package (e.g., <span class="citation">(Lefever et al. 2009; Ruijter et al. 2015)</span>) can also be used to work with the RMDL data file format.</p>
 </div>
 <div id="results-for-the-analysis-of-the-hookreg-rdml-data-set-by-humanrater" class="section level1">
@@ -127,36 +127,36 @@
 </h1>
 <p>All calculations in the following sections were employed on the <code>hookreg.rdml</code> data set, which is part of the  package. The data were transfered to the <strong>R</strong> environment by the  package <span class="citation">(Rödiger et al. 2017)</span>. An overview of the used samples and the qPCR detection chemistries and the classification by two humans (“Hook effect-like Rater 1”, “Hook effect-like Rater 2”) is shown in Table .</p>
 <p>Loading experiment: exp1 run: run1 All amplification curves were plotted according to their experiment conditions. They differed in the target molecules (e.g., , ) and the detection chemistries (e.g., EvaGreen, SybrGreen, hydrolysis probes). Figure  shows seven plots for the corresponding experiments. The amplification curves were not preprocessed to preserve the curvature. Selected amplification curves were noisy (e.g., Figure F), had overshots or undershot in the background phase (e.g., Figure E-G), a short hook phase (e.g., Figure D). Amplification curves of Figure A, D, F and F exhibited a clearly visible hook effect or a hook like effect.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co"># Plot all data of the hookreg.rdml-file according to their type.</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># Synthetic template, detected with Syto-13</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">2</span><span class="op">:</span><span class="dv">13</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"A"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># Human MLC-2v, detected with a hydrolysis probe.</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">14</span><span class="op">:</span><span class="dv">45</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"B"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co"># S27a housekeeping gene, detected with SybrGreen I.</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">46</span><span class="op">:</span><span class="dv">69</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"C"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co"># Whole genome amplification, detected with EvaGreen.</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">70</span><span class="op">:</span><span class="dv">71</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"D"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co"># Human BRCA1 gene, detected with a hydrolysis probe.</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">72</span><span class="op">:</span><span class="dv">87</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"E"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co"># Human NRAS gene, detected with a hydrolysis probe.</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">88</span><span class="op">:</span><span class="dv">95</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"F"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-27" data-line-number="27"></a>
-<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co"># Water control, detected with a hydrolysis probe.</span></a>
-<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">96</span><span class="op">:</span><span class="dv">97</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
-<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"G"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="dt">mfrow=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co"># Plot all data of the hookreg.rdml-file according to their type.</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co"># Synthetic template, detected with Syto-13</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">2</span><span class="op">:</span><span class="dv">13</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"A"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co"># Human MLC-2v, detected with a hydrolysis probe.</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">14</span><span class="op">:</span><span class="dv">45</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"B"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-11" title="11"></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co"># S27a housekeeping gene, detected with SybrGreen I.</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">46</span><span class="op">:</span><span class="dv">69</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"C"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-15" title="15"></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co"># Whole genome amplification, detected with EvaGreen.</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">70</span><span class="op">:</span><span class="dv">71</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"D"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-19" title="19"></a>
+<a class="sourceLine" id="cb4-20" title="20"><span class="co"># Human BRCA1 gene, detected with a hydrolysis probe.</span></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">72</span><span class="op">:</span><span class="dv">87</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-22" title="22"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"E"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-23" title="23"></a>
+<a class="sourceLine" id="cb4-24" title="24"><span class="co"># Human NRAS gene, detected with a hydrolysis probe.</span></a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">88</span><span class="op">:</span><span class="dv">95</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-26" title="26"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"F"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb4-27" title="27"></a>
+<a class="sourceLine" id="cb4-28" title="28"><span class="co"># Water control, detected with a hydrolysis probe.</span></a>
+<a class="sourceLine" id="cb4-29" title="29"><span class="kw"><a href="https://rdrr.io/r/graphics/matplot.html">matplot</a></span>(data[, <span class="dv">1</span>], data[, <span class="dv">96</span><span class="op">:</span><span class="dv">97</span>], <span class="dt">type=</span><span class="st">"l"</span>, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">ylab=</span><span class="st">"RFU"</span>, <span class="dt">xlab=</span><span class="st">"Cycle"</span>)</a>
+<a class="sourceLine" id="cb4-30" title="30"><span class="kw"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"G"</span>, <span class="dt">cex =</span> <span class="fl">1.8</span>, <span class="dt">side =</span> <span class="dv">3</span>, <span class="dt">adj =</span> <span class="dv">0</span>, <span class="dt">font =</span> <span class="dv">2</span>)</a></code></pre></div>
 <div class="figure">
 <img src="SI1_files/figure-html/ampcurves-1.png" alt="Amplification curves. A) Synthetic template, detected with Syto-13. B) Human \textit{MLC-2v}, detected with a hydrolysis probe. C) \textit{S27a} housekeeping gene, detected with SybrGreen I. D) Whole genome amplification, detected with EvaGreen. E) Human \textit{BRCA1} gene, detected with a hydrolysis probe. F) Human \textit{NRAS} gene, detected with a hydrolysis probe. G) Water control, detected with a hydrolysis probe. See Table \ref{Table_human_rated} for details. RFU, relative fluorescence units. \label{ampcurves}" width="696"><p class="caption">
 Amplification curves. A) Synthetic template, detected with Syto-13. B) Human , detected with a hydrolysis probe. C)  housekeeping gene, detected with SybrGreen I. D) Whole genome amplification, detected with EvaGreen. E) Human  gene, detected with a hydrolysis probe. F) Human  gene, detected with a hydrolysis probe. G) Water control, detected with a hydrolysis probe. See Table  for details. RFU, relative fluorescence units. 
@@ -179,49 +179,49 @@ Amplification curves. A) Synthetic template, detected with Syto-13. B) Human , d
 <h2 class="hasAnchor">
 <a href="#results-for-the-analysis-of-the-hookreg-rdml-data-set-with-hookreg" class="anchor"></a>Results for the analysis of the <code>hookreg.rdml</code> data set with <strong>hookreg()</strong> </h2>
 <p>The following code was used to analyze the <code>hookreg.rdml</code> data set with <strong>hookreg()</strong> function. The <strong>hookreg()</strong> function fits a linear model to a region of interest. The linear model is used to decide if the amplification curve as a hook effect or hook effect-like curvature.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Load PCRedux package to obtain the data and make the hookreg() function</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># available.</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># `data` is a temporary data frame of the hook.rdml amplification curve data file.</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co"># Apply the hookreg() function over the amplification curves and arrange the </span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># results in the data frame `res_hookreg`.</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">res_hookreg &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(data)[<span class="op">-</span><span class="dv">1</span>], </a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">                           <span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(2L<span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(data), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">                             <span class="kw"><a href="../reference/hookreg.html">hookreg</a></span>(<span class="dt">x=</span>data[, <span class="dv">1</span>], <span class="dt">y=</span>data[, i])</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">                           })))</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co"># Fetch the calculated parameters from the calculations with the hookreg() </span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co"># function as a table `res_hookreg_table`.</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17">res_hookreg_table &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(res_hookreg[[<span class="st">"sample"</span>]]),</a>
-<a class="sourceLine" id="cb5-18" data-line-number="18">                                <span class="dt">intercept=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"intercept"</span>]], <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb5-19" data-line-number="19">                                <span class="dt">slope=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"slope"</span>]], <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb5-20" data-line-number="20">                                <span class="dt">hook.start=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"hook.start"</span>]], <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb5-21" data-line-number="21">                                <span class="dt">hook.delta=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"hook.delta"</span>]], <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb5-22" data-line-number="22">                                <span class="dt">p.value=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"p.value"</span>]], <span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb5-23" data-line-number="23">                                <span class="dt">CI.low=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"CI.low"</span>]], <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb5-24" data-line-number="24">                                <span class="dt">CI.up=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"CI.up"</span>]], <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb5-25" data-line-number="25">                                <span class="dt">hook.fit=</span>res_hookreg[[<span class="st">"hook.fit"</span>]],</a>
-<a class="sourceLine" id="cb5-26" data-line-number="26">                                <span class="dt">hook.CI=</span>res_hookreg[[<span class="st">"hook.CI"</span>]],</a>
-<a class="sourceLine" id="cb5-27" data-line-number="27">                                <span class="dt">hook=</span>res_hookreg[[<span class="st">"hook"</span>]]</a>
-<a class="sourceLine" id="cb5-28" data-line-number="28">)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># Load PCRedux package to obtain the data and make the hookreg() function</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co"># available.</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co"># `data` is a temporary data frame of the hook.rdml amplification curve data file.</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co"># Apply the hookreg() function over the amplification curves and arrange the </span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co"># results in the data frame `res_hookreg`.</span></a>
+<a class="sourceLine" id="cb5-8" title="8"></a>
+<a class="sourceLine" id="cb5-9" title="9">res_hookreg &lt;-<span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(data)[<span class="op">-</span><span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb5-10" title="10">                           <span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(2L<span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(data), <span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb5-11" title="11">                             <span class="kw"><a href="../reference/hookreg.html">hookreg</a></span>(<span class="dt">x=</span>data[, <span class="dv">1</span>], <span class="dt">y=</span>data[, i])</a>
+<a class="sourceLine" id="cb5-12" title="12">                           })))</a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co"># Fetch the calculated parameters from the calculations with the hookreg() </span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="co"># function as a table `res_hookreg_table`.</span></a>
+<a class="sourceLine" id="cb5-16" title="16"></a>
+<a class="sourceLine" id="cb5-17" title="17">res_hookreg_table &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(res_hookreg[[<span class="st">"sample"</span>]]),</a>
+<a class="sourceLine" id="cb5-18" title="18">                                <span class="dt">intercept=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"intercept"</span>]], <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb5-19" title="19">                                <span class="dt">slope=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"slope"</span>]], <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb5-20" title="20">                                <span class="dt">hook.start=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"hook.start"</span>]], <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb5-21" title="21">                                <span class="dt">hook.delta=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"hook.delta"</span>]], <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb5-22" title="22">                                <span class="dt">p.value=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"p.value"</span>]], <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb5-23" title="23">                                <span class="dt">CI.low=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"CI.low"</span>]], <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb5-24" title="24">                                <span class="dt">CI.up=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(res_hookreg[[<span class="st">"CI.up"</span>]], <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb5-25" title="25">                                <span class="dt">hook.fit=</span>res_hookreg[[<span class="st">"hook.fit"</span>]],</a>
+<a class="sourceLine" id="cb5-26" title="26">                                <span class="dt">hook.CI=</span>res_hookreg[[<span class="st">"hook.CI"</span>]],</a>
+<a class="sourceLine" id="cb5-27" title="27">                                <span class="dt">hook=</span>res_hookreg[[<span class="st">"hook"</span>]]</a>
+<a class="sourceLine" id="cb5-28" title="28">)</a></code></pre></div>
 <p>Finally a pretty printout (Table ) of the results from the <strong>hookreg()</strong> function for the <code>hookreg.rdml</code> data set with the following code was prepared.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Load the xtable to create a LaTeX table from the `res_hookreg_table`.</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_hookreg_table, </a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">             <span class="dt">caption =</span> <span class="st">"Results from the hookreg() function for the hookreg.rdml </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">             data set."</span>, </a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">             <span class="dt">label=</span><span class="st">'res_hookreg_table'</span>),</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">      <span class="dt">size =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">tiny"</span>,</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">      <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">      <span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">      <span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
-<a class="sourceLine" id="cb6-12" data-line-number="12">      <span class="dt">comment=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">      <span class="dt">table.placement =</span> <span class="st">"!ht"</span>, <span class="dt">scalebox=</span><span class="st">'0.65'</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># Load the xtable to create a LaTeX table from the `res_hookreg_table`.</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_hookreg_table, </a>
+<a class="sourceLine" id="cb6-5" title="5">             <span class="dt">caption =</span> <span class="st">"Results from the hookreg() function for the hookreg.rdml </span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="st">             data set."</span>, </a>
+<a class="sourceLine" id="cb6-7" title="7">             <span class="dt">label=</span><span class="st">'res_hookreg_table'</span>),</a>
+<a class="sourceLine" id="cb6-8" title="8">      <span class="dt">size =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">tiny"</span>,</a>
+<a class="sourceLine" id="cb6-9" title="9">      <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb6-10" title="10">      <span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb6-11" title="11">      <span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
+<a class="sourceLine" id="cb6-12" title="12">      <span class="dt">comment=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb6-13" title="13">      <span class="dt">table.placement =</span> <span class="st">"!ht"</span>, <span class="dt">scalebox=</span><span class="st">'0.65'</span></a>
+<a class="sourceLine" id="cb6-14" title="14">)</a></code></pre></div>
 
 <p>The results of the <strong>hookreg()</strong> function are fairly comprehensive. The meaning of the columns is as followed:</p>
 
@@ -236,43 +236,43 @@ f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 \newline
 \]</span></p>
 <p>is used to decide, based on the <em>k</em> parameter, if the amplification curve as a hook effect or hook effect-like curvature.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Note that the PCRedux package needs to be loaded (see above).</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co"># Load the qpcR package to prevent messages during the start.</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(qpcR))</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co"># `data` is a temporary data frame of the hook.rdml amplification curve data file.</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co"># Apply the hookregNL() function over the amplification curves and arrange the </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co"># results in the data frame `res_hookregNL`.</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co"># Not that `suppressMessages()` to prevent warning messages from the qpcR package.</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">res_hookregNL &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(data)[<span class="op">-</span><span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">                            <span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(2L<span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(data), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">                              <span class="kw"><a href="../reference/hookregNL.html">hookregNL</a></span>(<span class="dt">x=</span>data[, <span class="dv">1</span>], <span class="dt">y=</span>data[, i])</a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">                            }))))</a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">res_hookregNL_table &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(res_hookregNL[[<span class="st">"sample"</span>]]),</a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">                                  <span class="dt">slope=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(res_hookregNL[[<span class="st">"slope"</span>]]), <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb7-17" data-line-number="17">                                  <span class="dt">CI.low=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(res_hookregNL[[<span class="st">"CI.low"</span>]]), <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb7-18" data-line-number="18">                                  <span class="dt">CI.up=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(res_hookregNL[[<span class="st">"CI.up"</span>]]), <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">                                  <span class="dt">hook.CI=</span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(res_hookregNL[[<span class="st">"hook"</span>]])</a>
-<a class="sourceLine" id="cb7-20" data-line-number="20">)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Note that the PCRedux package needs to be loaded (see above).</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co"># Load the qpcR package to prevent messages during the start.</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(qpcR))</a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co"># `data` is a temporary data frame of the hook.rdml amplification curve data file.</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co"># Apply the hookregNL() function over the amplification curves and arrange the </span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co"># results in the data frame `res_hookregNL`.</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co"># Not that `suppressMessages()` to prevent warning messages from the qpcR package.</span></a>
+<a class="sourceLine" id="cb7-9" title="9"></a>
+<a class="sourceLine" id="cb7-10" title="10">res_hookregNL &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(data)[<span class="op">-</span><span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb7-11" title="11">                            <span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(2L<span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(data), <span class="cf">function</span>(i) {</a>
+<a class="sourceLine" id="cb7-12" title="12">                              <span class="kw"><a href="../reference/hookregNL.html">hookregNL</a></span>(<span class="dt">x=</span>data[, <span class="dv">1</span>], <span class="dt">y=</span>data[, i])</a>
+<a class="sourceLine" id="cb7-13" title="13">                            }))))</a>
+<a class="sourceLine" id="cb7-14" title="14"></a>
+<a class="sourceLine" id="cb7-15" title="15">res_hookregNL_table &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">sample=</span><span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(res_hookregNL[[<span class="st">"sample"</span>]]),</a>
+<a class="sourceLine" id="cb7-16" title="16">                                  <span class="dt">slope=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(res_hookregNL[[<span class="st">"slope"</span>]]), <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb7-17" title="17">                                  <span class="dt">CI.low=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(res_hookregNL[[<span class="st">"CI.low"</span>]]), <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb7-18" title="18">                                  <span class="dt">CI.up=</span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(res_hookregNL[[<span class="st">"CI.up"</span>]]), <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb7-19" title="19">                                  <span class="dt">hook.CI=</span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(res_hookregNL[[<span class="st">"hook"</span>]])</a>
+<a class="sourceLine" id="cb7-20" title="20">)</a></code></pre></div>
 <p>Finally we prepare a pretty printout (Table ) of the results from the <strong>hookregNL()</strong> function for the <code>hookreg.rdml</code> data set with the following code with the code shown next.</p>
 <p>The results of the <strong>hookregNL()</strong> function are less comprehensive then from the <strong>hookreg()</strong> function . The meaning of the columns is as followed:</p>
 
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_hookregNL_table, </a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">             <span class="dt">caption =</span> <span class="st">"Results from the hookregNL() function for the </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">             hookreg.rdml data set."</span>, </a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">             <span class="dt">label=</span><span class="st">'res_hookregNL_table'</span>),</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">      <span class="dt">size =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">tiny"</span>,</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">      <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">      <span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">      <span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">      <span class="dt">comment=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">      <span class="dt">table.placement =</span> <span class="st">"!ht"</span>, <span class="dt">scalebox=</span><span class="st">'0.65'</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_hookregNL_table, </a>
+<a class="sourceLine" id="cb8-5" title="5">             <span class="dt">caption =</span> <span class="st">"Results from the hookregNL() function for the </span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="st">             hookreg.rdml data set."</span>, </a>
+<a class="sourceLine" id="cb8-7" title="7">             <span class="dt">label=</span><span class="st">'res_hookregNL_table'</span>),</a>
+<a class="sourceLine" id="cb8-8" title="8">      <span class="dt">size =</span> <span class="st">"</span><span class="ch">\\</span><span class="st">tiny"</span>,</a>
+<a class="sourceLine" id="cb8-9" title="9">      <span class="dt">include.rownames =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb8-10" title="10">      <span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb8-11" title="11">      <span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
+<a class="sourceLine" id="cb8-12" title="12">      <span class="dt">comment=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb8-13" title="13">      <span class="dt">table.placement =</span> <span class="st">"!ht"</span>, <span class="dt">scalebox=</span><span class="st">'0.65'</span></a>
+<a class="sourceLine" id="cb8-14" title="14">)</a></code></pre></div>
 
 </div>
 </div>
@@ -281,63 +281,63 @@ f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 <a href="#comparison-of-the-hookreg-and-hookregnl-methods" class="anchor"></a>Comparison of the <strong>hookreg()</strong> and <strong>hookregNL()</strong> methods</h1>
 <p>The decisions from the human classification (see Table ) and the results from the machine decision (section  and section ) were aggregated in Table .</p>
 <p>Finally a pretty printout (Table ) of the aggregated data set with the following code was prepared:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># A simple logic was applied to improve the classification result. In this case</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co"># the assumption was, that an amplification curve has an hook effect or hook effect-like</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co"># curvature, if either the hookreg() or hookregNL() function are positive.</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">meta_hookreg &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(res), <span class="cf">function</span>(i){</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(res[i, <span class="st">"hookreg"</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">||</span><span class="st"> </span>res[i, <span class="st">"hookregNL"</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">})</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9">res_out &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Sample=</span>res[[<span class="st">"Sample"</span>]], res[[<span class="st">"Human rater"</span>]], </a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">                      res_hookreg[[<span class="st">"hook"</span>]], res_hookregNL_table[[<span class="st">"hook.CI"</span>]], </a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">                      meta_hookreg)</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(res_out) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sample"</span>,</a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">                       <span class="st">"Human rater"</span>,</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15">                       <span class="st">"hookreg"</span>,</a>
-<a class="sourceLine" id="cb9-16" data-line-number="16">                       <span class="st">"hookregNL"</span>,</a>
-<a class="sourceLine" id="cb9-17" data-line-number="17">                       <span class="st">"hookreg and hoohkreNL combined"</span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18">)</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_out, <span class="dt">digits=</span><span class="dv">0</span>, </a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">             <span class="dt">caption =</span> <span class="st">"Aggregated decisions from the human classification and </span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="st">the results from the machine decision of the hookreg() and hookregNL() </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="st">functions."</span>, <span class="dt">label=</span><span class="st">'method_comparision'</span>), </a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="dt">scalebox=</span><span class="st">'0.65'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># A simple logic was applied to improve the classification result. In this case</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co"># the assumption was, that an amplification curve has an hook effect or hook effect-like</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co"># curvature, if either the hookreg() or hookregNL() function are positive.</span></a>
+<a class="sourceLine" id="cb9-4" title="4"></a>
+<a class="sourceLine" id="cb9-5" title="5">meta_hookreg &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(res), <span class="cf">function</span>(i){</a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(res[i, <span class="st">"hookreg"</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">||</span><span class="st"> </span>res[i, <span class="st">"hookregNL"</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb9-7" title="7">})</a>
+<a class="sourceLine" id="cb9-8" title="8"></a>
+<a class="sourceLine" id="cb9-9" title="9">res_out &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">Sample=</span>res[[<span class="st">"Sample"</span>]], res[[<span class="st">"Human rater"</span>]], </a>
+<a class="sourceLine" id="cb9-10" title="10">                      res_hookreg[[<span class="st">"hook"</span>]], res_hookregNL_table[[<span class="st">"hook.CI"</span>]], </a>
+<a class="sourceLine" id="cb9-11" title="11">                      meta_hookreg)</a>
+<a class="sourceLine" id="cb9-12" title="12"></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(res_out) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Sample"</span>,</a>
+<a class="sourceLine" id="cb9-14" title="14">                       <span class="st">"Human rater"</span>,</a>
+<a class="sourceLine" id="cb9-15" title="15">                       <span class="st">"hookreg"</span>,</a>
+<a class="sourceLine" id="cb9-16" title="16">                       <span class="st">"hookregNL"</span>,</a>
+<a class="sourceLine" id="cb9-17" title="17">                       <span class="st">"hookreg and hoohkreNL combined"</span></a>
+<a class="sourceLine" id="cb9-18" title="18">)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-3" title="3"></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_out, <span class="dt">digits=</span><span class="dv">0</span>, </a>
+<a class="sourceLine" id="cb10-5" title="5">             <span class="dt">caption =</span> <span class="st">"Aggregated decisions from the human classification and </span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">the results from the machine decision of the hookreg() and hookregNL() </span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">functions."</span>, <span class="dt">label=</span><span class="st">'method_comparision'</span>), </a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="dt">scalebox=</span><span class="st">'0.65'</span>)</a></code></pre></div>
 
 <p>The performance of the <strong>hookreg()</strong> and <strong>hookregNL()</strong> functions was analyzed with the <strong>performeR()</strong> function of the  package (Table ). The methods were adopted from <span class="citation">Brenner and Gefeller (1997)</span> and <span class="citation">Kuhn (2008)</span>. Note that the formula for the calculations of the sensitivity, specificity, precision, Negative predictive value, fall-out, alse negative rate, false discovery rate, Accuracy, F1 score, Matthews correlation coefficient and kappa by Cohen are described in the documentation of the  package.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">res_performeR &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">  <span class="dt">hookreg=</span><span class="kw"><a href="../reference/performeR.html">performeR</a></span>(res_out[[<span class="st">"hookreg"</span>]], res_out[[<span class="st">"Human rater"</span>]]),</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="dt">hookregNL=</span><span class="kw"><a href="../reference/performeR.html">performeR</a></span>(res_out[[<span class="st">"hookregNL"</span>]], res_out[[<span class="st">"Human rater"</span>]]),</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">  <span class="dt">combined_hookreg=</span><span class="kw"><a href="../reference/performeR.html">performeR</a></span>(res_out[[<span class="st">"hookreg and hoohkreNL combined"</span>]], </a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">                             res_out[[<span class="st">"Human rater"</span>]])</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">)), <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(res_performeR) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hookreg"</span>, <span class="st">"hookregNL"</span>, <span class="st">"hookreg and hookregNL"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_performeR, <span class="dt">digits=</span><span class="dv">4</span>, </a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">             <span class="dt">caption =</span> <span class="st">"Analysis of the performance of both algorithms. The </span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="st">performance of the individual test and the combination of the tests is shown. </span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="st">Note that the classification improved if the hookreg() and hookregNL() function </span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="st">were combined by a logical statement. The measure were determined with the </span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="ch">\\</span><span class="st">textit{performeR()} function from the </span><span class="ch">\\</span><span class="st">texttt{PCRedux} package. Sensitivity, </span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="st">TPR; Specificity, SPC; Precision, PPV; Negative predictive value, NPV; Fall-out, </span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="st">FPR; False negative rate, FNR; False discovery rate, FDR; Accuracy, ACC; F1 </span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="st">score, F1; Matthews correlation coefficient, MCC, Cohen's kappa (binary </span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="st">classification), $</span><span class="ch">\\</span><span class="st">kappa$"</span>, <span class="dt">label=</span><span class="st">'res_performeR'</span>),</a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="dt">size =</span> <span class="st">"normalsize"</span>,</a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="dt">include.rownames =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
-<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="dt">comment=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb12-19" data-line-number="19"><span class="dt">table.placement =</span> <span class="st">"!ht"</span>, <span class="dt">scalebox=</span><span class="st">'0.75'</span></a>
-<a class="sourceLine" id="cb12-20" data-line-number="20">)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">res_performeR &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Round.html">signif</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(</a>
+<a class="sourceLine" id="cb11-2" title="2">  <span class="dt">hookreg=</span><span class="kw"><a href="../reference/performeR.html">performeR</a></span>(res_out[[<span class="st">"hookreg"</span>]], res_out[[<span class="st">"Human rater"</span>]]),</a>
+<a class="sourceLine" id="cb11-3" title="3">  <span class="dt">hookregNL=</span><span class="kw"><a href="../reference/performeR.html">performeR</a></span>(res_out[[<span class="st">"hookregNL"</span>]], res_out[[<span class="st">"Human rater"</span>]]),</a>
+<a class="sourceLine" id="cb11-4" title="4">  <span class="dt">combined_hookreg=</span><span class="kw"><a href="../reference/performeR.html">performeR</a></span>(res_out[[<span class="st">"hookreg and hoohkreNL combined"</span>]], </a>
+<a class="sourceLine" id="cb11-5" title="5">                             res_out[[<span class="st">"Human rater"</span>]])</a>
+<a class="sourceLine" id="cb11-6" title="6">)), <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb11-7" title="7"></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(res_performeR) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"hookreg"</span>, <span class="st">"hookregNL"</span>, <span class="st">"hookreg and hookregNL"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(xtable)</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">xtable.comment=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3"></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/xtable/man/xtable.html">xtable</a></span>(res_performeR, <span class="dt">digits=</span><span class="dv">4</span>, </a>
+<a class="sourceLine" id="cb12-5" title="5">             <span class="dt">caption =</span> <span class="st">"Analysis of the performance of both algorithms. The </span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">performance of the individual test and the combination of the tests is shown. </span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="st">Note that the classification improved if the hookreg() and hookregNL() function </span></a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="st">were combined by a logical statement. The measure were determined with the </span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="ch">\\</span><span class="st">textit{performeR()} function from the </span><span class="ch">\\</span><span class="st">texttt{PCRedux} package. Sensitivity, </span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="st">TPR; Specificity, SPC; Precision, PPV; Negative predictive value, NPV; Fall-out, </span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="st">FPR; False negative rate, FNR; False discovery rate, FDR; Accuracy, ACC; F1 </span></a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="st">score, F1; Matthews correlation coefficient, MCC, Cohen's kappa (binary </span></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="st">classification), $</span><span class="ch">\\</span><span class="st">kappa$"</span>, <span class="dt">label=</span><span class="st">'res_performeR'</span>),</a>
+<a class="sourceLine" id="cb12-14" title="14"><span class="dt">size =</span> <span class="st">"normalsize"</span>,</a>
+<a class="sourceLine" id="cb12-15" title="15"><span class="dt">include.rownames =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb12-16" title="16"><span class="dt">include.colnames =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb12-17" title="17"><span class="dt">caption.placement =</span> <span class="st">"top"</span>,</a>
+<a class="sourceLine" id="cb12-18" title="18"><span class="dt">comment=</span><span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb12-19" title="19"><span class="dt">table.placement =</span> <span class="st">"!ht"</span>, <span class="dt">scalebox=</span><span class="st">'0.75'</span></a>
+<a class="sourceLine" id="cb12-20" title="20">)</a></code></pre></div>
 
 </div>
 <div id="funding" class="section level1">
@@ -350,70 +350,71 @@ f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-barratt_improving_2002">
-<p>Barratt, Kevin, and John F. Mackay. 2002. “Improving Real-Time PCR Genotyping Assays by Asymmetric Amplification.” <em>Journal of Clinical Microbiology</em> 40 (4): 1571–2. <a href="https://doi.org/10.1128/JCM.40.4.1571-1572.2002">https://doi.org/10.1128/JCM.40.4.1571-1572.2002</a>.</p>
+<p>Barratt, Kevin, and John F. Mackay. 2002. “Improving Real-Time PCR Genotyping Assays by Asymmetric Amplification.” <em>Journal of Clinical Microbiology</em> 40 (4): 1571–2. <a href="https://doi.org/10.1128/JCM.40.4.1571-1572.2002" class="uri">https://doi.org/10.1128/JCM.40.4.1571-1572.2002</a>.</p>
 </div>
 <div id="ref-brenner_variation_1997">
-<p>Brenner, Hermann, and Olaf Gefeller. 1997. “Variation of sensitivity, specificity, likelihood ratios and predictive values with disease prevalence.” <em>Statistics in Medicine</em> 16 (9): 981–91. <a href="http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf">http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf</a>.</p>
+<p>Brenner, Hermann, and Olaf Gefeller. 1997. “Variation of sensitivity, specificity, likelihood ratios and predictive values with disease prevalence.” <em>Statistics in Medicine</em> 16 (9): 981–91. <a href="http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf" class="uri">http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf</a>.</p>
 </div>
 <div id="ref-dvinge_htqpcr:_2009">
-<p>Dvinge, Heidi, and Paul Bertone. 2009. “HTqPCR: high-throughput analysis and visualization of quantitative real-time PCR data in R.” <em>Bioinformatics</em> 25 (24): 3325–6. <a href="https://doi.org/10.1093/bioinformatics/btp578">https://doi.org/10.1093/bioinformatics/btp578</a>.</p>
+<p>Dvinge, Heidi, and Paul Bertone. 2009. “HTqPCR: high-throughput analysis and visualization of quantitative real-time PCR data in R.” <em>Bioinformatics</em> 25 (24): 3325–6. <a href="https://doi.org/10.1093/bioinformatics/btp578" class="uri">https://doi.org/10.1093/bioinformatics/btp578</a>.</p>
 </div>
 <div id="ref-kemperman_mircomp-shiny:_2017">
-<p>Kemperman, Lauren, and Matthew N. McCall. 2017. “miRcomp-Shiny: Interactive assessment of qPCR-based microRNA quantification and quality control algorithms.” <em>F1000Research</em> 6 (November): 2046. <a href="https://f1000research.com/articles/6-2046/v1">https://f1000research.com/articles/6-2046/v1</a>.</p>
+<p>Kemperman, Lauren, and Matthew N. McCall. 2017. “miRcomp-Shiny: Interactive assessment of qPCR-based microRNA quantification and quality control algorithms.” <em>F1000Research</em> 6 (November): 2046. <a href="https://f1000research.com/articles/6-2046/v1" class="uri">https://f1000research.com/articles/6-2046/v1</a>.</p>
 </div>
 <div id="ref-kuhn_building_2008">
-<p>Kuhn, Max. 2008. “Building Predictive Models in R Using the caret Package.” <em>Journal of Statistical Software</em> 28 (5). <a href="http://www.jstatsoft.org/v28/i05/">http://www.jstatsoft.org/v28/i05/</a>.</p>
+<p>Kuhn, Max. 2008. “Building Predictive Models in R Using the caret Package.” <em>Journal of Statistical Software</em> 28 (5). <a href="http://www.jstatsoft.org/v28/i05/" class="uri">http://www.jstatsoft.org/v28/i05/</a>.</p>
 </div>
 <div id="ref-lefever_rdml_2009">
-<p>Lefever, Steve, Jan Hellemans, Filip Pattyn, Daniel R. Przybylski, Chris Taylor, René Geurts, Andreas Untergasser, Jo Vandesompele, and RDML on behalf of the Consortium. 2009. “RDML: structured language and reporting guidelines for real-time quantitative PCR data.” <em>Nucleic Acids Research</em> 37 (7): 2065–9. <a href="https://doi.org/10.1093/nar/gkp056">https://doi.org/10.1093/nar/gkp056</a>.</p>
+<p>Lefever, Steve, Jan Hellemans, Filip Pattyn, Daniel R. Przybylski, Chris Taylor, René Geurts, Andreas Untergasser, Jo Vandesompele, and RDML on behalf of the Consortium. 2009. “RDML: structured language and reporting guidelines for real-time quantitative PCR data.” <em>Nucleic Acids Research</em> 37 (7): 2065–9. <a href="https://doi.org/10.1093/nar/gkp056" class="uri">https://doi.org/10.1093/nar/gkp056</a>.</p>
 </div>
 <div id="ref-martins_dna_2015">
-<p>Martins, C., G. Lima, Mr. Carvalho, L. Cainé, and Mj. Porto. 2015. “DNA quantification by real-time PCR in different forensic samples.” <em>Forensic Science International: Genetics Supplement Series</em> 5 (December): e545–e546. <a href="https://doi.org/10.1016/j.fsigss.2015.09.215">https://doi.org/10.1016/j.fsigss.2015.09.215</a>.</p>
+<p>Martins, C., G. Lima, Mr. Carvalho, L. Cainé, and Mj. Porto. 2015. “DNA quantification by real-time PCR in different forensic samples.” <em>Forensic Science International: Genetics Supplement Series</em> 5 (December): e545–e546. <a href="https://doi.org/10.1016/j.fsigss.2015.09.215" class="uri">https://doi.org/10.1016/j.fsigss.2015.09.215</a>.</p>
 </div>
 <div id="ref-R_language">
-<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
 </div>
 <div id="ref-Ritz2008">
-<p>Ritz, Christian, and Andrej-Nikolai Spiess. 2008. “qpcR: an R package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis.” <em>Bioinformatics</em> 24 (13): 1549–51. <a href="https://doi.org/10.1093/bioinformatics/btn227">https://doi.org/10.1093/bioinformatics/btn227</a>.</p>
-</div>
-<div id="ref-ronde_practical_2017">
-<p>Ronde, Maurice W. J. de, Jan M. Ruijter, David Lanfear, Antoni Bayes-Genis, Maayke G. M. Kok, Esther E. Creemers, Yigal M. Pinto, and Sara-Joan Pinto-Sietsma. 2017. “Practical data handling pipeline improves performance of qPCR-based circulating miRNA measurements.” <em>RNA</em> 23 (5): 811–21. <a href="https://doi.org/10.1261/rna.059063.116">https://doi.org/10.1261/rna.059063.116</a>.</p>
+<p>Ritz, Christian, and Andrej-Nikolai Spiess. 2008. “qpcR: an R package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis.” <em>Bioinformatics</em> 24 (13): 1549–51. <a href="https://doi.org/10.1093/bioinformatics/btn227" class="uri">https://doi.org/10.1093/bioinformatics/btn227</a>.</p>
 </div>
 <div id="ref-roediger2015r">
-<p>Rödiger, Stefan, Michał Burdukiewicz, Konstantin A. Blagodatskikh, and Peter Schierack. 2015. “R as an Environment for the Reproducible Analysis of DNA Amplification Experiments.” <em>The R Journal</em> 7 (2): 127–50. <a href="http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf">http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf</a>.</p>
+<p>Rödiger, Stefan, Michał Burdukiewicz, Konstantin A. Blagodatskikh, and Peter Schierack. 2015. “R as an Environment for the Reproducible Analysis of DNA Amplification Experiments.” <em>The R Journal</em> 7 (2): 127–50. <a href="http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf" class="uri">http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf</a>.</p>
 </div>
 <div id="ref-roediger2015chippcr">
-<p>Rödiger, Stefan, Michał Burdukiewicz, and Peter Schierack. 2015. “chipPCR: an R package to pre-process raw data of amplification curves.” <em>Bioinformatics</em> 31 (17): 2900–2902. <a href="https://doi.org/10.1093/bioinformatics/btv205">https://doi.org/10.1093/bioinformatics/btv205</a>.</p>
+<p>Rödiger, Stefan, Michał Burdukiewicz, and Peter Schierack. 2015. “chipPCR: an R package to pre-process raw data of amplification curves.” <em>Bioinformatics</em> 31 (17): 2900–2902. <a href="https://doi.org/10.1093/bioinformatics/btv205" class="uri">https://doi.org/10.1093/bioinformatics/btv205</a>.</p>
 </div>
 <div id="ref-roediger_enabling_2017">
-<p>Rödiger, Stefan, Michał Burdukiewicz, Andrej-Nikolai Spiess, and Konstantin Blagodatskikh. 2017. “Enabling reproducible real-time quantitative PCR research: the RDML package.” <em>Bioinformatics</em>, August. <a href="https://doi.org/10.1093/bioinformatics/btx528">https://doi.org/10.1093/bioinformatics/btx528</a>.</p>
+<p>Rödiger, Stefan, Michał Burdukiewicz, Andrej-Nikolai Spiess, and Konstantin Blagodatskikh. 2017. “Enabling reproducible real-time quantitative PCR research: the RDML package.” <em>Bioinformatics</em>, August. <a href="https://doi.org/10.1093/bioinformatics/btx528" class="uri">https://doi.org/10.1093/bioinformatics/btx528</a>.</p>
 </div>
 <div id="ref-roediger_rkward_2012">
-<p>Rödiger, Stefan, Thomas Friedrichsmeier, Prasenjit Kapat, and Meik Michalke. 2012. “RKWard: a comprehensive graphical user interface and integrated development environment for statistical analysis with R.” <em>Journal of Statistical Software</em> 49 (9): 1–34. <a href="https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf">https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf</a>.</p>
+<p>Rödiger, Stefan, Thomas Friedrichsmeier, Prasenjit Kapat, and Meik Michalke. 2012. “RKWard: a comprehensive graphical user interface and integrated development environment for statistical analysis with R.” <em>Journal of Statistical Software</em> 49 (9): 1–34. <a href="https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf" class="uri">https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf</a>.</p>
+</div>
+<div id="ref-ronde_practical_2017">
+<p>Ronde, Maurice W. J. de, Jan M. Ruijter, David Lanfear, Antoni Bayes-Genis, Maayke G. M. Kok, Esther E. Creemers, Yigal M. Pinto, and Sara-Joan Pinto-Sietsma. 2017. “Practical data handling pipeline improves performance of qPCR-based circulating miRNA measurements.” <em>RNA</em> 23 (5): 811–21. <a href="https://doi.org/10.1261/rna.059063.116" class="uri">https://doi.org/10.1261/rna.059063.116</a>.</p>
 </div>
 <div id="ref-ruijter_rdml-ninja_2015">
-<p>Ruijter, Jan M., Steve Lefever, Jasper Anckaert, Jan Hellemans, Michael W. Pfaffl, Vladimir Benes, Stephen A. Bustin, Jo Vandesompele, Andreas Untergasser, and RDML on behalf of the Consortium. 2015. “RDML-Ninja and RDMLdb for standardized exchange of qPCR data.” <em>BMC Bioinformatics</em> 16 (1): 197. <a href="https://doi.org/10.1186/s12859-015-0637-6">https://doi.org/10.1186/s12859-015-0637-6</a>.</p>
+<p>Ruijter, Jan M., Steve Lefever, Jasper Anckaert, Jan Hellemans, Michael W. Pfaffl, Vladimir Benes, Stephen A. Bustin, Jo Vandesompele, Andreas Untergasser, and RDML on behalf of the Consortium. 2015. “RDML-Ninja and RDMLdb for standardized exchange of qPCR data.” <em>BMC Bioinformatics</em> 16 (1): 197. <a href="https://doi.org/10.1186/s12859-015-0637-6" class="uri">https://doi.org/10.1186/s12859-015-0637-6</a>.</p>
 </div>
 <div id="ref-ruijter_evaluation_2013">
-<p>Ruijter, Jan M., Michael W. Pfaffl, Sheng Zhao, Andrej N. Spiess, Gregory Boggy, Jochen Blom, Robert G. Rutledge, et al. 2013. “Evaluation of qPCR curve analysis methods for reliable biomarker discovery: Bias, resolution, precision, and implications.” <em>Methods</em> 59 (1): 32–46. <a href="https://doi.org/10.1016/j.ymeth.2012.08.011">https://doi.org/10.1016/j.ymeth.2012.08.011</a>.</p>
+<p>Ruijter, Jan M., Michael W. Pfaffl, Sheng Zhao, Andrej N. Spiess, Gregory Boggy, Jochen Blom, Robert G. Rutledge, et al. 2013. “Evaluation of qPCR curve analysis methods for reliable biomarker discovery: Bias, resolution, precision, and implications.” <em>Methods</em> 59 (1): 32–46. <a href="https://doi.org/10.1016/j.ymeth.2012.08.011" class="uri">https://doi.org/10.1016/j.ymeth.2012.08.011</a>.</p>
 </div>
 <div id="ref-sauer_differentiation_2016">
-<p>Sauer, Eva, Ann-Kathrin Reinke, and Cornelius Courts. 2016. “Differentiation of five body fluids from forensic samples by expression analysis of four microRNAs using quantitative PCR.” <em>Forensic Science International: Genetics</em> 22 (May): 89–99. <a href="https://doi.org/10.1016/j.fsigen.2016.01.018">https://doi.org/10.1016/j.fsigen.2016.01.018</a>.</p>
+<p>Sauer, Eva, Ann-Kathrin Reinke, and Cornelius Courts. 2016. “Differentiation of five body fluids from forensic samples by expression analysis of four microRNAs using quantitative PCR.” <em>Forensic Science International: Genetics</em> 22 (May): 89–99. <a href="https://doi.org/10.1016/j.fsigen.2016.01.018" class="uri">https://doi.org/10.1016/j.fsigen.2016.01.018</a>.</p>
 </div>
 <div id="ref-spiess_impact_2015">
-<p>Spiess, Andrej-Nikolai, Claudia Deutschmann, Michał Burdukiewicz, Ralf Himmelreich, Katharina Klat, Peter Schierack, and Stefan Rödiger. 2015. “Impact of Smoothing on Parameter Estimation in Quantitative DNA Amplification Experiments.” <em>Clinical Chemistry</em> 61 (2): 379–88. <a href="https://doi.org/10.1373/clinchem.2014.230656">https://doi.org/10.1373/clinchem.2014.230656</a>.</p>
+<p>Spiess, Andrej-Nikolai, Claudia Deutschmann, Michał Burdukiewicz, Ralf Himmelreich, Katharina Klat, Peter Schierack, and Stefan Rödiger. 2015. “Impact of Smoothing on Parameter Estimation in Quantitative DNA Amplification Experiments.” <em>Clinical Chemistry</em> 61 (2): 379–88. <a href="https://doi.org/10.1373/clinchem.2014.230656" class="uri">https://doi.org/10.1373/clinchem.2014.230656</a>.</p>
 </div>
 <div id="ref-spiess_highly_2008">
-<p>Spiess, Andrej-Nikolai, Caroline Feig, and Christian Ritz. 2008. “Highly accurate sigmoidal fitting of real-time PCR data by introducing a parameter for asymmetry.” <em>BMC Bioinformatics</em> 9 (1): 221. <a href="https://doi.org/10.1186/1471-2105-9-221">https://doi.org/10.1186/1471-2105-9-221</a>.</p>
+<p>Spiess, Andrej-Nikolai, Caroline Feig, and Christian Ritz. 2008. “Highly accurate sigmoidal fitting of real-time PCR data by introducing a parameter for asymmetry.” <em>BMC Bioinformatics</em> 9 (1): 221. <a href="https://doi.org/10.1186/1471-2105-9-221" class="uri">https://doi.org/10.1186/1471-2105-9-221</a>.</p>
 </div>
 <div id="ref-spiess_system-specific_2016">
-<p>Spiess, Andrej-Nikolai, Stefan Rödiger, Michał Burdukiewicz, Thomas Volksdorf, and Joel Tellinghuisen. 2016. “System-specific periodicity in quantitative real-time polymerase chain reaction data questions threshold-based quantitation.” <em>Scientific Reports</em> 6 (December): 38951. <a href="https://doi.org/10.1038/srep38951">https://doi.org/10.1038/srep38951</a>.</p>
+<p>Spiess, Andrej-Nikolai, Stefan Rödiger, Michał Burdukiewicz, Thomas Volksdorf, and Joel Tellinghuisen. 2016. “System-specific periodicity in quantitative real-time polymerase chain reaction data questions threshold-based quantitation.” <em>Scientific Reports</em> 6 (December): 38951. <a href="https://doi.org/10.1038/srep38951" class="uri">https://doi.org/10.1038/srep38951</a>.</p>
 </div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
