@@ -48,17 +48,26 @@ decision_modus <- function(data, variables=c("a", "n", "y"), max_freq=TRUE) {
   sum_unique_variables <- sapply(1L:length(unique_variables), function(i) {
     sum(unlisted_data %in% unique_variables[i])
   })
+  
+  # Make a data frame wiht the decision and their frequencies.
+  freq_df <- data.frame(
+    variable = as.character(unique_variables),
+    freq = sum_unique_variables
+  )
+  
   # Perform a logical operation on the summarized decision elements.
   # Either report the most common element or total statistics about the decision
   if (max_freq) {
-    # Make a data frame wiht the decision and their frequencies.
-    tmp <- data.frame(
-      variable = as.character(unique_variables),
-      freq = sum_unique_variables
-    )
+    
     # Report the most frequent decision only
-    tmp[tmp[, "freq"] == max(tmp[, "freq"]), "variable"]
+    most_frequent_decision <- freq_df[freq_df[, "freq"] == max(freq_df[, "freq"]), "variable"]
+    
+    if(length(most_frequent_decision) > 1) {
+      return(NA)
+    } else {
+      return(most_frequent_decision)
+    }
   } else {
-    data.frame(variable = as.character(unique_variables), freq = sum_unique_variables)
+    freq_df
   }
 }
