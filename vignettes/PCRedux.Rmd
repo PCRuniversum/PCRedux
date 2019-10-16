@@ -1006,7 +1006,7 @@ par(mfrow = c(1,2))
 barplot(res_fw / sum(res_fw) * 100, beside = TRUE, col = colors, xlab = "", 
         ylab = "Percentage", border = "white")
 legend("top", c(
-    paste0("Negative, n =", length(y[x == "n"])), paste0("Positive, n =", length(y[x == "y"]))
+    paste0("Negative, n =", length(y[x == "n"])), paste0("Positive, n = ", length(y[x == "y"]))
 ), fill = colors, bty = "n")
 mtext("A    Fitted models", cex = 1, side = 3, adj = 0, font = 2)
 
