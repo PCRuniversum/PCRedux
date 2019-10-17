@@ -1067,7 +1067,7 @@ for(i in 1L:length(predictor)) {
 
 ``winklR()`` is a function to calculate the in the trajectory of the first negative and the second negative derivatives maxima and minima (\autoref{winklR}) of an amplification curve data from a quantitative PCR experiment. For the determination of the angle, the origin is the maximum of the first derivative. On this basis, the vectors to the minimum and maximum of the second figure are determined. The vectors result from the relation of the maximum of the first derivative to the minimum of the second derivative and from the maximum of the first derivative to the maximum of the second derivative. In a simple trigonometric approach, the scalar product of the two vectors is formed first. Then the absolute values are calculated and multiplied by each other. Finally, the value is converted into an angle with the cosine. The assumption is that flat (negative amplification curves) have a large angle and sigmoid (positive amplification curves) have a smaller angle. Another assumption is that this angle is independent of the rotation of the amplification curve. This means that systematic off-sets, such as those caused by incorrect background correction, are of no consequence. The cycles to be analyzed is defined by the user. The output contains the angle and the coordinates of the minima and maxima.
 
-```{r, echo = FALSE, fig.cap=winklR_principle, fig.scap=winklR_principle_short, fig.height=8.5, fig.width=11}
+```{r, echo = FALSE, fig.cap=winklR_principle, fig.scap=winklR_principle_short, fig.height=4, fig.width=9}
 
 par(mfrow = c(1,2))
 for(i in 1:2){
@@ -1100,8 +1100,8 @@ text(res$origin[1], res$origin[2] + 250, signif(res[["angle"]], 2))
 ```
 
 
-```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=8.5, fig.width=11} 
-# Calculate the angles for amplification curve data from the RAS002 data set.
+```{r winklR, echo=TRUE, fig.cap=winklR, fig.scap=winklR_short, fig.height=4, fig.width=9} 
+# Calculate the central angles for amplification curves from the RAS002 data set.
 library(PCRedux)
 
 # Load the amplification curves from the RAS002 data set.
@@ -1131,7 +1131,7 @@ par(mfrow = c(1,2))
 # Use a stripchart to show the angles of positive (y)
 # and negative (n) amplification curves
 stripchart(res_winklR ~ dec, method = "jitter", 
-           vertical = TRUE, pch = 19)
+           vertical = TRUE, pch = 19, xlab = "class", ylab = "angle")
 mtext("A", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
 # Use a calculates the conditional densities of the angles 
@@ -1307,7 +1307,7 @@ mtext("", side = 3, adj = 0, font = 2)
 }
 ```
 
-The predictor `loglin_slope` is used in the following to show that the slope within this ROI can be used to distinguish positive and negative amplification curves. The hypothesis is that positive amplification curves have a higher `loglin_slope` than negative amplification curves. As shown in \autoref{plot_dat_EffTop}D, there is a statistically significant difference between positive and negative amplification curves.
+The predictor `loglin_slope` is used in the following to test if the slope within this ROI can be used to distinguish positive and negative amplification curves. The hypothesis is that positive amplification curves have a higher `loglin_slope` than negative amplification curves. As shown in \autoref{plot_dat_EffTop}D, there is a statistically significant difference between positive and negative amplification curves.
 
 
 The `loglin_slope` values from the `data_sample_subset_balanced` data set (\autoref{section_analysis_functions}) were used to save computing time. A binomial logistic regression (see \autoref{section_technologies_amplification_curves_ML})) was used to analyze the relationship between the `loglin_slope` value and the class (negative, positive). The data set was split into two chunks. This is an important step during such applications. One chunk is for adapting, i. e. training, the model and the other chunk for testing the model. By convention, 70% to 80% of the data is used for training [@walsh_correct_2015; @kuhn_building_2008]. The binomial logistic regression model was adapted using the ``glm()`` [\texttt{stats}] function by using the parameter `family = binomial(link = 'logit')`. To objectify the splitting, the ``sample()`` [\texttt{stats}] function was used.
@@ -1367,9 +1367,9 @@ The ``summary()`` function returns the results of the model fitting. This can be
 summary(model_glm)
 ```
 
-Based on the results it can be concluded that the parameters ` (intercept)` and `loglin_slope` are statistically significant (*P* < 2e-16). This indicates a strong association between `loglin_slope` and the probability that an amplification curve is positive.
+Based on the results it can be concluded that the parameters ` (intercept)` and `loglin_slope` are statistically significant (*P* < 2e-16). This indicates an association between `loglin_slope` and the probability that an amplification curve is positive.
 
-In order to apply the model to a new data set, further steps are necessary. ``predict()`` [\texttt{stats}] is a generic function for predicting the results of a model fitting function. All previously split test data is passed to the function argument `newdata`. By setting the `type = 'response'` parameter, the ``predict()`` function returns probabilities in the form of $P(y=1|X)$. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If $P(y=1|X) < 0.5$ then $y = 0$ (amplification curve negative), otherwise $y = 1$ (amplification curves positive).
+In order to apply the model to a new data set, further steps are necessary. ``predict()`` [\texttt{stats}] is a generic function for predicting the results of a model fitting function (\autoref{plot_Logistic_Regression}A). All previously split test data is passed to the function argument `newdata`. By setting the `type = 'response'` parameter, the ``predict()`` function returns probabilities in the form of $P(y=1|X)$. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If $P(y=1|X) < 0.5$ then $y = 0$ (amplification curve negative), otherwise $y = 1$ (amplification curves positive).
 
 
 ```{r plot_Logistic_Regression, echo=TRUE, fig.cap=plot_Logistic_Regression, fig.scap=plot_Logistic_Regression_short, fig.height=3.7}
@@ -1414,7 +1414,7 @@ abline(h = 0.85, col = "grey")
 mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 ```
 
-Sensitivity, specificity and further parameters for estimating predictions were calculated using the ``performeR()`` function (\autoref{section_performeR}). The results indicate that the sensitivity and specificity for the test data set provides a good result. However, in this case, thex depend heavily on the computer-aided random sampling of the training data, and the total size of the data set. Over-fitting and under-fitting and other problems need to be addressed [@walsh_correct_2015].
+Sensitivity, specificity and further parameters for estimating predictions were calculated using the ``performeR()`` function (\autoref{section_performeR}). The results indicate that the sensitivity and specificity for the test data set provides a good result. However, in this case, thex depend heavily on the computer-aided random sampling of the training data, and the total size of the data set (\autoref{plot_Logistic_Regression}B). Over-fitting and under-fitting and other problems need to be addressed [@walsh_correct_2015].
 
 To proof the results, further methods such as Likelihood Ratio Test, McFadden’s $R^{2}$, k-fold cross-validation, Receiver Operating Characteristic (ROC) analysis and model interpretation should be used [@arlot_survey_2010; @mcfadden_conditional_1974; @sing_rocr:_2005].
 
@@ -1773,7 +1773,7 @@ text(c(18.75, 57.5), c(1.6, 1.6), c("EvaGreen", "Hydrolysis probes"))
 
 The ratios from the ground and plateau phase can be used to search for patterns in amplification curves. Positive amplification curves have different slopes and intercepts at the start (head, background region) and the end (tail, plateau region) of the amplification curve. Hence, these regions are potentially useful to extract a predictor for amplification curve classification. Negative amplification curves (no slope) are assumed to have a ratio of about 1. In contrast, positive amplification curves should have a ratio of less than 1.
 
-The $n$-dimensional space of all predictor variables $X_{1,2 \ldots n}$ is also called feature space. In the present study the feature space was extended by domain knowledge using known features. The``head2tailratio()``-function is an example for this. Here the feature $X_{3}\equiv head2tail\_ratio$ could be calculated by determining the ratio of the $X_{1}\equiv$ *fluorescence intensity in the head region* and $X_{2}\equiv$ *fluorescence intensity in the tail region* of a quantitative PCR amplification curve ($X_{3} = \frac{X_{1}}{X_{2}}$). As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no significant increase in amplification signals can be measured in the first six cycles and in the last six cycles (the amplification curve usually transitions into the plateau). This assumption is sometimes violated (e.&nbsp;g., *hook effect*) and might lead to false estimates.
+The $n$-dimensional space of all predictor variables $X_{1,2 \ldots n}$ is also called feature space. In the present study the feature space was extended by domain knowledge using known features. The ``head2tailratio()``-function is an example for this. Here the feature $X_{3}\equiv head2tail\_ratio$ could be calculated by determining the ratio of the $X_{1}\equiv$ *fluorescence intensity in the head region* and $X_{2}\equiv$ *fluorescence intensity in the tail region* of a quantitative PCR amplification curve ($X_{3} = \frac{X_{1}}{X_{2}}$). As ROI, the areas in the ground phase (head) and plateau phases (tail) are used (\autoref{amplification_curve_ROI}A). For the calculation, the median from the first six data points of the amplification curve and the median from the last six data points are used. The determination of six data points in both regions was made on the basis of \emph{empirical experience}. As a rule, no significant increase in amplification signals can be measured in the first six cycles and in the last six cycles (the amplification curve usually transitions into the plateau). This assumption is sometimes violated (e.&nbsp;g., *hook effect*) and might lead to false estimates.
 
 
 ```{r, echo = TRUE}
