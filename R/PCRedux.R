@@ -1,4 +1,4 @@
-#' PCRedux - quantitative PCR Data Mining and Machine Learning Helper Tool
+#' PCRedux - quantitative PCR Data Mining and Machine Learning Toolkit
 #'
 #' @description \code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
 #'

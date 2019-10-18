@@ -6,7 +6,7 @@
 
 ![PCRedux](https://raw.githubusercontent.com/devSJR/PCRedux/docs/vignettes/Logo.png)
 # PCRedux
-Quantitative PCR Machine Learning Helper Tool
+Quantitative PCR Machine Learning Toolkit
 
 ## Installation
 
