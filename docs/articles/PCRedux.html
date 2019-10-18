@@ -78,7 +78,7 @@
       <h1>PCRedux package - an overview</h1>
                         <h4 class="author">Stefan Rödiger et al.</h4>
             
-            <h4 class="date">2019-10-17</h4>
+            <h4 class="date">2019-10-18</h4>
       
       
       <div class="hidden name"><code>PCRedux.Rmd</code></div>
@@ -93,7 +93,7 @@
 <div id="aims-of-the-project" class="section level1">
 <h1 class="hasAnchor">
 <a href="#aims-of-the-project" class="anchor"></a>Aims of the Project</h1>
-<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-17) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
+<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-18) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
 <p>Therefore, the aim of the study was to:</p>
 <ol style="list-style-type: decimal">
 <li>create a collection of classified amplification curve data,</li>
@@ -809,22 +809,22 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.3423  -0.1860   0.0000   0.0061   2.8517  
+## -3.3765  -0.1392  -0.0696   0.0044   3.0469  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)    -4.049      0.475  -8.524   &lt;2e-16 ***
-## loglin_slope  212.974     24.596   8.659   &lt;2e-16 ***
+## (Intercept)   -4.6321     0.6192  -7.480 7.41e-14 ***
+## loglin_slope 228.4227    27.9007   8.187 2.68e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 632.141  on 455  degrees of freedom
-## Residual deviance:  69.814  on 454  degrees of freedom
-## AIC: 73.814
+##     Null deviance: 632.150  on 455  degrees of freedom
+## Residual deviance:  51.639  on 454  degrees of freedom
+## AIC: 55.639
 ## 
-## Number of Fisher Scoring iterations: 8</code></pre>
+## Number of Fisher Scoring iterations: 9</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates an association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new data set, further steps are necessary. <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> [] is a generic function for predicting the results of a model fitting function (A). All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>
