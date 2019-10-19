@@ -10,38 +10,38 @@ library(mlr)
 library(ggplot2)
 
 if("devtools" %in% rownames(installed.packages()) == FALSE) {
-    library(patchwork)
+  library(patchwork)
 }
 
 if("gbm" %in% rownames(installed.packages()) == FALSE) {
-    install.packages("gbm")
+  install.packages("gbm")
 }
 
 if("patchwork" %in% rownames(installed.packages())) {
-    library(patchwork)
+  library(patchwork)
 } else {
-    devtools::install_github("thomasp85/patchwork")
-    "patchwork" %in% rownames(installed.packages())
-    library(patchwork)
+  devtools::install_github("thomasp85/patchwork")
+  "patchwork" %in% rownames(installed.packages())
+  library(patchwork)
 }
 #####
 
 
 # visualizng qPCR curves
-data.frame(htPCR[, 1L:245]) %>% 
+p1 <- data.frame(htPCR[, 1L:245]) %>% 
   melt(id.vars = "Cycles") %>%
   ggplot(aes(x = Cycles, y = value, color = variable)) +
   geom_line() +
   theme_bw() +
-  xlab("cycle") +
+  xlab("Cycle") +
   ylab("Raw fluorescence") +
-  ggtitle("qPCR curves") +
+  ggtitle("A)") + #qPCR curves
   theme(legend.position = "none")
 
 # obtaining decisions
 dec_htPCR <- read.csv(system.file("decision_res_htPCR.csv", package = "PCRedux"))
 dec <- unlist(lapply(1L:244, function(i) {
-        decision_modus(dec_htPCR[i, 2:8])
+  decision_modus(dec_htPCR[i, 2:8])
 }))
 
 # calculating encu parameters
@@ -50,19 +50,21 @@ res <- encu(htPCR[, 1L:245])
 
 # merging into one dataset
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
-                               levels = c("positive", "ambiguous", "negative"))) %>%
+                                    levels = c("positive", "ambiguous", "negative"))) %>%
   select(eff, loglin_slope, minRFU, init2, decision) %>%
   filter(!is.na(dec))
 
 # visualizing
-ggplot(data = dat %>%
-         mutate(id = rownames(dat)) %>%
-         melt(id.vars = c("id", "decision")), 
-       aes(x = decision, y = value)) +
+p2 <- ggplot(data = dat %>%
+               mutate(id = rownames(dat)) %>%
+               melt(id.vars = c("id", "decision")), 
+             aes(x = decision, y = value)) +
   geom_boxplot() +
   theme_bw() +
-  facet_wrap(~variable, scales = "free_y") +
-  ggtitle("Separation of types of curves by encu() parameters")
+  facet_wrap(~ variable, scales = "free_y") +
+  scale_y_continuous("Value") +
+  scale_x_discrete("Assessment") +
+  ggtitle("B)") # Separation of types of curves by encu() parameters
 
 # modelling
 tsk <- makeClassifTask("pcr_classif", data = dat, target = "decision")
@@ -88,13 +90,17 @@ results[["model"]] <- fct_recode(results[["model"]],
                                  `nnet::multinom` = "classif.multinom",
                                  `glmnet::glmnet` = "classif.glmnet")
 
-ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
+p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
   geom_point() + 
   geom_errorbar(data = results %>% 
                   group_by(model) %>% 
                   summarise(auc = median(multiclass.au1u)), 
                 aes(x = model, ymin = auc, ymax = auc), 
-                inherit.aes = FALSE, color = "#FC5E61") +
-  theme_bw() +
+                inherit.aes = FALSE, color = "#FC5E61",
+                width = 0.5) +
+  theme_bw() + 
+  xlab("Model") +
   ylab("AUC one vs all mean result") +
-  ggtitle("Results of crossvalidating models trained on encu() parameters")
+  ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
+
+(p1 + p2) / p3
