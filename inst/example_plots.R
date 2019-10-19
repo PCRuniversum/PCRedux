@@ -45,6 +45,7 @@ dec <- unlist(lapply(1L:244, function(i) {
 }))
 
 # calculating encu parameters
+# Please be patient, this step will take some time
 res <- encu(htPCR[, 1L:245])
 
 # merging into one dataset
