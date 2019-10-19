@@ -78,7 +78,7 @@
       <h1>PCRedux package - an overview</h1>
                         <h4 class="author">Stefan Rödiger et al.</h4>
             
-            <h4 class="date">2019-10-18</h4>
+            <h4 class="date">2019-10-19</h4>
       
       
       <div class="hidden name"><code>PCRedux.Rmd</code></div>
@@ -93,7 +93,7 @@
 <div id="aims-of-the-project" class="section level1">
 <h1 class="hasAnchor">
 <a href="#aims-of-the-project" class="anchor"></a>Aims of the Project</h1>
-<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-18) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
+<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-19) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
 <p>Therefore, the aim of the study was to:</p>
 <ol style="list-style-type: decimal">
 <li>create a collection of classified amplification curve data,</li>
@@ -809,20 +809,20 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.4482  -0.1131  -0.1131   0.0025   3.1798  
+## -3.5853  -0.1774  -0.1774   0.0027   2.8842  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -5.0491     0.7594  -6.649 2.95e-11 ***
-## loglin_slope 243.0658    31.6936   7.669 1.73e-14 ***
+## (Intercept)   -4.1437     0.4915  -8.431  &lt; 2e-16 ***
+## loglin_slope 233.7313    30.3642   7.698 1.39e-14 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 632.141  on 455  degrees of freedom
-## Residual deviance:  41.931  on 454  degrees of freedom
-## AIC: 45.931
+##     Null deviance: 632.115  on 455  degrees of freedom
+## Residual deviance:  59.321  on 454  degrees of freedom
+## AIC: 63.321
 ## 
 ## Number of Fisher Scoring iterations: 9</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates an association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>

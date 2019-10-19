@@ -26,9 +26,10 @@ if("patchwork" %in% rownames(installed.packages())) {
 }
 #####
 
+curves <- 245
 
 # visualizng qPCR curves
-p1 <- data.frame(htPCR[, 1L:245]) %>% 
+p1 <- data.frame(htPCR[, 1L:curves]) %>% 
   melt(id.vars = "Cycles") %>%
   ggplot(aes(x = Cycles, y = value, color = variable)) +
   geom_line() +
@@ -40,13 +41,13 @@ p1 <- data.frame(htPCR[, 1L:245]) %>%
 
 # obtaining decisions
 dec_htPCR <- read.csv(system.file("decision_res_htPCR.csv", package = "PCRedux"))
-dec <- unlist(lapply(1L:244, function(i) {
+dec <- unlist(lapply(1L:(curves -1), function(i) {
   decision_modus(dec_htPCR[i, 2:8])
 }))
 
 # calculating encu parameters
 # Please be patient, this step will take some time
-res <- encu(htPCR[, 1L:245])
+res <- encu(htPCR[, 1L:curves])
 
 # merging into one dataset
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
@@ -103,6 +104,6 @@ p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
   ylab("AUC one vs all mean result") +
   ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
 
-cairo_ps("figure1.eps", width = 10, height = 7)
+cairo_ps("figure1.eps", width = 10, height = 5)
 (p1 + p2) / p3
 dev.off()
