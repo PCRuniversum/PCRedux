@@ -106,7 +106,7 @@
 <h1 class="hasAnchor">
 <a href="#introduction-to-the-detection-and-quantification-of-nucleic-acids-and-the-realtion-to-machine-learning" class="anchor"></a>Introduction to the Detection and Quantification of Nucleic Acids and the Realtion to Machine Learning</h1>
 <p>In  the reader finds a concise introduction to nucleic acids, including nucleic acid detection methods for the analysis of forensic sample material. Special intention is paid to the quantitative Polymerase Chain Reaction (qPCR), since this method is the <em>de facto</em> standard for the detection and high-precision quantification of nucleic acids.</p>
-<p>The focus of this study is the development of the  software (version 0.2.6.5). This software can be used to automatically calculate putative predictors (<em>features</em>) from qPCR amplification curves. A predictor herein refers to a quantifiable <em>informative</em> property of an amplification curve, employable for data mining, machine learning applications and classification tasks.</p>
+<p>The focus of this study is the development of statistical and bioinformatical algorithms for the  software (version 0.2.6.5). This software can be used to automatically calculate putative predictors (<em>features</em>) from qPCR amplification curves. A predictor herein refers to a quantifiable <em>informative</em> property of an amplification curve, employable for data mining, machine learning applications and classification tasks.</p>
 <p>The  deals with elements of the software engineering (e. g., continuous integration, Donald Knuth’s <em>Literate Programming</em>, unit testing) used within the  software. The  gives an introduction into qPCR data, their analysis and explains why there is a need for the  software. In addition, the data analysis using machine learning is concisely described, after which the work focuses on the analysis of the measured data.</p>
 <p>The proposed algorithms were partially tested with machine learning methods. For this purpose, a brief introduction to the subject  is given in , and results from the belonging chapters are applied.</p>
 <p>The details for statistical analysis of qPCR amplification curves are presented in  ff. This covers the description of the curvature and the challenges of the calculations.</p>
@@ -155,7 +155,7 @@
 <p>A DNA polymerase is a transferase (e. g., <em>Taq</em> polymerase) that covalently attaches (phosphodiester bonds) nucleotides (e. g., guanine and cytosine) at the 5’-end starting from the primer. This results in a complementary strand of the template DNA. This process is repeated multiple times to synthesize the DNA copies. The product formation can be analyzed, for example, by agarosegel electrophoresis, or capillary electrophoresis. In both cases, the DNA is separated by size. To visualize specific detection probes, DNA labeling dyes or combination of detection probes and dyes, can be used. <span class="citation">(Halpern and Ballantyne 2011; Westermeier 2004)</span></p>
 <p>The PCR is the recommended procedure for short tandem repeat (STR) analysis. Short tandem repeats play a pivotal role in forensics, since they are a gold standard for DNA profiling in forensic casework <span class="citation">(Oorschot, Ballantyne, and Mitchell 2010; Geng, Novak, and Mathies 2014)</span>.</p>
 <p>With the <strong>quantitative PCR</strong> (qPCR) technology, the number of start copies of a target nucleic acid sequence in a genomic or complementary DNA sample can be quantified. qPCR uses the same biochemical principles as PCR. This is possible because the amplification reaction is continuously monitored in each thermo-cycle <span class="citation">(Higuchi et al. 1993; Rutledge and Côté 2003)</span>. The resulting kinetics of the amplification process is described in . To quantify the DNA copies, the amplification reaction of the unknown DNA sample is compared with a sample whose concentration is known (e. g. internal standard, dilution series).</p>
-<p>Applications of qPCR include the quantification of human nuclear DNA and mitochondrial DNA from forensic evidence <span class="citation">(Alonso and García 2007)</span> and analysis of gene expression <span class="citation">(Pabinger et al. 2014; George et al. 2016)</span>. qPCR was used in this work to generate amplification curve data sets. In the later chapters, this work will only focus on qPCR technology.</p>
+<p>Applications of qPCR include the quantification of human nuclear DNA and mitochondrial DNA from forensic evidence <span class="citation">(Alonso and García 2007)</span>, analysis of gene expression <span class="citation">(Pabinger et al. 2014; George et al. 2016)</span> or the relationship between (poly)pharmacy and clinical consequences <span class="citation">(Maher, Hanlon, and Hajjar 2014; Caudle et al. 2019; Rao et al. 2018; Mestdagh et al. 2016; Giuliano et al. 2017; Meyer et al. 2017; Lee et al. 2017)</span>. qPCR was used in this work to generate amplification curve data sets. In the later chapters, this work will only focus on qPCR technology.</p>
 <p>In the Life Science sector, qPCR has become indispensable. For one, qPCR is used to investigate biological relationships by gene expression analysis. The qPCR is also used for the preparation and post-processing of NGS experiment <span class="citation">(Nassirpour et al. 2014; Cristino et al. 2011)</span>. The RNA-Seq assumes that all transcripts can be sequenced unbiased. In reality, certain DNA sequences (e. g., GC-rich regions) are more poorly processed and so their quantity is often underestimated. Normalization of RNA-Seq data is based on the assumption that each sample contains the equal total amount of expressed mRNA. That does not necessarily have to be the case. NGS data are derived by mapping the sequenced DNA fragments to a genome reference. Mutations and single nucleotide polymorphisms (SNPs) are sometimes ignored. As a consequence, results vary depending on which mismatches are allowed. The qPCR is used for qualitative and quantitative characterization of the material to be sequenced. Moreover, qPCR is a highly sensitive method for checking the “library DNA” of NGS reactions. Analysis of sequencing data is not the end of an NGS experiment. Sequence variations or expression changes need to be verified reliably. qPCR is used to confirm found differences in the follow-up. There are undisputed qualities of qPCR in terms of sensitivity and specificity. The above described problems play only a minor role in qPCR. For this reason, qPCR is usually used for validation of NGS experiments. In particular, the technical progress of commercially available qPCR technologies has led to the development of easy-to-use devices that enable users to compile large volumes of data on their specific research questions. This involves the requirement to evaluate data objectively and reproducibly <span class="citation">(Rödiger, Burdukiewicz, et al. 2015)</span>.</p>
 <p>The <strong>digital PCR</strong> (dPCR) is a variation of the PCR which predates qPCR. Due to the technical complexity of dPCRs, it was predominantly used in academia. Technical advances make it widely available to the mass market since 2008. The biochemical foundation of dPCR is similar to qPCR but the reaction mix is partitioned into thousands of small partitions (nanoliter volume). These partitions separate the amplification reactions (“clonal amplification”), which in combination with Poisson statistics, enables an absolute quantification of DNA <span class="citation">(Pabinger et al. 2014; Burdukiewicz et al. 2016)</span>.</p>
 <p>An alternative to PCR is <strong>isothermal amplification</strong>. Isothermal amplification is a continuous reaction at a constant temperature (isothermal) and involves enzymes that differ from the conventional PCRs. An example is the loop-mediated amplification (LAMP) <span class="citation">(Rödiger et al. 2011)</span> that is gaining interest in forensics for point-of-care testing and microfluidic devices. Recent advances in the development of technologies for bioanalytical microfluidic devices, medium-throughput and high-throughput technologies were achieved. A device for forensic applications was shown for the analysis of STRs, but also for quantitative assays <span class="citation">(Horsman et al. 2007)</span>.</p>
@@ -809,20 +809,20 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.5853  -0.1774  -0.1774   0.0027   2.8842  
+## -3.2337  -0.1902  -0.1902   0.0064   2.8361  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -4.1437     0.4915  -8.431  &lt; 2e-16 ***
-## loglin_slope 233.7313    30.3642   7.698 1.39e-14 ***
+## (Intercept)   -4.0038     0.4716   -8.49   &lt;2e-16 ***
+## loglin_slope 204.0438    24.1175    8.46   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 632.115  on 455  degrees of freedom
-## Residual deviance:  59.321  on 454  degrees of freedom
-## AIC: 63.321
+##     Null deviance: 632.01  on 455  degrees of freedom
+## Residual deviance:  67.11  on 454  degrees of freedom
+## AIC: 71.11
 ## 
 ## Number of Fisher Scoring iterations: 9</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates an association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
@@ -2090,6 +2090,9 @@ Clustering and variation analysis of amplification curves. The amplification cur
 <div id="ref-bustin_continuing_2017">
 <p>Bustin, Stephen. 2017. “The continuing problem of poor transparency of reporting and use of inappropriate methods for RT-qPCR.” <em>Biomolecular Detection and Quantification</em> 12 (June): 7–9. <a href="https://doi.org/10.1016/j.bdq.2017.05.001" class="uri">https://doi.org/10.1016/j.bdq.2017.05.001</a>.</p>
 </div>
+<div id="ref-caudle_prn_2019">
+<p>Caudle, Kelly E., Roseann S. Gammal, Jason H. Karnes, Janna Afanasjeva, Keri C. Anderson, Erin F. Barreto, Craig Beavers, et al. 2019. “PRN OPINION PAPER: Application of Precision Medicine Across Pharmacy Specialty Areas.” <em>JACCP: JOURNAL OF THE AMERICAN COLLEGE OF CLINICAL PHARMACY</em> 2 (3): 288–302. <a href="https://doi.org/10.1002/jac5.1107" class="uri">https://doi.org/10.1002/jac5.1107</a>.</p>
+</div>
 <div id="ref-charpiat_shape_2003">
 <p>Charpiat, Guillaume, Olivier Faugeras, and Renaud Keriven. 2003. “Shape metrics, warping and statistics.” In <em>Image Processing, 2003. ICIP 2003. Proceedings. 2003 International Conference on</em>, 2:II–627. IEEE. <a href="http://ieeexplore.ieee.org/abstract/document/1246758/" class="uri">http://ieeexplore.ieee.org/abstract/document/1246758/</a>.</p>
 </div>
@@ -2109,7 +2112,7 @@ Clustering and variation analysis of amplification curves. The amplification cur
 <p>Dvinge, Heidi, and Paul Bertone. 2009. “HTqPCR: high-throughput analysis and visualization of quantitative real-time PCR data in R.” <em>Bioinformatics</em> 25 (24): 3325–6. <a href="https://doi.org/10.1093/bioinformatics/btp578" class="uri">https://doi.org/10.1093/bioinformatics/btp578</a>.</p>
 </div>
 <div id="ref-erdman_bcp:_2007">
-<p>Erdman, Chandra, John W. Emerson, and others. 2007. “bcp: an R package for performing a Bayesian analysis of change point problems.” <em>Journal of Statistical Software</em> 23 (3): 1–13. <a href="https://www.researchgate.net/profile/Chandra_Erdman/publication/26538600_bcp_An_R_Package_for_Performing_a_Bayesian_Analysis_of_Change_Point_Problems/links/56dee56608aec8c022cf2fd2.pdf" class="uri">https://www.researchgate.net/profile/Chandra_Erdman/publication/26538600_bcp_An_R_Package_for_Performing_a_Bayesian_Analysis_of_Change_Point_Problems/links/56dee56608aec8c022cf2fd2.pdf</a>.</p>
+<p>Erdman, Chandra, John W. Emerson, and others. 2007. “bcp: an R package for performing a Bayesian analysis of change point problems.” <em>Journal of Statistical Software</em> 23 (3): 1–13. <a href="https://www.jstatsoft.org/article/view/v023i03/v23i03.pdf" class="uri">https://www.jstatsoft.org/article/view/v023i03/v23i03.pdf</a>.</p>
 </div>
 <div id="ref-Febrero_Bande_2012">
 <p>Febrero-Bande, Manuel, and Manuel Oviedo de la Fuente. 2012. “Statistical Computing in Functional Data Analysis: The R Package fda.usc.” <em>Journal of Statistical Software</em> 51 (4): 1–28. <a href="http://www.jstatsoft.org/v51/i04/" class="uri">http://www.jstatsoft.org/v51/i04/</a>.</p>
@@ -2125,6 +2128,9 @@ Clustering and variation analysis of amplification curves. The amplification cur
 </div>
 <div id="ref-george_development_2016">
 <p>George, Sandra, Stefan Rödiger, Christian Schröder, Michael Knaut, and Jan-Heiner Küpper. 2016. “Development of multiplex PCR systems for expression profiling of human cardiomyocytes induced to proliferate by lentivirus transduction of upcyte genes.” <em>Journal of Cellular Biotechnology</em> 2 (1): 35–55. <a href="https://doi.org/10.3233/JCB-15025" class="uri">https://doi.org/10.3233/JCB-15025</a>.</p>
+</div>
+<div id="ref-giuliano_use_2017">
+<p>Giuliano, Kenneth A., Shinichiro Wachi, Lawrence Drew, Danijela Dukovski, Olivia Green, Cecilia Bastos, Matthew D. Cullen, et al. 2017. “Use of a High-Throughput Phenotypic Screening Strategy to Identify Amplifiers, a Novel Pharmacological Class of Small Molecules That Exhibit Functional Synergy with Potentiators and Correctors:” <em>SLAS DISCOVERY: Advancing Life Sciences R&amp;D</em>, September. <a href="https://doi.org/10.1177/2472555217729790" class="uri">https://doi.org/10.1177/2472555217729790</a>.</p>
 </div>
 <div id="ref-greene_big_2014">
 <p>Greene, Casey S., Jie Tan, Matthew Ung, Jason H. Moore, and Chao Cheng. 2014. “Big Data Bioinformatics.” <em>Journal of Cellular Physiology</em> 229 (12): 1896–1900. <a href="https://doi.org/10.1002/jcp.24662" class="uri">https://doi.org/10.1002/jcp.24662</a>.</p>
@@ -2193,7 +2199,10 @@ Clustering and variation analysis of amplification curves. The amplification cur
 <p>Lanubile, F., C. Ebert, R. Prikladnicki, and A. Vizcaíno. 2010. “Collaboration Tools for Global Software Engineering.” <em>IEEE Software</em> 27 (2): 52–55. <a href="https://doi.org/10.1109/MS.2010.39" class="uri">https://doi.org/10.1109/MS.2010.39</a>.</p>
 </div>
 <div id="ref-lee_statistical_2010">
-<p>Lee, J. K. 2010. <em>Statistical Bioinformatics: For Biomedical and Life Science Researchers</em>. Wiley. <a href="https://books.google.de/books?id=aT1MBGtxSNsC" class="uri">https://books.google.de/books?id=aT1MBGtxSNsC</a>.</p>
+<p>Lee, Jae K. 2010. <em>Statistical Bioinformatics: For Biomedical and Life Science Researchers</em>. Wiley-Blackwell. <a href="https://www.wiley.com/en-sg/Statistical+Bioinformatics%3A+For+Biomedical+and+Life+Science+Researchers-p-9780471692720">https://www.wiley.com/en-sg/Statistical+Bioinformatics%3A+For+Biomedical+and+Life+Science+Researchers-p-9780471692720</a>.</p>
+</div>
+<div id="ref-lee_high-throughput_2017">
+<p>Lee, Seung-Hee, Daniel Cunha, Carlo Piermarocchi, Giovanni Paternostro, Anthony Pinkerton, Laurence Ladriere, Piero Marchetti, Decio L. Eizirik, Miriam Cnop, and Fred Levine. 2017. “High-Throughput Screening and Bioinformatic Analysis to Ascertain Compounds That Prevent Saturated Fatty Acid-Induced -Cell Apoptosis.” <em>Biochemical Pharmacology</em> 138 (August): 140–49. <a href="https://doi.org/10.1016/j.bcp.2017.05.007" class="uri">https://doi.org/10.1016/j.bcp.2017.05.007</a>.</p>
 </div>
 <div id="ref-lefever_rdml_2009">
 <p>Lefever, Steve, Jan Hellemans, Filip Pattyn, Daniel R. Przybylski, Chris Taylor, René Geurts, Andreas Untergasser, Jo Vandesompele, and RDML on behalf of the Consortium. 2009. “RDML: structured language and reporting guidelines for real-time quantitative PCR data.” <em>Nucleic Acids Research</em> 37 (7): 2065–9. <a href="https://doi.org/10.1093/nar/gkp056" class="uri">https://doi.org/10.1093/nar/gkp056</a>.</p>
@@ -2203,6 +2212,9 @@ Clustering and variation analysis of amplification curves. The amplification cur
 </div>
 <div id="ref-luan_signal-detection_2011">
 <p>Luan, Shenghua, Lael J. Schooler, and Gerd Gigerenzer. 2011. “A signal-detection analysis of fast-and-frugal trees.” <em>Psychological Review</em> 118 (2): 316–38. <a href="https://doi.org/10.1037/a0022684" class="uri">https://doi.org/10.1037/a0022684</a>.</p>
+</div>
+<div id="ref-maher_clinical_2014">
+<p>Maher, Robert L., Joseph T. Hanlon, and Emily R. Hajjar. 2014. “Clinical Consequences of Polypharmacy in Elderly.” <em>Expert Opinion on Drug Safety</em> 13 (1). <a href="https://doi.org/10.1517/14740338.2013.827660" class="uri">https://doi.org/10.1517/14740338.2013.827660</a>.</p>
 </div>
 <div id="ref-mallona_chainy:_nodate">
 <p>Mallona, Izaskun, Anna Díez-Villanueva, Berta Martín, and Miguel A. Peinado. 2017. “Chainy: an universal tool for standardized relative quantification in real-time PCR.” <em>Bioinformatics</em>. <a href="https://doi.org/10.1093/bioinformatics/btw839" class="uri">https://doi.org/10.1093/bioinformatics/btw839</a>.</p>
@@ -2221,6 +2233,12 @@ Clustering and variation analysis of amplification curves. The amplification cur
 </div>
 <div id="ref-mcfadden_conditional_1974">
 <p>McFadden, Daniel L. 1974. “Conditional Logit Analysis of Qualitative Choice Behavior.” In <em>Frontiers in Economics</em>, Frontiers in Economics:105–42. P. Zarembka (ed.). New York: Academic Press. <a href="https://eml.berkeley.edu/reprints/mcfadden/zarembka.pdf" class="uri">https://eml.berkeley.edu/reprints/mcfadden/zarembka.pdf</a>.</p>
+</div>
+<div id="ref-mestdagh_long_2016">
+<p>Mestdagh, Pieter, Steve Lefever, Pieter-Jan Volders, Stefaan Derveaux, Jan Hellemans, and Jo Vandesompele. 2016. “Long Non-Coding RNA Expression Profiling in the NCI60 Cancer Cell Line Panel Using High-Throughput RT-qPCR.” <em>Scientific Data</em> 3 (1): 1–6. <a href="https://doi.org/10.1038/sdata.2016.52" class="uri">https://doi.org/10.1038/sdata.2016.52</a>.</p>
+</div>
+<div id="ref-meyer_high_2017">
+<p>Meyer, Hermann-Josef, Rebecca Turincio, Shirley Ng, Juan Li, Blair Wilson, Pamela Chan, Mark Zak, Dorothea Reilly, Maureen H. Beresini, and Athena W. Wong. 2017. “High Throughput Screening Identifies Novel, Cell Cycle-Arresting Small Molecule Enhancers of Transient Protein Expression.” <em>Biotechnology Progress</em> 33 (6): 1579–88. <a href="https://doi.org/10.1002/btpr.2517" class="uri">https://doi.org/10.1002/btpr.2517</a>.</p>
 </div>
 <div id="ref-myers_art_2004">
 <p>Myers, Glenford J., Tom Badgett, Todd M. Thomas, and Corey Sandler. 2004. <em>The art of software testing</em>. 2nd ed. Hoboken, N.J: John Wiley &amp; Sons.</p>
@@ -2251,6 +2269,9 @@ Clustering and variation analysis of amplification curves. The amplification cur
 </div>
 <div id="ref-quinlan_induction_1986">
 <p>Quinlan, J. Ross. 1986. “Induction of decision trees.” <em>Machine Learning</em> 1 (1): 81–106. <a href="http://link.springer.com/article/10.1007/BF00116251" class="uri">http://link.springer.com/article/10.1007/BF00116251</a>.</p>
+</div>
+<div id="ref-rao_6-week_2018">
+<p>Rao, Prema S., Ryan Endicott, Randy Mullins, and U. Subrahmanyeswara Rao. 2018. “A 6-Week Laboratory Research Rotation in Pharmacogenomics: A Model for Preparing Pharmacy Students to Practice Precision Medicine.” <em>The Pharmacogenomics Journal</em> 18 (4): 601–8. <a href="https://doi.org/10.1038/s41397-018-0019-3" class="uri">https://doi.org/10.1038/s41397-018-0019-3</a>.</p>
 </div>
 <div id="ref-richards_flexible_1959">
 <p>Richards, F. J. 1959. “A Flexible Growth Function for Empirical Use.” <em>Journal of Experimental Botany</em> 10 (2): 290–301. <a href="https://doi.org/10.1093/jxb/10.2.290" class="uri">https://doi.org/10.1093/jxb/10.2.290</a>.</p>
