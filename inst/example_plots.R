@@ -45,7 +45,7 @@ dec <- unlist(lapply(1L:244, function(i) {
 }))
 
 # calculating encu parameters
-res <- encu(htPCR[, 1L:2])
+res <- encu(htPCR[, 1L:245])
 
 # merging into one dataset
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
