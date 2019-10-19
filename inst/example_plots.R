@@ -8,8 +8,22 @@ library(reshape2)
 library(mlr)
 
 library(ggplot2)
-#devtools::install_github("thomasp85/patchwork")
-library(patchwork)
+
+if("devtools" %in% rownames(installed.packages()) == FALSE) {
+    library(patchwork)
+}
+
+if("gbm" %in% rownames(installed.packages()) == FALSE) {
+    install.packages("gbm")
+}
+
+if("patchwork" %in% rownames(installed.packages())) {
+    library(patchwork)
+} else {
+    devtools::install_github("thomasp85/patchwork")
+    "patchwork" %in% rownames(installed.packages())
+    library(patchwork)
+}
 #####
 
 
@@ -47,10 +61,10 @@ ggplot(data = dat %>%
   geom_boxplot() +
   theme_bw() +
   facet_wrap(~variable, scales = "free_y") +
-  ggtitle("Separation of types of curves by encu parameters")
+  ggtitle("Separation of types of curves by encu() parameters")
 
 # modelling
-tsk <- makeClassifTask("pcr_classif", data = dat, target = "dec")
+tsk <- makeClassifTask("pcr_classif", data = dat, target = "decision")
 
 mdls <- list()
 mdls[[1]] <- makeLearner("classif.ranger", predict.type = "prob")
@@ -82,4 +96,4 @@ ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
                 inherit.aes = FALSE, color = "#FC5E61") +
   theme_bw() +
   ylab("AUC one vs all mean result") +
-  ggtitle("Results of crossvalidating models trained on encu parameters")
+  ggtitle("Results of crossvalidating models trained on encu() parameters")
