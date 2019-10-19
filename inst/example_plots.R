@@ -20,11 +20,12 @@ data.frame(htPCR[, 1L:245]) %>%
   geom_line() +
   theme_bw() +
   xlab("cycle") +
+  ylab("Raw fluorescence") +
   ggtitle("qPCR curves") +
   theme(legend.position = "none")
 
 # obtaining decisions
-dec_htPCR <- read.csv("./inst/decision_res_htPCR.csv")
+dec_htPCR <- read.csv(system.file("decision_res_htPCR.csv", package = "PCRedux"))
 dec <- unlist(lapply(1L:244, function(i) {
         decision_modus(dec_htPCR[i, 2:8])
 }))

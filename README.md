@@ -5,7 +5,9 @@
 [![Licence](https://github.com/devSJR/PCRedux/blob/docs/vignettes/MIT.svg)](https://opensource.org/licenses/MIT)
 
 ![PCRedux](https://raw.githubusercontent.com/devSJR/PCRedux/docs/vignettes/Logo.png)
+
 # PCRedux
+
 Quantitative PCR Machine Learning Toolkit
 
 ## Installation
