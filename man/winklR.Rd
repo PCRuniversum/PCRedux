@@ -2,8 +2,8 @@
 % Please edit documentation in R/winklR.R
 \name{winklR}
 \alias{winklR}
-\title{winklR: A function to calculate the angle based on the first and the second #' derivative of an amplification curve data
-from a quantitative PCR experiment.}
+\title{winklR: A function to calculate the angle based on the first and the second 
+derivative of an amplification curve data from a quantitative PCR experiment.}
 \usage{
 winklR(x, y, normalize = FALSE, preprocess = TRUE)
 }
@@ -21,15 +21,15 @@ data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagg
 \description{
 \code{winklR} is a function to calculate the in the trajectory of the first
 and the second derivatives maxima and minima  of an amplification curve data
-from a quantitative PCR experiment. For the determination of the angle, the
-origin is the maximum of the first derivative. On this basis, the vectors to
-the minimum and maximum of the second figure are determined. The vectors
-result from the relation of the maximum of the first derivative to the
-minimum of the second derivative and from the maximum of the first
-derivative to the maximum of the second derivative. In a simple
-trigonometric approach, the scalar product of the two vectors is formed
-first. Then the absolute values are calculated and multiplied by each other.
-Finally, the value is converted into an angle with the cosine. The
+from a quantitative PCR experiment. For the determination of the angle 
+(central angle), the origin is the maximum of the first derivative. On this 
+basis, the vectors to the minimum and maximum of the second figure are 
+determined. The vectors result from the relation of the maximum of the 
+first derivative to the minimum of the second derivative and from the 
+maximum of the first derivative to the maximum of the second derivative. 
+In a simple trigonometric approach, the scalar product of the two vectors 
+is formed first. Then the absolute values are calculated and multiplied by 
+each other. Finally, the value is converted into an angle with the cosine. The
 assumption is that flat (negative amplification curves) have a large angle
 and sigmoid (positive amplification curves) have a smaller angle. Another
 assumption is that this angle is independent of the rotation of the
