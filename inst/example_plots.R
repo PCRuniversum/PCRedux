@@ -103,4 +103,6 @@ p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
   ylab("AUC one vs all mean result") +
   ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
 
+cairo_ps("figure1.eps", width = 10, height = 7)
 (p1 + p2) / p3
+dev.off()
