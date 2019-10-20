@@ -27,7 +27,7 @@ library(mlr)
 library(ggplot2)
 
 if("devtools" %in% rownames(installed.packages()) == FALSE) {
-  library(patchwork)
+  library(devtools)
 }
 
 if("gbm" %in% rownames(installed.packages()) == FALSE) {
