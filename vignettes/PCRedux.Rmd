@@ -2240,7 +2240,7 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-### Frequentist and Baysian Change point analysis\label{section_change_point_analysis}
+### Frequentist and Bayesian Change point analysis\label{section_change_point_analysis}
 
 Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014; @erdman_bcp:_2007]. Several change point algorithms exist, such as the binary segmentation algorithm [@scott_cluster_1974]. In change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. In the case of qPCR, this is simply the cycle-dependent fluorescence, used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean) of the change points at specific points, change point analysis using Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves, it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
 
@@ -2309,7 +2309,7 @@ res_ecp_pos <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 1]))$estimates
 abline(v = res_ecp_pos, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
 mtext("C   Changepoints", cex = 1, side = 3, adj = 0, font = 2)
-legend("topright", c("Baysian", "Agglomerative"), pch = c(19, 19), 
+legend("topright", c("Bayesian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 
 plot(amp_data[, 1], amp_data[, 3], xlab = "Cycles", ylab = "RFU", type = "l", lwd = 2)
@@ -2323,7 +2323,7 @@ res_ecp_neg <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 2]))$estimates
 abline(v = res_ecp_neg, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
 mtext("F   Changepoints", cex = 1, side = 3, adj = 0, font = 2)
-legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19), 
+legend("topleft", c("Bayesian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 ```
 
@@ -2800,7 +2800,7 @@ Cohen''s kappa (binary classification)     & $\kappa=\frac{p_{0}-p_{c}}{1-p_{0}}
 
 The ``qPCR2fdata()`` function takes a `data.frame` containing the amplification cycles (first column) and the fluorescence amplitudes (subsequent columns) as input. 
 
-Noise and missing values may affect the analysis adversely. Therefore, an instance of the ``CPP()`` [\texttt{chipPCR}] function [@roediger2015chippcr] was integrated in ``qPCR2fdata()``. If \textit{preprocess=TRUE} in ``qPCR2fdata()``, then all curves are smoothed (Savitzky-Golay smoother), missing values are imputated and outliers in the ground phase get removed as described in @roediger2015chippcr.
+Noise and missing values may affect the analysis adversely. Therefore, an instance of the ``CPP()`` [\texttt{chipPCR}] function [@roediger2015chippcr] was integrated in ``qPCR2fdata()``. If \textit{preprocess=TRUE} in ``qPCR2fdata()``, then all curves are smoothed (Savitzky-Golay smoother), missing values are imputed and outliers in the ground phase get removed as described in @roediger2015chippcr.
 
 The following example illustrates a hierarchical cluster analysis of the `testdat` data set. The amplification curves of the `testdat` data set remained as raw data or were pre-processed (smoothed). Subsequent, the amplification curves were converted by the ``qPCR2fdata()``. The converted data were subjected to cluster analysis (Hausdorff distance). This method uses the elements of a proximity matrix to generate a dendrogram. The dendrogram can then be used to further analyze the clusters. There are methods to determine the number of clusters automatically \textit{k} [@cook_interactive_2007]. However, for simplicity, the number of clusters was determined visually.
 

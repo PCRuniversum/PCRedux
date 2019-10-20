@@ -9,7 +9,7 @@
 #' @param data is a table containing the classes.
 #' @param variables is the class to look for.
 #' @param max_freq is a logical parameter (default == TRUE) delivers either the
-#' most ocurring class or a summary.
+#' most occurring class or a summary.
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords decision modus
 #' @examples

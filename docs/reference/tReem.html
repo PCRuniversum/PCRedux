@@ -8,13 +8,11 @@
 
 <title>A function to Group Amplification Curves According to their Shape — tReem • PCRedux</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -34,8 +32,8 @@
 
 
 
-
 <meta property="og:title" content="A function to Group Amplification Curves According to their Shape — tReem" />
+
 <meta property="og:description" content="tReem is a function to group amplification curves
 from a quantitative PCR experiment according to their shape.
 Either the Pearson correlation coefficient or the Hausdorff
@@ -44,7 +42,6 @@ on the Pearson correlation coefficient is sufficient. The
 grouping based on the Hausdorff distance can be very slow
 for large data sets." />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -106,6 +103,7 @@ for large data sets." />
   </ul>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -127,6 +125,7 @@ for large data sets." />
     </div>
 
     <div class="ref-description">
+    
     <p><code>tReem</code> is a function to group amplification curves
 from a quantitative PCR experiment according to their shape.
 Either the Pearson correlation coefficient or the Hausdorff
@@ -134,10 +133,11 @@ distance is used as measure. In most cases the grouping based
 on the Pearson correlation coefficient is sufficient. The
 grouping based on the Hausdorff distance can be very slow
 for large data sets.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>tReem</span>(<span class='no'>data</span>, <span class='kw'>cor</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -156,12 +156,13 @@ Hausdorff distance will be used.</p></td>
       <td><p>an integer scalar or vector with the desired number of groups.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/fda.usc/man/metric.hausdorff.html'>metric.hausdorff</a></code>, <code><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></code>,
  <code><a href='qPCR2fdata.html'>qPCR2fdata</a></code>, <code><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></code>,
  <code><a href='https://rdrr.io/r/stats/cor.html'>cor</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Classify amplification curve data by Hausdorff distance</span>
@@ -174,7 +175,9 @@ Hausdorff distance will be used.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

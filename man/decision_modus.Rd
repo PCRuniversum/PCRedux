@@ -12,7 +12,7 @@ decision_modus(data, variables = c("a", "n", "y"), max_freq = TRUE)
 \item{variables}{is the class to look for.}
 
 \item{max_freq}{is a logical parameter (default == TRUE) delivers either the
-most ocurring class or a summary.}
+most occurring class or a summary.}
 }
 \description{
 \code{decision_modus} is a function that can be used to find the most frequent

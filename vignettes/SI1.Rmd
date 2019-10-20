@@ -391,7 +391,7 @@ The performance of the **hookreg()** and **hookregNL()** functions was analyzed
 with the **performeR()** function of the \texttt{PCRedux} package (Table 
 \ref{res_performeR}). The methods were adopted from @brenner_variation_1997 and 
 @kuhn_building_2008. Note that the formula for the calculations of the 
-sensitivity, specificity, precision, Negative predictive value, fall-out, alse 
+sensitivity, specificity, precision, Negative predictive value, fall-out, false 
 negative rate, false discovery rate, Accuracy, F1 score, Matthews correlation 
 coefficient and kappa by Cohen are described in the documentation of the 
 \texttt{PCRedux} package.
