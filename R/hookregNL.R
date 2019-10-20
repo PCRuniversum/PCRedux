@@ -11,7 +11,7 @@
 #' @param level the confidence level required, Default: 0.99.
 #' @param simple is a logical parameter. If TRUE (default) only the slope,
 #' confidence interval and decisions are shown as output
-#' @param manualtrim is the number of cycles that should be reomoved from the
+#' @param manualtrim is the number of cycles that should be removed from the
 #' background.
 #' (\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}}
 #' including the 6-parameter model is the output.

@@ -180,7 +180,7 @@ It is expected that these implementations will allow the automatic analysis of l
 
 \newpage
 
-## Bioanalytical Methods for the Detection and Quantification of Nucleic Acids\label{NucleicAcids}
+## Bioanalytical Methods for the Detection and Quantification of Nucleic Acids \label{NucleicAcids}
 
 Nucleic acids are biopolymers composed of nucleotides and allow organisms to transfer genetic information. The nucleotides (e.&nbsp;g., *G* for guanine, *C* for cytosine) are arranged in a specific order (sequence). Strands of complementary nucleotide pairs (e.&nbsp;g., G:::C) form stable hybrids. These can be differentiated based on their sequences by the analytical methods presented below. There are two types of nucleic acids:
 
@@ -263,7 +263,7 @@ For the generation of negative amplification curves, a set of experiments was co
 All statistical analysis was performed using \texttt{RKWard} [@roediger_rkward_2012] v. $\geq$ 0.7.0z+0.7.1+devel1. \texttt{RKWard} is an integrated development environment and graphical user interface for the \texttt{R} (v. `r getRversion()`) statistical computing language. It has been shown that \texttt{R} is a powerful environment for reproducible and transparent data analysis in a highly customizable cross-platform environment [@roediger2015r].
 
 ## Development, Implementation and Installation \label{section_Development_Implementation_and_Installation}
-
+    
 \texttt{PCRedux} is an open source software package ([MIT license](https://opensource.org/licenses/MIT)\footnote{\url{https://opensource.org/licenses/MIT}}) for the statistical computing language \texttt{R}. Data with sigmoid curves are common in bioanalytical methods, such as in the widely used real-time PCR (qPCR), applied in human diagnostics, life sciences and forensics [@martins_dna_2015; @sauer_differentiation_2016]. qPCR amplification curves are an example for sigmoid shaped curves, for which \texttt{PCRedux} contains functions to calculate predictors and classify data sets for machine learning applications. 
 
 All technical and experimental aspects should be performed under principles that follow good practices of reproducible research. Here, numerous authors addressed the matter for experimental design and data report. Examples are the *Minimum Information for Publication of Quantitative PCR Experiments* guidelines (MIQE) and the *Real-time PCR Data Markup Language* (RDML). MIQE is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines and RDML is a data exchange format [@bustin_continuing_2017; @roediger2015r; @roediger_enabling_2017].
@@ -758,7 +758,7 @@ mtext("C    boggy data set", cex = 1, side = 3, adj = 0, font = 2)
 
 The amplification curve shape, the amplification efficiency and the Cq value are important measures to judge the outcome of a qPCR reaction. In all phases of PCR, the curves should be smooth. Possible artifacts in the curves may be due to unstable light sources from the instrument or problems during sample preparation, such as the presence of bubbles in the reaction vessel, incorrectly assigned dye detectors, errors during the calibration of dyes for the instrument, errors during the preparation of the PCR master mix, sample degradation, lack of a sample in the PCR, too much sample material in the PCR mix or a low detection probe concentration [@ruijter_amplification_2009; @ruijter_2014; @spiess_impact_2015]. Smoothing and filtering cause alterations to the raw data that affects the Cq value and the amplification efficiency.
 
-Most commercial qPCR systems do not display the raw data of the amplification curves on the screen. Instead, raw data are often processed by the instrument software to remove fluorophore-specific effects and noise in all ROI's. Commonly employed pre-processing step of qPCR is smoothing and filtering to remove noise, where the latter can have different causes [@spiess_impact_2015]. 
+Most commercial qPCR systems do not display the raw data of the amplification curves on the screen. Instead, raw data are often processed by the instrument software to remove fluorophore-specific effects and noise in all ROIs. Commonly employed pre-processing step of qPCR is smoothing and filtering to remove noise, where the latter can have different causes [@spiess_impact_2015]. 
 
 The ordinate often does not display the measured fluorescence, but rather the change in fluorescence per cycle ($\varDelta RFU = RFU_{cycle  + 1} - RFU_{cycle}$). Some qPCR systems display periodicity in the amplification curve data, thereby exposing the risk of introducing artificial shifts in the Cq values [@spiess_system-specific_2016]. 
 
@@ -1414,7 +1414,7 @@ abline(h = 0.85, col = "grey")
 mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 ```
 
-Sensitivity, specificity and further parameters for estimating predictions were calculated using the ``performeR()`` function (\autoref{section_performeR}). The results indicate that the sensitivity and specificity for the test data set provides a good result. However, in this case, thex depend heavily on the computer-aided random sampling of the training data, and the total size of the data set (\autoref{plot_Logistic_Regression}B). Over-fitting and under-fitting and other problems need to be addressed [@walsh_correct_2015].
+Sensitivity, specificity and further parameters for estimating predictions were calculated using the ``performeR()`` function (\autoref{section_performeR}). The results indicate that the sensitivity and specificity for the test data set provides a good result. However, in this case, they depend heavily on the computer-aided random sampling of the training data, and the total size of the data set (\autoref{plot_Logistic_Regression}B). Over-fitting and under-fitting and other problems need to be addressed [@walsh_correct_2015].
 
 To proof the results, further methods such as Likelihood Ratio Test, McFadden’s $R^{2}$, k-fold cross-validation, Receiver Operating Characteristic (ROC) analysis and model interpretation should be used [@arlot_survey_2010; @mcfadden_conditional_1974; @sing_rocr:_2005].
 
@@ -2240,7 +2240,7 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-### Frequentist and Baysian Change point analysis\label{section_change_point_analysis}
+### Frequentist and Bayesian Change point analysis\label{section_change_point_analysis}
 
 Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014; @erdman_bcp:_2007]. Several change point algorithms exist, such as the binary segmentation algorithm [@scott_cluster_1974]. In change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. In the case of qPCR, this is simply the cycle-dependent fluorescence, used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean) of the change points at specific points, change point analysis using Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves, it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
 
@@ -2309,7 +2309,7 @@ res_ecp_pos <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 1]))$estimates
 abline(v = res_ecp_pos, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
 mtext("C   Changepoints", cex = 1, side = 3, adj = 0, font = 2)
-legend("topright", c("Baysian", "Agglomerative"), pch = c(19, 19), 
+legend("topright", c("Bayesian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 
 plot(amp_data[, 1], amp_data[, 3], xlab = "Cycles", ylab = "RFU", type = "l", lwd = 2)
@@ -2323,7 +2323,7 @@ res_ecp_neg <- ecp::e.agglo(as.matrix(dat_smoothed_deriv[, 2]))$estimates
 abline(v = res_ecp_neg, col = "green", pch = 19)
 abline(h = 0.6, col = "grey")
 mtext("F   Changepoints", cex = 1, side = 3, adj = 0, font = 2)
-legend("topleft", c("Baysian", "Agglomerative"), pch = c(19, 19), 
+legend("topleft", c("Bayesian", "Agglomerative"), pch = c(19, 19), 
        col = c("red", "green"), bty="n")
 ```
 
@@ -2333,7 +2333,7 @@ A part of ``pcrfit_single()`` is the ``amptester()`` [\texttt{chipPCR}] function
 
 - The first test, designated as SHt, is based on this Shapiro-Wilk test of normality. This relatively simple procedure can be used to check whether the underlying population of a sample (amplification curve) is significantly ($\alpha \leq 5e-04$) normal distributed. The name of the output of the ``pcrfit_single()`` function is `amptester_shapiro`.
 - The second test is the *Resids growth test* (RGt), which tests if the fluorescence values in linear phase are stable. Whenever no amplification occurs, fluorescence values quickly deviate from linear model. Their standardized residuals will be strongly correlated with their value. For real amplification curves, the situation is much more stable. Noise (meaning deviations from linear model) in  background do not correlate strongly with the changes in fluorescence. The decision is based on the threshold value (here 0.5). The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single()`` function is `amptester_rgt`.
-- The third test is the *Linear Regression test* (LRt). This test determines the coefficient of determination ($R^{2}$) by an ordinary least squares linear (OLS) regression. The $R^{2}$ are determined from a run of $\sim$ 15% range of the data. If a sequence of more than six $R^{2}$s larger than 0.8 is found, a nonlinear signal is plausible. This is somewhat counterintuitive, because $R^{2}$ of nonlinear data should be low. The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single()`` function is `amptester_lrt`.
+- The third test is the *Linear Regression test* (LRt). This test determines the coefficient of determination ($R^{2}$) by an ordinary least squares linear (OLS) regression. The $R^{2}$ are determined from a run of $\sim$ 15% range of the data. If a sequence of more than six $R^{2}$s larger than 0.8 is found, a nonlinear signal is plausible. This is somewhat counter-intuitive, because $R^{2}$ of nonlinear data should be low. The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single()`` function is `amptester_lrt`.
 - The fourth test is called *Threshold test* (THt), based on the Wilcoxon rank sum test. As a simple rule the first 20% (head) and the last 15% (tail) of an amplification curve are used as input data. From this, a one-sided Wilcoxon rank sum tests of the head versus the tail is performed ($\alpha \leq 1e-02$). The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single()`` function is `amptester_tht`.
 - The fifth test is called *Signal level test* (SLt). The test compares the signals of the head and the tail by a robust "sigma" rule (median + 2 * MAD) and the comparison of the head/tail ratio. If the returned value is less than 1.25 (25 percent), then the amplification curve is likely negative. The output is binary coded (negative = 0, positive = 1). The output name of the ``pcrfit_single()`` function is `amptester_slt`.
 - The sixth test is called *Polygon test* (pco). The pco test determines if the points in an amplification curve (like a polygon) are in a "clockwise" order. The sum over the edges result in a positive value if the amplification curve is "clockwise" and is negative if the curve is counter-clockwise. Experience states that noise is positive and "true" amplification curves are "highly" negative. In contrast to the implementation in the ``amptester()`` function, the result is normalized by a division to the number of PCR cycles. The output is numeric. The output name of the ``pcrfit_single()`` function is `amptester_polygon`.
@@ -2537,9 +2537,9 @@ write.csv(RAS002, "RAS002_amp.csv", row.names = FALSE)
 
 RDML data file           | Device    | Target gene           | Detection chemistry
 -------------------------|-----------|-----------------------|------------------------------
-RAS002.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
-RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | Taqman
-hookreg.rdml             | Bio-Rad   | various               | Taqman, DNA binding dyes
+RAS002.rdml              | CFX96     | HPV16, HPV18, HPRT1   | TaqMan
+RAS003.rdml              | CFX96     | HPV16, HPV18, HPRT1   | TaqMan
+hookreg.rdml             | Bio-Rad   | various               | TaqMan, DNA binding dyes
 
 \begin{table}[]
 \centering
@@ -3069,7 +3069,7 @@ Although data sets in the \texttt{PCRedux} package are large compared to what ha
 
 Accordingly, the domain knowledge, biases, and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training data set. The model is intended to be in accordance with the human operator. The implications can be serve. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. As illustrated in \autoref{section_reasoning_and_analysis}, every human operator will make an association between the shape of an amplification curve and the class it belongs to.
 
-Measures to minimize errors are the implementation of algorithms in open source package and public available data sets. In contrast to black box algorithms and hidden data sets can third parties review and modify all elements. Many qPCR devices have build-in software that performs per-processiong steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr; @spiess_impact_2015; @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied throughly.
+Measures to minimize errors are the implementation of algorithms in open source package and public available data sets. In contrast to black box algorithms and hidden data sets can third parties review and modify all elements. Many qPCR devices have build-in software that performs preprocessing steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr; @spiess_impact_2015; @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied thoroughly.
 
 For the examples in the \texttt{PCRedux} package, the question could not be clarified whether class imbalances in the data sets cause a confirmation distortion. However, a class imbalance may result in loss of prediction strength, because some classifiers make the assumption of similar class distributions [@herrera_multiple_2016].
 

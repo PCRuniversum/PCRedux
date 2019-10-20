@@ -81,7 +81,6 @@ It is recommended to use software with an integrated development environment suc
 # Results for the analysis of the `hookreg.rdml` data set by **humanrater()**
 
 All calculations in the following sections were employed on the `hookreg.rdml` data 
-set, which is part of the \texttt{PCRedux} package. The data were transfered to the 
 **R** environment by the \texttt{RDML} package [@roediger_enabling_2017]. An overview of 
 the used samples and the qPCR detection chemistries and the classification by two humans ("Hook effect-like Rater 1", "Hook effect-like Rater 2") is shown in Table \ref{Table_human_rated}.
 
@@ -104,6 +103,7 @@ raw_data_tab <- raw_data$AsTable(name.pattern=paste(
   sep="~"))
 data <- as.data.frame(raw_data$GetFData(raw_data_tab, long.table=FALSE))
 ```
+
 All amplification curves were plotted according to their experiment conditions. They differed in the target molecules (e.g., \textit{MLC-2v}, \textit{BRCA1}) and the detection chemistries (e.g., EvaGreen, SybrGreen, hydrolysis probes). Figure \ref{ampcurves} shows seven plots for the corresponding experiments. The amplification curves were not preprocessed to preserve the curvature. Selected amplification curves were noisy (e.g., Figure \ref{ampcurves}F), had overshots or undershot in the background phase (e.g., Figure \ref{ampcurves}E-G), a short hook phase (e.g., Figure \ref{ampcurves}D). Amplification curves of Figure \ref{ampcurves}A, D, F and F exhibited a clearly visible hook effect or a hook like effect.
 
 ```{r ampcurves,fig.width=7.25, fig.height=9.25, echo=TRUE, message=FALSE, warning=FALSE, fig.cap="Amplification curves. A) Synthetic template, detected with Syto-13. B) Human \\textit{MLC-2v}, detected with a hydrolysis probe. C) \\textit{S27a} housekeeping gene, detected with SybrGreen I. D) Whole genome amplification, detected with EvaGreen. E) Human \\textit{BRCA1} gene, detected with a hydrolysis probe. F) Human \\textit{NRAS} gene, detected with a hydrolysis probe. G) Water control, detected with a hydrolysis probe. See Table \\ref{Table_human_rated} for details. RFU, relative fluorescence units. \\label{ampcurves}"}
@@ -181,7 +181,7 @@ This section contains the results of the analysis of the amplification curve
 data with the **hookreg()** function and the **hookregNL()** function. As in the 
 previous sections, all code was commented to make it reproducible. Some rows in 
 Table \ref{res_hookreg_table} and Table \ref{res_hookregNL_table} appear to be 
-empty. This expected behaviour may occur in cases where the corresponding 
+empty. This expected behavior may occur in cases where the corresponding 
 functions were not able to calculate the coefficients due to a failed model fit 
 or violation of the truncation criterion.
 
