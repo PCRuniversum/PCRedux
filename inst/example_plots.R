@@ -26,33 +26,28 @@ if("patchwork" %in% rownames(installed.packages())) {
 }
 #####
 
-
-
-# obtaining decisions
-dec_htPCR <- read.csv(system.file("decision_res_htPCR.csv", package = "PCRedux"))
-dec <- unlist(lapply(1L:244, function(i) {
-  decision_modus(dec_htPCR[i, 2:8])
-}))
+curves <- 245
 
 # visualizng qPCR curves
-p1 <- inner_join(data.frame(htPCR[, 1L:245]) %>% 
-                   melt(id.vars = "Cycles"),
-                 data.frame(variable = colnames(htPCR[, 2L:245]),
-                            dec = dec)) %>%
-  filter(!is.na(dec)) %>% 
-  mutate(dec = factor(dec, labels = c("ambiguous", "negative", "positive"))) %>% 
-  ggplot(aes(x = Cycles, y = value, group = variable, color = variable)) +
+p1 <- data.frame(htPCR[, 1L:curves]) %>% 
+  melt(id.vars = "Cycles") %>%
+  ggplot(aes(x = Cycles, y = value, color = variable)) +
   geom_line() +
   theme_bw() +
   xlab("Cycle") +
   ylab("Raw fluorescence") +
-  scale_color_discrete("Assessment") +
   ggtitle("A)") + #qPCR curves
   theme(legend.position = "none")
 
+# obtaining decisions
+dec_htPCR <- read.csv(system.file("decision_res_htPCR.csv", package = "PCRedux"))
+dec <- unlist(lapply(1L:(curves -1), function(i) {
+  decision_modus(dec_htPCR[i, 2:8])
+}))
+
 # calculating encu parameters
 # Please be patient, this step will take some time
-res <- encu(htPCR[, 1L:245])
+res <- encu(htPCR[, 1L:curves])
 
 # merging into one dataset
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
@@ -67,7 +62,7 @@ p2 <- ggplot(data = dat %>%
              aes(x = decision, y = value)) +
   geom_boxplot() +
   theme_bw() +
-  facet_wrap(~ variable, scales = "free_y", nrow = 1) +
+  facet_wrap(~ variable, scales = "free_y") +
   scale_y_continuous("Value") +
   scale_x_discrete("Assessment") +
   ggtitle("B)") # Separation of types of curves by encu() parameters
@@ -97,7 +92,7 @@ results[["model"]] <- fct_recode(results[["model"]],
                                  `glmnet::glmnet` = "classif.glmnet")
 
 p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
-  geom_point() + 
+  geom_point(position = position_jitter(width = 0.2, seed = 4)) + 
   geom_errorbar(data = results %>% 
                   group_by(model) %>% 
                   summarise(auc = median(multiclass.au1u)), 
@@ -109,6 +104,8 @@ p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
   ylab("AUC one vs all mean result") +
   ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
 
-cairo_ps("figure1.eps", width = 10, height = 7)
-(p1 + p2 plot_layout(ncol = 2, widths = c(1, 2))) / p3
+
+
+cairo_ps("figure1.eps", width = 11, height = 4.5)
+(p1 + p2 + plot_layout(widths = c(1, 2))) / p3
 dev.off()
