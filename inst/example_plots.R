@@ -27,22 +27,28 @@ if("patchwork" %in% rownames(installed.packages())) {
 #####
 
 
-# visualizng qPCR curves
-p1 <- data.frame(htPCR[, 1L:245]) %>% 
-  melt(id.vars = "Cycles") %>%
-  ggplot(aes(x = Cycles, y = value, color = variable)) +
-  geom_line() +
-  theme_bw() +
-  xlab("Cycle") +
-  ylab("Raw fluorescence") +
-  ggtitle("A)") + #qPCR curves
-  theme(legend.position = "none")
 
 # obtaining decisions
 dec_htPCR <- read.csv(system.file("decision_res_htPCR.csv", package = "PCRedux"))
 dec <- unlist(lapply(1L:244, function(i) {
   decision_modus(dec_htPCR[i, 2:8])
 }))
+
+# visualizng qPCR curves
+p1 <- inner_join(data.frame(htPCR[, 1L:245]) %>% 
+                   melt(id.vars = "Cycles"),
+                 data.frame(variable = colnames(htPCR[, 2L:245]),
+                            dec = dec)) %>%
+  filter(!is.na(dec)) %>% 
+  mutate(dec = factor(dec, labels = c("ambiguous", "negative", "positive"))) %>% 
+  ggplot(aes(x = Cycles, y = value, group = variable, color = variable)) +
+  geom_line() +
+  theme_bw() +
+  xlab("Cycle") +
+  ylab("Raw fluorescence") +
+  scale_color_discrete("Assessment") +
+  ggtitle("A)") + #qPCR curves
+  theme(legend.position = "none")
 
 # calculating encu parameters
 # Please be patient, this step will take some time
@@ -51,7 +57,7 @@ res <- encu(htPCR[, 1L:245])
 # merging into one dataset
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
                                     levels = c("positive", "ambiguous", "negative"))) %>%
-  select(eff, loglin_slope, minRFU, init2, decision) %>%
+  select(eff, minRFU, init2, decision) %>%
   filter(!is.na(dec))
 
 # visualizing
@@ -61,7 +67,7 @@ p2 <- ggplot(data = dat %>%
              aes(x = decision, y = value)) +
   geom_boxplot() +
   theme_bw() +
-  facet_wrap(~ variable, scales = "free_y") +
+  facet_wrap(~ variable, scales = "free_y", nrow = 1) +
   scale_y_continuous("Value") +
   scale_x_discrete("Assessment") +
   ggtitle("B)") # Separation of types of curves by encu() parameters
@@ -104,5 +110,5 @@ p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
   ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
 
 cairo_ps("figure1.eps", width = 10, height = 7)
-(p1 + p2) / p3
+(p1 + p2 plot_layout(ncol = 2, widths = c(1, 2))) / p3
 dev.off()
