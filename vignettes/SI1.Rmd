@@ -323,7 +323,7 @@ print(xtable(res_hookregNL_table,
 
 # Comparison of the **hookreg()** and **hookregNL()** methods
 
-The decisions from the human classification (see Table \ref{Table_human_rated}) and the results from the machine decision (section \ref{sectionHookreg} and section \ref{sectionHookregNL}) were aggregated in Table \ref{method_comparision}. 
+The decisions from the human classification (see Table \ref{Table_human_rated}) and the results from the machine decision (section \ref{sectionHookreg} and section \ref{sectionHookregNL}) were aggregated in Table \ref{method_comparison}. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Load the readxl package to obtain the classifications by the human.
@@ -350,7 +350,7 @@ colnames(res) <- c("Sample",
 )
 ```
 
-Finally a pretty printout (Table \ref{method_comparision}) of the 
+Finally a pretty printout (Table \ref{method_comparison}) of the 
 aggregated data set with the following code was prepared:
 
 
@@ -382,7 +382,7 @@ options(xtable.comment=FALSE)
 print(xtable(res_out, digits=0, 
              caption = "Aggregated decisions from the human classification and 
 the results from the machine decision of the hookreg() and hookregNL() 
-functions.", label='method_comparision'), 
+functions.", label='method_comparison'), 
 caption.placement = "top",
 scalebox='0.65')
 ```
