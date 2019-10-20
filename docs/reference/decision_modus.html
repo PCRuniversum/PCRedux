@@ -8,13 +8,11 @@
 
 <title>A function to get a decision (modus) from a vector of classes — decision_modus • PCRedux</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -34,15 +32,14 @@
 
 
 
-
 <meta property="og:title" content="A function to get a decision (modus) from a vector of classes — decision_modus" />
+
 <meta property="og:description" content="decision_modus is a function that can be used to find the most frequent
 (modus) decision. The classes can be defined by the user (e.g., a&quot;, &quot;n&quot;, &quot;y&quot;
--&amp;gt; &quot;ambiguos&quot;, &quot;negaive&quot;, &quot;positive&quot;). This function is useful if large
+-&amp;gt; &quot;ambiguous&quot;, &quot;negative&quot;, &quot;positive&quot;). This function is useful if large
 collections of varying decision (e.g., &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;n&quot;, &quot;n&quot;) need to be
 condensed to a single decision (3 x &quot;a&quot;, 2 x &quot;n&quot; -&amp;gt; &quot;a&quot;)." />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -104,6 +101,7 @@ condensed to a single decision (3 x &quot;a&quot;, 2 x &quot;n&quot; -&amp;gt; &
   </ul>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -125,15 +123,17 @@ condensed to a single decision (3 x &quot;a&quot;, 2 x &quot;n&quot; -&amp;gt; &
     </div>
 
     <div class="ref-description">
+    
     <p><code>decision_modus</code> is a function that can be used to find the most frequent
 (modus) decision. The classes can be defined by the user (e.g., a", "n", "y"
--&gt; "ambiguos", "negaive", "positive"). This function is useful if large
+-&gt; "ambiguous", "negative", "positive"). This function is useful if large
 collections of varying decision (e.g., "a", "a", "a", "n", "n") need to be
 condensed to a single decision (3 x "a", 2 x "n" -&gt; "a").</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>decision_modus</span>(<span class='no'>data</span>, <span class='kw'>variables</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"n"</span>, <span class='st'>"y"</span>), <span class='kw'>max_freq</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -148,10 +148,10 @@ condensed to a single decision (3 x "a", 2 x "n" -&gt; "a").</p>
     <tr>
       <th>max_freq</th>
       <td><p>is a logical parameter (default == TRUE) delivers either the
-most ocurring class or a summary.</p></td>
+most occurring class or a summary.</p></td>
     </tr>
     </table>
-
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -190,6 +190,7 @@ most ocurring class or a summary.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

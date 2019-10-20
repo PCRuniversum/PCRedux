@@ -43,15 +43,19 @@ Imports:
     utils,
     zoo
 Suggests: 
+    DT, 
     FFTrees,
     knitr,
     RDML,
     randomForest,
     readxl,
     rmarkdown,
+    shiny,
+    spelling,
     testthat,
     xtable
 NeedsCompilation: no
 VignetteBuilder: knitr
 Encoding: UTF-8
+Language: en-US
 RoxygenNote: 6.1.1

@@ -52,7 +52,7 @@ res <- encu(htPCR[, 1L:curves])
 # merging into one dataset
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
                                     levels = c("positive", "ambiguous", "negative"))) %>%
-  select(eff, loglin_slope, minRFU, init2, decision) %>%
+  select(eff, minRFU, init2, decision) %>%
   filter(!is.na(dec))
 
 # visualizing
@@ -92,7 +92,7 @@ results[["model"]] <- fct_recode(results[["model"]],
                                  `glmnet::glmnet` = "classif.glmnet")
 
 p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
-  geom_point() + 
+  geom_point(position = position_jitter(width = 0.2, seed = 4)) + 
   geom_errorbar(data = results %>% 
                   group_by(model) %>% 
                   summarise(auc = median(multiclass.au1u)), 
@@ -101,9 +101,11 @@ p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
                 width = 0.5) +
   theme_bw() + 
   xlab("Model") +
-  ylab("AUC one vs all mean result") +
+  ylab("Mean AUC (one vs all)") +
   ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
 
-cairo_ps("figure1.eps", width = 10, height = 5)
-(p1 + p2) / p3
+
+
+cairo_ps("figure1.eps", width = 11, height = 4.1)
+(p1 + p2 + plot_layout(widths = c(1, 2))) / p3
 dev.off()
