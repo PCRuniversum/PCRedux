@@ -17,7 +17,7 @@ most ocurring class or a summary.}
 \description{
 \code{decision_modus} is a function that can be used to find the most frequent
 (modus) decision. The classes can be defined by the user (e.g., a", "n", "y"
--> "ambiguos", "negaive", "positive"). This function is useful if large
+-> "ambiguous", "negative", "positive"). This function is useful if large
 collections of varying decision (e.g., "a", "a", "a", "n", "n") need to be
 condensed to a single decision (3 x "a", 2 x "n" -> "a").
 }
