@@ -101,11 +101,11 @@ p3 <- ggplot(data = results, aes(x = model, y = multiclass.au1u)) +
                 width = 0.5) +
   theme_bw() + 
   xlab("Model") +
-  ylab("AUC one vs all mean result") +
+  ylab("Mean AUC (one vs all)") +
   ggtitle("C)") # Results of crossvalidating models trained on encu() parameters
 
 
 
-cairo_ps("figure1.eps", width = 11, height = 4.5)
+cairo_ps("figure1.eps", width = 11, height = 4.1)
 (p1 + p2 + plot_layout(widths = c(1, 2))) / p3
 dev.off()
