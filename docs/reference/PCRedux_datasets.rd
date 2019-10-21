@@ -8,11 +8,13 @@
 
 <title>The datasets implemented in PCRedux — PCRedux_datasets • PCRedux</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,10 +34,11 @@
 
 
 
-<meta property="og:title" content="The datasets implemented in PCRedux — PCRedux_datasets" />
 
+<meta property="og:title" content="The datasets implemented in PCRedux — PCRedux_datasets" />
 <meta property="og:description" content="A compilation of datasets for method evaluation/comparison." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -92,12 +95,14 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/PCRedux.Rmd_xuOEaG.rkward_preview.html">PCRedux package - an overview</a>
+    </li>
+    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -119,15 +124,14 @@
     </div>
 
     <div class="ref-description">
-    
     <p>A compilation of datasets for method evaluation/comparison.</p>
-    
     </div>
 
     <pre class="usage"><span class='no'>data_sample</span>
 <span class='no'>RAS002</span>
 <span class='no'>RAS002_decisions</span></pre>
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><b>data_sample</b><br />
@@ -142,13 +146,11 @@ Data sets: RAS002.rdml.</p>
 Setup: Classes of the amplification curves from the RAS002.rdml data set.<br />
 Details:<br />
 Data sets: decision_res_RAS002.csv.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Roediger, S., Burdukiewicz, M., Spiess, A.-N. &amp; Blagodatskikh, K. Enabling reproducible real-time quantitative PCR research: the RDML package. <em>Bioinformatics</em> (2017). doi:10.1093/bioinformatics/btx528<br />
 Roediger, S., Burdukiewicz, M. &amp; Schierack, P. chipPCR: an R package to pre-process raw data of amplification curves. <em>Bioinformatics</em> 31, 2900--2902 (2015)<br />
 Ritz, C. &amp; Spiess, A.-N. qpcR: an R package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis. <em>Bioinformatics</em> 24, 1549--1551 (2008).</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -163,11 +165,8 @@ Ritz, C. &amp; Spiess, A.-N. qpcR: an R package for sigmoidal model selection in
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

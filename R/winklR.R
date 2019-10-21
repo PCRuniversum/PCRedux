@@ -25,7 +25,7 @@
 #' @param normalize is a logical parameter, which indicates if the amplification curve
 #' data should be normalized to the 99 percent percentile of the amplification curve.
 #' @param preprocess is a logical parameter, which indicates if the amplification curve
-#' data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagged data).
+#' data should be smoothed (moving average filter, useful for noisy, jagged data).
 #' @author Stefan Roediger
 #' @keywords angle derivative
 #' @seealso
@@ -79,13 +79,16 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
   # Smooth data with Savitzky-Golay smoothing filter for other data
   # analysis steps.
   if (preprocess) {
-    y <- chipPCR::smoother(x, y)
+    y <- chipPCR::smoother(x, y, method = "mova")
   } else {
     y <- data[, "y"]
   }
 
-  guess_direction <- ifelse(median(head(y, 5)) > median(tail(y, 5)), "max", "min")
-
+  guess_direction <- noquote(
+    ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
+           'max', 'min')
+  )
+  
   # Calculate the point of the first and the second derivatives
   res <- try(suppressMessages(MBmca::diffQ2(cbind(x[-c(1:10)], y[-c(1:10)]),
     inder = TRUE, verbose = TRUE,

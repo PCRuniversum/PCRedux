@@ -1,6 +1,6 @@
 #' PCRedux app
 #'
-#' A graphical user interface for computing the properties of amplification curves.
+#' A graphical user interface for computing the properties of amplification curves. Take a look at the vignette to learn more about the different ways to start the app.
 #' @return null.
 #' @export
 #' @seealso \code{\link{encu}}, \code{\link[shiny]{runApp}}.

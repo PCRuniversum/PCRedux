@@ -109,12 +109,17 @@ pcrfit_single <- function(x) {
   length_cycle <- length(x)
   cycles <- 1L:length_cycle
   
-  # Smooth data with Savitzky-Golay smoothing filter for other data
+  # Smooth data with moving average smoothing filter for further data
   # analysis steps.
-  dat_smoothed <- chipPCR::smoother(cycles, x)
+  dat_smoothed <- chipPCR::smoother(cycles, x, method = "mova")
+  
+  guess_direction <- noquote(
+    ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
+           'max', 'min')
+  )
   
   # Calculate the first derivative
-  res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy), silent=TRUE)
+  res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), verbose = TRUE)$xy), silent = TRUE)
   
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm = TRUE)
@@ -190,7 +195,7 @@ pcrfit_single <- function(x) {
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
-  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = FALSE, fct = min, inder = TRUE))
+  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), verbose = FALSE, fct = min, inder = TRUE))
   # difference between the minimum and the maximum of the approximate second derivative.
   cpD2_range <- diff(res_diffQ2[[3]])
   if(cpD2_range > 200) cpD2_range <- length_cycle
