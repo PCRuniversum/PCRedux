@@ -84,10 +84,8 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
     y <- data[, "y"]
   }
 
-  guess_direction <- noquote(
-    ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
+  guess_direction <- ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
            'max', 'min')
-  )
   
   # Calculate the point of the first and the second derivatives
   res <- try(suppressMessages(MBmca::diffQ2(cbind(x[-c(1:10)], y[-c(1:10)]),
