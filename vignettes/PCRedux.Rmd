@@ -927,6 +927,16 @@ str(pcrfit_single(RAS002[, 2]))
 ```
 
 
+### PCRedux-app
+
+PCRedux-app is a web server wrapped around the encu() function. An user can upload qPCR data and dowload obtained amplification curve features.
+
+```{r, echo=TRUE,eval=FALSE}
+# run the Shiny app 
+PCRedux::run_PCRedux()
+```
+
+
 ### Amplification Curve Pre-Processing
 
 The ``pcrfit_single()`` function performs pre-processing steps before each calculation, including checking whether an amplification curve contains missing values. Missing values (NA) are measuring points in a data set where no measured values are available or have been removed arbitrarily. NAs may occur if no measurement has been carried out (e.&nbsp;g., defective detector) or lengths of the vectors differ (number of cyles) between the observations. Such missing values are automatically imputed by spline interpolation as described in @roediger2015chippcr. 
