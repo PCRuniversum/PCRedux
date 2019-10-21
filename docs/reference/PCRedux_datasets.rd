@@ -95,9 +95,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/PCRedux.Rmd_xuOEaG.rkward_preview.html">PCRedux package - an overview</a>
-    </li>
-    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>

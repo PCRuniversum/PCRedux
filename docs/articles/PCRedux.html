@@ -57,9 +57,6 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/PCRedux.Rmd_xuOEaG.rkward_preview.html">PCRedux package - an overview</a>
-    </li>
-    <li>
       <a href="../articles/SI1.html">Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</a>
     </li>
   </ul>
@@ -553,7 +550,7 @@ Frequently used methods for the analysis of quantification points. A) The amplif
 ##  $ sliwin               : num 1.04
 ##  $ cpDdiff              : num 2.19
 ##  $ loglin_slope         : num 0.0343
-##  $ cpD2_range           : num 4.48
+##  $ cpD2_range           : num 4.62
 ##  $ top                  : num 25
 ##  $ f.top                : num 0.748
 ##  $ tdp                  : num 35
@@ -581,10 +578,10 @@ Frequently used methods for the analysis of quantification points. A) The amplif
 ##  $ mblrr_intercept_pt   : num 0.774
 ##  $ mblrr_cor_pt         : num 0.942
 ##  $ polyarea             : num 0.0409
-##  $ peaks_ratio          : num 0.0117
+##  $ peaks_ratio          : num 0.00922
 ##  $ autocorellation      : num 0.741
 ##  $ cp_e.agglo           : int 2
-##  $ cp_bcp               : int 10
+##  $ cp_bcp               : int 6
 ##  $ amptester_shapiro    : logi FALSE
 ##  $ amptester_lrt        : logi TRUE
 ##  $ amptester_rgt        : logi TRUE
@@ -831,23 +828,23 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ##     data = train_data)
 ## 
 ## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -3.3024  -0.1641  -0.1641   0.0048   2.9375  
+##      Min        1Q    Median        3Q       Max  
+## -0.52587  -0.13687  -0.13687   0.00016   3.05786  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -4.3010     0.5342  -8.051 8.19e-16 ***
-## loglin_slope 215.6052    25.6492   8.406  &lt; 2e-16 ***
+## (Intercept)   -4.6659     0.6184  -7.545 4.54e-14 ***
+## loglin_slope 314.3773    68.4395   4.594 4.36e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 632.141  on 455  degrees of freedom
-## Residual deviance:  59.995  on 454  degrees of freedom
-## AIC: 63.995
+##     Null deviance: 632.071  on 455  degrees of freedom
+## Residual deviance:  35.161  on 454  degrees of freedom
+## AIC: 39.161
 ## 
-## Number of Fisher Scoring iterations: 9</code></pre>
+## Number of Fisher Scoring iterations: 11</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates an association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new data set, further steps are necessary. <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> [] is a generic function for predicting the results of a model fitting function (A). All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>

@@ -113,10 +113,8 @@ pcrfit_single <- function(x) {
   # analysis steps.
   dat_smoothed <- chipPCR::smoother(cycles, x, method = "mova")
   
-  guess_direction <- noquote(
-    ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
+  guess_direction <- ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
            'max', 'min')
-  )
   
   # Calculate the first derivative
   res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), verbose = TRUE)$xy), silent = TRUE)
@@ -195,7 +193,11 @@ pcrfit_single <- function(x) {
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
-  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), verbose = FALSE, fct = min, inder = TRUE))
+  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), 
+                                               verbose = FALSE, 
+                                               fct = get(guess_direction, pos = "package:base"), 
+                                               inder = TRUE))
+  
   # difference between the minimum and the maximum of the approximate second derivative.
   cpD2_range <- diff(res_diffQ2[[3]])
   if(cpD2_range > 200) cpD2_range <- length_cycle

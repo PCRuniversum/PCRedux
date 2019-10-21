@@ -16,7 +16,7 @@
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
-#' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm median na.omit quantile sd wilcox.test
+#' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm mad median na.omit quantile sd wilcox.test
 #' @importFrom utils head tail data
 #' @importFrom zoo as.zoo
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
