@@ -16,7 +16,7 @@ winklR(x, y, normalize = FALSE, preprocess = TRUE)
 data should be normalized to the 99 percent percentile of the amplification curve.}
 
 \item{preprocess}{is a logical parameter, which indicates if the amplification curve
-data should be smoothed (Savitzky-Golay smoothing filter, useful for noisy, jagged data).}
+data should be smoothed (moving average filter, useful for noisy, jagged data).}
 }
 \description{
 \code{winklR} is a function to calculate the in the trajectory of the first

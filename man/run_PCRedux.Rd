@@ -10,7 +10,7 @@ run_PCRedux()
 null.
 }
 \description{
-A graphical user interface for compute the properties of amplification curves.
+A graphical user interface for computing the properties of amplification curves. Take a look at the vignette to learn more about the different ways to start the app.
 }
 \note{
 Any ad-blocking software may cause malfunctions.

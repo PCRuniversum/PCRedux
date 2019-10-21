@@ -90,7 +90,7 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
   # Calculate the point of the first and the second derivatives
   res <- try(suppressMessages(MBmca::diffQ2(cbind(x[-c(1:10)], y[-c(1:10)]),
     inder = TRUE, verbose = TRUE,
-    fct = min
+    fct = get(guess_direction, pos = "package:base")
   )), silent = TRUE)
 
   origin <- data.frame(res[["TmD1"]][1], res[["TmD1"]][2])
