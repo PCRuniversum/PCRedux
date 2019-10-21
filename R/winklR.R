@@ -97,8 +97,8 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
   point_x2 <- data.frame(res[["xTm1.2.D2"]][2], res[["yTm1.2.D2"]][2])
 
   # Calculate the distance between the points
-  distance_a <- sqrt((origin[1] - res[["xTm1.2.D2"]][1])^2 + (origin[2] - res[["yTm1.2.D2"]][1])^2)
-  distance_b <- sqrt((origin[1] - res[["xTm1.2.D2"]][2])^2 + (origin[2] - res[["yTm1.2.D2"]][2])^2)
+  #distance_a <- sqrt((origin[1] - res[["xTm1.2.D2"]][1])^2 + (origin[2] - res[["yTm1.2.D2"]][1])^2)
+  #distance_b <- sqrt((origin[1] - res[["xTm1.2.D2"]][2])^2 + (origin[2] - res[["yTm1.2.D2"]][2])^2)
 
   # Calculation of vectors (origin is the starting point)
   u <- data.frame(

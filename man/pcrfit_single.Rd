@@ -23,7 +23,12 @@ Output Description
   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
   "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
   "b_slope" \tab Is the slope of seven parameter model \cr
+  "c_model_param" \tab Is the c model parameter of the seven parameter model \tab  numeric \cr
+  "d_model_param" \tab Is the d model parameter of the seven parameter model \tab  numeric \cr
+  "e_model_param" \tab Is the e model parameter of the seven parameter model \tab  numeric \cr
   "f_intercept" \tab Is the intercept of the seven parameter model \cr
+  "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
+  "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
   "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
   "slope_bg" \tab slope of the first cycles \tab numeric \cr
@@ -58,7 +63,8 @@ Output Description
   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
   "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
   "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
-  "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+  "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+  "central_angle" \tab shows the central angle calculated from the maxima and minima of the derivatives \tab numeric \cr
 }
 }
 \description{

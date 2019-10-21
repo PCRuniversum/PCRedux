@@ -44,7 +44,12 @@
 #'   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
 #'   "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
 #'   "b_slope" \tab Is the slope of seven parameter model \cr
+#'   "c_model_param" \tab Is the c model parameter of the seven parameter model \tab  numeric \cr
+#'   "d_model_param" \tab Is the d model parameter of the seven parameter model \tab  numeric \cr
+#'   "e_model_param" \tab Is the e model parameter of the seven parameter model \tab  numeric \cr
 #'   "f_intercept" \tab Is the intercept of the seven parameter model \cr
+#'   "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
+#'   "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
 #'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
 #'   "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
 #'   "slope_bg" \tab slope of the first cycles \tab numeric \cr
@@ -79,7 +84,8 @@
 #'   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
 #'   "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
-#'   "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+#'   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+#'   "central_angle" \tab shows the central angle calculated from the maxima and minima of the derivatives \tab numeric \cr
 #' }
 #' @details Details can be found in the vignette.
 #' @importFrom qpcR pcrfit
@@ -224,7 +230,7 @@ pcrfit_single <- function(x) {
 
   res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
   if (class(res_coef) == "try-error") {
-    res_coef <- c(b = 0, f = 20000)
+    res_coef <- c(b = 0, c = NA, d = NA, e = NA, f = 20000, k1 = NA, k2 = NA)
   }
 
   res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
@@ -364,25 +370,29 @@ pcrfit_single <- function(x) {
 #     # center. The second derivative maximum (SDM) is the left
 #     # and second derivative minimum (SDm) is the right point of
 #     # the vectors.
-# 
-#     res_cpD <- summary(chipPCR::inder(x = cycles, y = x))[c(2,1,3)]
-# 
-#     res_val <- data.frame(cpD = res_cpD, rfu = NA)
-# 
-#     # The y coordinates get determined at the point of the
-# 
-#     for(i in 1L:3) {
-#         res_val[i, 2] <- res[which(res[, "x"] == res_cpD[i]), "y"]
-#     }
-# 
-#     res_val[, 2] <- res_val[, 2] / res_val[2, 2]
-# 
-#     vec_a <- c(x = (res_val[3, 1] - res_val[2, 1]), y = (res_val[3, 2] - res_val[2, 2]))
-#     vec_b <- c(x = (res_val[1, 1] - res_val[2, 1]), y = (res_val[1, 2] - res_val[2, 2]))
-# 
-#     crossprod_ab <- as.numeric(vec_a %*% vec_b)
-# 
-#     lampda <- acos(crossprod_ab / (sum(vec_a^2)^0.5 * sum(vec_b^2)^0.5)) / (pi/180)
+
+    origin <- data.frame(res_diffQ2[["Tm"]][1], res_diffQ2[["fluoTm"]][1])
+    point_x1 <- data.frame(res_diffQ2[["xTm1.2.D2"]][1], res_diffQ2[["yTm1.2.D2"]][1])
+    point_x2 <- data.frame(res_diffQ2[["xTm1.2.D2"]][2], res_diffQ2[["yTm1.2.D2"]][2])
+
+    # Calculation of vectors (origin is the starting point)
+    u <- data.frame(
+      u_x = origin[1] - point_x1[1],
+      u_y = origin[2] - point_x1[2]
+    )
+    
+    v <- data.frame(
+      v_x = origin[1] - point_x2[1],
+      V_y = origin[2] - point_x2[2]
+    )
+    
+    
+    # Determine the dot product and the absolute values
+    dot_product <- sum(u * v)
+    length_of_vectors <- sqrt(sum(u^2)) * sqrt(sum(v^2))
+    
+    # Calculate central angle
+    res_angle <- dot_product / length_of_vectors
 
   all_results <- data.frame(
     # Quantification points, derivatives, efficiencies,
@@ -401,7 +411,12 @@ pcrfit_single <- function(x) {
     bg.stop = res_bg.max[2],
     amp.stop = res_bg.max[3],
     b_slope = res_coef[["b"]],
+    c_model_param = res_coef[["c"]],
+    d_model_param = res_coef[["d"]],
+    e_model_param = res_coef[["e"]],
     f_intercept = res_coef[["f"]],
+    k1_model_param = res_coef[["k1"]],
+    k2_model_param = res_coef[["k2"]],
     convInfo_iteratons = res_convInfo_iteratons,
     qPCRmodel = res_fit_model[[1]],
     qPCRmodelRF = res_fit_model_reverse[[1]],
@@ -440,8 +455,8 @@ pcrfit_single <- function(x) {
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
-#     # Angle
-#     angle = lampda,
+    # Angle
+    central_angle = res_angle,
     # Number of Cycles
     number_of_cycles = length_cycle,
     # Identifier

@@ -48,7 +48,7 @@ if("patchwork" %in% rownames(installed.packages())) {
 In this case study we used 245 amplification curves from the *htPCR* dataset from the *qpcR* package and assign them to the object *curves*.
 
 ```{R}
-curves <- 245
+curves <- 300 #245
 ```
 
 # visualizng qPCR curves
@@ -96,7 +96,7 @@ Since the parameters from the calculations with the *encu()* function and the de
 ```{r}
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
                                     levels = c("positive", "ambiguous", "negative"))) %>%
-  select(eff, minRFU, init2, decision) %>%
+  select(minRFU, init2, decision, fluo, f.top) %>%
   filter(!is.na(dec))
 
 head(dat)

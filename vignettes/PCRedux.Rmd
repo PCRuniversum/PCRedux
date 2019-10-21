@@ -1,6 +1,6 @@
 ---
 title: "PCRedux package - an overview"
-author: "Stefan R&ouml;diger et al."
+author: "PCRedux package authors"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::pdf_document:
@@ -85,6 +85,10 @@ plot_sd_bg_short <- "Standard deviation in the ground phase of various qPCR devi
 plot_bg_pt <- "Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the `data\\_sample\\_subset` data set were used as they contain positive and negative amplification curves, as well as amplification curves that exhibit a \\textit{hook effect} or non-sigmoid shapes. A) `eff`, optimized PCR efficiency in a sliding window. B) `sliwin`, PCR efficiency according to the window-of-linearity method. C) `cpDdiff`, difference between the Cq values calculated from the first and the second derivative maximum. D) `loglin\\_slope`, slope from cycle at second derivative maximum to second derivative minimum. E) `cpD2\\_range`, absolute difference between the minimum and maximum of the second derivative. F) `top`, takeoff point. G) `f.top`, fluorescence intensity at takeoff point. H) `tdp`, takedown point. I) `f.tdp`, fluorescence intensity at the takedown point. J) `bg.stop`, estimated end of the ground phase. K) `amp.stop`, estimated end of the exponential phase. L) `convInfo\\_iteratons`, number of iterations until convergence when fitting a multiparametric model. The classes were compared using the Wilcoxon Rank Sum Test."
 
 plot_bg_pt_short <- "Values of predictors calculated from negative and positive amplification curves"
+
+plot_model_param <- "Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the `data\\_sample\\_subset` data set were used as they contain positive and negative amplification curves, as well as amplification curves that exhibit a \\textit{hook effect} or non-sigmoid shapes. A) `c\\_model\\_param`, is the c model parameter of the seven parameter model. B) `d\\_model\\_param`, is the d model parameter of the seven parameter model. C) `e\\_model\\_param`, is the e model parameter of the seven parameter model. D) `f\\_model\\_param`, is the f model parameter of the seven parameter model. E) `k1\\_model\\_param`, is the k1 model parameter of the seven parameter model. F) `k2\\_model\\_param`, is the k2 model parameter of the seven parameter model. The classes were compared using the Wilcoxon Rank Sum Test."
+
+plot_model_param_short <- "Values of predictors calculated from negative and positive amplification curves"
 
 plot_Logistic_Regression <- "Machine classification by means of binomial logistic regression using the `loglin\\_slope` predictor. A) For the calculation of a binomial logistic regression model, the categorical response variable $Y$ (decision with classes: negative and positive) must be converted to a numerical value. With binomial logistic regression, the probability of a categorical response can be estimated using the $X$ predictor variable. In this example, the predictor variable `loglin\\_slope` is used. Grey measurement points (70\\% of the data set) were used for training. Red dots represent the values used for testing. The regression curve of the binomial logistic regression is shown in blue. The grey horizontal line at 0.5 marks the threshold of probability above which it is determined whether an amplification curve is negative or positive. B) The performance indicators were calculated using the performeR() function. Sensitivity, TPR; Specificity, SPC; Precision, PPV; Negative prediction value, NPV; Fall-out, FPR; False negative rate, FNR; False detection rate, FDR; Accuracy, ACC; F1 score, F1; Matthews correlation coefficient, MCC, Cohens kappa (binary classification), kappa ($\\kappa$)."
 
@@ -828,7 +832,7 @@ On the basis of these observations, **concepts** for predictors (*features*) wer
 
 ### ``pcrfit_single()`` and ``encu()``- Functions to Calculate Predictors from an Amplification Curve \label{section_pcrfit_single_pcrfit_parallel}
 
-The following sections give a concise description of the algorithms used to calculate predictor vectors by the ``pcrfit_single()`` function . Based on considerations and experience, the algorithms of the ``pcrfit_single()`` function are restricted to ROIs (\autoref{amplification_curve_ROI}) to calculate specific predictors. 
+The following sections give a concise description of the algorithms used to calculate predictor vectors by the ``pcrfit_single()`` function. Based on considerations and experience, the algorithms of the ``pcrfit_single()`` function are restricted to ROIs (\autoref{amplification_curve_ROI}) to calculate specific predictors. 
 
 The ``encu()`` function is a wrapper for the  ``pcrfit_single()`` function. ``encu()`` can be used to process large records of amplification curve data arranged in columns. The progress of processing is displayed in the form of a progress bar and the estimated run-time. Additionally, ``encu()`` allows to specify which monitoring chemistry (e.&nbsp;g., DNA binding dye, sequence specific probes) and which thermo-cycler was used. @ruijter_2014 demonstrated that the monitoring chemistry and the type of input DNA (single stranded, double stranded) are important when analysing qPCR data, because they have an influence on the shape of the amplification curve. For simplicity, the documentation will describe the ``pcrfit_single()`` only.
 
@@ -1164,7 +1168,46 @@ mtext("B", cex = 1, side = 3, adj = 0, font = 2, las = 0)
 
 ### Quantification Points, Ratios and Slopes\label{section_Areas_Ratios_Slopes}
 
-The ``pcrfit_single()`` function  calculates `cpD1` and `cpD2` and uses them for further analysis. Both the `cpD1` and `cpD2` value are used to describe the amplification reaction quantitatively. For example, low `cpD1` and `cpD2` values (< 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high. \autoref{plot_models}B 
+The ``pcrfit_single()`` function  calculates `cpD1` and `cpD2` and uses them for further analysis. Both the `cpD1` and `cpD2` value are used to describe the amplification reaction quantitatively. For example, low `cpD1` and `cpD2` values (< 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high \autoref{plot_models}B. Since the ``pcrfit_single()`` function gives the parameters of the seven-parameter model (\autoref{section_models}) they are part of the feautre set for completeness (\autoref{plot_model_param}).
+
+
+```{r plot_model_param, echo=FALSE, fig.cap=plot_model_param, fig.scap=plot_model_param_short, fig.height=11, fig.width=11}
+library(PCRedux)
+
+data <- data_sample_subset
+
+predictor <- c("c_model_param", "d_model_param", "e_model_param", 
+             "k1_model_param", "k2_model_param")
+
+# Create graphic device for the plot(s)
+par(mfrow = c(3,2))
+
+x <- data$decision
+
+for(i in 1L:length(predictor)) {
+    y <- data[, colnames(data) == predictor[i]]
+    res <- stats::wilcox.test(y ~ x)
+    h <- max(na.omit(y))
+    l <- min(na.omit(y)) 
+    h_text <- rep(h * 0.976, 2)
+    
+    par(bg=NA)
+    stripchart(y ~ x, vertical = TRUE, ylab = predictor[i],
+               method = "jitter", pch = 19, cex = 1, 
+               col = adjustcolor("darkgrey", alpha.f = 0.65), 
+               ylim = c(l * 0.95, h * 1.05))
+    
+    boxplot(y ~ x, outline = FALSE, add = TRUE, boxwex = 0.35)
+    
+    legend("topleft", paste0("P = ", signif(res[["p.value"]])), 
+           cex = 1, bty = "n")
+    
+    mtext(paste0(LETTERS[i], "   ", predictor[i]), cex = 1, side = 3, 
+          adj = 0, font = 2, col = ifelse(signif(res[["p.value"]]) < 0.05, 
+                                          "black", "red"))
+}
+```
+
 
 Further predictors from the ``pcrfit_single()`` function are: 
 
@@ -1482,7 +1525,7 @@ data <- data_sample_subset
 
 predictor <- c("b_slope", "f_intercept", "minRFU", "maxRFU", 
              "init2", "fluo", "slope_bg", "intercept_bg", 
-             "sigma_bg", "sd_bg", "head2tail_ratio")
+             "sigma_bg", "sd_bg", "head2tail_ratio", "central_angle")
 
 # Create graphic device for the plot(s)
 par(mfrow = c(3,4))
@@ -2257,7 +2300,7 @@ for(i in 1L:length(predictor)) {
 ```
 
 
-### Frequentist and Bayesian Change point analysis\label{section_change_point_analysis}
+### Frequentist and Bayesian Change Point Analysis\label{section_change_point_analysis}
 
 Change point analysis (CPA) encompasses methods to identify or estimate single or multiple locations of distributional changes in a series of data points indexed in time order. A change herein refers to a statistical property. CPA is used for example in econometrics and bioinformatics [@Killick_2014; @erdman_bcp:_2007]. Several change point algorithms exist, such as the binary segmentation algorithm [@scott_cluster_1974]. In change point analysis one assumes independent ordered observations $x_{1}, x_{2}, \ldots, x_{n} \in \mathbb{R}^{\textit{d}}$ [@james_ecp:_2013]. In the case of qPCR, this is simply the cycle-dependent fluorescence, used to create $k$ homogeneous subsets of unknown size [@erdman_bcp:_2007]. While frequentist methods make an estimation of the parameter at the location (e.&nbsp;g., mean) of the change points at specific points, change point analysis using Bayesian method produces a probability for the occurrence of a change point at certain points. For the analysis of the amplification curves, it was hypothesized that the number of change points differs between positive (sigmoidal) and negative (noise) amplification curves.
 
@@ -3084,7 +3127,7 @@ Although data sets in the \texttt{PCRedux} package are large compared to what ha
     + how the models are tested and
     + which results are reported.
 
-Accordingly, the domain knowledge, biases, and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training data set. The model is intended to be in accordance with the human operator. The implications can be serve. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. As illustrated in \autoref{section_reasoning_and_analysis}, every human operator will make an association between the shape of an amplification curve and the class it belongs to.
+Accordingly, the domain knowledge, biases and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training data set. The model is intended to be in accordance with the human operator. The implications can be problematic. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. As illustrated in \autoref{section_reasoning_and_analysis}, every human operator will make an association between the shape of an amplification curve and the class it belongs to.
 
 Measures to minimize errors are the implementation of algorithms in open source package and public available data sets. In contrast to black box algorithms and hidden data sets can third parties review and modify all elements. Many qPCR devices have build-in software that performs preprocessing steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr; @spiess_impact_2015; @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied thoroughly.
 
@@ -3100,7 +3143,7 @@ The scope of the \texttt{PCRedux} package is wide. The quantitation of nucleic a
 
 In this study, it was shown how a given data set of amplification curves with known classifications can be used to build a system that can predict the classification of amplification curves. The algorithms provide means for a sensitive and specific classification of amplification curves from qPCR experiments in both supervised an unsupervised analysis mode. However, this method might be applicable to melting analysis too. This needs to be investigated in further studies.
 
-Importantly, the concepts elucidated in this work may also be applied to other bioanalytical methods (e.&nbsp;g. enzyme kinetics, receptor binding studies, ELISA results, biological growth curves) with sigmoidal structure, however this requires more detailed interrogation. The \texttt{PCRedux} software may also be coupled with other technologies like Next Generation Sequencing. qPCR is used for pre-testing (DNA quality) and as a confirmation test for RNA-Seq quantification [@nassirpour_identification_2014]. For this purpose, automated quality control and decision support are conceivable.
+Importantly, the concepts elucidated in this work may also be applied to other bioanalytical methods (e.&nbsp;g. enzyme kinetics, receptor binding studies, ELISA results, biological growth curves) with sigmoidal structure, however this requires more detailed interrogation. The \texttt{PCRedux} software may also be coupled with other technologies like Next Generation Sequencing. qPCR is used for pretesting (DNA quality) and as a confirmation test for RNA-Seq quantification [@nassirpour_identification_2014]. For this purpose, automated quality control and decision support are conceivable.
 
 \newpage
 
