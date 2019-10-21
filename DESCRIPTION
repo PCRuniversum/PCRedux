@@ -39,6 +39,7 @@ Imports:
     pracma,
     qpcR,
     robustbase,
+    shiny,
     stats,
     utils,
     zoo
@@ -50,7 +51,6 @@ Suggests:
     randomForest,
     readxl,
     rmarkdown,
-    shiny,
     spelling,
     testthat,
     xtable
