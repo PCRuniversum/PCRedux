@@ -74,7 +74,7 @@ performing the analysis for a single process." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
       </span>
     </div>
 
@@ -171,24 +171,24 @@ identical to the <code><a href='pcrfit_single.html'>pcrfit_single</a></code> fun
 <span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt; <span class='message'>Loading required package: bcp</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: grid</span></div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2      eff   sliwin cpDdiff loglin_slope cpD2_range top
 #&gt; 1 F1.1 17.49 15.62 1.819425 1.739444    1.87    0.1382870   4.527127  10
 #&gt; 2 F1.2 17.39 15.59 1.782711 1.737737    1.80    0.1421122   4.496545  10
-#&gt;        f.top tdp     f.tdp bg.stop amp.stop   b_slope c_model_param
-#&gt; 1 0.01391000  27 0.9712161       9       30 -12.73839   -0.01240698
-#&gt; 2 0.01330955  28 0.9853867       9       27 -13.90384   -0.01067803
-#&gt;   d_model_param e_model_param f_intercept k1_model_param k2_model_param
-#&gt; 1     0.9471754      17.81830   0.9283718    0.003011458  -4.832964e-05
-#&gt; 2     0.9661966      17.95531   0.7622996    0.002815472  -6.142191e-05
+#&gt;        f.top tdp     f.tdp bg.stop amp.stop   b_slope b_model_param
+#&gt; 1 0.01391000  33 0.9830427       9       30 -12.73839     -13.47658
+#&gt; 2 0.01330955  29 0.9889347       9       27 -13.90384     -16.36373
+#&gt;   c_model_param d_model_param e_model_param f_model_param f_intercept
+#&gt; 1   0.003242221     0.9894974      18.24647     0.7304392   0.9283718
+#&gt; 2   0.002305743     0.9830211      18.46327     0.5350401   0.7622996
 #&gt;   convInfo_iteratons qPCRmodel qPCRmodelRF       minRFU maxRFU        init2
 #&gt; 1                  8        l7          l7 -0.004237230      1 1.700487e-05
 #&gt; 2                  8        l7          l7 -0.003998994      1 2.631616e-05
 #&gt;        fluo    slope_bg intercept_bg     sigma_bg     sd_bg head2tail_ratio
-#&gt; 1 0.1953197 0.001733801 -0.006777540 0.0002022220 0.4229451   -0.0007122453
-#&gt; 2 0.2160592 0.001635822 -0.006490719 0.0002437449 0.4395818   -0.0009850845
+#&gt; 1 0.1953197 0.001733801 -0.006777540 0.0002022220 0.4527011   -0.0007122453
+#&gt; 2 0.2160592 0.001635822 -0.006490719 0.0002437449 0.4453795   -0.0009850845
 #&gt;   mblrr_slope_pt mblrr_intercept_bg mblrr_slope_bg mblrr_cor_bg
 #&gt; 1  -0.0003719424       -0.006442819    0.001572672    0.9323391
 #&gt; 2  -0.0002171012       -0.006274295    0.001548088    0.9198655
 #&gt;   mblrr_intercept_pt mblrr_cor_pt   polyarea peaks_ratio autocorellation
-#&gt; 1           1.008902            0 -0.1559269  0.02584771       0.4883720
-#&gt; 2           1.001047            0 -0.1684371  0.03090811       0.4402242
+#&gt; 1           1.008902            0 -0.1559269  0.02584771       0.4994275
+#&gt; 2           1.001047            0 -0.1684371  0.03090811       0.4521168
 #&gt;   cp_e.agglo cp_bcp amptester_shapiro amptester_lrt amptester_rgt amptester_tht
 #&gt; 1          2     14             FALSE          TRUE          TRUE          TRUE
 #&gt; 2          2     12             FALSE          TRUE          TRUE          TRUE

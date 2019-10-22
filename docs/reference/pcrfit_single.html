@@ -72,7 +72,7 @@ An example is given in the vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
       </span>
     </div>
 
@@ -154,48 +154,51 @@ An example is given in the vignette.</p>
 <tr><td>"tdp"</td><td>takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number.</td><td>numeric</td></tr>
 <tr><td>"f.tdp"</td><td>fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number.</td><td>numeric</td></tr>
 <tr><td>"sliwin"</td><td>PCR efficiency by the 'window-of-linearity' method</td><td>numeric</td></tr>
-<tr><td>"b_slope"</td><td>Is the slope of seven parameter model</td><td>"c_model_param"</td></tr>
-<tr><td>Is the c model parameter of the seven parameter model</td><td>numeric</td><td>"d_model_param"</td></tr>
-<tr><td>Is the d model parameter of the seven parameter model</td><td>numeric</td><td>"e_model_param"</td></tr>
-<tr><td>Is the e model parameter of the seven parameter model</td><td>numeric</td><td>"f_intercept"</td></tr>
-<tr><td>Is the intercept of the seven parameter model</td><td>"k1_model_param"</td><td>Is the k1 model parameter of the seven parameter model</td></tr>
-<tr><td>numeric</td><td>"k2_model_param"</td><td>Is the k2 model parameter of the seven parameter model</td></tr>
-<tr><td>numeric</td><td>"convInfo_iteratons"</td><td>Number of iterations needed to fit the model</td></tr>
-<tr><td>numeric</td><td>"cpDdiff"</td><td>absolute difference between cpD1 and cpD2</td></tr>
-<tr><td>numeric</td><td>"slope_bg"</td><td>slope of the first cycles</td></tr>
-<tr><td>numeric</td><td>"intercept_bg"</td><td>intercept of the first cycles</td></tr>
-<tr><td>numeric</td><td>"polyarea"</td><td>area of a polygon given by the vertices in the vectors cycles and fluorescence</td></tr>
-<tr><td>numeric</td><td>"cp_e.agglo"</td><td>agglomerative hierarchical estimate for multiple change points</td></tr>
-<tr><td>numeric</td><td>"cp_bcp"</td><td>change point by Bayesian analysis methods</td></tr>
-<tr><td>numeric</td><td>"qPCRmodel"</td><td>non-linear model determined for the analysis</td></tr>
-<tr><td>factor</td><td>"amptester_shapiro"</td><td>tests based on the Shapiro-Wilk normality test if the amplification curve is just noise</td></tr>
-<tr><td>binary</td><td>"amptester_lrt"</td><td>performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold</td></tr>
-<tr><td>binary</td><td>"amptester_rgt"</td><td>Resids growth test (RGt) tests if fluorescence values in a linear phase are stable</td></tr>
-<tr><td>binary</td><td>"amptester_tht"</td><td>Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests.</td></tr>
-<tr><td>binary</td><td>"amptester_slt"</td><td>Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio</td></tr>
-<tr><td>binary</td><td>"amptester_polygon"</td><td>pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order.</td></tr>
-<tr><td>binary</td><td>"amptester_slope.ratio"</td><td>SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data.</td></tr>
-<tr><td>numeric</td><td>"minRFU"</td><td>minimum of fluorescence amplitude (percentile 0.01)</td></tr>
-<tr><td>numeric</td><td>"maxRFU"</td><td>maximum of fluorescence amplitude (percentile 0.99)</td></tr>
-<tr><td>numeric</td><td>"bg.start_norm"</td><td>takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number</td></tr>
-<tr><td>numeric</td><td>"bg.stop"</td><td>estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number</td></tr>
-<tr><td>numeric</td><td>"amp.stop"</td><td>estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number</td></tr>
-<tr><td>numeric</td><td>"head2tail_ratio"</td><td></td></tr>
-<tr><td>numeric</td><td>"autocorellation"</td><td></td></tr>
-<tr><td>numeric</td><td>"mblrr_intercept_bg"</td><td></td></tr>
-<tr><td>numeric</td><td>"mblrr_slope_bg"</td><td></td></tr>
-<tr><td>numeric</td><td>"mblrr_cor_bg"</td><td></td></tr>
-<tr><td>numeric</td><td>"mblrr_intercept_pt"</td><td></td></tr>
-<tr><td>numeric</td><td>"mblrr_slope_pt"</td><td></td></tr>
-<tr><td>numeric</td><td>"mblrr_cor_pt"</td><td></td></tr>
-<tr><td>numeric</td><td>"amp_cor_MIC"</td><td></td></tr>
-<tr><td>numeric</td><td>"hookreg_hook"</td><td>estimate of hook effect like curvature</td></tr>
-<tr><td>binary</td><td>"hookreg_hook_slope"</td><td>estimate of slope of the hook effect like curvature</td></tr>
-<tr><td>numeric</td><td>"peaks_ratio"</td><td>Takes the estimate approximate local minimums and maximums</td></tr>
-<tr><td></td><td>"loglin_slope"</td><td>slope determined by a linear model of the data points from the minimum and maximum of the second derivative</td></tr>
-<tr><td>numeric</td><td>"cpD2_range"</td><td>cycle difference between the maximum and the minimum of the second derivative curve</td></tr>
-<tr><td>numeric</td><td>"sd_bg"</td><td>shows the standard deviation of the fluorescence in the ground phase</td></tr>
-<tr><td>numeric</td><td>"central_angle"</td><td>shows the central angle calculated from the maxima and minima of the derivatives</td></tr>
+<tr><td>"b_slope"</td><td>Is the slope of the seven parameter model</td><td>numeric</td></tr>
+<tr><td>"b_model_param"</td><td>Is the b model parameter of the five parameter model</td><td>numeric</td></tr>
+<tr><td>"c_model_param"</td><td>Is the c model parameter of the five parameter model</td><td>numeric</td></tr>
+<tr><td>"d_model_param"</td><td>Is the d model parameter of the five parameter model</td><td>numeric</td></tr>
+<tr><td>"e_model_param"</td><td>Is the e model parameter of the five parameter model</td><td>numeric</td></tr>
+<tr><td>"f_model_param"</td><td>Is the f model parameter of the five parameter model</td><td>numeric</td></tr>
+<tr><td>"f_intercept"</td><td>Is the intercept of the seven parameter model</td><td>numeric</td></tr>
+<tr><td>"k1_model_param"</td><td>Is the k1 model parameter of the seven parameter model</td><td>numeric</td></tr>
+<tr><td>"k2_model_param"</td><td>Is the k2 model parameter of the seven parameter model</td><td>numeric</td></tr>
+<tr><td>"convInfo_iteratons"</td><td>Number of iterations needed to fit the model</td><td>numeric</td></tr>
+<tr><td>"cpDdiff"</td><td>absolute difference between cpD1 and cpD2</td><td>numeric</td></tr>
+<tr><td>"slope_bg"</td><td>slope of the first cycles</td><td>numeric</td></tr>
+<tr><td>"intercept_bg"</td><td>intercept of the first cycles</td><td>numeric</td></tr>
+<tr><td>"polyarea"</td><td>area of a polygon given by the vertices in the vectors cycles and fluorescence</td><td>numeric</td></tr>
+<tr><td>"cp_e.agglo"</td><td>agglomerative hierarchical estimate for multiple change points</td><td>numeric</td></tr>
+<tr><td>"cp_bcp"</td><td>change point by Bayesian analysis methods</td><td>numeric</td></tr>
+<tr><td>"qPCRmodel"</td><td>non-linear model determined for the analysis</td><td>factor</td></tr>
+<tr><td>"amptester_shapiro"</td><td>tests based on the Shapiro-Wilk normality test if the amplification curve is just noise</td><td>binary</td></tr>
+<tr><td>"amptester_lrt"</td><td>performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold</td><td>binary</td></tr>
+<tr><td>"amptester_rgt"</td><td>Resids growth test (RGt) tests if fluorescence values in a linear phase are stable</td><td>binary</td></tr>
+<tr><td>"amptester_tht"</td><td>Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests.</td><td>binary</td></tr>
+<tr><td>"amptester_slt"</td><td>Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio</td><td>binary</td></tr>
+<tr><td>"amptester_polygon"</td><td>pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order.</td><td>binary</td></tr>
+<tr><td>"amptester_slope.ratio"</td><td>SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data.</td><td>numeric</td></tr>
+<tr><td>"minRFU"</td><td>minimum of fluorescence amplitude (percentile 0.01)</td><td>numeric</td></tr>
+<tr><td>"maxRFU"</td><td>maximum of fluorescence amplitude (percentile 0.99)</td><td>numeric</td></tr>
+<tr><td>"bg.start_norm"</td><td>takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number</td><td>numeric</td></tr>
+<tr><td>"bg.stop"</td><td>estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number</td><td>numeric</td></tr>
+<tr><td>"amp.stop"</td><td>estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number</td><td>numeric</td></tr>
+<tr><td>"head2tail_ratio"</td><td></td><td>numeric</td></tr>
+<tr><td>"autocorellation"</td><td></td><td>numeric</td></tr>
+<tr><td>"mblrr_intercept_bg"</td><td></td><td>numeric</td></tr>
+<tr><td>"mblrr_slope_bg"</td><td></td><td>numeric</td></tr>
+<tr><td>"mblrr_cor_bg"</td><td></td><td>numeric</td></tr>
+<tr><td>"mblrr_intercept_pt"</td><td></td><td>numeric</td></tr>
+<tr><td>"mblrr_slope_pt"</td><td></td><td>numeric</td></tr>
+<tr><td>"mblrr_cor_pt"</td><td></td><td>numeric</td></tr>
+<tr><td>"amp_cor_MIC"</td><td></td><td>numeric</td></tr>
+<tr><td>"hookreg_hook"</td><td>estimate of hook effect like curvature</td><td>binary</td></tr>
+<tr><td>"hookreg_hook_slope"</td><td>estimate of slope of the hook effect like curvature</td><td>numeric</td></tr>
+<tr><td>"peaks_ratio"</td><td>Takes the estimate approximate local minimums and maximums</td><td></td></tr>
+<tr><td>"loglin_slope"</td><td>slope determined by a linear model of the data points from the minimum and maximum of the second derivative</td><td>numeric</td></tr>
+<tr><td>"cpD2_range"</td><td>cycle difference between the maximum and the minimum of the second derivative curve</td><td>numeric</td></tr>
+<tr><td>"sd_bg"</td><td>shows the standard deviation of the fluorescence in the ground phase</td><td>numeric</td></tr>
+<tr><td>"central_angle"</td><td>shows the central angle calculated from the maxima and minima of the derivatives</td><td>numeric</td></tr>
 </table>
 
 

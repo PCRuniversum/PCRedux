@@ -22,11 +22,13 @@ Output Description
   "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
   "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
-  "b_slope" \tab Is the slope of seven parameter model \cr
-  "c_model_param" \tab Is the c model parameter of the seven parameter model \tab  numeric \cr
-  "d_model_param" \tab Is the d model parameter of the seven parameter model \tab  numeric \cr
-  "e_model_param" \tab Is the e model parameter of the seven parameter model \tab  numeric \cr
-  "f_intercept" \tab Is the intercept of the seven parameter model \cr
+  "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
+  "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
+  "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
+  "d_model_param" \tab Is the d model parameter of the five parameter model \tab  numeric \cr
+  "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
+  "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
+  "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
   "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
   "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr

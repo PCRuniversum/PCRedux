@@ -43,11 +43,13 @@
 #'   "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
 #'   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
 #'   "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
-#'   "b_slope" \tab Is the slope of seven parameter model \cr
-#'   "c_model_param" \tab Is the c model parameter of the seven parameter model \tab  numeric \cr
-#'   "d_model_param" \tab Is the d model parameter of the seven parameter model \tab  numeric \cr
-#'   "e_model_param" \tab Is the e model parameter of the seven parameter model \tab  numeric \cr
-#'   "f_intercept" \tab Is the intercept of the seven parameter model \cr
+#'   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
+#'   "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
+#'   "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
+#'   "d_model_param" \tab Is the d model parameter of the five parameter model \tab  numeric \cr
+#'   "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
+#'   "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
+#'   "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
 #'   "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
 #'   "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
 #'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
@@ -130,7 +132,7 @@ pcrfit_single <- function(x) {
 
   # for qpcR
   dat <- cbind(cyc = cycles, fluo = x)
-  dat_reverse <- cbind(cyc = cycles, fluo = (max(x) - rev(x)))
+  dat_reverse <- cbind(cyc = cycles, fluo = (max(dat_smoothed) - rev(dat_smoothed)))
   # inefficient kludge to find l4 model
   data("sysdata", package = "qpcR", envir = parent.frame())
 
@@ -221,40 +223,97 @@ pcrfit_single <- function(x) {
   }
 
   # Perform an autocorrelation analysis
-  res_autocorrelation <- PCRedux::autocorrelation_test(y = x)
+  res_autocorrelation <- PCRedux::autocorrelation_test(y = dat_smoothed)
   if(res_autocorrelation == "n.s." || is.na(res_autocorrelation)) res_autocorrelation <- 0
-
+  
+  # Fitting of non-linear multiparameter models
   # Fit sigmoidal models to curve data
-
-  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
-
-  res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
+  
+  b_val <- -10000
+  c_val <- -10000
+  d_val <- 10000
+  e_val <- 10000
+  f_val <- -10000
+  k_val <- -10000
+  k1_val <- -10000
+  k2_val <- -10000
+  
+  # Get the parameters from the four-parameter model
+  pcrfit_model_l4 <- try(qpcR::pcrfit(dat, 1, 2, model = l4), silent = TRUE)
+  res_coef_model_l4 <- try(coefficients(pcrfit_model_l4), silent = TRUE)
+  if (class(res_coef_model_l4) == "try-error") {
+    res_coef_model_l4 <- c(b = b_val, c = c_val, d = d_val, e = e_val)
+  }
+  
+  # Get the parameters from the five-parameter model
+  pcrfit_model_l5 <- try(qpcR::pcrfit(dat, 1, 2, model = l5), silent = TRUE)
+  res_coef_model_l5 <- try(coefficients(pcrfit_model_l5), silent = TRUE)
+  if (class(res_coef_model_l5) == "try-error") {
+    res_coef_model_l5 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val)
+  }
+  
+  # Get the parameters from the five-parameter model
+  pcrfit_model_l6 <- try(qpcR::pcrfit(dat, 1, 2, model = l6), silent = TRUE)
+  res_coef_model_l6 <- try(coefficients(pcrfit_model_l6), silent = TRUE)
+  if (class(res_coef_model_l6) == "try-error") {
+    res_coef_model_l6 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k = k_val)
+  }
+  
+  # Get the parameters from the seven-parameter model
+  pcrfit_model_l7 <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
+  res_coef <- try(coefficients(pcrfit_model_l7), silent = TRUE)
   if (class(res_coef) == "try-error") {
-    res_coef <- c(b = 0, c = NA, d = NA, e = NA, f = 20000, k1 = NA, k2 = NA)
+    res_coef <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
   }
 
-  res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
+  res_convInfo_iteratons <- try(pcrfit_model_l7[["convInfo"]][["finIter"]], silent = TRUE)
   if (class(res_convInfo_iteratons) == "try-error") {
     res_convInfo_iteratons <- 5000
   }
 
+  # Determine the optimal model based on the AICc
+
+  res_AICc <- list(l4 = if(class(pcrfit_model_l4)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l4), silent = TRUE)
+  }, 
+  l5 = if(class(pcrfit_model_l5)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l5), silent = TRUE)
+  },
+  l6 = if(class(pcrfit_model_l6)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l6), silent = TRUE)
+  },
+  l7 = if(class(pcrfit_model_l7)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l7), silent = TRUE)
+  }
+  )
+  
+  res_fit_model <- as.factor(which(res_AICc == min(unlist(res_AICc), na.rm = TRUE)))
+
+  if (length(res_fit_model) == 0) {
+      res_fit_model <- as.factor("l0")
+  }
+  
+  if(names(res_fit_model) == "l4") res_fit <- pcrfit_model_l4
+  if(names(res_fit_model) == "l5") res_fit <- pcrfit_model_l5
+  if(names(res_fit_model) == "l6") res_fit <- pcrfit_model_l6
+  if(names(res_fit_model) == "l7") res_fit <- pcrfit_model_l7
+  if(names(res_fit_model) == "l0") res_fit <- "try-error"
+  
+  # Fit the "reverse" model
   pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent = TRUE)
-
-  res_fit <- try(qpcR::mselect(
-    pcrfit_startmodel,
-    verbose = FALSE, fctList = list(l4, l5, l6, l7)
-  ), silent = TRUE)
-
+  
   res_fit_reverse <- try(qpcR::mselect(
     pcrfit_startmodel_reverse,
     verbose = FALSE, fctList = list(l4, l5, l6, l7)
   ), silent = TRUE)
-
-  # Determine the model suggested by the mselect function based on the AICc
-  res_fit_model <- try(names(which(res_fit[["retMat"]][, "AICc"] == min(res_fit[["retMat"]][, "AICc"]))), silent = TRUE)
-  if (class(res_fit_model) == "try-error") {
-    res_fit_model <- as.factor("l0")
-  }
 
   # Determine the model for the reverse data suggested by the
   # mselect function based on the AICc
@@ -411,14 +470,16 @@ pcrfit_single <- function(x) {
     bg.stop = res_bg.max[2],
     amp.stop = res_bg.max[3],
     b_slope = res_coef[["b"]],
-    c_model_param = res_coef[["c"]],
-    d_model_param = res_coef[["d"]],
-    e_model_param = res_coef[["e"]],
+    b_model_param = res_coef_model_l5[["b"]],
+    c_model_param = res_coef_model_l5[["c"]],
+    d_model_param = res_coef_model_l5[["d"]],
+    e_model_param = res_coef_model_l5[["e"]],
+    f_model_param = res_coef_model_l5[["f"]],
     f_intercept = res_coef[["f"]],
-    k1_model_param = res_coef[["k1"]],
-    k2_model_param = res_coef[["k2"]],
+#    k1_model_param = res_coef[["k1"]],
+#    k2_model_param = res_coef[["k2"]],
     convInfo_iteratons = res_convInfo_iteratons,
-    qPCRmodel = res_fit_model[[1]],
+    qPCRmodel = factor(names(res_fit_model)), # res_fit_model[[1]],
     qPCRmodelRF = res_fit_model_reverse[[1]],
     # Signal levels
     minRFU = fluo_range[[1]],

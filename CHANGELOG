@@ -1,7 +1,8 @@
-Version 0.2.6-5 [Oktober 2019]
-this release is mainly a bugfix release addressing few minor issues raised by users and us
+Version 1.0 [Oktober 2019]
+this release is the first stable (feature complete) release, which mainly received bugfixes addressing minor issues raised by users and us
+* Due to changes in R, the minumum requirement now is R >= 3.5.0
 * vignette improved
-* winklR() and run_PCRedux() function added
+* winklR() and run_PCRedux() (Graphical Userinterface) function added
 * decision_modus now deals with ties, reports inconclusive results as missing value (NA)
 * visdat_pcrfit() removed, since there are other packages that can do the job better (e.g., 10.21105/joss.00355)
 * several further dependencies removed to make the installation easier

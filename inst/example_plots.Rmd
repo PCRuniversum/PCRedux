@@ -96,7 +96,7 @@ Since the parameters from the calculations with the *encu()* function and the de
 ```{r}
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
                                     levels = c("positive", "ambiguous", "negative"))) %>%
-  select(minRFU, init2, decision, fluo, f.top) %>%
+  select(minRFU, init2, decision, fluo, f.top, central_angle, amptester_polygon) %>%
   filter(!is.na(dec))
 
 head(dat)

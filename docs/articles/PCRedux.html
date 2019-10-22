@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">PCRedux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@
       <h1>PCRedux package - an overview</h1>
                         <h4 class="author">PCRedux package authors</h4>
             
-            <h4 class="date">2019-10-22</h4>
+            <h4 class="date">2019-10-23</h4>
       
       
       <div class="hidden name"><code>PCRedux.Rmd</code></div>
@@ -93,7 +93,7 @@
 <div id="aims-of-the-project" class="section level1">
 <h1 class="hasAnchor">
 <a href="#aims-of-the-project" class="anchor"></a>Aims of the Project</h1>
-<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-22) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
+<p>A review of the literature (PubMed, Google Scholar; 1984-01-01 - 2019-10-23) and discussion with peers revealed that there is no open source software package to calculate predictors from quantitative PCR amplification curves for machine learning applications. A predictor is a quantifiable <em>informative</em> property of an amplification curve. In particular, there is no information available about predictors that can be used from amplification curves apart from measures that describe quantification points, amplification efficiencies and signal levels. Although several amplification curve data sets are available, no curated labeled data sets labels are described in the literature or repositories such as GitHub, Bitbucket, SourceForge or Kaggle.</p>
 <p>Therefore, the aim of the study was to:</p>
 <ol style="list-style-type: decimal">
 <li>create a collection of classified amplification curve data,</li>
@@ -106,7 +106,7 @@
 <h1 class="hasAnchor">
 <a href="#introduction-to-the-detection-and-quantification-of-nucleic-acids-and-the-realtion-to-machine-learning" class="anchor"></a>Introduction to the Detection and Quantification of Nucleic Acids and the Realtion to Machine Learning</h1>
 <p>In  the reader finds a concise introduction to nucleic acids, including nucleic acid detection methods for the analysis of forensic sample material. Special intention is paid to the quantitative Polymerase Chain Reaction (qPCR), since this method is the <em>de facto</em> standard for the detection and high-precision quantification of nucleic acids.</p>
-<p>The focus of this study is the development of statistical and bioinformatical algorithms for the  software (version 0.2.6.5). This software can be used to automatically calculate putative predictors (<em>features</em>) from qPCR amplification curves. A predictor herein refers to a quantifiable <em>informative</em> property of an amplification curve, employable for data mining, machine learning applications and classification tasks.</p>
+<p>The focus of this study is the development of statistical and bioinformatical algorithms for the  software (version 1.0). This software can be used to automatically calculate putative predictors (<em>features</em>) from qPCR amplification curves. A predictor herein refers to a quantifiable <em>informative</em> property of an amplification curve, employable for data mining, machine learning applications and classification tasks.</p>
 <p>The  deals with elements of the software engineering (e. g., continuous integration, Donald Knuth’s <em>Literate Programming</em>, unit testing) used within the  software. The  gives an introduction into qPCR data, their analysis and explains why there is a need for the  software. In addition, the data analysis using machine learning is concisely described, after which the work focuses on the analysis of the measured data.</p>
 <p>The proposed algorithms were partially tested with machine learning methods. For this purpose, a brief introduction to the subject  is given in , and results from the belonging chapters are applied.</p>
 <p>The details for statistical analysis of qPCR amplification curves are presented in  ff. This covers the description of the curvature and the challenges of the calculations.</p>
@@ -553,17 +553,17 @@ Frequently used methods for the analysis of quantification points. A) The amplif
 ##  $ cpD2_range           : num 4.62
 ##  $ top                  : num 25
 ##  $ f.top                : num 0.748
-##  $ tdp                  : num 35
-##  $ f.tdp                : num 1.65
+##  $ tdp                  : num 33
+##  $ f.tdp                : num 1.62
 ##  $ bg.stop              : num 15
 ##  $ amp.stop             : num 40
 ##  $ b_slope              : num -13.6
-##  $ c_model_param        : num 0.686
-##  $ d_model_param        : num 0.942
-##  $ e_model_param        : num 26
+##  $ b_model_param        : num -20.6
+##  $ c_model_param        : num 0.712
+##  $ d_model_param        : num 0.996
+##  $ e_model_param        : num 30.6
+##  $ f_model_param        : num 0.433
 ##  $ f_intercept          : num 3.17
-##  $ k1_model_param       : num 0.003
-##  $ k2_model_param       : num -3.85e-05
 ##  $ convInfo_iteratons   : int 14
 ##  $ qPCRmodel            : Factor w/ 1 level "l7": 1
 ##  $ qPCRmodelRF          : Factor w/ 1 level "l7": 1
@@ -574,7 +574,7 @@ Frequently used methods for the analysis of quantification points. A) The amplif
 ##  $ slope_bg             : num 0.00658
 ##  $ intercept_bg         : num 0.675
 ##  $ sigma_bg             : num 0.00455
-##  $ sd_bg                : num 0.0939
+##  $ sd_bg                : num 0.0801
 ##  $ head2tail_ratio      : num 0.704
 ##  $ mblrr_slope_pt       : num 0.00586
 ##  $ mblrr_intercept_bg   : num 0.693
@@ -584,7 +584,7 @@ Frequently used methods for the analysis of quantification points. A) The amplif
 ##  $ mblrr_cor_pt         : num 0.942
 ##  $ polyarea             : num 0.0409
 ##  $ peaks_ratio          : num 0.00922
-##  $ autocorellation      : num 0.741
+##  $ autocorellation      : num 0.752
 ##  $ cp_e.agglo           : int 2
 ##  $ cp_bcp               : int 6
 ##  $ amptester_shapiro    : logi FALSE
@@ -625,7 +625,7 @@ Frequently used methods for the analysis of quantification points. A) The amplif
 <a href="#amplification-curve-preprocessing" class="anchor"></a>Amplification Curve Preprocessing</h3>
 <p>The <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function performs preprocessing steps before each calculation, including checking whether an amplification curve contains missing values. Missing values (NA) are measuring points in a data set where no measured values are available or have been removed arbitrarily. NAs may occur if no measurement has been carried out (e. g., defective detector) or lengths of the vectors differ (number of cyles) between the observations. Such missing values are automatically imputed by spline interpolation as described in <span class="citation">Rödiger, Burdukiewicz, and Schierack (2015)</span>.</p>
 <p>All values of an amplification curve are normalized to their 99% quantile. The normalization is used to equalize the amplitudes differences of amplification curves from thermo-cyclers (sensor technology, software processing) and detection chemistries. To compare amplification curves from different thermo-cyclers, the values should always be scaled systematically using the same method. Although there are other normalization methods (e. g., minimum-maximum normalization, see <span class="citation">Rödiger, Burdukiewicz, and Schierack (2015)</span>, the normalization by the 99% quantile preserves the information about the level of the background phase. A normalization to the maximum is not used to avoid strong extenuation by outliers. The data in D show that the <code>maxRFU</code> values after normalization are approximately 1. There is no statistical significant difference between <code>maxRFU</code> values of positive and negative amplification curves.</p>
-<p>Selected algorithms of the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function use the <code><a href="https://rdrr.io/pkg/chipPCR/man/CPP.html">CPP()</a></code> [] function to preprocess (e. g., base-lining, smoothing, imputation of missing values) the amplification curves. Further details are given in <span class="citation">Rödiger, Burdukiewicz, and Schierack (2015)</span>. Until package version 0.2.6-4 was the <code>visdat_pcrfit()</code> part of the package. <code>visdat_pcrfit()</code> was used for visualizing the content of data from an analysis with the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function. There are other more powerful packages such as  by <span class="citation">Tierney (2017)</span> and  by <span class="citation">Seibelt (2017)</span>.</p>
+<p>Selected algorithms of the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function use the <code><a href="https://rdrr.io/pkg/chipPCR/man/CPP.html">CPP()</a></code> [] function to preprocess (e. g., base-lining, smoothing, imputation of missing values) the amplification curves. Further details are given in <span class="citation">Rödiger, Burdukiewicz, and Schierack (2015)</span>. Until package version 0.2.6-4 was the <code>visdat_pcrfit()</code> part of the package. <code>visdat_pcrfit()</code> was used for visualizing the content of data from an analysis with the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function. There are other more powerful packages such as  by <span class="citation">Tierney (2017)</span>,  by <span class="citation">Fischetti (2019)</span> and  by <span class="citation">Seibelt (2017)</span>.</p>
 <p>During the analysis, several values are determined to describe the amplitude of an amplification curve. The resulting potential predictors are <code>minRFU</code> (minimum of the amplification curve, which is determined at the 1% quantile to minimize the influence of outliers), <code>init2</code> (the initial template fluorescence from an exponential model) and <code>fluo</code> (raw fluorescence value at the second derivative maximum). The <code>minRFU</code>, <code>init2</code> and <code>fluo</code> values differ significantly between negative and positive amplification curves (C, E &amp; F).</p>
 </div>
 <div id="handling-of-missing-predictors" class="section level3">
@@ -744,10 +744,10 @@ Analysis of the amplification curves of the <code>RAS002</code> data set with th
 <div id="quantification-points-ratios-and-slopes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#quantification-points-ratios-and-slopes" class="anchor"></a>Quantification Points, Ratios and Slopes</h3>
-<p>The <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function calculates <code>cpD1</code> and <code>cpD2</code> and uses them for further analysis. Both the <code>cpD1</code> and <code>cpD2</code> value are used to describe the amplification reaction quantitatively. For example, low <code>cpD1</code> and <code>cpD2</code> values (&lt; 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high B. Since the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function gives the parameters of the seven-parameter model () they are part of the feautre set for completeness ().</p>
+<p>The <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function calculates <code>cpD1</code> and <code>cpD2</code> and uses them for further analysis. Both the <code>cpD1</code> and <code>cpD2</code> value are used to describe the amplification reaction quantitatively. For example, low <code>cpD1</code> and <code>cpD2</code> values (&lt; 5 cycles) indicate that the PCR reaction was negative or that the amount of input DNA was to high B. Since the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function gives the parameters of all models () they are part of the feautre set for completeness (). In particular, the results of the five-parameter function and of the seven-parameter function are reported.</p>
 <div class="figure">
-<img src="PCRedux_files/figure-html/plot_model_param-1.png" alt="Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the `data\_sample\_subset` data set were used as they contain positive and negative amplification curves, as well as amplification curves that exhibit a \textit{hook effect} or non-sigmoid shapes. A) `c\_model\_param`, is the c model parameter of the seven parameter model. B) `d\_model\_param`, is the d model parameter of the seven parameter model. C) `e\_model\_param`, is the e model parameter of the seven parameter model. D) `f\_model\_param`, is the f model parameter of the seven parameter model. E) `k1\_model\_param`, is the k1 model parameter of the seven parameter model. F) `k2\_model\_param`, is the k2 model parameter of the seven parameter model. The classes were compared using the Wilcoxon Rank Sum Test." width="1056"><p class="caption">
-Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the <code>data\_sample\_subset</code> data set were used as they contain positive and negative amplification curves, as well as amplification curves that exhibit a  or non-sigmoid shapes. A) <code>c\_model\_param</code>, is the c model parameter of the seven parameter model. B) <code>d\_model\_param</code>, is the d model parameter of the seven parameter model. C) <code>e\_model\_param</code>, is the e model parameter of the seven parameter model. D) <code>f\_model\_param</code>, is the f model parameter of the seven parameter model. E) <code>k1\_model\_param</code>, is the k1 model parameter of the seven parameter model. F) <code>k2\_model\_param</code>, is the k2 model parameter of the seven parameter model. The classes were compared using the Wilcoxon Rank Sum Test.
+<img src="PCRedux_files/figure-html/plot_model_param-1.png" alt="Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the `data\_sample\_subset` data set were used as they contain positive and negative amplification curves, as well as amplification curves that exhibit a \textit{hook effect} or non-sigmoid shapes. A) `c\_model\_param`, is the c model parameter of the seven parameter model. B) `d\_model\_param`, is the d model parameter of the seven parameter model. C) `e\_model\_param`, is the e model parameter of the seven parameter model. D) `f\_model\_param`, is the f model parameter of the seven parameter model. The classes were compared using the Wilcoxon Rank Sum Test." width="1056"><p class="caption">
+Values of predictors calculated from negative and positive amplification curves. Amplification curve predictors from the <code>data\_sample\_subset</code> data set were used as they contain positive and negative amplification curves, as well as amplification curves that exhibit a  or non-sigmoid shapes. A) <code>c\_model\_param</code>, is the c model parameter of the seven parameter model. B) <code>d\_model\_param</code>, is the d model parameter of the seven parameter model. C) <code>e\_model\_param</code>, is the e model parameter of the seven parameter model. D) <code>f\_model\_param</code>, is the f model parameter of the seven parameter model. The classes were compared using the Wilcoxon Rank Sum Test.
 </p>
 </div>
 <p>Further predictors from the <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function are:</p>
@@ -840,22 +840,22 @@ Concept of the <code>loglin\_slope</code> predictor. The algorithm determines th
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.4179  -0.2797  -0.2797   0.0055   2.5538  
+## -3.2615  -0.2859   0.0000   0.0095   2.5368  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -3.2217     0.3236  -9.955  &lt; 2e-16 ***
-## loglin_slope 200.3518    25.7631   7.777 7.44e-15 ***
+## (Intercept)   -3.1768     0.3194  -9.947   &lt;2e-16 ***
+## loglin_slope 187.7642    21.1411   8.881   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 632.07  on 455  degrees of freedom
-## Residual deviance: 102.22  on 454  degrees of freedom
-## AIC: 106.22
+##     Null deviance: 632.14  on 455  degrees of freedom
+## Residual deviance: 113.61  on 454  degrees of freedom
+## AIC: 117.61
 ## 
-## Number of Fisher Scoring iterations: 9</code></pre>
+## Number of Fisher Scoring iterations: 8</code></pre>
 <p>Based on the results it can be concluded that the parameters <code>(intercept)</code> and <code>loglin_slope</code> are statistically significant (<em>P</em> &lt; 2e-16). This indicates an association between <code>loglin_slope</code> and the probability that an amplification curve is positive.</p>
 <p>In order to apply the model to a new data set, further steps are necessary. <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> [] is a generic function for predicting the results of a model fitting function (A). All previously split test data is passed to the function argument <code>newdata</code>. By setting the <code>type = 'response'</code> parameter, the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function returns probabilities in the form of <span class="math inline">\(P(y=1|X)\)</span>. In the case in hand, it was decided that a decision limit of 0.5 is to be applied. If <span class="math inline">\(P(y=1|X) &lt; 0.5\)</span> then <span class="math inline">\(y = 0\)</span> (amplification curve negative), otherwise <span class="math inline">\(y = 1\)</span> (amplification curves positive).</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(PCRedux)</a>
@@ -1527,12 +1527,12 @@ Bayesian and energy agglomerative change point analysis on negative and positive
 ##  3rd Qu.:1.0000    3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
 ##  Max.   :1.0000    Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
 ##  amptester_slt    amptester_polygon amptester_slope.ratio    decision     
-##  Min.   :0.0000   Min.   : 4.018    Min.   :-0.99900      Min.   :0.0000  
-##  1st Qu.:0.0000   1st Qu.: 5.505    1st Qu.:-0.01039      1st Qu.:0.0000  
-##  Median :1.0000   Median :14.053    Median : 0.05143      Median :0.0000  
-##  Mean   :0.5023   Mean   :13.765    Mean   : 0.02365      Mean   :0.4946  
-##  3rd Qu.:1.0000   3rd Qu.:20.475    3rd Qu.: 0.12654      3rd Qu.:1.0000  
-##  Max.   :1.0000   Max.   :25.480    Max.   : 0.99964      Max.   :1.0000</code></pre>
+##  Min.   :0.0000   Min.   : 4.018    Min.   :-0.999996     Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.: 5.505    1st Qu.:-0.006077     1st Qu.:0.0000  
+##  Median :1.0000   Median :14.053    Median : 0.048774     Median :0.0000  
+##  Mean   :0.5008   Mean   :13.765    Mean   : 0.019499     Mean   :0.4946  
+##  3rd Qu.:1.0000   3rd Qu.:20.475    3rd Qu.: 0.121102     3rd Qu.:1.0000  
+##  Max.   :1.0000   Max.   :25.480    Max.   : 0.996718     Max.   :1.0000</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># Select randomly 70% of the observations data for training (-&gt; n_train).</span></a>
 <a class="sourceLine" id="cb45-2" title="2"><span class="co"># n_train is the number of observations used for training.</span></a>
 <a class="sourceLine" id="cb45-3" title="3"></a>
@@ -1576,7 +1576,7 @@ Bayesian and energy agglomerative change point analysis on negative and positive
 ##    0  1 class.error
 ## 0 96  1  0.01030928
 ## 1  0 98  0.00000000</code></pre>
-<p>The number of variables randomly selected at each split is <em>mtry = </em>2 (as starter, the square root of total number of all predictors is used). The out-of-bag (OOB) error (<span class="math inline">\(=\)</span> misclassification rate) is 0.516%. To fine tune a random forest model, the number of <em>ntree</em> values must be varied and plotted against the OOB rate. It recommended to select a mtry value with minimum OOB error, which was not done in this example.</p>
+<p>The number of variables randomly selected at each split is <em>mtry = </em>2 (as starter, the square root of total number of all predictors is used). The out-of-bag (OOB) error (<span class="math inline">\(=\)</span> misclassification rate) is 0.538%. To fine tune a random forest model, the number of <em>ntree</em> values must be varied and plotted against the OOB rate. It recommended to select a mtry value with minimum OOB error, which was not done in this example.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="co"># Determine variable importance</span></a>
 <a class="sourceLine" id="cb49-2" title="2">res_importance &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/randomForest/man/importance.html">importance</a></span>(model_rf)</a>
 <a class="sourceLine" id="cb49-3" title="3"></a>
@@ -1617,7 +1617,7 @@ Bayesian and energy agglomerative change point analysis on negative and positive
 The predictors <code>amptester\_lrt</code> (lrt), <code>amptester\_rgt</code> (rgt), <code>amptester\_tht</code> (tht), <code>amptester\_slt</code> (slt), <code>amptester\_polygon</code>(polygon) and <code>amptester\_slope.ratio</code> (slope.ratio) were used for classification using random forest. A) This plot shows the error depending on the number of trees. The error decreases as more and more trees are added and averaged. B). Mean Decrease Accuracy shown how much the model accuracy decreases if a variable is dropped. C) Mean Decrease Gini shows the importance of a variable based on the Gini impurity index used for the calculation of splits in trees.
 </p>
 </div>
-<p>The top two important predictors are <code>polygon</code> (MeanDecreaseAccuracy = 13.56, MeanDecreaseGini = 40.62) and <code>slt</code> (MeanDecreaseAccuracy = 12.25, MeanDecreaseGini = 32.51).</p>
+<p>The top two important predictors are <code>polygon</code> (MeanDecreaseAccuracy = 13.69, MeanDecreaseGini = 38) and <code>slt</code> (MeanDecreaseAccuracy = 12.77, MeanDecreaseGini = 33.69).</p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -2045,13 +2045,13 @@ Clustering and variation analysis of amplification curves. The amplification cur
 <li>to bundle and distribute the findings in a public repository open source software and open data package with an open data.class</li>
 </ol>
 <p>for an automatic analysis of amplification curve data by machine learning.</p>
-<p>For this purpose, the  package was developed. This package contains proof-of-concept algorithms and functions with which predictors (mathematically describable properties) of amplification curves can be calculated. The <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function is an extensible wrapper function for all algorithms and functions developed.  version 0.2.6.5 offers concepts to calculate 55 predictors from an amplification curve. In addition, predictors such as the employed chemistry, the qPCR device and further experimental details can be added by the user. Other parameters (e. g. hydrolysis probe, DNA binding dye) can be converted into binary classifiers and be used for modeling. Machine learning requires predictors to train a model <span class="citation">(Saeys, Inza, and Larranaga 2007)</span>. The model should then be able to put new unknown data into a meaningful context. Predictors can have a significant influence on the accuracy of the prediction model. The predictors of the  package are a novelty in the literature for the classification of amplification curves, so that the collection probably constitutes the most extensive one at the time of the first release on  (summer 2017).</p>
+<p>For this purpose, the  package was developed. This package contains proof-of-concept algorithms and functions with which predictors (mathematically describable properties) of amplification curves can be calculated. The <code><a href="../reference/pcrfit_single.html">pcrfit_single()</a></code> function is an extensible wrapper function for all algorithms and functions developed.  version 1.0 offers concepts to calculate 55 predictors from an amplification curve. In addition, predictors such as the employed chemistry, the qPCR device and further experimental details can be added by the user. Other parameters (e. g. hydrolysis probe, DNA binding dye) can be converted into binary classifiers and be used for modeling. Machine learning requires predictors to train a model <span class="citation">(Saeys, Inza, and Larranaga 2007)</span>. The model should then be able to put new unknown data into a meaningful context. Predictors can have a significant influence on the accuracy of the prediction model. The predictors of the  package are a novelty in the literature for the classification of amplification curves, so that the collection probably constitutes the most extensive one at the time of the first release on  (summer 2017).</p>
 <p>It can be assumed that not all predictors are suitable or necessary for machine learning. Some <strong>potential</strong> predictors are more likely to be suitable for validation of data integrity (quality management) and data mining. The <code>maxRFU</code> predictors and <code>sigma_bg</code> () are to be mentioned here as examples. The predictor <code>maxRFU</code> should ideally be at a value of 1. If this is not the case, it can be assumed that a preprocessing problem was encountered. The <code>sigma_bg</code> value describes the standard deviation of the ground phase. It should be low (<span class="math inline">\(sigma\_bg \leq 0.1\)</span>), otherwise it can be assumed that unusually high variations of the intensity values are present. Consequently, the relevance of the predictors must be determined independently by each user on the basis of domain knowledge, the objective, and the given data set.</p>
 <p>At this point it should be mentioned that these approaches were deliberately sought and developed to make the approach and implementation more understandable. Self-learning machine-learning methods are expected to be included in the  package in future releases, from the necessity to design and test additional predictors.</p>
 <p>To a modest extent, the usefulness of the predictors was tested on exemplary data sets, with the aim of achieving a high degree of objectivity and reproducibility. It is probably not possible to fulfill this ideal completely, since the algorithms were designed from a limited human perspective, which poses a generic problem in machine learning. In particular, data records can be distorted if the user excludes seemingly problematic data. Hence, it is advisable to perform a more comprehensive analysis of all predictors.</p>
 <p>Several ROIs (see ) can be obtained from amplification curves. Sigmoidal amplification curves have turning points that can serve as an indicator of a positive amplification curve, and are mathematical and statistical starting points for calculating predictors. Amplification curves can have unique trajectories and often deviate drastically from ideal sigmoid models (see A and B). Some amplification curves have only a slight increase with positive or negative signs lacking a sigmoid curvature.</p>
 <p>Almost all real-time thermo-cyclers have built-in software that performs preprocessing steps such as smoothing, baseline correction and normalization on the amplification curves <span class="citation">(Rödiger, Burdukiewicz, and Schierack 2015; Spiess et al. 2015, 2016)</span>. For this reason, it is nearly impossible to get access to informative raw data, so that the impact on the predictor extraction process cannot be adequately estimated.</p>
-<p>The volume and classification of data sets needs to be representative <span class="citation">(Herrera et al. 2016)</span>. The  package contains a large number of manually classified amplification curves. Here, data preparation is an important step,as it encompasses data cleansing, data transformation and data integration <span class="citation">(Herrera et al. 2016)</span>. To assist, the  package <span class="citation">(Seibelt 2017)</span> can be used to analyze the distribution and variables in records for important anomalies such as missing values, zeros, empty strings (Blank) and infinite numbers (Inf). Users of the package should use such tools before proceeding with the analysis. Even though the data records (qPCR runs) in the  package have a very similar structure, some records contain missing values or have different dimensions. For example, the data set <code>C127EGHP</code> comprises a matrix of 40 x 66 (35 cycles x observations (65 amplification curves)), while the data set <code>htPCR</code> comprises a matrix of 35 x 8859.</p>
+<p>The volume and classification of data sets needs to be representative <span class="citation">(Herrera et al. 2016)</span>. The  package contains a large number of manually classified amplification curves. Here, data preparation is an important step,as it encompasses data cleansing, data transformation and data integration <span class="citation">(Herrera et al. 2016)</span>. To assist, the  package <span class="citation">(Seibelt 2017)</span> and  package <span class="citation">(Fischetti 2019)</span> can be used to analyze the distribution and variables in records for important anomalies such as missing values, zeros, empty strings (Blank) and infinite numbers (Inf). Users of the package should use such tools before proceeding with the analysis. Even though the data records (qPCR runs) in the  package have a very similar structure, some records contain missing values or have different dimensions. For example, the data set <code>C127EGHP</code> comprises a matrix of 40 x 66 (35 cycles x observations (65 amplification curves)), while the data set <code>htPCR</code> comprises a matrix of 35 x 8859.</p>
 <p>Talking about data sets it is important to make sure that the volume of the data is representative. In this study amplification curves were categorized by hand and processed with the algorithms described in this study. Although, this data set is fairly large in comparison to what existed before there is no numeric evidence how well it reflects amplification curves in general. In particular, not all data sets have comparable case numbers. For example, the <code>htPCR</code> data set (Biomark HD, Fluidigm) encompass in total 8858 amplification curves, while the <code>C127EGHP</code> data set (iQ5, Bio-Rad) encompass in total 64 amplification curves. While most of the amplification curves of the <code>C127EGHP</code> data set have a classical sigmoid curve shape exhibit amplification curves from the <code>htPCR</code> data set noisy curvatures with non-sigmoid shape. One may question if the larger data set introduces a confirmation bias.</p>
 <p>Although data sets in the  package are large compared to what has been previously available, there is no conclusive evidence of how well these represent amplification curves in other settings. Bellman coined the term “Curse of Dimensionality” in 1961 when he dealt with adaptive control processes, vaguely describing the practical difficulties of high-dimensional analysis and estimation. There is only a maximum number of predictors for a sample of a certain size. If there are too many, the performance of an algorithm decreases rather than improves. As a result, many data mining algorithms fail with high dimensionality because the data points are sparse <span class="citation">(Herrera et al. 2016)</span>. In addition, the following applies:</p>
 <ul>
@@ -2156,6 +2156,9 @@ Clustering and variation analysis of amplification curves. The amplification cur
 </div>
 <div id="ref-feuer_lemming:_2015">
 <p>Feuer, Ronny, Sebastian Vlaic, Janine Arlt, Oliver Sawodny, Uta Dahmen, Ulrich M. Zanger, and Maria Thomas. 2015. “LEMming: A Linear Error Model to Normalize Parallel Quantitative Real-Time PCR (qPCR) Data as an Alternative to Reference Gene Based Methods.” <em>PLOS ONE</em> 10 (9): e0135852. <a href="https://doi.org/10.1371/journal.pone.0135852" class="uri">https://doi.org/10.1371/journal.pone.0135852</a>.</p>
+</div>
+<div id="ref-assertr">
+<p>Fischetti, Tony. 2019. <em>assertr: Assertive Programming for R Analysis Pipelines</em>. <a href="https://CRAN.R-project.org/package=assertr" class="uri">https://CRAN.R-project.org/package=assertr</a>.</p>
 </div>
 <div id="ref-geng_single-cell_2014">
 <p>Geng, Tao, Richard Novak, and Richard A. Mathies. 2014. “Single-Cell Forensic Short Tandem Repeat Typing within Microfluidic Droplets.” <em>Analytical Chemistry</em> 86 (1): 703–12. <a href="https://doi.org/10.1021/ac403137h" class="uri">https://doi.org/10.1021/ac403137h</a>.</p>
