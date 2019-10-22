@@ -6,13 +6,15 @@ PCRedux app is a web server for extracting machine learning features from PCR cu
 
 The expected input data is <b>.csv</b> spreadsheet in the [qpcR](https://cran.r-project.org/package=qpcR) format. The first column represents the cycle number and the following commands represent particular runs
 
-<table border="1" style="width:100%">
-  <tr>
-    <td><b>Cycle</b></td>
-    <td><b>Run1</b></td> 
-    <td><b>Run2</b></td> 
-    <td>...</td> 
-  </tr>
+<table border="1" style="width:90%">
+  <thead>
+    <tr>
+      <td><b>Cycle</b></td>
+      <td><b>Run1</b></td> 
+      <td><b>Run2</b></td> 
+      <td>...</td> 
+    </tr>
+  </thead>
   <tr>
     <td>1</td>
     <td>17.22</td>

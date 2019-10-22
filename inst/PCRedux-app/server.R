@@ -70,7 +70,7 @@ shinyServer(function(input, output) {
       tabsetPanel(
         tabPanel(title = "PCRedux data",
                  DT::dataTableOutput("processed_input_dt", width = "100%"),
-                 tags$p(HTML("<h3><A HREF=\"javascript:history.go(0)\">Start a new query</A></h3>"))),
+                 tags$p(HTML("<button id=\"new_query\" type=\"button\" class=\"btn btn-default action-button\" onclick=\"javascript:history.go(0)\" style=\"width: 100%; margin: 20px;\"\">Start a new query</button>"))),
         tabPanel(title = "Input data",
                  DT::dataTableOutput("raw_input_dt")),
         tabPanel("About", includeMarkdown("readme.md"))

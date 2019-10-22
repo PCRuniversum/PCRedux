@@ -39,23 +39,17 @@
 
 
 :root {
-  --theme-color-main: #c2c4b6;
-  --theme-color-accent: #abb7c8;
-  --theme-color-secondary: #abb7c8;
-  --theme-color-buttons: #c2c4b6;
-  --theme-color-buttons-secondary: #abb7c8;
-  --theme-color-text: #5c7598;
+  --theme-color-main: #545e75;
+  --theme-color-accent: #304d6d;
+  --theme-color-secondary: #82a0bc;
+  --theme-color-buttons: #82a0bc;
+  --theme-color-buttons-secondary: #ffffff;
+  --theme-color-text: #304d6d;
   --theme-color-semi-text: #d1d1d1;
   --theme-color-bright-text: #f5f5ff;
   --theme-color-warning-text: #B82;
   --theme-color-background: #f5f5ff;
   --theme-color-background-warning: #EC9;
-  
-  --theme-color-first: #c2c4b6;
-  --theme-color-second: #abb7c8;
-  --theme-color-light: #f5f5ff;
-  --theme-color-gray: #d1d1d1;
-  --theme-color-dark: #5c7598;
   
   --top-bar-height: 125px;
 }
@@ -172,7 +166,7 @@ table {
 
 td,
 th {
-	padding: 0
+	padding: 5px;
 }
 
 
@@ -329,7 +323,7 @@ h2,
 .h2,
 h3,
 .h3 {
-	margin-top: 20px;
+	margin-top: 0px;
 	margin-bottom: 10px;
 	font-family: "Montserrat", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: bold;
@@ -494,7 +488,8 @@ dd {
 }
 
 table {
-	background-color: transparent
+	background-color: transparent;
+	margin: auto;
 }
 
 th {
@@ -1563,8 +1558,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 
 .nav-tabs {
 	border-bottom: 1px solid #dddddd;
-	padding: 10px;
-	border-radius: 6px;
+	padding: 20px;
 }
 
 .nav-tabs>li {
@@ -1577,6 +1571,8 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 }
 
 .nav-tabs>li>a:hover {
+  background-color: var(--theme-color-background);
+  border: 3px solid var(--theme-color-background);
 }
 
 .nav-tabs>li.active>a,
@@ -1584,6 +1580,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 .nav-tabs>li.active>a:focus {
 	color: var(--theme-color-text);
 	background-color: var(--theme-color-secondary);
+	border: 3px solid var(--theme-color-background);
 }
 
 .nav-pills>li {
@@ -1619,6 +1616,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
   margin: 0px;
   max-height: calc(100vh - var(--top-bar-height) + 25px);
   overflow-y: auto;
+  padding-top: 20px;
 }
 
 .tab-pane .tab-content {
@@ -1784,6 +1782,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 thead, 
 tfoot {
   background-color: var(--theme-color-accent);
+  color: var(--theme-color-bright-text);
 }
 
 .col-sm-1, 
@@ -1982,4 +1981,10 @@ pre{
   position:fixed;
   top: calc(50% - 50px);;
   left: calc(50% - 400px);;
+}
+
+
+.noUi-connect {
+  background: var(--theme-color-dark);
+  box-shadow: inset 0 0 3px var(--theme-color-secondary);
 }
