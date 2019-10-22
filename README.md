@@ -4,7 +4,7 @@
 [![codecov.io](https://codecov.io/github/devSJR/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/devSJR/PCRedux?branch=master)
 [![Licence](https://github.com/devSJR/PCRedux/blob/docs/vignettes/MIT.svg)](https://opensource.org/licenses/MIT)
 
-![PCRedux](https://raw.githubusercontent.com/devSJR/PCRedux/docs/vignettes/Logo.png)
+![PCRedux](https://raw.githubusercontent.com/devSJR/PCRedux/master/vignettes/Logo.png)
 
 # PCRedux
 
