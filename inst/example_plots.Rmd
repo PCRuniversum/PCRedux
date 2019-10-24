@@ -96,7 +96,7 @@ Since the parameters from the calculations with the *encu()* function and the de
 ```{r}
 dat <- cbind(res, decision = factor(c("ambiguous", "negative", "positive")[dec], 
                                     levels = c("positive", "ambiguous", "negative"))) %>%
-  select(minRFU, init2, decision, fluo, f.top, central_angle, amptester_polygon) %>%
+  select(eff, minRFU, init2, decision) %>%
   filter(!is.na(dec))
 
 head(dat)
@@ -182,9 +182,9 @@ p3
 Finally we plot all findings in a summary graphic.
 
 ```{r}
-(p1 + p2 + plot_layout(widths = c(1, 2))) / p3
+(p1 + p2 + plot_layout(widths = c(1, 2)))
 
-cairo_ps("figure1.eps", width = 11, height = 4.1)
-(p1 + p2 + plot_layout(widths = c(1, 2))) / p3
+cairo_ps("figure1.eps", width = 11, height = 3.1)
+(p1 + p2 + plot_layout(widths = c(1, 2)))
 dev.off()
 ```
