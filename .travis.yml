@@ -21,6 +21,8 @@ before_install:
 apt_packages:
   - libgl1-mesa-dev 
   - libglu1-mesa-dev
+  - ghostscript
+  - qpdf
 
 services:
   - xvfb
