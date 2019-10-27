@@ -16,6 +16,7 @@ analysed
 analysing
 Andrej
 ased
+assertr
 autocorellation
 autoref
 bACTXY
@@ -79,9 +80,6 @@ cuvette
 cycler
 Cycler
 cyclers
-cylce
-cylces
-cyles
 dat
 DataAnalysis
 de
@@ -236,7 +234,6 @@ na
 nanoliter
 nBG
 ncol
-negaive
 newpage
 NGS
 nm
@@ -256,6 +253,7 @@ overshots
 Pabinger
 packagename
 papillomaviruses
+param
 pc
 pco
 pcrfit
@@ -314,6 +312,8 @@ ROI's
 ROIs
 roxygen
 rpart
+RScript
+RStudio
 RUnit
 rutledge
 Savitzky
@@ -354,7 +354,7 @@ tableheaddecision
 tailratio
 takedown
 Taq
-Taqman
+TaqMan
 tdb
 tdp
 testdat
