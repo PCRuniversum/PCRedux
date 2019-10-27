@@ -114,7 +114,7 @@ p2 <- ggplot(data = dat %>%
   geom_boxplot() +
   theme_bw() +
   facet_wrap(~ variable, scales = "free_y") +
-  scale_y_continuous("Value") +
+  scale_y_continuous("Value [A.U.]") +
   scale_x_discrete("Assessment") +
   ggtitle("B)") # Separation of types of curves by encu() parameters
 

@@ -91,7 +91,7 @@ the used samples and the qPCR detection chemistries and the classification by tw
 library(RDML)
 library(PCRedux)
 
-# A comprehensive description of the RDML-file import can be found in Rödiger 
+# A comprehensive description of the RDML-file import can be found in Roediger 
 # et al. (2017) Bioinformatics
 
 raw_data <- RDML$new(filename=system.file("hookreg.rdml", package="PCRedux"))
