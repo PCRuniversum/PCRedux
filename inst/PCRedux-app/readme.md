@@ -42,6 +42,8 @@ The expected input data is <b>.csv</b> spreadsheet in the [qpcR](https://cran.r-
 </table>
 <br>
 
+Or the Real-time PCR Data Markup Language <b>.rdml</b> (universal data standard for exchanging quantitative PCR) file compataible with [RDML](https://cran.r-project.org/package=RDML) package.
+
 ### Authors
 
 - [Stefan Rödiger](https://www.researchgate.net/profile/Stefan_Roediger) | Stefan.Roediger[at]b-tu.de

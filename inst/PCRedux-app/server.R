@@ -1,6 +1,7 @@
 library(shiny)
 library(DT)
 library(PCRedux)
+library(RDML)
 
 options(shiny.maxRequestSize=10*1024^2)
 
@@ -9,15 +10,24 @@ source("functions.R", local = TRUE)
 shinyServer(function(input, output) {
   
   raw_input <- reactive({
-    
-    if (!is.null(input[["amp_file"]]))
-      input_curves <- read.csv(input[["amp_file"]][["datapath"]])
-    input[["use_example"]]
-    isolate({
-      if (!is.null(input[["use_example"]]))
-        if(input[["use_example"]] > 0)
-          input_curves <- read.csv("example_dat.csv")
-    })
+    withProgress({
+      if (!is.null(input[["amp_file"]])) {
+        input_curves <- switch(
+          tolower(tools::file_ext(input[["amp_file"]][["datapath"]])),
+          csv = read.csv(input[["amp_file"]][["datapath"]]),
+          rdml = {
+            rdml <- RDML$new(input[["amp_file"]][["datapath"]])
+            rdml$GetFData()
+          }
+        )
+      }
+      input[["use_example"]]
+      isolate({
+        if (!is.null(input[["use_example"]]))
+          if(input[["use_example"]] > 0)
+            input_curves <- read.csv("example_dat.csv")
+      })},
+      message = "Reading file")
     
     if(exists("input_curves")) {
       # here we should put some tests of the input, like to maximum amount of curves
@@ -55,7 +65,7 @@ shinyServer(function(input, output) {
                  fluidRow(
                    column(width = 5, 
                           fileInput('amp_file', 
-                                    "Submit amplification data (.csv):")
+                                    "Submit amplification data (.csv, .rdml):")
                    ),
                    column(width = 5,
                           p("Test the predPCR application with an example amplification data set"),
