@@ -36,6 +36,8 @@
 #'   "eff" \tab qPCR amplification efficiency \tab numeric \cr
 #'   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
 #'   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
+#'   "cpD2_approx" \tab maximum of the second derivative curve calculated by the approximate derivative \tab numeric \cr
+#'   "cpD2_ratio" \tab a value calculated from the ratio between cpD2 and cpD2_approx \tab numeric \cr
 #'   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
 #'   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
 #'   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
@@ -423,6 +425,24 @@ pcrfit_single <- function(x) {
     res_cpDdiff <- 0
   }
   
+  # Calculate the ratio between the the approximate second derivative maximum 
+  # cpD2_approx and the second derivative maximum cpD2
+  
+  cpD2_ratio_tmp <- res_efficiency_tmp[["cpD2"]] / res_diffQ2[[3]][1]
+  if(cpD2_ratio_tmp == Inf) cpD2_ratio <- 0  
+  cpD2_ratio <- cpD2_ratio_tmp
+
+  
+  # The cpD2_ratio is a binary value, which is based on a range empirically
+  # determined on the data_sample data set.
+  # 
+  # if(cpD2_ratio_tmp > 0.8 && cpD2_ratio_tmp < 1.1) {
+  #     cpD2_ratio <- 1
+  # } else {
+  #     cpD2_ratio <- 0
+  # }
+
+  
 # # Calculate angle
 #     # Get x coordinates for the vectors be the inder 
 #     # function. The first derivative maximum (FDM) is the
@@ -458,6 +478,8 @@ pcrfit_single <- function(x) {
     # curve fitting
     cpD1 = res_efficiency_tmp[["cpD1"]],
     cpD2 = res_efficiency_tmp[["cpD2"]],
+    cpD2_approx = res_diffQ2[[3]][1],
+    cpD2_ratio = cpD2_ratio,
     eff = res_efficiency_tmp[["eff"]],
     sliwin = res_sliwin[[1]],
     cpDdiff = res_cpDdiff,

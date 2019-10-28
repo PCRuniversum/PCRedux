@@ -15,6 +15,8 @@ Output Description
   "eff" \tab qPCR amplification efficiency \tab numeric \cr
   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
+  "cpD2_approx" \tab maximum of the second derivative curve calculated by the approximate derivative \tab numeric \cr
+  "cpD2_ratio" \tab a value calculated from the ratio between cpD2 and cpD2_approx \tab numeric \cr
   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr

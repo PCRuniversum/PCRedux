@@ -17,7 +17,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r, include=FALSE, echo=FALSE, eval=FALSE}
+options(tinytex.verbose = TRUE)
+```
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(fig.lp = "", out.extra='', warnings = FALSE, message = FALSE)
@@ -1215,6 +1217,8 @@ Further predictors from the ``pcrfit_single()`` function are:
 - `sliwin` is the PCR efficiency by the 'window-of-linearity' method [@spiess_highly_2008] (\autoref{plot_dat_EffTop}B). The `sliwin` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}B).
 - `cpDdiff` is the difference between the first (`cpD1`) and the second derivative maximum `cpD2` ($cpDdiff = cpD1 - cpD2$) **from the fitted model** (\autoref{figure_quantification_points}C). Provided that a model can be exactly fitted, the estimates of the difference are reliable. Higher `cpDdiff` values indicate a negative amplification reaction or a very low amplification efficiency. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}C demonstrates that the classes are significantly different from each other. In the event that the `cpDdiff` value cannot be determined (NA), it is replaced by zero. The `cpDdiff` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}C).
 - `cpD2_range` is the absolute value of the difference between the minimum and the maximum of the second derivative maximum ($cpD2\_range = |cpD2m - cpD2|$) from the ``diffQ2()`` function (**no model fitted**) (\autoref{figure_cpD2_range}E). The `cpD2_range` value does not require an adjustment of a multiparametric model. The approximate first and second derivatives are determined using a five-point stencil [@roediger2015chippcr]. The comparison of positive and negative amplification curves in \autoref{plot_dat_EffTop}E shows that the classes differ significantly from each other. In the event that the `cpD2_range` value cannot be determined (NA), it is replaced by zero. The `cpD2_range` values differ significantly between negative and positive amplification curves (\autoref{plot_dat_EffTop}E).
+- `cpD2_approx` is the approximate second derivative maximum. In most cases the value should be close to the `cpD2`. Deviations indicate noise in the data, negative amplification curves or positive amplification curves that deviate from a typical sigmoid amplification curve.
+- `cpD2_ratio` is is the ratio between the the approximate second derivative maximum `cpD2_approx` and the second derivative maximum `cpD2` ($cpD2_ratio = cpD2 / cpD2_approx$). In the event that the `cpD2_ratio` value cannot be determined (NA, Inf), it is replaced by zero. Provided that a model can be exactly fitted and that the function has litte noise the ratio between both values should be close to 1. Note: Empirical data suggest that an interval of 0.85 and 1.1 indicates positive amplification curves. These can be set to 1. Values outside this interval indicate non-sigmoidal (e.g., negative) amplification curves. These can be set to 0.
 
 
 ```{r figure_cpD2_range, echo=FALSE, results='hide', fig.cap=figure_cpD2_range, fig.scap=figure_cpD2_range_short, fig.height=4} 
@@ -3127,7 +3131,7 @@ Although data sets in the \texttt{PCRedux} package are large compared to what ha
 
 Accordingly, the domain knowledge, biases and competences of the human operator are reflected by the software. For example, amplification that are classified by one human as 'ambiguous' might be classified as 'positive' by another human operator. This will affect (bias) the characteristics of the training data set. The model is intended to be in accordance with the human operator. The implications can be problematic. For example, amplification curves rated as false negative might lead to an adverse evidence in a forensic setting. As illustrated in \autoref{section_reasoning_and_analysis}, every human operator will make an association between the shape of an amplification curve and the class it belongs to.
 
-Measures to minimize errors are the implementation of algorithms in open source package and public available data sets. In contrast to black box algorithms and hidden data sets, third parties can review and modify all elements. Many qPCR devices have built-in software that performs preprocessing steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr; @spiess_impact_2015; @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied thoroughly.
+Measures to minimize errors in manual classification include the implementation of algorithms to detect them. This should preferably be done in the form of open source packages with publicly accessible data sets. In contrast to black box algorithms and hidden data sets, third parties can review and modify all elements. Many qPCR devices have built-in software that performs preprocessing steps like smoothing, base-lining and normalization and the data sets [@roediger2015chippcr; @spiess_impact_2015; @spiess_system-specific_2016]. This will have an impact on the predictor extraction process. Same applies to the preprocessing steps in the \texttt{PCRedux} package, which have not been studied thoroughly.
 
 For the examples in the \texttt{PCRedux} package, the question could not be clarified whether class imbalances in the data sets cause a confirmation distortion. However, a class imbalance may result in loss of prediction strength, because some classifiers make the assumption of similar class distributions [@herrera_multiple_2016].
 

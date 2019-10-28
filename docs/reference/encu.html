@@ -168,39 +168,39 @@ identical to the <code><a href='pcrfit_single.html'>pcrfit_single</a></code> fun
 <span class='co'># F1.3 and F1.4 are negative.</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>qpcR</span>)
-<span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt; <span class='message'>Loading required package: bcp</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: grid</span></div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2      eff   sliwin cpDdiff loglin_slope cpD2_range top
-#&gt; 1 F1.1 17.49 15.62 1.819425 1.739444    1.87    0.1382870   4.527127  10
-#&gt; 2 F1.2 17.39 15.59 1.782711 1.737737    1.80    0.1421122   4.496545  10
-#&gt;        f.top tdp     f.tdp bg.stop amp.stop   b_slope b_model_param
-#&gt; 1 0.01391000  33 0.9830427       9       30 -12.73839     -13.47658
-#&gt; 2 0.01330955  29 0.9889347       9       27 -13.90384     -16.36373
-#&gt;   c_model_param d_model_param e_model_param f_model_param f_intercept
-#&gt; 1   0.003242221     0.9894974      18.24647     0.7304392   0.9283718
-#&gt; 2   0.002305743     0.9830211      18.46327     0.5350401   0.7622996
-#&gt;   convInfo_iteratons qPCRmodel qPCRmodelRF       minRFU maxRFU        init2
-#&gt; 1                  8        l7          l7 -0.004237230      1 1.700487e-05
-#&gt; 2                  8        l7          l7 -0.003998994      1 2.631616e-05
-#&gt;        fluo    slope_bg intercept_bg     sigma_bg     sd_bg head2tail_ratio
-#&gt; 1 0.1953197 0.001733801 -0.006777540 0.0002022220 0.4527011   -0.0007122453
-#&gt; 2 0.2160592 0.001635822 -0.006490719 0.0002437449 0.4453795   -0.0009850845
-#&gt;   mblrr_slope_pt mblrr_intercept_bg mblrr_slope_bg mblrr_cor_bg
-#&gt; 1  -0.0003719424       -0.006442819    0.001572672    0.9323391
-#&gt; 2  -0.0002171012       -0.006274295    0.001548088    0.9198655
-#&gt;   mblrr_intercept_pt mblrr_cor_pt   polyarea peaks_ratio autocorellation
-#&gt; 1           1.008902            0 -0.1559269  0.02584771       0.4994275
-#&gt; 2           1.001047            0 -0.1684371  0.03090811       0.4521168
-#&gt;   cp_e.agglo cp_bcp amptester_shapiro amptester_lrt amptester_rgt amptester_tht
-#&gt; 1          2     14             FALSE          TRUE          TRUE          TRUE
-#&gt; 2          2     12             FALSE          TRUE          TRUE          TRUE
-#&gt;   amptester_slt amptester_polygon amptester_slope.ratio hookreg_hook
-#&gt; 1          TRUE          4.742807             0.2223128            1
-#&gt; 2          TRUE          4.782519             0.2163902            1
-#&gt;   hookreg_hook_slope hookreg_hook_delta central_angle number_of_cycles
-#&gt; 1       -0.001613054                 16    -0.9901063               49
-#&gt; 2       -0.002352293                 19    -0.9896863               49
-#&gt;   detection_chemistry device
-#&gt; 1                  NA     NA
-#&gt; 2                  NA     NA</div><div class='input'>
+<span class='no'>res_encu</span> <span class='kw'>&lt;-</span> <span class='fu'>encu</span>(<span class='no'>testdat</span>[, <span class='fl'>1</span>:<span class='fl'>3</span>])</div><div class='output co'>#&gt; <span class='message'>Loading required package: bcp</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: grid</span></div><div class='input'><span class='no'>res_encu</span></div><div class='output co'>#&gt;   runs  cpD1  cpD2 cpD2_approx cpD2_ratio      eff   sliwin cpDdiff
+#&gt; 1 F1.1 17.49 15.62    15.29714   1.021106 1.819425 1.739444    1.87
+#&gt; 2 F1.2 17.39 15.59    15.16525   1.028008 1.782711 1.737737    1.80
+#&gt;   loglin_slope cpD2_range top      f.top tdp     f.tdp bg.stop amp.stop
+#&gt; 1    0.1382870   4.527127  10 0.01391000  33 0.9830427       9       30
+#&gt; 2    0.1421122   4.496545  10 0.01330955  29 0.9889347       9       27
+#&gt;     b_slope b_model_param c_model_param d_model_param e_model_param
+#&gt; 1 -12.73839     -13.47658   0.003242221     0.9894974      18.24647
+#&gt; 2 -13.90384     -16.36373   0.002305743     0.9830211      18.46327
+#&gt;   f_model_param f_intercept convInfo_iteratons qPCRmodel qPCRmodelRF
+#&gt; 1     0.7304392   0.9283718                  8        l7          l7
+#&gt; 2     0.5350401   0.7622996                  8        l7          l7
+#&gt;         minRFU maxRFU        init2      fluo    slope_bg intercept_bg
+#&gt; 1 -0.004237230      1 1.700487e-05 0.1953197 0.001733801 -0.006777540
+#&gt; 2 -0.003998994      1 2.631616e-05 0.2160592 0.001635822 -0.006490719
+#&gt;       sigma_bg     sd_bg head2tail_ratio mblrr_slope_pt mblrr_intercept_bg
+#&gt; 1 0.0002022220 0.4527011   -0.0007122453  -0.0003719424       -0.006442819
+#&gt; 2 0.0002437449 0.4453795   -0.0009850845  -0.0002171012       -0.006274295
+#&gt;   mblrr_slope_bg mblrr_cor_bg mblrr_intercept_pt mblrr_cor_pt   polyarea
+#&gt; 1    0.001572672    0.9323391           1.008902            0 -0.1559269
+#&gt; 2    0.001548088    0.9198655           1.001047            0 -0.1684371
+#&gt;   peaks_ratio autocorellation cp_e.agglo cp_bcp amptester_shapiro amptester_lrt
+#&gt; 1  0.02584771       0.4994275          2     14             FALSE          TRUE
+#&gt; 2  0.03090811       0.4521168          2     12             FALSE          TRUE
+#&gt;   amptester_rgt amptester_tht amptester_slt amptester_polygon
+#&gt; 1          TRUE          TRUE          TRUE          4.742807
+#&gt; 2          TRUE          TRUE          TRUE          4.782519
+#&gt;   amptester_slope.ratio hookreg_hook hookreg_hook_slope hookreg_hook_delta
+#&gt; 1             0.2223128            1       -0.001613054                 16
+#&gt; 2             0.2163902            1       -0.002352293                 19
+#&gt;   central_angle number_of_cycles detection_chemistry device
+#&gt; 1    -0.9901063               49                  NA     NA
+#&gt; 2    -0.9896863               49                  NA     NA</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

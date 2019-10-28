@@ -78,7 +78,7 @@
       <h1>Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</h1>
                         <h4 class="author">The PCRedux package authors</h4>
             
-            <h4 class="date">2019-10-23</h4>
+            <h4 class="date">2019-10-28</h4>
       
       
       <div class="hidden name"><code>SI1.Rmd</code></div>
@@ -94,7 +94,7 @@
 <h1 class="hasAnchor">
 <a href="#abstract" class="anchor"></a>Abstract</h1>
 <p>This is a supplemental document for the study <em>Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves</em>. Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics <span class="citation">(Dvinge and Bertone 2009; Martins et al. 2015; Sauer, Reinke, and Courts 2016)</span>.</p>
-<p>Numerous algorithms have been developed to extract features from amplification curves such as the cylce of quantification and the amplification efficiency <span class="citation">(Ruijter et al. 2013)</span>. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance <span class="citation">(Kemperman and McCall 2017)</span>. But at an earlier level it is important to have a solid foundation for the data preprocessing <span class="citation">(Spiess et al. 2015, 2016; Ronde et al. 2017)</span>. Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.</p>
+<p>Numerous algorithms have been developed to extract features from amplification curves such as the cycle of quantification and the amplification efficiency <span class="citation">(Ruijter et al. 2013)</span>. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance <span class="citation">(Kemperman and McCall 2017)</span>. But at an earlier level it is important to have a solid foundation for the data preprocessing <span class="citation">(Spiess et al. 2015, 2016; Ronde et al. 2017)</span>. Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.</p>
 <p>The aim of the study is to provide software tools and algorithms, which assists qPCR users during the analysis and quality management of their data. In particular, this study shows how it is possible to automatically detect hook effects (see <span class="citation">Barratt and Mackay (2002)</span>) or hook effect-like curvatures.</p>
 </div>
 <div id="introduction" class="section level1">
@@ -351,64 +351,64 @@ f(x) = c + k \cdot x + \frac{d - c}{(1 + exp(b(log(x) - log(e))))^f}
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-barratt_improving_2002">
-<p>Barratt, Kevin, and John F. Mackay. 2002. “Improving Real-Time PCR Genotyping Assays by Asymmetric Amplification.” <em>Journal of Clinical Microbiology</em> 40 (4): 1571–2. <a href="https://doi.org/10.1128/JCM.40.4.1571-1572.2002" class="uri">https://doi.org/10.1128/JCM.40.4.1571-1572.2002</a>.</p>
+<p>Barratt, Kevin, and John F. Mackay. 2002. “Improving Real-Time PCR Genotyping Assays by Asymmetric Amplification.” <em>Journal of Clinical Microbiology</em> 40 (4): 1571–2. <a href="https://doi.org/10.1128/JCM.40.4.1571-1572.2002">https://doi.org/10.1128/JCM.40.4.1571-1572.2002</a>.</p>
 </div>
 <div id="ref-brenner_variation_1997">
-<p>Brenner, Hermann, and Olaf Gefeller. 1997. “Variation of sensitivity, specificity, likelihood ratios and predictive values with disease prevalence.” <em>Statistics in Medicine</em> 16 (9): 981–91. <a href="http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf" class="uri">http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf</a>.</p>
+<p>Brenner, Hermann, and Olaf Gefeller. 1997. “Variation of sensitivity, specificity, likelihood ratios and predictive values with disease prevalence.” <em>Statistics in Medicine</em> 16 (9): 981–91. <a href="http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf">http://www.floppybunny.org/robin/web/virtualclassroom/stats/basics/articles/odds_risks/odds_sensitivity)likelihood_ratios_validity_brenner_1997.pdf</a>.</p>
 </div>
 <div id="ref-dvinge_htqpcr:_2009">
-<p>Dvinge, Heidi, and Paul Bertone. 2009. “HTqPCR: high-throughput analysis and visualization of quantitative real-time PCR data in R.” <em>Bioinformatics</em> 25 (24): 3325–6. <a href="https://doi.org/10.1093/bioinformatics/btp578" class="uri">https://doi.org/10.1093/bioinformatics/btp578</a>.</p>
+<p>Dvinge, Heidi, and Paul Bertone. 2009. “HTqPCR: high-throughput analysis and visualization of quantitative real-time PCR data in R.” <em>Bioinformatics</em> 25 (24): 3325–6. <a href="https://doi.org/10.1093/bioinformatics/btp578">https://doi.org/10.1093/bioinformatics/btp578</a>.</p>
 </div>
 <div id="ref-kemperman_mircomp-shiny:_2017">
-<p>Kemperman, Lauren, and Matthew N. McCall. 2017. “miRcomp-Shiny: Interactive assessment of qPCR-based microRNA quantification and quality control algorithms.” <em>F1000Research</em> 6 (November): 2046. <a href="https://f1000research.com/articles/6-2046/v1" class="uri">https://f1000research.com/articles/6-2046/v1</a>.</p>
+<p>Kemperman, Lauren, and Matthew N. McCall. 2017. “miRcomp-Shiny: Interactive assessment of qPCR-based microRNA quantification and quality control algorithms.” <em>F1000Research</em> 6 (November): 2046. <a href="https://f1000research.com/articles/6-2046/v1">https://f1000research.com/articles/6-2046/v1</a>.</p>
 </div>
 <div id="ref-kuhn_building_2008">
-<p>Kuhn, Max. 2008. “Building Predictive Models in R Using the caret Package.” <em>Journal of Statistical Software</em> 28 (5). <a href="http://www.jstatsoft.org/v28/i05/" class="uri">http://www.jstatsoft.org/v28/i05/</a>.</p>
+<p>Kuhn, Max. 2008. “Building Predictive Models in R Using the caret Package.” <em>Journal of Statistical Software</em> 28 (5). <a href="http://www.jstatsoft.org/v28/i05/">http://www.jstatsoft.org/v28/i05/</a>.</p>
 </div>
 <div id="ref-lefever_rdml_2009">
-<p>Lefever, Steve, Jan Hellemans, Filip Pattyn, Daniel R. Przybylski, Chris Taylor, René Geurts, Andreas Untergasser, Jo Vandesompele, and RDML on behalf of the Consortium. 2009. “RDML: structured language and reporting guidelines for real-time quantitative PCR data.” <em>Nucleic Acids Research</em> 37 (7): 2065–9. <a href="https://doi.org/10.1093/nar/gkp056" class="uri">https://doi.org/10.1093/nar/gkp056</a>.</p>
+<p>Lefever, Steve, Jan Hellemans, Filip Pattyn, Daniel R. Przybylski, Chris Taylor, René Geurts, Andreas Untergasser, Jo Vandesompele, and RDML on behalf of the Consortium. 2009. “RDML: structured language and reporting guidelines for real-time quantitative PCR data.” <em>Nucleic Acids Research</em> 37 (7): 2065–9. <a href="https://doi.org/10.1093/nar/gkp056">https://doi.org/10.1093/nar/gkp056</a>.</p>
 </div>
 <div id="ref-martins_dna_2015">
-<p>Martins, C., G. Lima, Mr. Carvalho, L. Cainé, and Mj. Porto. 2015. “DNA quantification by real-time PCR in different forensic samples.” <em>Forensic Science International: Genetics Supplement Series</em> 5 (December): e545–e546. <a href="https://doi.org/10.1016/j.fsigss.2015.09.215" class="uri">https://doi.org/10.1016/j.fsigss.2015.09.215</a>.</p>
+<p>Martins, C., G. Lima, Mr. Carvalho, L. Cainé, and Mj. Porto. 2015. “DNA quantification by real-time PCR in different forensic samples.” <em>Forensic Science International: Genetics Supplement Series</em> 5 (December): e545–e546. <a href="https://doi.org/10.1016/j.fsigss.2015.09.215">https://doi.org/10.1016/j.fsigss.2015.09.215</a>.</p>
 </div>
 <div id="ref-R_language">
-<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+<p>R Core Team. 2017. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
 </div>
 <div id="ref-Ritz2008">
-<p>Ritz, Christian, and Andrej-Nikolai Spiess. 2008. “qpcR: an R package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis.” <em>Bioinformatics</em> 24 (13): 1549–51. <a href="https://doi.org/10.1093/bioinformatics/btn227" class="uri">https://doi.org/10.1093/bioinformatics/btn227</a>.</p>
+<p>Ritz, Christian, and Andrej-Nikolai Spiess. 2008. “qpcR: an R package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis.” <em>Bioinformatics</em> 24 (13): 1549–51. <a href="https://doi.org/10.1093/bioinformatics/btn227">https://doi.org/10.1093/bioinformatics/btn227</a>.</p>
 </div>
 <div id="ref-roediger2015r">
-<p>Rödiger, Stefan, Michał Burdukiewicz, Konstantin A. Blagodatskikh, and Peter Schierack. 2015. “R as an Environment for the Reproducible Analysis of DNA Amplification Experiments.” <em>The R Journal</em> 7 (2): 127–50. <a href="http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf" class="uri">http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf</a>.</p>
+<p>Rödiger, Stefan, Michał Burdukiewicz, Konstantin A. Blagodatskikh, and Peter Schierack. 2015. “R as an Environment for the Reproducible Analysis of DNA Amplification Experiments.” <em>The R Journal</em> 7 (2): 127–50. <a href="http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf">http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf</a>.</p>
 </div>
 <div id="ref-roediger2015chippcr">
-<p>Rödiger, Stefan, Michał Burdukiewicz, and Peter Schierack. 2015. “chipPCR: an R package to pre-process raw data of amplification curves.” <em>Bioinformatics</em> 31 (17): 2900–2902. <a href="https://doi.org/10.1093/bioinformatics/btv205" class="uri">https://doi.org/10.1093/bioinformatics/btv205</a>.</p>
+<p>Rödiger, Stefan, Michał Burdukiewicz, and Peter Schierack. 2015. “chipPCR: an R package to pre-process raw data of amplification curves.” <em>Bioinformatics</em> 31 (17): 2900–2902. <a href="https://doi.org/10.1093/bioinformatics/btv205">https://doi.org/10.1093/bioinformatics/btv205</a>.</p>
 </div>
 <div id="ref-roediger_enabling_2017">
-<p>Rödiger, Stefan, Michał Burdukiewicz, Andrej-Nikolai Spiess, and Konstantin Blagodatskikh. 2017. “Enabling reproducible real-time quantitative PCR research: the RDML package.” <em>Bioinformatics</em>, August. <a href="https://doi.org/10.1093/bioinformatics/btx528" class="uri">https://doi.org/10.1093/bioinformatics/btx528</a>.</p>
+<p>Rödiger, Stefan, Michał Burdukiewicz, Andrej-Nikolai Spiess, and Konstantin Blagodatskikh. 2017. “Enabling reproducible real-time quantitative PCR research: the RDML package.” <em>Bioinformatics</em>, August. <a href="https://doi.org/10.1093/bioinformatics/btx528">https://doi.org/10.1093/bioinformatics/btx528</a>.</p>
 </div>
 <div id="ref-roediger_rkward_2012">
-<p>Rödiger, Stefan, Thomas Friedrichsmeier, Prasenjit Kapat, and Meik Michalke. 2012. “RKWard: a comprehensive graphical user interface and integrated development environment for statistical analysis with R.” <em>Journal of Statistical Software</em> 49 (9): 1–34. <a href="https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf" class="uri">https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf</a>.</p>
+<p>Rödiger, Stefan, Thomas Friedrichsmeier, Prasenjit Kapat, and Meik Michalke. 2012. “RKWard: a comprehensive graphical user interface and integrated development environment for statistical analysis with R.” <em>Journal of Statistical Software</em> 49 (9): 1–34. <a href="https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf">https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf</a>.</p>
 </div>
 <div id="ref-ronde_practical_2017">
-<p>Ronde, Maurice W. J. de, Jan M. Ruijter, David Lanfear, Antoni Bayes-Genis, Maayke G. M. Kok, Esther E. Creemers, Yigal M. Pinto, and Sara-Joan Pinto-Sietsma. 2017. “Practical data handling pipeline improves performance of qPCR-based circulating miRNA measurements.” <em>RNA</em> 23 (5): 811–21. <a href="https://doi.org/10.1261/rna.059063.116" class="uri">https://doi.org/10.1261/rna.059063.116</a>.</p>
+<p>Ronde, Maurice W. J. de, Jan M. Ruijter, David Lanfear, Antoni Bayes-Genis, Maayke G. M. Kok, Esther E. Creemers, Yigal M. Pinto, and Sara-Joan Pinto-Sietsma. 2017. “Practical data handling pipeline improves performance of qPCR-based circulating miRNA measurements.” <em>RNA</em> 23 (5): 811–21. <a href="https://doi.org/10.1261/rna.059063.116">https://doi.org/10.1261/rna.059063.116</a>.</p>
 </div>
 <div id="ref-ruijter_rdml-ninja_2015">
-<p>Ruijter, Jan M., Steve Lefever, Jasper Anckaert, Jan Hellemans, Michael W. Pfaffl, Vladimir Benes, Stephen A. Bustin, Jo Vandesompele, Andreas Untergasser, and RDML on behalf of the Consortium. 2015. “RDML-Ninja and RDMLdb for standardized exchange of qPCR data.” <em>BMC Bioinformatics</em> 16 (1): 197. <a href="https://doi.org/10.1186/s12859-015-0637-6" class="uri">https://doi.org/10.1186/s12859-015-0637-6</a>.</p>
+<p>Ruijter, Jan M., Steve Lefever, Jasper Anckaert, Jan Hellemans, Michael W. Pfaffl, Vladimir Benes, Stephen A. Bustin, Jo Vandesompele, Andreas Untergasser, and RDML on behalf of the Consortium. 2015. “RDML-Ninja and RDMLdb for standardized exchange of qPCR data.” <em>BMC Bioinformatics</em> 16 (1): 197. <a href="https://doi.org/10.1186/s12859-015-0637-6">https://doi.org/10.1186/s12859-015-0637-6</a>.</p>
 </div>
 <div id="ref-ruijter_evaluation_2013">
-<p>Ruijter, Jan M., Michael W. Pfaffl, Sheng Zhao, Andrej N. Spiess, Gregory Boggy, Jochen Blom, Robert G. Rutledge, et al. 2013. “Evaluation of qPCR curve analysis methods for reliable biomarker discovery: Bias, resolution, precision, and implications.” <em>Methods</em> 59 (1): 32–46. <a href="https://doi.org/10.1016/j.ymeth.2012.08.011" class="uri">https://doi.org/10.1016/j.ymeth.2012.08.011</a>.</p>
+<p>Ruijter, Jan M., Michael W. Pfaffl, Sheng Zhao, Andrej N. Spiess, Gregory Boggy, Jochen Blom, Robert G. Rutledge, et al. 2013. “Evaluation of qPCR curve analysis methods for reliable biomarker discovery: Bias, resolution, precision, and implications.” <em>Methods</em> 59 (1): 32–46. <a href="https://doi.org/10.1016/j.ymeth.2012.08.011">https://doi.org/10.1016/j.ymeth.2012.08.011</a>.</p>
 </div>
 <div id="ref-sauer_differentiation_2016">
-<p>Sauer, Eva, Ann-Kathrin Reinke, and Cornelius Courts. 2016. “Differentiation of five body fluids from forensic samples by expression analysis of four microRNAs using quantitative PCR.” <em>Forensic Science International: Genetics</em> 22 (May): 89–99. <a href="https://doi.org/10.1016/j.fsigen.2016.01.018" class="uri">https://doi.org/10.1016/j.fsigen.2016.01.018</a>.</p>
+<p>Sauer, Eva, Ann-Kathrin Reinke, and Cornelius Courts. 2016. “Differentiation of five body fluids from forensic samples by expression analysis of four microRNAs using quantitative PCR.” <em>Forensic Science International: Genetics</em> 22 (May): 89–99. <a href="https://doi.org/10.1016/j.fsigen.2016.01.018">https://doi.org/10.1016/j.fsigen.2016.01.018</a>.</p>
 </div>
 <div id="ref-spiess_impact_2015">
-<p>Spiess, Andrej-Nikolai, Claudia Deutschmann, Michał Burdukiewicz, Ralf Himmelreich, Katharina Klat, Peter Schierack, and Stefan Rödiger. 2015. “Impact of Smoothing on Parameter Estimation in Quantitative DNA Amplification Experiments.” <em>Clinical Chemistry</em> 61 (2): 379–88. <a href="https://doi.org/10.1373/clinchem.2014.230656" class="uri">https://doi.org/10.1373/clinchem.2014.230656</a>.</p>
+<p>Spiess, Andrej-Nikolai, Claudia Deutschmann, Michał Burdukiewicz, Ralf Himmelreich, Katharina Klat, Peter Schierack, and Stefan Rödiger. 2015. “Impact of Smoothing on Parameter Estimation in Quantitative DNA Amplification Experiments.” <em>Clinical Chemistry</em> 61 (2): 379–88. <a href="https://doi.org/10.1373/clinchem.2014.230656">https://doi.org/10.1373/clinchem.2014.230656</a>.</p>
 </div>
 <div id="ref-spiess_highly_2008">
-<p>Spiess, Andrej-Nikolai, Caroline Feig, and Christian Ritz. 2008. “Highly accurate sigmoidal fitting of real-time PCR data by introducing a parameter for asymmetry.” <em>BMC Bioinformatics</em> 9 (1): 221. <a href="https://doi.org/10.1186/1471-2105-9-221" class="uri">https://doi.org/10.1186/1471-2105-9-221</a>.</p>
+<p>Spiess, Andrej-Nikolai, Caroline Feig, and Christian Ritz. 2008. “Highly accurate sigmoidal fitting of real-time PCR data by introducing a parameter for asymmetry.” <em>BMC Bioinformatics</em> 9 (1): 221. <a href="https://doi.org/10.1186/1471-2105-9-221">https://doi.org/10.1186/1471-2105-9-221</a>.</p>
 </div>
 <div id="ref-spiess_system-specific_2016">
-<p>Spiess, Andrej-Nikolai, Stefan Rödiger, Michał Burdukiewicz, Thomas Volksdorf, and Joel Tellinghuisen. 2016. “System-specific periodicity in quantitative real-time polymerase chain reaction data questions threshold-based quantitation.” <em>Scientific Reports</em> 6 (December): 38951. <a href="https://doi.org/10.1038/srep38951" class="uri">https://doi.org/10.1038/srep38951</a>.</p>
+<p>Spiess, Andrej-Nikolai, Stefan Rödiger, Michał Burdukiewicz, Thomas Volksdorf, and Joel Tellinghuisen. 2016. “System-specific periodicity in quantitative real-time polymerase chain reaction data questions threshold-based quantitation.” <em>Scientific Reports</em> 6 (December): 38951. <a href="https://doi.org/10.1038/srep38951">https://doi.org/10.1038/srep38951</a>.</p>
 </div>
 </div>
 </div>
