@@ -25,7 +25,7 @@ License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
 URL: https://CRAN.R-project.org/package=PCRedux
-BugReports: https://github.com/devSJR/PCRedux/issues
+BugReports: https://github.com/PCRuniversum/PCRedux/issues
 Depends:
     R (>= 3.5.0)
 Imports:

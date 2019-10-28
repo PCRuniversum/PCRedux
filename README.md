@@ -1,10 +1,10 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/PCRedux)](https://cran.r-project.org/package=PCRedux)
 [![Downloads](http://cranlogs.r-pkg.org/badges/PCRedux)](https://cran.r-project.org/package=PCRedux)
-[![Travis-CI Build Status](https://travis-ci.org/devSJR/PCRedux.svg?branch=master)](https://travis-ci.org/devSJR/PCRedux)
-[![codecov.io](https://codecov.io/github/devSJR/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/devSJR/PCRedux?branch=master)
-[![Licence](https://github.com/devSJR/PCRedux/blob/docs/vignettes/MIT.svg)](https://opensource.org/licenses/MIT)
+[![Travis-CI Build Status](https://travis-ci.org/PCRuniversum/PCRedux.svg?branch=master)](https://travis-ci.org/PCRuniversum/PCRedux)
+[![codecov.io](https://codecov.io/github/PCRuniversum/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/PCRuniversum/PCRedux?branch=master)
+[![Licence](https://github.com/PCRuniversum/PCRedux/blob/docs/vignettes/MIT.svg)](https://opensource.org/licenses/MIT)
 
-![PCRedux](https://raw.githubusercontent.com/devSJR/PCRedux/master/vignettes/Logo.png)
+![PCRedux](https://raw.githubusercontent.com/PCRuniversum/PCRedux/master/vignettes/Logo.png)
 
 # PCRedux
 
@@ -16,9 +16,9 @@ Quantitative PCR Machine Learning Toolkit
 can install the latest development version of the code using the following code:
 
 ```R
-source("https://install-github.me/devSJR/PCRedux")
+source("https://install-github.me/PCRuniversum/PCRedux")
 ```
 
 ## Manual
 
-The manual is available [online](https://devsjr.github.io/PCRedux/).
+The manual is available [online](https://PCRuniversum.github.io/PCRedux/).
