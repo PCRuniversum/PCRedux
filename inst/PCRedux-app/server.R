@@ -18,7 +18,11 @@ shinyServer(function(input, output) {
           rdml = {
             rdml <- RDML$new(input[["amp_file"]][["datapath"]])
             rdml$GetFData()
-          }
+          },
+          xls = readxl::read_excel(input[["amp_file"]][["datapath"]],
+                                   col_types = "numeric"),
+          xlsx = readxl::read_excel(input[["amp_file"]][["datapath"]],
+                                    col_types = "numeric"),
         )
       }
       input[["use_example"]]

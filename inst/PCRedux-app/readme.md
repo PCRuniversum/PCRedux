@@ -4,7 +4,7 @@ PCRedux app is a web server for extracting machine learning features from PCR cu
 
 ### Data format
 
-The expected input data is <b>.csv</b> spreadsheet in the [qpcR](https://cran.r-project.org/package=qpcR) format. The first column represents the cycle number and the following commands represent particular runs
+The expected input data is <b>.csv</b>, <b>.xls</b> or <b>.xlsx</b> spreadsheet in the [qpcR](https://cran.r-project.org/package=qpcR) format. The first column represents the cycle number and the following commands represent particular runs
 
 <table border="1" style="width:90%">
   <thead>
@@ -43,6 +43,7 @@ The expected input data is <b>.csv</b> spreadsheet in the [qpcR](https://cran.r-
 <br>
 
 Or the Real-time PCR Data Markup Language <b>.rdml</b> (universal data standard for exchanging quantitative PCR) file compataible with [RDML](https://cran.r-project.org/package=RDML) package.
+You can generate your own <b>.rdml</b> files [here](http://shtest.evrogen.net/RDMLedit/)
 
 ### Authors
 
