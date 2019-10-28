@@ -20,7 +20,7 @@ Authors@R: c(person("Stefan", "Roediger",
              person("Dominik", "Rafacz", 
              email = "dominikrafacz@gmail.com", 
              role = c("ctb")))
-Description: Extracts features from amplification curve data of quantitative Polymerase Chain Reactions (qPCR) (Pabinger S. et al. (2014) <doi:10.1016/j.bdq.2014.08.002>) for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg() and hookregNL() functions (Burdukiewicz M. et al. (2018) <doi:10.1016/j.bdq.2018.08.001>.) can be used to predict amplification curves with an hook effect-like curvature. The pcrfit_single() function can be used to extract features from an amplification curve.
+Description: Extracts features from amplification curve data of quantitative Polymerase Chain Reactions (qPCR) (Pabinger S. et al. (2014) <doi:10.1016/j.bdq.2014.08.002>) for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg() and hookregNL() functions (Burdukiewicz M. et al. (2018) <doi:10.1016/j.bdq.2018.08.001>) can be used to predict amplification curves with an hook effect-like curvature. The pcrfit_single() function can be used to extract features from an amplification curve.
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
