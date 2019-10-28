@@ -69,7 +69,7 @@ shinyServer(function(input, output) {
                  fluidRow(
                    column(width = 5, 
                           fileInput('amp_file', 
-                                    "Submit amplification data (.csv, .rdml):")
+                                    "Submit amplification data (.csv, .xls, .xlsx, .rdml):")
                    ),
                    column(width = 5,
                           p("Test the predPCR application with an example amplification data set"),
