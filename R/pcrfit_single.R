@@ -301,6 +301,7 @@ pcrfit_single <- function(x) {
 
   if (length(res_fit_model) == 0) {
       res_fit_model <- as.factor("l0")
+      names(res_fit_model) <- "l0"
   }
   
   if(names(res_fit_model) == "l4") res_fit <- pcrfit_model_l4
