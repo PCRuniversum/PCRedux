@@ -1,4 +1,9 @@
-Version 1.0 [Oktober 2019]
+Version 1.0-2 [Oktober 2019]
+* Fix for pcrfit_single() function
+* Improved documentation
+* kbqPCR amplification curve and decisions added
+
+Version 1.0-1 [Oktober 2019]
 this release is the first stable (feature complete) release, which mainly received bugfixes addressing minor issues raised by users and us
 * Due to changes in R, the minumum requirement now is R >= 3.5.0
 * vignette improved

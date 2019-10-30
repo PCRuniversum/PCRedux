@@ -2,6 +2,8 @@
 \alias{data_sample}
 \alias{RAS002}
 \alias{RAS002_decisions}
+\alias{kbqPCR}
+\alias{decisions_res_kbqPCR}
 
 \title{The datasets implemented in PCRedux}
 
@@ -13,6 +15,8 @@ A compilation of datasets for method evaluation/comparison.
 data_sample
 RAS002
 RAS002_decisions
+kbqPCR
+decisions_res_kbqPCR
 }
 
 \details{
