@@ -75,7 +75,7 @@
 #'   "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "head2tail_ratio" \tab \tab numeric \cr
-#'   "autocorellation" \tab  \tab numeric \cr
+#'   "autocorrelation" \tab  \tab numeric \cr
 #'   "mblrr_intercept_bg" \tab  \tab numeric \cr
 #'   "mblrr_slope_bg" \tab \tab numeric \cr
 #'   "mblrr_cor_bg" \tab \tab numeric \cr
@@ -523,7 +523,7 @@ pcrfit_single <- function(x) {
     # Areas
     polyarea = res_polyarea,
     peaks_ratio = res_peaks_ratio,
-    autocorellation = res_autocorrelation,
+    autocorrelation = res_autocorrelation,
     # Change points
     cp_e.agglo = res_cp_e.agglo,
     cp_bcp = res_bcp,
