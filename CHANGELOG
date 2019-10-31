@@ -1,4 +1,4 @@
-Version 1.0-2 [Oktober 2019]
+Version 1.0-3 [Oktober 2019]
 * Fix for pcrfit_single() function
 * Improved documentation
 * kbqPCR amplification curve and decisions added
