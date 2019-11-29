@@ -11,6 +11,13 @@ my_DT <- function(x)
 # shiny_encu -------------------------------------------
 # a shiny-compatible version of encu https://github.com/devSJR/PCRedux/blob/master/R/encu.R
 
+calcRunRes <- function(ncol_data_RFU, data_RFU) {
+  do.call(rbind, lapply(1L:ncol_data_RFU, function(ith_run) {
+    incProgress(1/ncol_data_RFU)
+    pcrfit_single(data_RFU[, ith_run])
+  }))
+}
+
 shiny_encu <- function(data, detection_chemistry = NA, device = NA) {
   # Determine the number of available cores and register them
   
@@ -25,10 +32,7 @@ shiny_encu <- function(data, detection_chemistry = NA, device = NA) {
   })
   colnames(data_RFU) <- data_RFU_colnames
 
-  run_res <- do.call(rbind, lapply(1L:ncol_data_RFU, function(ith_run) {
-    incProgress(1/ncol_data_RFU)
-    pcrfit_single(data_RFU[, ith_run])
-    }))
+  run_res <- calcRunRes(ncol_data_RFU, data_RFU)
 
   res <- cbind(runs = colnames(data_RFU), run_res)
   rownames(res) <- NULL
