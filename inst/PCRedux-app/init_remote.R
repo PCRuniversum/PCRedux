@@ -10,9 +10,10 @@
 #   ))
 # }
 
+# Run remote server connection 
+initRemote()
 
 # Overload of calcRunRes() function to use inside shiny_encu()
-library(future)
 library(listenv)
 calcRunRes <- function(ncol_data_RFU, data_RFU) {
   value(
