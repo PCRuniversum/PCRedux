@@ -53,7 +53,9 @@ Suggests:
     rmarkdown,
     spelling,
     testthat,
-    xtable
+    xtable,
+    future,
+    listenv
 NeedsCompilation: no
 VignetteBuilder: knitr
 Encoding: UTF-8
