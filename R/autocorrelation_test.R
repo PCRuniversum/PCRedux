@@ -80,7 +80,7 @@ autocorrelation_test <- function(y, n = 8, sig.level = 0.01, ns_2_numeric=FALSE)
   if(length(y) > 45) n <- 14
   
 
-  if (class(cycle_RFU) == "zoo") {
+  if (inherits(cycle_RFU, "zoo")) {
     # Compute a lagged version of the cycle, shifting the cycle (time) base
     # back by a given number of observations
     cycle_RFU_n <- stats::lag(cycle_RFU, k = -n, na.pad = TRUE)

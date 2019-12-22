@@ -139,7 +139,7 @@ pcrfit_single <- function(x) {
   data("sysdata", package = "qpcR", envir = parent.frame())
 
   res_bg.max_tmp <- try(chipPCR::bg.max(cycles, x), silent = TRUE)
-  if (class(res_bg.max_tmp) == "try-error") {
+  if (inherits_error(res_bg.max_tmp)) {
     res_bg.max <- c(
       bg.start = 0,
       bg.stop = 0,
@@ -169,13 +169,13 @@ pcrfit_single <- function(x) {
 
   # Calculates the area of the amplification curve
   res_polyarea <- try(pracma::polyarea(cycles, x), silent = TRUE) / length_cycle
-  if (class(res_polyarea) == "try-error") {
+  if (inherits_error(res_polyarea)) {
     res_polyarea <- 0
   }
 
   # Calculate change points
   res_cp_e.agglo <- try(length(ecp::e.agglo(as.matrix(res_diffQ[["d(F) / dT"]]))$estimates), silent = TRUE)
-  if (class(res_cp_e.agglo) == "try-error") {
+  if (inherits_error(res_cp_e.agglo)) {
     res_cp_e.agglo <- length_cycle
   }
 
@@ -183,7 +183,7 @@ pcrfit_single <- function(x) {
   res_bcp_tmp <- try(bcp::bcp(res_diffQ[["d(F) / dT"]]), silent = TRUE)
   res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.6, silent = TRUE)
   res_bcp <- try(length(which(as.factor(res_bcp_tmp) == TRUE)))
-  if (class(res_bcp) == "try-error") {
+  if (inherits_error(res_bcp)) {
     res_bcp <- 0
   }
 
@@ -198,7 +198,7 @@ pcrfit_single <- function(x) {
 
   res_mcaPeaks <- try(MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2]), silent = TRUE)
   res_peaks_ratio <- try(base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2])), silent = TRUE)
-  if (is.infinite(res_peaks_ratio) || class(res_peaks_ratio) == "try-error" || is.na(res_peaks_ratio)) {
+  if (is.infinite(res_peaks_ratio) || inherits_error(res_peaks_ratio) || is.na(res_peaks_ratio)) {
     res_peaks_ratio <- 0
   }
 
@@ -243,54 +243,54 @@ pcrfit_single <- function(x) {
   # Get the parameters from the four-parameter model
   pcrfit_model_l4 <- try(qpcR::pcrfit(dat, 1, 2, model = l4), silent = TRUE)
   res_coef_model_l4 <- try(coefficients(pcrfit_model_l4), silent = TRUE)
-  if (class(res_coef_model_l4) == "try-error") {
+  if (inherits_error(res_coef_model_l4)) {
     res_coef_model_l4 <- c(b = b_val, c = c_val, d = d_val, e = e_val)
   }
   
   # Get the parameters from the five-parameter model
   pcrfit_model_l5 <- try(qpcR::pcrfit(dat, 1, 2, model = l5), silent = TRUE)
   res_coef_model_l5 <- try(coefficients(pcrfit_model_l5), silent = TRUE)
-  if (class(res_coef_model_l5) == "try-error") {
+  if (inherits_error(res_coef_model_l5)) {
     res_coef_model_l5 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val)
   }
   
   # Get the parameters from the five-parameter model
   pcrfit_model_l6 <- try(qpcR::pcrfit(dat, 1, 2, model = l6), silent = TRUE)
   res_coef_model_l6 <- try(coefficients(pcrfit_model_l6), silent = TRUE)
-  if (class(res_coef_model_l6) == "try-error") {
+  if (inherits_error(res_coef_model_l6)) {
     res_coef_model_l6 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k = k_val)
   }
   
   # Get the parameters from the seven-parameter model
   pcrfit_model_l7 <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
   res_coef <- try(coefficients(pcrfit_model_l7), silent = TRUE)
-  if (class(res_coef) == "try-error") {
+  if (inherits_error(res_coef)) {
     res_coef <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
   }
 
   res_convInfo_iteratons <- try(pcrfit_model_l7[["convInfo"]][["finIter"]], silent = TRUE)
-  if (class(res_convInfo_iteratons) == "try-error") {
+  if (inherits_error(res_convInfo_iteratons)) {
     res_convInfo_iteratons <- 5000
   }
 
   # Determine the optimal model based on the AICc
 
-  res_AICc <- list(l4 = if(class(pcrfit_model_l4)[1] == "try-error") {
+  res_AICc <- list(l4 = if(inherits_error(pcrfit_model_l4)) {
     NA
   } else {
     try(AICc(pcrfit_model_l4), silent = TRUE)
   }, 
-  l5 = if(class(pcrfit_model_l5)[1] == "try-error") {
+  l5 = if(inherits_error(pcrfit_model_l5)) {
     NA
   } else {
     try(AICc(pcrfit_model_l5), silent = TRUE)
   },
-  l6 = if(class(pcrfit_model_l6)[1] == "try-error") {
+  l6 = if(inherits_error(pcrfit_model_l6)) {
     NA
   } else {
     try(AICc(pcrfit_model_l6), silent = TRUE)
   },
-  l7 = if(class(pcrfit_model_l7)[1] == "try-error") {
+  l7 = if(inherits_error(pcrfit_model_l7)) {
     NA
   } else {
     try(AICc(pcrfit_model_l7), silent = TRUE)
@@ -321,11 +321,11 @@ pcrfit_single <- function(x) {
   # Determine the model for the reverse data suggested by the
   # mselect function based on the AICc
   res_fit_model_reverse <- try(names(which(res_fit_reverse[["retMat"]][, "AICc"] == min(res_fit_reverse[["retMat"]][, "AICc"]))), silent = TRUE)
-  if (class(res_fit_model_reverse) == "try-error") {
+  if (inherits_error(res_fit_model_reverse)) {
     res_fit_model_reverse <- as.factor("l0")
   }
 
-  if (class(res_fit_reverse)[1] != "try-error") {
+  if (!inherits_error(res_fit_reverse)) {
     # TakeOff Point from the reverse data
     # Calculates the first significant cycle of the exponential region
     #
@@ -347,7 +347,7 @@ pcrfit_single <- function(x) {
     } else {
       res_sd_bg <- sd(x[1L:8])
     }
-    if (class(res_takeoff_reverse) == "try-error") {
+    if (inherits_error(res_takeoff_reverse)) {
       res_takeoff_reverse <- list(0, 1)
     }
   } else {
@@ -359,13 +359,13 @@ pcrfit_single <- function(x) {
   }
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
 
-  if (class(res_fit)[1] != "try-error") {
+  if (!inherits_error(res_fit)) {
     # TakeOff Point
     # Calculates the first significant cycle of the exponential region
     # (takeoff point) using externally studentized residuals as described
     # in Tichopad et al. (2003).
     res_takeoff <- try(qpcR::takeoff(res_fit), silent = TRUE)
-    if (class(res_takeoff) == "try-error") {
+    if (inherits_error(res_takeoff)) {
       res_takeoff <- list(0, 1)
     }
     if (is.na(res_takeoff[[1]])) {
@@ -379,7 +379,7 @@ pcrfit_single <- function(x) {
       qpcR::sliwin(res_fit, plot = FALSE, verbose = FALSE)$eff,
       silent = TRUE
     )
-    if (class(res_sliwin) == "try-error") {
+    if (inherits_error(res_sliwin)) {
       res_sliwin <- 0
     }
 
@@ -396,7 +396,7 @@ pcrfit_single <- function(x) {
     )
     
     
-    if (class(res_efficiency_tmp) != "try-error") {
+    if (!inherits_error(res_efficiency_tmp)) {
       res_cpDdiff <- try(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]))
       
       if(res_efficiency_tmp$init2 < -200 || as.character(res_efficiency_tmp$init2) == "NaN") {res_efficiency_tmp$init2 <- 0}

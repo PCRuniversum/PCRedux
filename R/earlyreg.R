@@ -67,11 +67,11 @@ earlyreg <- function(x, y, range = 5, normalize = FALSE) {
   
   res_lm_sigma <- try(suppressWarnings(summary(model)$sigma), silent = TRUE)
 
-  if (class(res_lm_fit) == "try-error") {
+  if (inherits_error(res_lm_fit)) {
     res_lm_fit <- c(0, 0)
   }
   
-  if (class(res_lm_sigma) == "try-error") {
+  if (inherits_error(res_lm_sigma)) {
     res_lm_sigma <- c(0)
   }
 

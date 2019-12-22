@@ -46,21 +46,21 @@ hookregNL <- function(x, y, plot=FALSE, level=0.995, simple=TRUE, manualtrim=5) 
   # fit a 6-parameter log-logistic model
   fit <- try(pcrfit(data, 1, 2, l6), silent = TRUE)
   l6 <- NULL
-  if (inherits(fit, "try-error")) {
+  if (inherits_error(fit)) {
     message("fitting failed.")
   }
   
-  if (plot && !inherits(fit, "try-error")) plot(fit)
+  if (plot && !inherits_error(fit)) plot(fit)
   
   # Confidence interval for slope parameter 'k'
-  if (inherits(fit, "try-error")) {
+  if (inherits_error(fit)) {
     slope <- NA
     confslope <- c(NA, NA)
     message("Could not calculate confidence interval.")
   } else {
     slope <- coefficients(fit)[6]
     confslope <- try(stats::confint(fit, level = level)[6, ], silent = TRUE)
-    if (inherits(confslope, "try-error")) {
+    if (inherits_error(confslope)) {
       confslope <- c(NA, NA)
     }
   }
@@ -69,7 +69,7 @@ hookregNL <- function(x, y, plot=FALSE, level=0.995, simple=TRUE, manualtrim=5) 
   hook <- if(!is.na(confslope[1]) &&
              confslope[1] < 0 &&
              confslope[2] < 0 &&
-             !("try-error" %in% class(fit))) {
+             !inherits_error(fit)) {
     1
   }  else {
     0 

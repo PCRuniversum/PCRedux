@@ -45,7 +45,7 @@ mblrr <-
     res_q25_cor.test <- try(cor.test(x[res_q25], y[res_q25]), silent = TRUE)
     res_q75_cor.test <- try(cor.test(x[res_q75], y[res_q75]), silent = TRUE)
 
-    if (class(res_q25_lm) == "try-error" || is.na(res_q25_lm[[1]])[1] == TRUE) {
+    if (inherits_error(res_q25_lm) || is.na(res_q25_lm[[1]])[1] == TRUE) {
 #       mblrr_intercept_bg <- NA
 #       mblrr_slope_bg <- NA
       mblrr_intercept_bg <- 0
@@ -55,7 +55,7 @@ mblrr <-
       mblrr_slope_bg <- res_q25_lm$coefficients[[2]]
     }
 
-    if (class(res_q75_lm) == "try-error" || is.na(res_q75_lm[[1]])[1] == TRUE) {
+    if (inherits_error(res_q75_lm) || is.na(res_q75_lm[[1]])[1] == TRUE) {
 #       mblrr_intercept_pt <- NA
 #       mblrr_slope_pt <- NA
       mblrr_intercept_pt <- 0
@@ -67,7 +67,7 @@ mblrr <-
 
 
 
-    if (class(res_q25_cor.test) == "try-error" || is.na(res_q25_cor.test$p.value)) {
+    if (inherits_error(res_q25_cor.test) || is.na(res_q25_cor.test$p.value)) {
 #       res_q25_cor.test_estimate <- NA
       res_q25_cor.test_estimate <- 0
     } else {
@@ -78,7 +78,7 @@ mblrr <-
       )
     }
 
-    if (class(res_q75_cor.test) == "try-error" || is.na(res_q75_cor.test$p.value)) {
+    if (inherits_error(res_q75_cor.test) || is.na(res_q75_cor.test$p.value)) {
 #       res_q75_cor.test_estimate <- NA
       res_q75_cor.test_estimate <- 0
     } else {

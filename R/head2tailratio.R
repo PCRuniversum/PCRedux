@@ -63,14 +63,14 @@ head2tailratio <- function(y, normalize=FALSE, slope_normalizer=FALSE, verbose=F
 
     head_tail_slope <- try(coefficients(lm(y_reg ~ x_reg))[[2]])
 
-    if (class(head_tail_slope) != "try-error" || res_hook_significance == TRUE) {
+    if (!inherits_error(head_tail_slope) || res_hook_significance == TRUE) {
       res_head_tail_ratio <- res_head_tail_ratio / head_tail_slope
     }
   }
 
   res_head_tail_ratio_verbose <- list(x_roi = x_reg, y_roi = y_reg, fit_lm = head_tail_fit, head_tail_ratio = res_head_tail_ratio)
 
-  if (class(res_head_tail_ratio) != "numeric") {
+  if (!inherits(res_head_tail_ratio, "numeric")) {
     res_head_tail_ratio <- NA
   }
   if (verbose) {
