@@ -2,19 +2,13 @@
 #' from a quantitative PCR experiment
 #'
 #' \code{autocorrelation_test} is a function for an autocorrelation analysis
-#' from a quantitative PCR experiment. The result of the function is either
-#' a correlation coefficient in case the result is significant at a given
-#' significance level, or a "n.s." (non-significant) if no correlation could
-#' be determined.
-#' Noise (negative) amplification curves usually do not exhibit any
-#' autocorrelation and will therefore be "n.s.".
+#' from a quantitative PCR experiment. The result of the function is 
+#' a correlation coefficient.
 #'
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param n is the number of lagged cycles (default 12).
 #' @param sig.level is the significance level for the correlation test.,
 #' Default: 0.01
-#' @param ns_2_numeric, is a logical parameter. If set TRUE, all
-#' "n.s." results will be
 #' @author Stefan Roediger, Michal Burdukiewcz
 #' @keywords autocorrelation
 #' @rdname autocorrelation_test
@@ -70,7 +64,7 @@
 #' axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 
 
-autocorrelation_test <- function(y, n = 8, sig.level = 0.01, ns_2_numeric=FALSE) {
+autocorrelation_test <- function(y, n = 8, sig.level = 0.01) {
   # Coercing object to class "zoo".
   cycle_RFU <- try(zoo::as.zoo(y), silent = TRUE)
   
@@ -79,27 +73,21 @@ autocorrelation_test <- function(y, n = 8, sig.level = 0.01, ns_2_numeric=FALSE)
   if(length(y) > 40 && length(y) <= 45) n <- 12
   if(length(y) > 45) n <- 14
   
-
+  
   if (inherits(cycle_RFU, "zoo")) {
     # Compute a lagged version of the cycle, shifting the cycle (time) base
     # back by a given number of observations
     cycle_RFU_n <- stats::lag(cycle_RFU, k = -n, na.pad = TRUE)
     # Test for correlation between paired samples (cycle & lagged cycle)
-    res_autocorrelation <- stats::cor.test(
+    res_autocorrelation <- try(stats::cor.test(
       cycle_RFU[!is.na(cycle_RFU_n)],
-      cycle_RFU_n[!is.na(cycle_RFU_n)], method = "pearson")
-    # Logical analysis of the correlation test and output
-    if (res_autocorrelation$p.value <= sig.level && !is.na(res_autocorrelation$p.value)) {
-      res_autocorrelation <- res_autocorrelation$estimate
+      cycle_RFU_n[!is.na(cycle_RFU_n)], method = "pearson"), silent = TRUE)
+    
+    if (inherits_error(res_autocorrelation)) {
+      NA
     } else {
-      if (ns_2_numeric) {
-        res_autocorrelation <- 0
-      } else {
-        res_autocorrelation <- "n.s."
-      }
+      unname(res_autocorrelation[["estimate"]])
     }
-  } else {
-    res_autocorrelation <- NA
+    
   }
-  res_autocorrelation
-}
+} 
