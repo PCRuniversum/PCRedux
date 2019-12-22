@@ -7,6 +7,13 @@ options(shiny.maxRequestSize=10*1024^2)
 
 source("functions.R", local = TRUE)
 
+# Check if supposed to calculete pcrfit_single on remote server.
+# Add initRemote() function to your .Rprofile to activate
+# (see init_remote.R for details).
+if (exists("initRemote")) {
+  source("init_remote.R", local = TRUE)
+}
+
 shinyServer(function(input, output) {
   
   raw_input <- reactive({
