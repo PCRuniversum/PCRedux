@@ -2,7 +2,6 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/PCRedux)](https://cran.r-project.org/package=PCRedux)
 [![Travis-CI Build Status](https://travis-ci.org/PCRuniversum/PCRedux.svg?branch=master)](https://travis-ci.org/PCRuniversum/PCRedux)
 [![codecov.io](https://codecov.io/github/PCRuniversum/PCRedux/coverage.svg?branch=master)](https://codecov.io/github/PCRuniversum/PCRedux?branch=master)
-[![Licence](https://github.com/PCRuniversum/PCRedux/blob/docs/vignettes/MIT.svg)](https://opensource.org/licenses/MIT)
 
 ![PCRedux](https://raw.githubusercontent.com/PCRuniversum/PCRedux/master/vignettes/Logo.png)
 
