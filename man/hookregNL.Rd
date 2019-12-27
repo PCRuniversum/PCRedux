@@ -4,8 +4,7 @@
 \alias{hookregNL}
 \title{hookregNL - A function to calculate the slope of amplification curves in the tail region}
 \usage{
-hookregNL(x, y, plot = FALSE, level = 0.995, simple = TRUE,
-  manualtrim = 5)
+hookregNL(x, y, plot = FALSE, level = 0.995, simple = TRUE, manualtrim = 5)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}

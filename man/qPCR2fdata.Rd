@@ -47,7 +47,7 @@ legend("topleft", as.character(res_fdata_colnames), pch=19,
 # as clustered data.
 
 res_fdata_hclust <- metric.hausdorff(res_fdata)
-plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\\n
+plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
    curves as calculated by the Hausdorff distance")
 
 }
