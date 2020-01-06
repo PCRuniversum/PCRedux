@@ -5,8 +5,7 @@
 \title{A function to calculate to head to tail ratio of amplification curve data
 from a quantitative PCR experiment}
 \usage{
-head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE,
-  verbose = FALSE)
+head2tailratio(y, normalize = FALSE, slope_normalizer = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{y}{is the cycle dependent fluorescence amplitude (y-axis).}

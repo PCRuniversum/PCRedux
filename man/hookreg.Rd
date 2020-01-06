@@ -5,8 +5,14 @@
 \title{A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment at the end of the data stream.}
 \usage{
-hookreg(x, y, normalize = TRUE, sig.level = 0.0025,
-  CI.level = 0.9975, robust = FALSE)
+hookreg(
+  x,
+  y,
+  normalize = TRUE,
+  sig.level = 0.0025,
+  CI.level = 0.9975,
+  robust = FALSE
+)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -53,7 +59,7 @@ matplot(x=boggy[, 1], y=boggy[, -1], xlab="Cycle", ylab="RFU",
 
 plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
  xlab="intercept", ylab="Slope",
- main="Clusters of Amplification Curves with an Hook Effect-like Curvature\\nboggy Data Set")
+ main="Clusters of Amplification Curves with an Hook Effect-like Curvature\nboggy Data Set")
  points(res_hook$intercept, res_hook$slope, col=cl, pch=cl, cex=cl)
  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
  text(res_hook$intercept, res_hook$slope, res_hook$sample)
