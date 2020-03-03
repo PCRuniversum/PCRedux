@@ -1,3 +1,6 @@
+Version 1.0-5 [March 2020]
+* Fixes for 4.0.0
+
 Version 1.0-4 [December 2019]
 * Fixes for 4.0.0
 * autocorrelation_test reworked to provide more standard output
