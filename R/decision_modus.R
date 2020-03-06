@@ -52,7 +52,8 @@ decision_modus <- function(data, variables=c("a", "n", "y"), max_freq=TRUE) {
   # Make a data frame wiht the decision and their frequencies.
   freq_df <- data.frame(
     variable = as.character(unique_variables),
-    freq = sum_unique_variables
+    freq = sum_unique_variables, 
+    stringsAsFactors = TRUE
   )
   
   # Perform a logical operation on the summarized decision elements.
