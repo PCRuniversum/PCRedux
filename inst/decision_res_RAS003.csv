@@ -1,193 +1,193 @@
 RAS003,test.result.1,test.result.2,test.result.3,conformity
-A01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-A01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-A02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-A02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-A03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-A03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-A04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-A04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-A05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-A05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-A06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-A06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-A07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-A07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-A08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-A08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-A09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-A09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-A10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-A10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-A11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-A11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-A12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-A12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-B01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-B01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-B02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-B02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-B03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-B03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-B04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-B04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-B05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-B05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-B06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-B06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-B07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-B07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-B08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-B08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-B09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-B09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-B10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-B10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-B11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-B11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-B12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-B12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-C01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-C01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-C02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-C02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-C03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-C03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-C04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-C04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-C05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-C05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-C06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-C06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-C07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-C07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-C08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-C08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-C09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-C09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-C10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-C10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-C11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-C11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-C12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-C12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-D01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-D01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-D02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-D02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-D03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-D03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-D04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-D04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-D05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-D05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-D06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-D06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-D07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-D07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-D08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-D08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-D09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-D09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-D10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-D10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-D11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-D11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-D12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-D12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-E01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-E01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-E02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-E02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-E03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-E03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-E04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-E04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-E05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-E05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-E06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-E06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-E07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-E07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-E08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-E08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-E09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-E09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-E10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-E10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-E11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-E11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-E12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-E12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-F01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-F01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-F02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-F02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-F03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-F03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-F04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-F04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-F05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-F05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-F06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-F06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-F07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-F07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-F08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-F08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-F09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-F09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-F10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-F10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-F11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-F11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-F12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-F12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-G01_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-G01_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-G02_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-G02_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-G03_gDNA.1.1_unkn_B.Globin,y,y,y,      TRUE
-G03_gDNA.1.1_unkn_HPRT1,n,n,n,      TRUE
-G04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-G04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-G05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-G05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-G06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,      TRUE
-G06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,      TRUE
-G07_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-G07_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-G08_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-G08_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-G09_gDNA.1.100_unkn_B.Globin,n,n,n,      TRUE
-G09_gDNA.1.100_unkn_HPRT1,n,n,n,      TRUE
-G10_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-G10_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-G11_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-G11_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-G12_gDNA.1.1000_unkn_B.Globin,n,n,n,      TRUE
-G12_gDNA.1.1000_unkn_HPRT1,n,n,n,      TRUE
-H01_ntc_ntc_B.Globin,n,n,n,      TRUE
-H01_ntc_ntc_HPRT1,n,n,n,      TRUE
-H02_ntc_ntc_B.Globin,n,n,n,      TRUE
-H02_ntc_ntc_HPRT1,n,n,n,      TRUE
-H03_ntc_ntc_B.Globin,n,n,n,      TRUE
-H03_ntc_ntc_HPRT1,n,n,n,      TRUE
-H04_ntc_ntc_B.Globin,n,n,n,      TRUE
-H04_ntc_ntc_HPRT1,n,n,n,      TRUE
-H05_ntc_ntc_B.Globin,n,n,n,      TRUE
-H05_ntc_ntc_HPRT1,n,n,n,      TRUE
-H06_ntc_ntc_B.Globin,n,n,n,      TRUE
-H06_ntc_ntc_HPRT1,n,n,n,      TRUE
-H07_ntc_ntc_B.Globin,n,n,n,      TRUE
-H07_ntc_ntc_HPRT1,n,n,n,      TRUE
-H08_ntc_ntc_B.Globin,n,n,n,      TRUE
-H08_ntc_ntc_HPRT1,n,n,n,      TRUE
-H09_ntc_ntc_B.Globin,n,n,n,      TRUE
-H09_ntc_ntc_HPRT1,n,n,n,      TRUE
-H10_ntc_ntc_B.Globin,n,n,n,      TRUE
-H10_ntc_ntc_HPRT1,n,n,n,      TRUE
-H11_ntc_ntc_B.Globin,n,n,n,      TRUE
-H11_ntc_ntc_HPRT1,n,n,n,      TRUE
-H12_ntc_ntc_B.Globin,n,n,n,      TRUE
-H12_ntc_ntc_HPRT1,n,n,n,      TRUE
+A01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+A01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+A02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+A02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+A03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+A03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+A04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+A04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+A05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+A05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+A06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+A06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+A07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+A07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+A08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+A08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+A09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+A09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+A10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+A10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+A11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+A11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+A12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+A12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+B01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+B01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+B02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+B02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+B03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+B03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+B04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+B04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+B05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+B05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+B06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+B06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+B07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+B07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+B08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+B08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+B09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+B09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+B10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+B10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+B11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+B11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+B12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+B12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+C01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+C01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+C02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+C02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+C03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+C03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+C04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+C04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+C05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+C05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+C06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+C06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+C07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+C07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+C08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+C08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+C09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+C09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+C10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+C10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+C11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+C11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+C12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+C12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+D01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+D01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+D02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+D02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+D03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+D03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+D04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+D04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+D05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+D05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+D06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+D06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+D07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+D07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+D08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+D08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+D09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+D09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+D10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+D10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+D11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+D11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+D12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+D12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+E01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+E01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+E02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+E02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+E03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+E03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+E04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+E04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+E05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+E05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+E06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+E06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+E07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+E07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+E08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+E08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+E09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+E09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+E10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+E10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+E11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+E11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+E12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+E12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+F01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+F01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+F02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+F02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+F03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+F03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+F04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+F04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+F05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+F05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+F06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+F06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+F07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+F07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+F08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+F08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+F09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+F09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+F10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+F10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+F11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+F11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+F12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+F12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+G01_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+G01_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+G02_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+G02_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+G03_gDNA.1.1_unkn_B.Globin,y,y,y,TRUE
+G03_gDNA.1.1_unkn_HPRT1,n,n,n,TRUE
+G04_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+G04_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+G05_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+G05_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+G06_gDNA.1.10...HPR_unkn_B.Globin,n,n,n,TRUE
+G06_gDNA.1.10...HPR_unkn_HPRT1,y,y,y,TRUE
+G07_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+G07_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+G08_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+G08_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+G09_gDNA.1.100_unkn_B.Globin,n,n,n,TRUE
+G09_gDNA.1.100_unkn_HPRT1,n,n,n,TRUE
+G10_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+G10_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+G11_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+G11_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+G12_gDNA.1.1000_unkn_B.Globin,n,n,n,TRUE
+G12_gDNA.1.1000_unkn_HPRT1,n,n,n,TRUE
+H01_ntc_ntc_B.Globin,n,n,n,TRUE
+H01_ntc_ntc_HPRT1,n,n,n,TRUE
+H02_ntc_ntc_B.Globin,n,n,n,TRUE
+H02_ntc_ntc_HPRT1,n,n,n,TRUE
+H03_ntc_ntc_B.Globin,n,n,n,TRUE
+H03_ntc_ntc_HPRT1,n,n,n,TRUE
+H04_ntc_ntc_B.Globin,n,n,n,TRUE
+H04_ntc_ntc_HPRT1,n,n,n,TRUE
+H05_ntc_ntc_B.Globin,n,n,n,TRUE
+H05_ntc_ntc_HPRT1,n,n,n,TRUE
+H06_ntc_ntc_B.Globin,n,n,n,TRUE
+H06_ntc_ntc_HPRT1,n,n,n,TRUE
+H07_ntc_ntc_B.Globin,n,n,n,TRUE
+H07_ntc_ntc_HPRT1,n,n,n,TRUE
+H08_ntc_ntc_B.Globin,n,n,n,TRUE
+H08_ntc_ntc_HPRT1,n,n,n,TRUE
+H09_ntc_ntc_B.Globin,n,n,n,TRUE
+H09_ntc_ntc_HPRT1,n,n,n,TRUE
+H10_ntc_ntc_B.Globin,n,n,n,TRUE
+H10_ntc_ntc_HPRT1,n,n,n,TRUE
+H11_ntc_ntc_B.Globin,n,n,n,TRUE
+H11_ntc_ntc_HPRT1,n,n,n,TRUE
+H12_ntc_ntc_B.Globin,n,n,n,TRUE
+H12_ntc_ntc_HPRT1,n,n,n,TRUE
