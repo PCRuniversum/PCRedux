@@ -114,6 +114,10 @@
 
 pcrfit_single <- function(x) {
 
+
+  non_nas <- cumsum(!is.na(x))
+  x <- x[1L:which.max(non_nas == max(non_nas))]
+  
   # Normalize RFU values to the alpha percentile (0.99)
   x <- x / quantile(x, 0.99, na.rm = TRUE)
   length_cycle <- length(x)
@@ -546,4 +550,6 @@ pcrfit_single <- function(x) {
     # Identifier
     row.names = "results"
   )
+  
+  all_results
 }
