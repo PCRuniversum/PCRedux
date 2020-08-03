@@ -5373,7 +5373,7 @@ P59.W31,y,y,y,a,y,y,y,y,FALSE
 P59.W32,y,y,y,a,a,a,a,a,FALSE
 P59.W33,y,y,y,n,a,y,y,y,FALSE
 P59.W34,y,a,y,n,n,n,n,n,FALSE
-P59.W35,a,a,a,a,a,a,a,n,TRUE
+P59.W35,a,a,a,a,a,a,a,n,FALSE
 P59.W36,y,y,y,n,n,n,n,a,FALSE
 P59.W37,a,a,a,n,n,n,n,n,FALSE
 P59.W38,a,a,a,n,n,n,n,n,FALSE
@@ -6506,7 +6506,7 @@ P71.W28,a,a,a,n,n,n,n,n,FALSE
 P71.W29,y,y,y,y,y,y,a,y,FALSE
 P71.W30,a,a,a,n,n,n,n,n,FALSE
 P71.W31,y,y,y,n,a,a,a,a,FALSE
-P71.W32,y,y,y,y,y,y,y,a,TRUE
+P71.W32,y,y,y,y,y,y,y,a,FALSE
 P71.W33,y,y,y,a,a,a,a,a,FALSE
 P71.W34,y,y,y,n,n,a,a,a,FALSE
 P71.W35,a,y,a,n,n,n,n,n,FALSE
