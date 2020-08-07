@@ -315,7 +315,7 @@ pcrfit_single <- function(x) {
   if(names(res_fit_model) == "l0") res_fit <- "try-error"
   
   # Fit the "reverse" model
-  pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent = TRUE)
+  pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2, model = l4), silent = TRUE)
   
   res_fit_reverse <- try(qpcR::mselect(
     pcrfit_startmodel_reverse,
