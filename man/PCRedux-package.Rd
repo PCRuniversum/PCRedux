@@ -6,7 +6,9 @@
 \alias{l4}
 \alias{PCRedux}
 \title{PCRedux - quantitative PCR Data Mining and Machine Learning Toolkit}
-\format{An object of class \code{list} of length 11.}
+\format{
+An object of class \code{list} of length 11.
+}
 \usage{
 l4
 }

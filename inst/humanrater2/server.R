@@ -3,19 +3,23 @@ library(dplyr)
 library(reshape2)
 library(ggplot2)
 
-raw_dat <- data.table::fread("../results/vermeulen_qPCR.csv", data.table = FALSE) 
-cyc <- raw_dat[[1]]
-dat <- raw_dat[, -1]
-
-
-
-
+options(shiny.maxRequestSize=20*1024^2)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   
+  raw_input <- reactive({
+    validate(
+      need(input[["amp_file"]], "Provide a datafile")
+    )
+    
+    read.csv(input[["amp_file"]][["datapath"]])
+  })
+  
+  
   all_splits <- reactive({
-    split(1L:ncol(dat), ceiling(seq_along(1L:ncol(dat))/input[["n_splits"]]))
+
+    split(1L:ncol(raw_input()), ceiling(seq_along(1L:ncol(raw_input()))/input[["n_splits"]]))
   })
   
   runs <- reactiveValues(
@@ -32,18 +36,22 @@ shinyServer(function(input, output) {
   })
   
   observeEvent(input[["plot_click"]], {
-      selected_runs <- as.character(nearPoints(plot_dat(), input[["plot_click"]], 
-                                               xvar = "cycle", yvar = "value")[, "run"])
-      
-      if(length(selected_runs) > 0){
-        remove <- selected_runs %in% runs[["selected"]]
-        runs[["selected"]] <- runs[["selected"]][!runs[["selected"]] %in% selected_runs[remove]]
-        runs[["selected"]] <- c(runs[["selected"]], selected_runs[!remove])
-      }
+    selected_runs <- as.character(nearPoints(plot_dat(), input[["plot_click"]], 
+                                             xvar = "cycle", yvar = "value")[, "run"])
+    
+    if(length(selected_runs) > 0){
+      remove <- selected_runs %in% runs[["selected"]]
+      runs[["selected"]] <- runs[["selected"]][!runs[["selected"]] %in% selected_runs[remove]]
+      runs[["selected"]] <- c(runs[["selected"]], selected_runs[!remove])
+    }
   })
   
   plot_dat <- reactive({
-    cbind(cycle = cyc, dat[all_splits()[[runs[["split"]]]]]) %>% 
+    # if(!is.null(input[["amp_file"]][["datapath"]]))
+    #   browser()
+    
+    cbind(cycle = 1L:nrow(raw_input()), 
+          raw_input()[all_splits()[[runs[["split"]]]]]) %>% 
       melt(id.vars = "cycle", variable.name = "run") %>% 
       mutate(selected = run %in% runs[["selected"]])
   })
@@ -62,7 +70,7 @@ shinyServer(function(input, output) {
     
   }, height = 800)
   
-
+  
   output[["selected_info"]] <- renderPrint({
     dput(as.character(runs[["selected"]]))
   })

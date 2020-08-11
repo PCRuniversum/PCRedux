@@ -1,4 +1,5 @@
 library(shiny)
+library(shinycssloaders)
 
 shinyUI(fluidPage(
   
@@ -8,6 +9,7 @@ shinyUI(fluidPage(
 
   sidebarLayout(
     sidebarPanel(
+      fileInput("amp_file", "Data file"),
       actionButton("next", "Next chunk of data"),
       actionButton("previous", "Previous chunk of data"),
       sliderInput("n_splits", "Number of runs in a split (how many runs are on a single plot):",
@@ -18,7 +20,7 @@ shinyUI(fluidPage(
     mainPanel(
       textOutput("chosen_split"),
       verbatimTextOutput("selected_info"),
-      plotOutput("amp_plot", click = "plot_click")
+      withSpinner(plotOutput("amp_plot", click = "plot_click"))
     )
   )
 ))
