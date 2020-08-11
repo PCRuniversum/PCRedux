@@ -45,17 +45,16 @@ Imports:
     zoo
 Suggests: 
     DT, 
-    FFTrees,
+    future,
     knitr,
+    listenv,
     RDML,
-    randomForest,
     readxl,
     rmarkdown,
+    shinycssloaders,
     spelling,
     testthat,
-    xtable,
-    future,
-    listenv
+    xtable
 NeedsCompilation: no
 VignetteBuilder: knitr
 Encoding: UTF-8
