@@ -40,9 +40,9 @@ encu <- function(data, detection_chemistry = NA, device = NA) {
   data_RFU <- data.frame(data[, -1])
   ncol_data_RFU <- ncol(data_RFU)
   data_RFU_colnames <- colnames(data_RFU)
-  data_RFU <- sapply(1L:ncol_data_RFU, function(i) {
-    data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm = TRUE)
-  })
+  # data_RFU <- sapply(1L:ncol_data_RFU, function(i) {
+  #   data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm = TRUE)
+  # })
   colnames(data_RFU) <- data_RFU_colnames
 
   run_res <- do.call(rbind, pblapply(1L:ncol_data_RFU, function(ith_run) {
