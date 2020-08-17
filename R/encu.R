@@ -37,7 +37,7 @@ encu <- function(data, detection_chemistry = NA, device = NA) {
   # Prepare the data for further processing
   # Normalize RFU values to the alpha quantiles (0.999)
   cycles <- data.frame(cycles = data[, 1])
-  data_RFU <- data.frame(data[, -1])
+  data_RFU <- data.frame(data[, -1, drop = FALSE])
   ncol_data_RFU <- ncol(data_RFU)
   data_RFU_colnames <- colnames(data_RFU)
   # data_RFU <- sapply(1L:ncol_data_RFU, function(i) {
