@@ -179,14 +179,31 @@ pcrfit_single <- function(x) {
 
   # Calculate change points
   res_cp_e.agglo <- try(length(ecp::e.agglo(as.matrix(res_diffQ[["d(F) / dT"]]))$estimates), silent = TRUE)
+  # Value of res_cp_e.agglo normalized to the total cycle number
+  res_cp_e.agglo <- res_cp_e.agglo/length_cycle
   if (inherits_error(res_cp_e.agglo)) {
-    res_cp_e.agglo <- length_cycle
+    # res_cp_e.agglo <- length_cycle
+    res_cp_e.agglo <- 1
   }
 
   # Bayesian analysis of change points
-  res_bcp_tmp <- try(bcp::bcp(res_diffQ[["d(F) / dT"]]), silent = TRUE)
-  res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.6, silent = TRUE)
+  
+  x_double <- c(x[-c(1:3)], x[-c(1:3)])
+  length_cycle_double <- length(x_double)
+  cycles_double <- 1L:length_cycle_double
+  
+  # Smooth data with moving average smoothing filter for further data
+  # analysis steps.
+  dat_smoothed_double <- cbind(cycles_double, chipPCR::smoother(cycles_double, x_double, method = "mova"))
+
+  # Calculate the first derivative
+  res_diffQ_double <- try(suppressMessages(MBmca::diffQ(dat_smoothed_double, verbose = TRUE)$xy), silent = TRUE)
+
+  # Bayesian analysis of change points
+  res_bcp_tmp <- try(bcp::bcp(res_diffQ_double[["d(F) / dT"]]), silent = TRUE)
+  res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.95, silent = TRUE)
   res_bcp <- try(length(which(as.factor(res_bcp_tmp) == TRUE)))
+  res_bcp <- res_bcp/length_cycle
   if (inherits_error(res_bcp)) {
     res_bcp <- 0
   }

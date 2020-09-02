@@ -1,4 +1,4 @@
-#' A function to perform a Qunantile-filter based Local Robust Regression
+#' A function to perform a Local Robust Regression in Ranges defined by Qunantile-filtering
 #'
 #' \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr)
 #' from a quantitative PCR experiment. In detail, this function attempts to break the
