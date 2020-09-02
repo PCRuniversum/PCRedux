@@ -2,7 +2,7 @@
 % Please edit documentation in R/mblrr.R
 \name{mblrr}
 \alias{mblrr}
-\title{A function to perform a Qunantile-filter based Local Robust Regression}
+\title{A function to perform a Local Robust Regression in Ranges defined by Qunantile-filtering}
 \usage{
 mblrr(x, y, sig.level = 0.01, normalize = FALSE)
 }
