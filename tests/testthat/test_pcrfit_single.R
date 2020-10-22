@@ -6,7 +6,6 @@ test_that("pcrfit_single gives the correct dimensions and properties", {
   res_pcrfit_single <- pcrfit_single(RAS002[, 2])
 
   expect_that(res_pcrfit_single, is_a("data.frame"))
-  expect_equal(res_pcrfit_single[["cp_e.agglo"]], 0.05)
   expect_that(round(res_pcrfit_single[["cpDdiff"]], 2) == 2.19, is_true())
   expect_equal(res_pcrfit_single[["top"]], 25)
   expect_equal(res_pcrfit_single[["bg.stop"]], 15)
@@ -17,5 +16,5 @@ test_that("pcrfit_single gives the correct dimensions and properties", {
   expect_that(res_pcrfit_single[["amptester_rgt"]] == TRUE, is_true())
   expect_that(res_pcrfit_single[["amptester_tht"]] == TRUE, is_true())
   expect_that(res_pcrfit_single[["amptester_slt"]] == TRUE, is_true())
-  expect_length(res_pcrfit_single, 57)
+  expect_length(res_pcrfit_single, 88)
 })

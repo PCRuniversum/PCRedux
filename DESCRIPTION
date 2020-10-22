@@ -39,6 +39,7 @@ Imports:
     pracma,
     qpcR,
     robustbase,
+    segmented,
     shiny,
     stats,
     utils,

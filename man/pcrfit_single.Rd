@@ -21,7 +21,7 @@ Output Description
   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
   "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
-  "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
+  "tdp" \tab takes the maximum fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
   "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
@@ -68,7 +68,7 @@ Output Description
   "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
   "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
-  "central_angle" \tab shows the central angle calculated from the maxima and minima of the derivatives \tab numeric \cr
+  "angle" \tab shows the central angle calculated from the maximum and minimum of the second derivatives, with the first derivative maximum being the center \tab numeric \cr
 }
 }
 \description{
@@ -123,6 +123,7 @@ pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
  \code{\link[base]{diff}}
  \code{\link[stats]{quantile}}
+ \code{\link[segmented]{segmented}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

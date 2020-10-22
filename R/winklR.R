@@ -5,19 +5,9 @@
 #' and the second derivatives maxima and minima  of an amplification curve data
 #' from a quantitative PCR experiment. For the determination of the angle 
 #' (central angle), the origin is the maximum of the first derivative. On this 
-#' basis, the vectors to the minimum and maximum of the second figure are 
-#' determined. The vectors result from the relation of the maximum of the 
-#' first derivative to the minimum of the second derivative and from the 
-#' maximum of the first derivative to the maximum of the second derivative. 
-#' In a simple trigonometric approach, the scalar product of the two vectors 
-#' is formed first. Then the absolute values are calculated and multiplied by 
-#' each other. Finally, the value is converted into an angle with the cosine. The
-#' assumption is that flat (negative amplification curves) have a large angle
-#' and sigmoid (positive amplification curves) have a smaller angle. Another
-#' assumption is that this angle is independent of the rotation of the
-#' amplification curve. This means that systematic off-sets, such as those
-#' caused by incorrect background correction, are of no consequence.
-#' The cycles to be analyzed is defined by the user.
+#' basis, the vectors to the minimum and maximum of the second derivative are 
+#' determined. This means that systematic off-sets, such as those
+#' caused by background, are taken into account.
 #' The output contains the angle.
 #'
 #' @param x is the cycle numbers (x-axis). By default the first ten cycles are removed.
@@ -76,14 +66,16 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
     y <- y / quantile(y, 0.99)
   }
 
-  # Smooth data with Savitzky-Golay smoothing filter for other data
+  # Smooth data with moving average for other data
   # analysis steps.
   if (preprocess) {
-    y <- chipPCR::smoother(x, y, method = "mova")
+    y <- chipPCR::smoother(x, y, method = "spline")
   } else {
     y <- data[, "y"]
   }
-
+  
+  res_fit <- smooth.spline(x, y)
+  
   guess_direction <- ifelse(median(head(y, 5)) > (median(tail(y, 5)) + mad(tail(y, 5))), 'max', 'min')
   
   # Calculate the point of the first and the second derivatives
@@ -92,25 +84,42 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
     fct = get(guess_direction, pos = "package:base")
   )), silent = TRUE)
 
-  origin <- data.frame(res[["TmD1"]][1], res[["TmD1"]][2])
-  point_x1 <- data.frame(res[["xTm1.2.D2"]][1], res[["yTm1.2.D2"]][1])
-  point_x2 <- data.frame(res[["xTm1.2.D2"]][2], res[["yTm1.2.D2"]][2])
+  
+  origin <- data.frame(res[["TmD1"]][1], res[["TmD1"]][2]) # FDM
+  point_x1 <- data.frame(res[["xTm1.2.D2"]][1], res[["yTm1.2.D2"]][1]) # SDM
+  point_x2 <- data.frame(res[["xTm1.2.D2"]][2], res[["yTm1.2.D2"]][2]) # SDm
+ 
+  coordinates <- t(data.frame(unlist(point_x1), unlist(origin), unlist(point_x2)))
+  
+  coordinates[, 1] <- coordinates[, 1] - 3.321928
+  
+  coordinates[, 2] <- predict(res_fit, coordinates[, 1])$y
 
-  # Calculate the distance between the points
-  #distance_a <- sqrt((origin[1] - res[["xTm1.2.D2"]][1])^2 + (origin[2] - res[["yTm1.2.D2"]][1])^2)
-  #distance_b <- sqrt((origin[1] - res[["xTm1.2.D2"]][2])^2 + (origin[2] - res[["yTm1.2.D2"]][2])^2)
-
+  if(coordinates[3, 1] < coordinates[2, 1]) {
+      coordinates[3, ] <- coordinates[2, ]
+  }
+  
+  if(coordinates[1, 1] > coordinates[2, 1]) {
+      coordinates[1, ] <- coordinates[2, ]
+  }
+ 
+  coordinates <- data.frame(coordinates[, 1] - coordinates[2, 1], coordinates[, 2])
+  coordinates <- data.frame(coordinates[, 1], coordinates[, 2] - coordinates[2, 2])
+  
+  rownames(coordinates) <- c("left", "center", "right")
+  colnames(coordinates) <- c("x position", "y position")
+  
   # Calculation of vectors (origin is the starting point)
+  # For the distance between SDM and FDM
   u <- data.frame(
-    u_x = origin[1] - point_x1[1],
-    u_y = origin[2] - point_x1[2]
+    u_x = coordinates["left", "x position"] - coordinates["center", "x position"], # x value (Cq)
+    u_y = coordinates["left", "y position"] + coordinates["center", "y position"] # y value (fluorescence)
   )
-
+  # For the distance between FDM and SDm
   v <- data.frame(
-    v_x = origin[1] - point_x2[1],
-    V_y = origin[2] - point_x2[2]
+    u_x = coordinates["right", "x position"] - coordinates["center", "x position"], # x value (Cq)
+    u_y = coordinates["center", "y position"] - coordinates["right", "y position"] # y value (fluorescence)
   )
-
 
   # Determine the dot product and the absolute values
   dot_product <- sum(u * v)
@@ -119,10 +128,8 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
 
   # Calculate angle
 
-  # angle <- acos(dot_product / length_of_vectors) * 180 / pi
-
-  angle <- dot_product / length_of_vectors
-
+  angle <- acos(dot_product / length_of_vectors) * 180 / pi
+  
   rownames(origin) <- "origin"
   colnames(origin) <- c("x", "y")
 
@@ -136,7 +143,6 @@ winklR <- function(x, y, normalize = FALSE, preprocess = TRUE) {
 
   colnames(u) <- c("x", "y")
   colnames(v) <- c("x", "y")
-
 
 
   output <- list(angle, origin, point_x1, point_x2)
