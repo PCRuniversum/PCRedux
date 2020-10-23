@@ -280,12 +280,26 @@ pcrfit_single <- function(x) {
         amp.ratio = 0        
       )
     }
+    
+    if(is.na(amptester["amp.shap"])) amptester["amp.shap"] <- 0
+    if(is.na(amptester["amp.lrt"])) amptester["amp.lrt"] <- 0
+    if(is.na(amptester["amp.rgt"])) amptester["amp.rgt"] <- 0
+    if(is.na(amptester["amp.tht"])) amptester["amp.tht"] <- 0
+    if(is.na(amptester["amp.pol"])) amptester["amp.pol"] <- 0
+    if(is.na(amptester["amp.ratio"])) amptester["amp.ratio"] <- 0
   
   # Estimate the spread of the approximate local minima and maxima of the curve data
   
   res_mcaPeaks <- armor(MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2]))
   if (length(res_mcaPeaks) == 2) {
-    res_peaks_ratio <- diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
+    if(nrow(res_mcaPeaks[[1]]) == 0 || nrow(res_mcaPeaks[[2]]) == 0) {
+        res_peaks_ratio <- 0
+    } else {
+    res_peaks_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
+    if(is.na(res_peaks_ratio) || res_peaks_ratio == '-Inf' || res_peaks_ratio == 'Inf') {
+        res_peaks_ratio <- 0
+    }
+    }
   } else {
     res_peaks_ratio <- res_mcaPeaks
   }
@@ -378,6 +392,8 @@ pcrfit_single <- function(x) {
     bg_dat <- y_quantile[1L:res_takeoff[[1]]]
     res_sd_bg <- armor(sd(bg_dat))
   }
+  
+  if(is.na(res_sd_bg) || res_sd_bg == '-Inf' || res_sd_bg == '-Inf') res_sd_bg <- 0
   
   pcrfit_model_l4 <- res_pcrfit
   res_coef_model_l4 <- armor(coefficients(pcrfit_model_l4))
@@ -502,7 +518,8 @@ pcrfit_single <- function(x) {
   res_efficiency_tmp <- armor(
     qpcR::efficiency(res_fit, plot = FALSE)[c(
       "eff",
-      "cpD1", "cpD2",
+      "cpD1", 
+      "cpD2",
       "fluo",
       "init2"
     )]
@@ -520,6 +537,8 @@ pcrfit_single <- function(x) {
     )
     res_cpDdiff <- 0
   }
+  
+  if(is.na(res_efficiency_tmp["init2"])) res_efficiency_tmp["init2"] <- 0
   
   # Calculate the ratio between the the approximate second derivative maximum
   # cpD2_approx and the second derivative maximum cpD2
