@@ -144,7 +144,12 @@ pcrfit_single <- function(x) {
   # Normalize RFU values to the alpha percentile (0.99)
   # This normalization was exchanged by a base-lining in the following lines
   # to make calculations of the features like the efficiency more reliable
-  y_quantile <- y / quantile(y, 0.99, na.rm = TRUE)
+  y_99_quantile <- quantile(y, 0.99, na.rm = TRUE)
+  if(y_99_quantile == 0) {
+      y_quantile <- y / max(y, 0.99, na.rm = TRUE)
+  } else {
+      y_quantile <- y / quantile(y, 0.99, na.rm = TRUE)
+  }
   ######### Will be removed in later versions ##########
   
   # Determine number of cycles used for the analysis
@@ -181,9 +186,9 @@ pcrfit_single <- function(x) {
       amp.stop = 0
     )
   } else {
-      start_vals <- abs(c(head(y_quantile, 5)))
-      stat_threshold <- sd(start_vals) / mean(start_vals)
-      if(stat_threshold > 0.3) {
+      start_vals <- c(head(y_quantile, 5))
+      stat_threshold <- mad(start_vals)
+      if(stat_threshold > 0.2) {
           res_bg.max_tmp@bg.start <- 5
       } else {
           res_bg.max_tmp@bg.start <- 2
