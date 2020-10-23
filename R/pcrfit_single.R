@@ -252,24 +252,34 @@ pcrfit_single <- function(x) {
   
   # Calculate amptester results
   res_amptester <- armor(chipPCR::amptester(y), 7)
-  #   if (length(res_amptester) != 1) {
-  #     amptester_shapiro <- res_amptester@decisions["shap.noisy"][[1]]
-  #     amptester_lrt <- res_amptester@decisions["lrt.test"][[1]]
-  #     amptester_rgt <- res_amptester@decisions["rgt.dec"][[1]]
-  #     amptester_tht <- res_amptester@decisions["tht.dec"][[1]]
-  #     amptester_slt <- res_amptester@decisions["slt.dec"][[1]]
-  #     amptester_polygon <- res_amptester@polygon / length_cycle
-  #     amptester_slope.ratio <- res_amptester@slope.ratio / length_cycle
-  #     amptester <- c(
-  #       amp.shap = amptester_shapiro[1],
-  #       amp.lrt = amptester_lrt[1],
-  #       amp.rgt = amptester_rgt[1],
-  #       amp.tht = amptester_tht[1],
-  #       amp.slt = amptester_slt[1],
-  #       amp.pol = amptester_polygon[1],
-  #       amp.ratio = amptester_slope.ratio[1]
-  #     )
-  #   }
+    if (length(res_amptester) != 1 && class(res_amptester) == "amptest") {
+      amptester_shapiro <- res_amptester@decisions["shap.noisy"][[1]]
+      amptester_lrt <- res_amptester@decisions["lrt.test"][[1]]
+      amptester_rgt <- res_amptester@decisions["rgt.dec"][[1]]
+      amptester_tht <- res_amptester@decisions["tht.dec"][[1]]
+      amptester_slt <- res_amptester@decisions["slt.dec"][[1]]
+      amptester_polygon <- res_amptester@polygon / length_cycle
+      amptester_slope.ratio <- res_amptester@slope.ratio / length_cycle
+      amptester <- c(
+        amp.shap = as.numeric(amptester_shapiro[1]),
+        amp.lrt = as.numeric(amptester_lrt[1]),
+        amp.rgt = as.numeric(amptester_rgt[1]),
+        amp.tht = as.numeric(amptester_tht[1]),
+        amp.slt = as.numeric(amptester_slt[1]),
+        amp.pol = as.numeric(amptester_polygon[1]),
+        amp.ratio = as.numeric(amptester_slope.ratio)
+      )
+    } else {
+        amptester <- c(
+        amp.shap = 0,
+        amp.lrt = 0,
+        amp.rgt = 0,
+        amp.tht = 0,
+        amp.slt = 0,
+        amp.pol = 0,
+        amp.ratio = 0        
+      )
+    }
   
   # Estimate the spread of the approximate local minima and maxima of the curve data
   
@@ -354,6 +364,7 @@ pcrfit_single <- function(x) {
     cpD2_ratio_tmp <- armor(as.numeric(res_eff_tmp[["cpD2"]] / res_diffQ2[[3]][1]))
   } else {
     res_coef_pcrfit <- c(0, 0, 0, 0)
+    names(res_coef_pcrfit) <- c("b", "c", "d", "e")
     res_AICc_l4 <- res_iterations <- res_sliwin <- cpD2_ratio_tmp <- 0
     res_takeoff <- c(0, 0)
     res_eff_tmp <- c(0, 0, 0, 0, 0)
@@ -680,13 +691,13 @@ pcrfit_single <- function(x) {
     cp_e.agglo = res_cp_e.agglo,
     cp_bcp = res_bcp,
     # Amptester
-    amptester_shapiro = res_amptester@decisions["shap.noisy"][[1]],
-    amptester_lrt = res_amptester@decisions["lrt.test"][[1]],
-    amptester_rgt = res_amptester@decisions["rgt.dec"][[1]],
-    amptester_tht = res_amptester@decisions["tht.dec"][[1]],
-    amptester_slt = res_amptester@decisions["slt.dec"][[1]],
-    amptester_polygon = res_amptester@"polygon" / length_cycle,
-    amptester_slope.ratio = ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
+    amptester_shapiro = amptester["amp.shap"], # res_amptester@decisions["shap.noisy"][[1]],
+    amptester_lrt = amptester["amp.lrt"], #  res_amptester@decisions["lrt.test"][[1]],
+    amptester_rgt = amptester["amp.rgt"], #  res_amptester@decisions["rgt.dec"][[1]],
+    amptester_tht = amptester["amp.tht"], #  res_amptester@decisions["tht.dec"][[1]],
+    amptester_slt = amptester["amp.slt"], #  res_amptester@decisions["slt.dec"][[1]],
+    amptester_polygon = amptester["amp.pol"], #  res_amptester@"polygon" / length_cycle,
+    amptester_slope.ratio = amptester["amp.ratio"], #  ifelse(is.na(res_amptester@"slope.ratio"), 0, res_amptester@"slope.ratio"),
     # Curvature
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
