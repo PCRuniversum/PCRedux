@@ -161,7 +161,7 @@ pcrfit_single <- function(x) {
   if (res_guess_direction == "min") res_guess_direction_bin <- 0 else res_guess_direction_bin <- 1
   
   # Calculate the first derivative
-  res_diffQ <- armor(MBmca::diffQ(xy_tmp[-c(1:3), ], verbose = TRUE)$xy)
+  res_diffQ <- armor(MBmca::diffQ(xy_tmp[-c(1:3), ], verbose = TRUE)$xy, 2)
   
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(y, c(0.01, 0.99), na.rm = TRUE)
@@ -181,6 +181,13 @@ pcrfit_single <- function(x) {
       amp.stop = 0
     )
   } else {
+      start_vals <- abs(c(head(y_quantile, 5)))
+      stat_threshold <- sd(start_vals) / mean(start_vals)
+      if(stat_threshold > 0.3) {
+          res_bg.max_tmp@bg.start <- 5
+      } else {
+          res_bg.max_tmp@bg.start <- 2
+    }
     res_bg.max <- c(
       bg.start = res_bg.max_tmp@bg.start,
       bg.stop = res_bg.max_tmp@bg.stop,
@@ -297,7 +304,8 @@ pcrfit_single <- function(x) {
       cpD2_range <- as.numeric(armor(diff(res_diffQ2[[3]])))
       if (cpD2_range > 200) cpD2_range <- 0
       ROI <- armor(round(c(res_diffQ2[[1]], res_diffQ2[[3]]))[c(2, 1, 3)])
-      res_loglin_slope <- try(suppressWarnings(coefficients(lm(y[ROI] ~ ROI))[["ROI"]]), silent = TRUE)
+      res_loglin_slope <- armor(coefficients(lm(y[ROI] ~ ROI))[["ROI"]])
+      if(is.na(res_loglin_slope)) res_loglin_slope <- 0
       if (inherits(res_loglin_slope, "try-error")) res_loglin_slope <- 0
     }
   } else {
@@ -333,6 +341,7 @@ pcrfit_single <- function(x) {
     # (takeoff point) using externally studentized residuals as described
     # in Tichopad et al. (2003).
     res_takeoff <- unlist(qpcR::takeoff(res_pcrfit))
+    if(is.na(res_takeoff["top"])) res_takeoff["top"] <- res_takeoff["f.top"] <- 0
     # sliwin qPCR efficiency
     # Calculation of the qPCR efficiency by the 'window-of-linearity' method
     res_sliwin <- armor(qpcR::sliwin(res_pcrfit, plot = FALSE, verbose = FALSE)$eff)
@@ -345,12 +354,13 @@ pcrfit_single <- function(x) {
     res_eff_tmp <- c(0, 0, 0, 0, 0)
   }
   
+  
   if (is.na(res_takeoff[[1]])) {
-    bg_dat <- c(head(y, 8))
-    res_sd_bg <- sd(bg_dat) / mean(bg_dat)
+    bg_dat <- c(head(y_quantile, 8))
+    res_sd_bg <- sd(bg_dat)
   } else {
-    bg_dat <- y[1L:res_takeoff[[1]]]
-    res_sd_bg <- armor(sd(bg_dat) / mean(bg_dat))
+    bg_dat <- y_quantile[1L:res_takeoff[[1]]]
+    res_sd_bg <- armor(sd(bg_dat))
   }
   
   pcrfit_model_l4 <- res_pcrfit
@@ -453,19 +463,21 @@ pcrfit_single <- function(x) {
     res_takeoff_reverse <- armor(qpcR::takeoff(res_fit_reverse, nsig = 5), 2)
     if (is.na(res_takeoff_reverse[[1]])) {
       res_takeoff_reverse[[1]] <- res_takeoff_reverse[[2]] <- 0
-      plateau_dat <- c(tail(y, 5))
-      res_sd_plateau <- sd(plateau_dat) / mean(plateau_dat)
+      plateau_dat <- c(tail(y_quantile, 5))
+      res_sd_plateau <- sd(plateau_dat)
     } else {
       res_takeoff_reverse[[1]] <- length_cycle - res_takeoff_reverse[[1]]
       res_takeoff_reverse[[2]] <- armor(predict(res_pcrfit, data.frame(Cycles = res_takeoff_reverse[[1]]))[[1]])
-      plateau_dat <- y[res_takeoff_reverse[[1]]:length_cycle]
-      res_sd_plateau <- armor(sd(plateau_dat) / mean(plateau_dat))
+      plateau_dat <- y_quantile[res_takeoff_reverse[[1]]:length_cycle]
+      res_sd_plateau <- sd(plateau_dat)
     }
   } else {
     res_takeoff_reverse[[1]] <- res_takeoff_reverse[[2]] <- 0
-    plateau_dat <- c(tail(y, 5))
-    res_sd_plateau <- sd(plateau_dat) / mean(plateau_dat)
+    plateau_dat <- c(tail(y_quantile, 5))
+    res_sd_plateau <- sd(plateau_dat)
   }
+  
+  if(is.na(res_sd_plateau)) res_sd_plateau <- sd(tail(y_quantile, 5))
   
   names(res_takeoff_reverse) <- c("tdp", "f.tdp")
   
@@ -481,7 +493,7 @@ pcrfit_single <- function(x) {
   )
   
   if (length(res_efficiency_tmp) == 5) {
-    res_cpDdiff <- armor(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]))
+    res_cpDdiff <- armor(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
   } else {
     res_efficiency_tmp <- list(
       eff = 0,
@@ -538,6 +550,8 @@ pcrfit_single <- function(x) {
   # Calculate central angle
   res_angle <- dot_product / length_of_vectors
   
+  if(is.na(res_angle)) res_angle <- 0
+  
   ## Method 17
   res_cor <- armor(cor(x, y))
   
@@ -571,6 +585,11 @@ pcrfit_single <- function(x) {
   
   res_segment <- armor(segmenter(x, y), 5)
   
+  if(length(which(is.na(res_segment) == TRUE)) >= 1) {
+      res_segment <- rep(0, 5)
+      names(res_segment) <- c("x", "U1.x", "U2.x", "psi1.x", "psi2.x")
+  }
+  
   ## Method 19
   sumdiffer <- function(y) sum(diff(y) > 0, na.rm = TRUE) / length(y)
   res_sumdiff <- armor(sumdiffer(y))
@@ -593,9 +612,9 @@ pcrfit_single <- function(x) {
     xseq <- seq(1, length(y), length.out = 50)
     ypred <- predict(res_spline, xseq)$y
     cut_y_values <- cut(xseq, 10)
-    res_location_segments <- tapply(ypred, cut_y_values, function(x) median(x, na.rm = TRUE))
+#     res_location_segments <- tapply(ypred, cut_y_values, function(x) median(x, na.rm = TRUE))
     res_variation_segments <- tapply(ypred, cut_y_values, function(x) mad(x, na.rm = TRUE))
-    res_windower <- res_variation_segments / res_location_segments
+    res_windower <- res_variation_segments #/ res_location_segments
     names(res_windower) <- paste("Win_", 1:10, sep = "")
     return(res_windower)
   }
