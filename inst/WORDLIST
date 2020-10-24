@@ -60,6 +60,7 @@ clinchem
 CMD
 codecov
 codomain
+coef
 coli
 competimer
 convInfo
@@ -79,6 +80,7 @@ cuvette
 cycler
 Cycler
 cyclers
+cylces
 dat
 DataAnalysis
 de
@@ -124,6 +126,8 @@ fda
 fdata
 Febrero
 FFTrees
+fitAIC
+fitIter
 Fluidigm
 fluo
 fluorophore
@@ -279,6 +283,7 @@ PubMed
 qpcR
 qPCR
 qPCRmodel
+qPCRmodelRF
 qPCRs
 quantGenius
 Qunantile
@@ -313,6 +318,7 @@ roxygen
 rpart
 RScript
 RStudio
+Ruijter
 RUnit
 rutledge
 Savitzky
@@ -345,6 +351,7 @@ STR
 Stratagene
 STRs
 subtypes
+sumdiff
 svUnit
 SYBR
 SybrGreen
@@ -375,6 +382,7 @@ TP
 TPR
 transferase
 transfered
+trapz
 TravisCI
 tunable
 und

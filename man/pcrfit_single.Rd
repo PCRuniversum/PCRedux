@@ -12,18 +12,21 @@ pcrfit_single(x)
 \value{
 Output Description
 \tabular{llr}{
-  "eff" \tab qPCR amplification efficiency \tab numeric \cr
   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
   "cpD2_approx" \tab maximum of the second derivative curve calculated by the approximate derivative \tab numeric \cr
   "cpD2_ratio" \tab a value calculated from the ratio between cpD2 and cpD2_approx \tab numeric \cr
-  "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
-  "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
+  "eff" \tab qPCR amplification efficiency \tab numeric \cr
+  "sliwin" \tab qPCR amplification efficiency according the the 'window-of-linearity' method by Ruijter et al. (2009) \tab numeric \cr
+  "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
+  "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
+  "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
   "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
   "tdp" \tab takes the maximum fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
-  "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
+  "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
   "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
   "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
@@ -31,16 +34,31 @@ Output Description
   "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
   "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
   "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
+  "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
+  "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
+  "qPCRmodelRF" \tab non-linear model determined for the analysis of the reversed amplification curve \tab factor \cr
+  "minRFU" \tab minimum of fluorescence amplitude \tab numeric \cr
+  "maxRFU" \tab maximum of fluorescence amplitude \tab numeric \cr
+  "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
+  "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
+  "slope_bg" \tab slope of the first cycles \tab numeric \cr
   "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
   "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
-  "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
-  "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
-  "slope_bg" \tab slope of the first cycles \tab numeric \cr
   "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
+  "sigma_bg" \tab sigma of background \tab numeric \cr
+  "sd_bg" \tab standard deviation of the background (ground phase) region (start to takeoff point) \tab numeric \cr
+  "head2tail_ratio" \tab ratio between the signal of the background and tail region \tab numeric \cr
+  "mblrr_intercept_bg" \tab  \tab numeric \cr
+  "mblrr_slope_bg" \tab \tab numeric \cr
+  "mblrr_cor_bg" \tab \tab numeric \cr
+  "mblrr_intercept_pt" \tab \tab numeric \cr
+  "mblrr_slope_pt" \tab \tab numeric \cr
+  "mblrr_cor_pt" \tab \tab numeric \cr
   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
+  "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+  "autocorrelation" \tab  \tab numeric \cr
   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
   "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
-  "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
   "amptester_rgt" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
@@ -48,27 +66,43 @@ Output Description
   "amptester_slt" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
   "amptester_polygon" \tab pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order. \tab binary \cr
   "amptester_slope.ratio" \tab SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. \tab numeric \cr
-  "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
-  "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
-  "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "head2tail_ratio" \tab \tab numeric \cr
-  "autocorrelation" \tab  \tab numeric \cr
-  "mblrr_intercept_bg" \tab  \tab numeric \cr
-  "mblrr_slope_bg" \tab \tab numeric \cr
-  "mblrr_cor_bg" \tab \tab numeric \cr
-  "mblrr_intercept_pt" \tab \tab numeric \cr
-  "mblrr_slope_pt" \tab \tab numeric \cr
-  "mblrr_cor_pt" \tab \tab numeric \cr
-  "amp_cor_MIC" \tab \tab numeric \cr
   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
-  "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
-  "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
-  "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+  "hookreg_hook_delta" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
+  "central_angle" \tab shows the central angle calculated from the maximum and minimum of the second derivatives, with the first derivative maximum being the center \tab numeric \cr
   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
-  "angle" \tab shows the central angle calculated from the maximum and minimum of the second derivatives, with the first derivative maximum being the center \tab numeric \cr
+  "number_of_cycles" \tab Number of cylces \tab numeric \cr
+  "direction" \tab test if the maximum of the first derivative is positive or negative \tab numeric \cr
+  "range" \tab  \tab numeric \cr
+  "polyarea_trapz" \tab  \tab numeric \cr
+  "cor" \tab  \tab numeric \cr
+  "res_coef_pcrfit.b" \tab  \tab numeric \cr
+  "res_coef_pcrfit.c" \tab  \tab numeric \cr
+  "res_coef_pcrfit.d" \tab  \tab numeric \cr
+  "res_coef_pcrfit.e" \tab  \tab numeric \cr
+  "fitAIC" \tab  \tab numeric \cr
+  "fitIter" \tab  \tab numeric \cr
+  "segment_x" \tab  \tab numeric \cr
+  "segment_U1.x" \tab  \tab numeric \cr
+  "segment_U2.x" \tab  \tab numeric \cr
+  "segment_psi1.x" \tab  \tab numeric \cr
+  "segment_psi2.x" \tab  \tab numeric \cr
+  "sumdiff" \tab  \tab numeric \cr
+  "poly_1" \tab  \tab numeric \cr
+  "poly_2" \tab  \tab numeric \cr
+  "poly_3" \tab  \tab numeric \cr
+  "poly_4" \tab  \tab numeric \cr
+  "window_Win_1" \tab  \tab numeric \cr
+  "window_Win_2" \tab  \tab numeric \cr
+  "window_Win_3" \tab  \tab numeric \cr
+  "window_Win_4" \tab  \tab numeric \cr
+  "window_Win_5" \tab  \tab numeric \cr
+  "window_Win_6" \tab  \tab numeric \cr
+  "window_Win_7" \tab  \tab numeric \cr
+  "window_Win_8" \tab  \tab numeric \cr
+  "window_Win_9" \tab  \tab numeric \cr
+  "window_Win_10" \tab  \tab numeric \cr
+  "sd_plateau" \tab  \tab numeric \cr
 }
 }
 \description{

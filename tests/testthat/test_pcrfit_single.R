@@ -16,5 +16,5 @@ test_that("pcrfit_single gives the correct dimensions and properties", {
   expect_that(res_pcrfit_single[["amptester_rgt"]] == TRUE, is_true())
   expect_that(res_pcrfit_single[["amptester_tht"]] == TRUE, is_true())
   expect_that(res_pcrfit_single[["amptester_slt"]] == TRUE, is_true())
-  expect_length(res_pcrfit_single, 88)
+  expect_length(res_pcrfit_single, 90)
 })

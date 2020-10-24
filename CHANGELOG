@@ -2,6 +2,11 @@ Version 1.0-7 [September 2020]
 * Various bug fixes in data
 * Various bug fixes in pcrfit_single() and mblrr()
 
+Version 1.0-7 [October 2020]
+* Fix fields
+* bug fixes
+* activation of further features
+
 Version 1.0-6 [March 2020]
 * Fix Date field
 
