@@ -39,8 +39,8 @@ armor_diffQ_fails <- armor(MBmca::diffQ(cbind(x, y), verbose = TRUE)$xy)
 armor_diffQ_fails
 }
 \seealso{
-\code{\link[base]{suppressMessages}}
- \code{\link[base]{inherits}}
+\code{\link[base:suppressMessages]{base::suppressMessages()}}
+ \code{\link[base:inherits]{base::inherits()}}
 }
 \author{
 Andrej Nikolai Spiess, Stefan Roediger

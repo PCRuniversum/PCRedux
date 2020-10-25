@@ -20,7 +20,7 @@
 #' @keywords slope intercept
 #' @seealso
 #'  \code{\link[robustbase]{lmrob}}
-#'  \code{\link[stats]{coefficients}}
+#'  \code{\link[stats:coefficients]{stats::coefficients()}}
 #' @examples
 #'
 #' # Calculate slope and intercept on noise (negative) amplification curve data

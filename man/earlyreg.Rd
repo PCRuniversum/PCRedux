@@ -43,7 +43,7 @@ res
 }
 \seealso{
 \code{\link[robustbase]{lmrob}}
- \code{\link[stats]{coefficients}}
+ \code{\link[stats:coefficients]{stats::coefficients()}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

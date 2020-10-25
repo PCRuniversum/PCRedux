@@ -8,8 +8,8 @@
 #' @author Andrej Nikolai Spiess, Stefan Roediger
 #' @keywords error
 #' @seealso
-#'  \code{\link[base]{suppressMessages}}
-#'  \code{\link[base]{inherits}}
+#'  \code{\link[base:suppressMessages]{base::suppressMessages()}}
+#'  \code{\link[base:inherits]{base::inherits()}}
 #' @examples
 #'
 #' # Fetch the error from the diffQ function

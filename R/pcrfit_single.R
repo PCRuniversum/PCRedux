@@ -148,69 +148,69 @@
 #' @export pcrfit_single
 
 pcrfit_single <- function(x) {
-  
+
   # Note: the input variable is x. This is changed within the following lines
   # into y, make the code more readable.
-  
+
   # Remove exogenous missing values of the amplification data
   non_nas <- cumsum(!is.na(x))
   y <- x[1L:which.max(non_nas == max(non_nas))]
-  
+
   # Determine the sequence of the cycles
   x <- 1L:length(y)
-  
+
   # Impute endogenous missing values of the amplification data
   y <- armor(chipPCR::fixNA(x, y))
-  
+
   # y => baselined
   y <- y - median(y[3:7], na.rm = TRUE)
-  
+
   # Make every data set to have 50 data points in total
-  
+
   res_spline <- smooth.spline(x, y, spar = 0.5)
   xseq <- seq(1, length(y), length.out = 50)
   ypred <- predict(res_spline, xseq)$y
-  
+
   # Combine x and y by columns
   xy_tmp <- cbind(cyc = x, fluo = y)
-  
+
   ######### Will be removed in later versions ##########
   # Normalize RFU values to the alpha percentile (0.99)
   # This normalization was exchanged by a base-lining in the following lines
   # to make calculations of the features like the efficiency more reliable
   y_99_quantile <- quantile(y, 0.99, na.rm = TRUE)
-  if(y_99_quantile == 0) {
-      y_quantile <- y / max(y, 0.99, na.rm = TRUE)
+  if (y_99_quantile == 0) {
+    y_quantile <- y / max(y, 0.99, na.rm = TRUE)
   } else {
-      y_quantile <- y / quantile(y, 0.99, na.rm = TRUE)
+    y_quantile <- y / quantile(y, 0.99, na.rm = TRUE)
   }
   ######### Will be removed in later versions ##########
-  
+
   # Determine number of cycles used for the analysis
-  
+
   length_cycle <- length(y)
-  
+
   # Smooth data with moving average smoothing filter for further data
   # analysis steps.
   dat_smoothed <- chipPCR::smoother(x, y, method = "mova")
-  
+
   # Guess direction of curve
   guess_direction <- function(y) ifelse(median(head(y, 5)) > (median(tail(y, 5)) + mad(tail(y, 5))), "max", "min")
   res_guess_direction <- armor(guess_direction(dat_smoothed))
   if (res_guess_direction == "min") res_guess_direction_bin <- 0 else res_guess_direction_bin <- 1
-  
+
   # Calculate the first derivative
   res_diffQ <- armor(MBmca::diffQ(xy_tmp[-c(1:3), ], verbose = TRUE)$xy, 2)
-  
+
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(y, c(0.01, 0.99), na.rm = TRUE)
   fluo_range_abs <- round(as.numeric(diff(quantile(y, c(0.01, 0.99), na.rm = TRUE))), 2)
-  
+
   # for qpcR
   dat_reverse <- cbind(cyc = x, fluo = (max(dat_smoothed) - rev(dat_smoothed)))
   # inefficient kludge to find l4 model
   data("sysdata", package = "qpcR", envir = parent.frame())
-  
+
   # Estimate amplification start and stop via bg.max from chipPCR
   res_bg.max_tmp <- armor(chipPCR::bg.max(x, y), n = 3)
   if (length(res_bg.max_tmp) == 3) {
@@ -220,12 +220,12 @@ pcrfit_single <- function(x) {
       amp.stop = 0
     )
   } else {
-      start_vals <- c(head(y_quantile, 5))
-      stat_threshold <- mad(start_vals)
-      if(stat_threshold > 0.2) {
-          res_bg.max_tmp@bg.start <- 4
-      } else {
-          res_bg.max_tmp@bg.start <- 2
+    start_vals <- c(head(y_quantile, 5))
+    stat_threshold <- mad(start_vals)
+    if (stat_threshold > 0.2) {
+      res_bg.max_tmp@bg.start <- 4
+    } else {
+      res_bg.max_tmp@bg.start <- 2
     }
     res_bg.max <- c(
       bg.start = res_bg.max_tmp@bg.start,
@@ -233,33 +233,31 @@ pcrfit_single <- function(x) {
       amp.stop = res_bg.max_tmp@amp.stop
     )
   }
-  
+
   # Determine the head to tail ratio
   res_head2tail_ratio <- armor(PCRedux::head2tailratio(y))
-  if (res_head2tail_ratio > 50) {
-    res_head2tail_ratio <- 0
-  }
-  
+  if (res_head2tail_ratio > 50 | !is.finite(res_head2tail_ratio)) res_head2tail_ratio <- 0
+
   # Determine the slope from the cycles 2 to 11
   res_lm_fit <- armor(PCRedux::earlyreg(x, y), 3)
-  
+
   # Try to estimate the slope and the intercept of the tail region,
   # which might be indicative of a hook effect (strong negative slope)
   res_hookreg_simple <- armor(PCRedux::hookreg(x, y, normalize = FALSE), 10)
-  
+
   res_hookregNL <- suppressMessages(PCRedux::hookregNL(x = x, y))
   res_hookregNL <- armor(PCRedux::hookregNL(x, y), 4)
-  
+
   res_hookreg <- ifelse(res_hookreg_simple["hook"] == 1 || res_hookregNL["hook"] == 1, 1, 0)
-  
+
   # Calculates the area of the amplification curve
   res_polyarea <- armor(round(pracma::polyarea(xseq, ypred), 3), 1)
-  
+
   # Calculates the area of the amplification curve
   res_polyarea_trapz <- round(armor(pracma::trapz(xseq, ypred)), 3)
-  
+
   # Calculate change points
-  
+
   # Smooth data with moving average smoothing filter for further data
   # analysis steps.
   y_double <- c(y[-c(1:3)], y[-c(1:3)])
@@ -269,10 +267,10 @@ pcrfit_single <- function(x) {
   dat_smoothed_double <- cbind(cycles_double, chipPCR::smoother(cycles_double, y_double, method = "mova"))
   # Calculate the first derivative
   res_diffQ_double <- try(suppressMessages(MBmca::diffQ(dat_smoothed_double, verbose = TRUE)$xy), silent = TRUE)
-  
+
   # Agglomerative hierarchical estimation algorithm for multiple change point analysis
   res_cp_e.agglo <- armor(length(ecp::e.agglo(as.matrix(res_diffQ_double[["d(F) / dT"]]))$estimates))
-  
+
   # Bayesian analysis of change points
   res_bcp_tmp <- armor(bcp::bcp(res_diffQ_double[["d(F) / dT"]])$posterior.prob)
   if (length(res_bcp_tmp) != 1) {
@@ -280,78 +278,78 @@ pcrfit_single <- function(x) {
   } else {
     res_bcp <- 0
   }
-  
+
   # Median based local robust regression (mblrr)
   res_mblrr <- armor(PCRedux::mblrr(x, y), 6)
-  
+
   # Calculate amptester results
   res_amptester <- armor(chipPCR::amptester(y), 7)
-    if (length(res_amptester) != 1 && class(res_amptester) == "amptest") {
-      amptester_shapiro <- res_amptester@decisions["shap.noisy"][[1]]
-      amptester_lrt <- res_amptester@decisions["lrt.test"][[1]]
-      amptester_rgt <- res_amptester@decisions["rgt.dec"][[1]]
-      amptester_tht <- res_amptester@decisions["tht.dec"][[1]]
-      amptester_slt <- res_amptester@decisions["slt.dec"][[1]]
-      amptester_polygon <- res_amptester@polygon / length_cycle
-      amptester_slope.ratio <- res_amptester@slope.ratio / length_cycle
-      amptester <- c(
-        amp.shap = as.numeric(amptester_shapiro[1]),
-        amp.lrt = as.numeric(amptester_lrt[1]),
-        amp.rgt = as.numeric(amptester_rgt[1]),
-        amp.tht = as.numeric(amptester_tht[1]),
-        amp.slt = as.numeric(amptester_slt[1]),
-        amp.pol = as.numeric(amptester_polygon[1]),
-        amp.ratio = as.numeric(amptester_slope.ratio)
-      )
-    } else {
-        amptester <- c(
-        amp.shap = 0,
-        amp.lrt = 0,
-        amp.rgt = 0,
-        amp.tht = 0,
-        amp.slt = 0,
-        amp.pol = 0,
-        amp.ratio = 0        
-      )
-    }
-    
-    if(is.na(amptester["amp.shap"])) amptester["amp.shap"] <- 0
-    if(is.na(amptester["amp.lrt"])) amptester["amp.lrt"] <- 0
-    if(is.na(amptester["amp.rgt"])) amptester["amp.rgt"] <- 0
-    if(is.na(amptester["amp.tht"])) amptester["amp.tht"] <- 0
-    if(is.na(amptester["amp.pol"])) amptester["amp.pol"] <- 0
-    if(is.na(amptester["amp.ratio"])) amptester["amp.ratio"] <- 0
-  
+  if (length(res_amptester) != 1 && class(res_amptester) == "amptest") {
+    amptester_shapiro <- res_amptester@decisions["shap.noisy"][[1]]
+    amptester_lrt <- res_amptester@decisions["lrt.test"][[1]]
+    amptester_rgt <- res_amptester@decisions["rgt.dec"][[1]]
+    amptester_tht <- res_amptester@decisions["tht.dec"][[1]]
+    amptester_slt <- res_amptester@decisions["slt.dec"][[1]]
+    amptester_polygon <- res_amptester@polygon / length_cycle
+    amptester_slope.ratio <- res_amptester@slope.ratio / length_cycle
+    amptester <- c(
+      amp.shap = as.numeric(amptester_shapiro[1]),
+      amp.lrt = as.numeric(amptester_lrt[1]),
+      amp.rgt = as.numeric(amptester_rgt[1]),
+      amp.tht = as.numeric(amptester_tht[1]),
+      amp.slt = as.numeric(amptester_slt[1]),
+      amp.pol = as.numeric(amptester_polygon[1]),
+      amp.ratio = as.numeric(amptester_slope.ratio)
+    )
+  } else {
+    amptester <- c(
+      amp.shap = 0,
+      amp.lrt = 0,
+      amp.rgt = 0,
+      amp.tht = 0,
+      amp.slt = 0,
+      amp.pol = 0,
+      amp.ratio = 0
+    )
+  }
+
+  if (is.na(amptester["amp.shap"])) amptester["amp.shap"] <- 0
+  if (is.na(amptester["amp.lrt"])) amptester["amp.lrt"] <- 0
+  if (is.na(amptester["amp.rgt"])) amptester["amp.rgt"] <- 0
+  if (is.na(amptester["amp.tht"])) amptester["amp.tht"] <- 0
+  if (is.na(amptester["amp.pol"])) amptester["amp.pol"] <- 0
+  if (is.na(amptester["amp.ratio"])) amptester["amp.ratio"] <- 0
+
   # Estimate the spread of the approximate local minima and maxima of the curve data
-  
+
   res_mcaPeaks <- armor(MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2]))
   if (length(res_mcaPeaks) == 2) {
-    if(nrow(res_mcaPeaks[[1]]) == 0 || nrow(res_mcaPeaks[[2]]) == 0) {
-        res_peaks_ratio <- 0
+    if (nrow(res_mcaPeaks[[1]]) == 0 || nrow(res_mcaPeaks[[2]]) == 0) {
+      res_peaks_ratio <- 0
     } else {
-    res_peaks_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
-    if(is.na(res_peaks_ratio) || res_peaks_ratio == '-Inf' || res_peaks_ratio == 'Inf') {
+      res_peaks_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
+      if (is.na(res_peaks_ratio) || res_peaks_ratio == "-Inf" || res_peaks_ratio == "Inf") {
         res_peaks_ratio <- 0
-    }
+      }
     }
   } else {
     res_peaks_ratio <- res_mcaPeaks
   }
-  
+
   # Estimate the slope between the minimum and the maximum of the second derivative
   res_diffQ2 <- armor(MBmca::diffQ2(cbind(x[-c(1:3)], dat_smoothed[-c(1:3)]),
-                                    verbose = FALSE,
-                                    fct = get(res_guess_direction, pos = "package:base"),
-                                    inder = TRUE
+    verbose = FALSE,
+    fct = get(res_guess_direction, pos = "package:base"),
+    inder = TRUE
   ))
-  
+
   # The diffQ2 makes calculates the approximate Cq values approximately. In
   # some cases the second derivative maximum can be larger then the first
   # derivative maximum and in some cases the second derivative minimum can be
   # lower then the first derivative maximum. To account for this all values are
   # checked and set to the values at the approximate first derivative maximum
   # accordingly.
-  
+
   if (res_diffQ2[["xTm1.2.D2"]][1] > res_diffQ2[["Tm"]]) {
     res_diffQ2[["xTm1.2.D2"]][1] <- res_diffQ2[["Tm"]]
     res_diffQ2[["yTm1.2.D2"]][1] <- res_diffQ2[["fluoTm"]]
@@ -360,7 +358,7 @@ pcrfit_single <- function(x) {
     res_diffQ2[["xTm1.2.D2"]][2] <- res_diffQ2[["Tm"]]
     res_diffQ2[["yTm1.2.D2"]][2] <- res_diffQ2[["fluoTm"]]
   }
-  
+
   # difference between the minimum and the maximum of the approximate second derivative.
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && res_diffQ2[1] < length_cycle) {
     if (length(res_diffQ2) != 1) {
@@ -368,20 +366,20 @@ pcrfit_single <- function(x) {
       if (cpD2_range > 200) cpD2_range <- 0
       ROI <- armor(round(c(res_diffQ2[[1]], res_diffQ2[[3]]))[c(2, 1, 3)])
       res_loglin_slope <- armor(coefficients(lm(y[ROI] ~ ROI))[["ROI"]])
-      if(is.na(res_loglin_slope)) res_loglin_slope <- 0
+      if (is.na(res_loglin_slope)) res_loglin_slope <- 0
       if (inherits(res_loglin_slope, "try-error")) res_loglin_slope <- 0
     }
   } else {
     cpD2_range <- res_loglin_slope <- 0
   }
-  
+
   # Perform an autocorrelation analysis
-  
+
   res_autocorrelation <- armor(PCRedux::autocorrelation_test(y = dat_smoothed[-c(1:3)], n = 8))
-  
+
   # Fitting of non-linear multiparameter models
   # Fit sigmoidal models to curve data
-  
+
   b_val <- 0 # -10000
   c_val <- 0 # -10000
   d_val <- 0 # 10000
@@ -390,9 +388,9 @@ pcrfit_single <- function(x) {
   k_val <- 0 # -10000
   k1_val <- 0 # -10000
   k2_val <- 0 # -10000
-  
+
   # Get the parameters from the four-parameter model
-  
+
   # The l4 model
   res_pcrfit <- armor(qpcR::pcrfit(xy_tmp, 1, 2, model = l4))
   if (length(res_pcrfit) != 1) {
@@ -404,7 +402,7 @@ pcrfit_single <- function(x) {
     # (takeoff point) using externally studentized residuals as described
     # in Tichopad et al. (2003).
     res_takeoff <- unlist(qpcR::takeoff(res_pcrfit))
-    if(is.na(res_takeoff["top"])) res_takeoff["top"] <- res_takeoff["f.top"] <- 0
+    if (is.na(res_takeoff["top"])) res_takeoff["top"] <- res_takeoff["f.top"] <- 0
     # sliwin qPCR efficiency
     # Calculation of the qPCR efficiency by the 'window-of-linearity' method
     res_sliwin <- armor(qpcR::sliwin(res_pcrfit, plot = FALSE, verbose = FALSE)$eff)
@@ -417,8 +415,8 @@ pcrfit_single <- function(x) {
     res_takeoff <- c(0, 0)
     res_eff_tmp <- c(0, 0, 0, 0, 0)
   }
-  
-  
+
+
   if (is.na(res_takeoff[[1]])) {
     bg_dat <- c(head(y_quantile, 8))
     res_sd_bg <- sd(bg_dat)
@@ -426,43 +424,43 @@ pcrfit_single <- function(x) {
     bg_dat <- y_quantile[1L:res_takeoff[[1]]]
     res_sd_bg <- armor(sd(bg_dat))
   }
-  
-  if(is.na(res_sd_bg) || res_sd_bg == '-Inf' || res_sd_bg == '-Inf') res_sd_bg <- 0
-  
+
+  if (is.na(res_sd_bg) || res_sd_bg == "-Inf" || res_sd_bg == "-Inf") res_sd_bg <- 0
+
   pcrfit_model_l4 <- res_pcrfit
   res_coef_model_l4 <- armor(coefficients(pcrfit_model_l4))
   if (length(res_coef_model_l4) == 1) {
     res_coef_model_l4 <- c(b = b_val, c = c_val, d = d_val, e = e_val)
   }
-  
+
   # Get the parameters from the five-parameter model
   pcrfit_model_l5 <- armor(qpcR::pcrfit(xy_tmp, 1, 2, model = l5))
   res_coef_model_l5 <- armor(coefficients(pcrfit_model_l5))
   if (length(res_coef_model_l5) == 1) {
     res_coef_model_l5 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val)
   }
-  
+
   # Get the parameters from the five-parameter model
   pcrfit_model_l6 <- armor(qpcR::pcrfit(xy_tmp, 1, 2, model = l6))
   res_coef_model_l6 <- armor(coefficients(pcrfit_model_l6))
   if (length(res_coef_model_l6) == 1) {
     res_coef_model_l6 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k = k_val)
   }
-  
+
   # Get the parameters from the seven-parameter model
   pcrfit_model_l7 <- armor(qpcR::pcrfit(xy_tmp, 1, 2, model = l7))
   res_coef <- armor(coefficients(pcrfit_model_l7))
   if (length(res_coef) == 1) {
     res_coef <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
   }
-  
+
   res_convInfo_iteratons <- armor(pcrfit_model_l7[["convInfo"]][["finIter"]])
   if (length(res_convInfo_iteratons) == 1) {
     res_convInfo_iteratons <- res_convInfo_iteratons
   }
-  
+
   # Determine the optimal model based on the AICc
-  
+
   res_AICc <- list(
     l4 = if (length(armor(pcrfit_model_l4)) == 1) {
       NA
@@ -485,37 +483,37 @@ pcrfit_single <- function(x) {
       armor(qpcR::AICc(pcrfit_model_l7))
     }
   )
-  
+
   res_fit_model <- as.factor(which(res_AICc == min(unlist(res_AICc), na.rm = TRUE)))
-  
+
   if (length(res_fit_model) == 0) {
     res_fit_model <- as.factor("l0")
     names(res_fit_model) <- "l0"
   }
-  
+
   if (names(res_fit_model) == "l4") res_fit <- pcrfit_model_l4
   if (names(res_fit_model) == "l5") res_fit <- pcrfit_model_l5
   if (names(res_fit_model) == "l6") res_fit <- pcrfit_model_l6
   if (names(res_fit_model) == "l7") res_fit <- pcrfit_model_l7
   if (names(res_fit_model) == "l0") res_fit <- "try-error"
-  
+
   # Fit the "reverse" model
   pcrfit_startmodel_reverse <- armor(qpcR::pcrfit(dat_reverse, 1, 2, model = l4))
-  
+
   res_fit_reverse <- armor(qpcR::mselect(
     pcrfit_startmodel_reverse,
     verbose = FALSE, fctList = list(l4, l5, l6, l7)
   ))
-  
+
   # Determine the model for the reverse data suggested by the
   # mselect function based on the AICc
-  
+
   if (length(res_fit_reverse) == 0) {
     res_fit_model_reverse <- as.factor("l0")
   } else {
     res_fit_model_reverse <- armor(names(which(res_fit_reverse[["retMat"]][, "AICc"] == min(res_fit_reverse[["retMat"]][, "AICc"]))))
   }
-  
+
   if (res_fit_model_reverse != "l0") {
     # TakeOff Point from the reverse data
     # Calculates the first significant cycle of the exponential region
@@ -542,23 +540,23 @@ pcrfit_single <- function(x) {
     plateau_dat <- c(tail(y_quantile, 5))
     res_sd_plateau <- sd(plateau_dat)
   }
-  
-  if(is.na(res_sd_plateau)) res_sd_plateau <- sd(tail(y_quantile, 5))
-  
+
+  if (is.na(res_sd_plateau)) res_sd_plateau <- sd(tail(y_quantile, 5))
+
   names(res_takeoff_reverse) <- c("tdp", "f.tdp")
-  
+
   # Cq of the amplification curve
   # Determine the Cq and other parameters
   res_efficiency_tmp <- armor(
     qpcR::efficiency(res_fit, plot = FALSE)[c(
       "eff",
-      "cpD1", 
+      "cpD1",
       "cpD2",
       "fluo",
       "init2"
     )]
   )
-  
+
   if (length(res_efficiency_tmp) == 5) {
     res_cpDdiff <- armor(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]])
   } else {
@@ -571,16 +569,16 @@ pcrfit_single <- function(x) {
     )
     res_cpDdiff <- 0
   }
-  
-  if(is.na(res_efficiency_tmp["init2"])) res_efficiency_tmp["init2"] <- 0
-  
+
+  if (is.na(res_efficiency_tmp["init2"])) res_efficiency_tmp["init2"] <- 0
+
   # Calculate the ratio between the the approximate second derivative maximum
   # cpD2_approx and the second derivative maximum cpD2
-  
+
   cpD2_ratio_tmp <- res_efficiency_tmp[["cpD2"]] / res_diffQ2[[3]][1]
   if (cpD2_ratio_tmp == Inf) cpD2_ratio <- 0
   cpD2_ratio <- cpD2_ratio_tmp
-  
+
   # The cpD2_ratio is a binary value, which is based on a range empirically
   # determined on the data_sample data set.
   #
@@ -589,80 +587,81 @@ pcrfit_single <- function(x) {
   # } else {
   #     cpD2_ratio <- 0
   # }
-  
+
   # # Calculate angle
   #     # Get x coordinates for the vectors be the inder
   #     # function. The first derivative maximum (FDM) is the
   #     # center. The second derivative maximum (SDM) is the left
   #     # and second derivative minimum (SDm) is the right point of
   #     # the vectors.
-  
+
   origin <- data.frame(res_diffQ2[["Tm"]][1], res_diffQ2[["fluoTm"]][1])
   point_x1 <- data.frame(res_diffQ2[["xTm1.2.D2"]][1], res_diffQ2[["yTm1.2.D2"]][1])
   point_x2 <- data.frame(res_diffQ2[["xTm1.2.D2"]][2], res_diffQ2[["yTm1.2.D2"]][2])
-  
+
   # Calculation of vectors (origin is the starting point)
   u <- data.frame(
     u_x = origin[1] - point_x1[1],
     u_y = origin[2] - point_x1[2]
   )
-  
+
   v <- data.frame(
     v_x = origin[1] - point_x2[1],
     V_y = origin[2] - point_x2[2]
   )
-  
+
   # Determine the dot product and the absolute values
   dot_product <- sum(u * v)
   length_of_vectors <- sqrt(sum(u^2)) * sqrt(sum(v^2))
-  
+
   # Calculate central angle
   res_angle <- dot_product / length_of_vectors
-  
-  if(is.na(res_angle)) res_angle <- 0
-  
+
+  if (is.na(res_angle)) res_angle <- 0
+
   ## Method 17
   res_cor <- armor(cor(x, y))
-  
+
   ## Method 18
   ##############################################################################
   # code taken literally from Package segmented version 1.2-0
   # to avoid error message:
   # Undefined global functions or variables:      seg.control
-  seg.control <- function (n.boot = 10, display = FALSE, tol = 1e-05, it.max = 30, 
-                           fix.npsi = TRUE, K = 10, quant = TRUE, maxit.glm = 25, h = 1, 
-                           size.boot = NULL, jt = FALSE, nonParam = TRUE, random = TRUE, 
-                           seed = NULL, fn.obj = NULL, digits = NULL, conv.psi = FALSE, 
-                           alpha = 0.02, min.step = 1e-04, powers = c(1, 1), last = TRUE, 
-                           stop.if.error = NULL, gap = FALSE, fc = 0.95) 
-  {
-    list(toll = tol, it.max = it.max, visual = display, stop.if.error = stop.if.error, 
-         K = K, last = last, maxit.glm = maxit.glm, h = h, n.boot = n.boot, 
-         size.boot = size.boot, gap = gap, jt = jt, nonParam = nonParam, 
-         random = random, pow = powers, seed = seed, quant = quant, 
-         fn.obj = fn.obj, digits = digits, conv.psi = conv.psi, 
-         alpha = alpha, fix.npsi = fix.npsi, min.step = min.step, 
-         fc = fc)
+  seg.control <- function(n.boot = 10, display = FALSE, tol = 1e-05, it.max = 30,
+                          fix.npsi = TRUE, K = 10, quant = TRUE, maxit.glm = 25, h = 1,
+                          size.boot = NULL, jt = FALSE, nonParam = TRUE, random = TRUE,
+                          seed = NULL, fn.obj = NULL, digits = NULL, conv.psi = FALSE,
+                          alpha = 0.02, min.step = 1e-04, powers = c(1, 1), last = TRUE,
+                          stop.if.error = NULL, gap = FALSE, fc = 0.95) {
+    list(
+      toll = tol, it.max = it.max, visual = display, stop.if.error = stop.if.error,
+      K = K, last = last, maxit.glm = maxit.glm, h = h, n.boot = n.boot,
+      size.boot = size.boot, gap = gap, jt = jt, nonParam = nonParam,
+      random = random, pow = powers, seed = seed, quant = quant,
+      fn.obj = fn.obj, digits = digits, conv.psi = conv.psi,
+      alpha = alpha, fix.npsi = fix.npsi, min.step = min.step,
+      fc = fc
+    )
   }
   ##############################################################################
-  
+
   segmenter <- function(x, y) {
     res_lm_segmenter <- lm(y ~ x)
     segments <- segmented::segmented(res_lm_segmenter, seg.Z = ~x, npsi = 2, control = seg.control(display = FALSE, n.boot = 20, size.boot = 20, it.max = 50))
     return(c(segments$coefficients[2:4], segments$psi[, 2]))
   }
-  
+
   res_segment <- armor(segmenter(x, y), 5)
-  
-  if(length(which(is.na(res_segment) == TRUE)) >= 1) {
-      res_segment <- rep(0, 5)
-      names(res_segment) <- c("x", "U1.x", "U2.x", "psi1.x", "psi2.x")
+
+  if (length(which(is.na(res_segment) == TRUE)) >= 1) {
+    res_segment <- rep(0, 5)
+    names(res_segment) <- c("x", "U1.x", "U2.x", "psi1.x", "psi2.x")
   }
-  
+
   ## Method 19
   sumdiffer <- function(y) sum(diff(y) > 0, na.rm = TRUE) / length(y)
   res_sumdiff <- armor(sumdiffer(y))
-  
+
   ## Method 20
   polyreger <- function(x, y) {
     res_lm_polyreger <- lm(y ~ poly(x, 3))
@@ -671,7 +670,7 @@ pcrfit_single <- function(x) {
     return(res_coef_polyreger)
   }
   res_poly <- armor(polyreger(x, y), 4)
-  
+
   # Takes any amplification curve and fits a spline to predict exactly 50 data
   # points for further processing.
   # The predicted data are cut in 10 segments containing 5 values. These values
@@ -681,15 +680,15 @@ pcrfit_single <- function(x) {
     xseq <- seq(1, length(y), length.out = 50)
     ypred <- predict(res_spline, xseq)$y
     cut_y_values <- cut(xseq, 10)
-#     res_location_segments <- tapply(ypred, cut_y_values, function(x) median(x, na.rm = TRUE))
+    #     res_location_segments <- tapply(ypred, cut_y_values, function(x) median(x, na.rm = TRUE))
     res_variation_segments <- tapply(ypred, cut_y_values, function(x) mad(x, na.rm = TRUE))
-    res_windower <- res_variation_segments #/ res_location_segments
+    res_windower <- res_variation_segments # / res_location_segments
     names(res_windower) <- paste("Win_", 1:10, sep = "")
     return(res_windower)
   }
-  
+
   res_window <- armor(windower(x, y), 10)
-  
+
   all_results <- data.frame(
     # Quantification points, derivatives, efficiencies,
     # curve fitting
