@@ -49,13 +49,13 @@
 #'   "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
 #'   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
-#'   "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
-#'   "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
-#'   "d_model_param" \tab Is the d model parameter of the five parameter model \tab  numeric \cr
-#'   "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
-#'   "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
+#'   "b_model_param" \tab Is the b model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+#'   "c_model_param" \tab Is the c model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+#'   "d_model_param" \tab Is the d model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+#'   "e_model_param" \tab Is the e model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+#'   "f_model_param" \tab Is the f model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
 #'   "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
-#'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
+#'   "convInfo_iteratons" \tab Number of iterations needed to fit the 7 parameter model \tab numeric \cr
 #'   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
 #'   "qPCRmodelRF" \tab non-linear model determined for the analysis of the reversed amplification curve \tab factor \cr
 #'   "minRFU" \tab minimum of fluorescence amplitude \tab numeric \cr
@@ -102,7 +102,7 @@
 #'   "res_coef_pcrfit.d" \tab  \tab numeric \cr
 #'   "res_coef_pcrfit.e" \tab  \tab numeric \cr
 #'   "fitAIC" \tab  \tab numeric \cr
-#'   "fitIter" \tab  \tab numeric \cr
+#'   "fitIter" \tab Number of iterations needed to fit the 4 parameter model \tab numeric \cr
 #'   "segment_x" \tab  \tab numeric \cr
 #'   "segment_U1.x" \tab  \tab numeric \cr
 #'   "segment_U2.x" \tab  \tab numeric \cr
@@ -449,9 +449,9 @@ pcrfit_single <- function(x) {
 
   # Get the parameters from the seven-parameter model
   pcrfit_model_l7 <- armor(qpcR::pcrfit(xy_tmp, 1, 2, model = l7))
-  res_coef <- armor(coefficients(pcrfit_model_l7))
-  if (length(res_coef) == 1) {
-    res_coef <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
+  res_coef_model_l7 <- armor(coefficients(pcrfit_model_l7))
+  if (length(res_coef_model_l7) == 1) {
+    res_coef_model_l7 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
   }
 
   res_convInfo_iteratons <- armor(pcrfit_model_l7[["convInfo"]][["finIter"]])
@@ -496,6 +496,23 @@ pcrfit_single <- function(x) {
   if (names(res_fit_model) == "l6") res_fit <- pcrfit_model_l6
   if (names(res_fit_model) == "l7") res_fit <- pcrfit_model_l7
   if (names(res_fit_model) == "l0") res_fit <- "try-error"
+
+  if (names(res_fit_model) == "l4") {
+    res_optimal_coefficients <- c(res_coef_model_l4, f = f_val)
+  }
+  if (names(res_fit_model) == "l5") {
+    res_optimal_coefficients <- c(res_coef_model_l5)
+  }
+  if (names(res_fit_model) == "l6") {
+    res_optimal_coefficients <- c(res_coef_model_l6)
+  }
+  if (names(res_fit_model) == "l7") {
+    res_optimal_coefficients <- c(res_coef_model_l7)
+  }
+  if (names(res_fit_model) == "l0") {
+    res_optimal_coefficients <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
+  }
+
 
   # Fit the "reverse" model
   pcrfit_startmodel_reverse <- armor(qpcR::pcrfit(dat_reverse, 1, 2, model = l4))
@@ -548,7 +565,7 @@ pcrfit_single <- function(x) {
   # Cq of the amplification curve
   # Determine the Cq and other parameters
   res_efficiency_tmp <- armor(
-    qpcR::efficiency(res_fit, plot = FALSE)[c(
+    qpcR::efficiency(pcrfit_model_l4, plot = FALSE)[c(
       "eff",
       "cpD1",
       "cpD2",
@@ -624,30 +641,32 @@ pcrfit_single <- function(x) {
 
   ## Method 18
   ##############################################################################
-  # code taken literally from Package segmented version 1.2-0
-  # to avoid error message:
-  # Undefined global functions or variables:      seg.control
-  seg.control <- function(n.boot = 10, display = FALSE, tol = 1e-05, it.max = 30,
-                          fix.npsi = TRUE, K = 10, quant = TRUE, maxit.glm = 25, h = 1,
-                          size.boot = NULL, jt = FALSE, nonParam = TRUE, random = TRUE,
-                          seed = NULL, fn.obj = NULL, digits = NULL, conv.psi = FALSE,
-                          alpha = 0.02, min.step = 1e-04, powers = c(1, 1), last = TRUE,
-                          stop.if.error = NULL, gap = FALSE, fc = 0.95) {
-    list(
-      toll = tol, it.max = it.max, visual = display, stop.if.error = stop.if.error,
-      K = K, last = last, maxit.glm = maxit.glm, h = h, n.boot = n.boot,
-      size.boot = size.boot, gap = gap, jt = jt, nonParam = nonParam,
-      random = random, pow = powers, seed = seed, quant = quant,
-      fn.obj = fn.obj, digits = digits, conv.psi = conv.psi,
-      alpha = alpha, fix.npsi = fix.npsi, min.step = min.step,
-      fc = fc
-    )
-  }
+#   # code taken literally from Package segmented version 1.2-0
+#   # to avoid error message:
+#   # Undefined global functions or variables:      seg.control
+#   seg.control <- function(n.boot = 10, display = FALSE, tol = 1e-05, it.max = 30,
+#                           fix.npsi = TRUE, K = 10, quant = TRUE, maxit.glm = 25, h = 1,
+#                           size.boot = NULL, jt = FALSE, nonParam = TRUE, random = TRUE,
+#                           seed = NULL, fn.obj = NULL, digits = NULL, conv.psi = FALSE,
+#                           alpha = 0.02, min.step = 1e-04, powers = c(1, 1), last = TRUE,
+#                           stop.if.error = NULL, gap = FALSE, fc = 0.95) {
+#     list(
+#       toll = tol, it.max = it.max, visual = display, stop.if.error = stop.if.error,
+#       K = K, last = last, maxit.glm = maxit.glm, h = h, n.boot = n.boot,
+#       size.boot = size.boot, gap = gap, jt = jt, nonParam = nonParam,
+#       random = random, pow = powers, seed = seed, quant = quant,
+#       fn.obj = fn.obj, digits = digits, conv.psi = conv.psi,
+#       alpha = alpha, fix.npsi = fix.npsi, min.step = min.step,
+#       fc = fc
+#     )
+#   }
   ##############################################################################
 
-  segmenter <- function(x, y) {
+  control_fct <- segmented::seg.control(display = FALSE, n.boot = 20, size.boot = 20, it.max = 50)
+
+  segmenter <- function(x, y, control_fct) {
     res_lm_segmenter <- lm(y ~ x)
-    segments <- segmented::segmented(res_lm_segmenter, seg.Z = ~x, npsi = 2, control = seg.control(display = FALSE, n.boot = 20, size.boot = 20, it.max = 50))
+    segments <- segmented::segmented(res_lm_segmenter, seg.Z = ~x, npsi = 2, control = control_fct)
     return(c(segments$coefficients[2:4], segments$psi[, 2]))
   }
 
@@ -707,15 +726,15 @@ pcrfit_single <- function(x) {
     f.tdp = res_takeoff_reverse[[2]],
     bg.stop = res_bg.max[2],
     amp.stop = res_bg.max[3],
-    b_slope = res_coef[["b"]],
-    b_model_param = res_coef_model_l5[["b"]],
-    c_model_param = res_coef_model_l5[["c"]],
-    d_model_param = res_coef_model_l5[["d"]],
-    e_model_param = res_coef_model_l5[["e"]],
-    f_model_param = res_coef_model_l5[["f"]],
-    f_intercept = res_coef[["f"]],
-    k1_model_param = res_coef[["k1"]],
-    k2_model_param = res_coef[["k2"]],
+    b_slope = res_coef_model_l7[["b"]],
+    b_model_param = res_optimal_coefficients[["b"]],
+    c_model_param = res_optimal_coefficients[["c"]],
+    d_model_param = res_optimal_coefficients[["d"]],
+    e_model_param = res_optimal_coefficients[["e"]],
+    f_model_param = res_optimal_coefficients[["f"]],
+    f_intercept = res_coef_model_l7[["f"]],
+    k1_model_param = res_coef_model_l7[["k1"]],
+    k2_model_param = res_coef_model_l7[["k2"]],
     convInfo_iteratons = res_convInfo_iteratons,
     qPCRmodel = factor(names(res_fit_model)), # res_fit_model[[1]],
     qPCRmodelRF = factor(res_fit_model_reverse[[1]]),

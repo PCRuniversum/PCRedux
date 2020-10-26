@@ -19,6 +19,7 @@
 #' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm mad median na.omit quantile sd wilcox.test cor predict smooth.spline
 #' @importFrom utils head tail data
 #' @importFrom zoo as.zoo
+#' @importFrom segmented seg.control
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 #' @docType package
 #' @name PCRedux-package

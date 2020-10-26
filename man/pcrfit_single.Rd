@@ -28,13 +28,13 @@ Output Description
   "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
-  "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
-  "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
-  "d_model_param" \tab Is the d model parameter of the five parameter model \tab  numeric \cr
-  "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
-  "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
+  "b_model_param" \tab Is the b model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "c_model_param" \tab Is the c model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "d_model_param" \tab Is the d model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "e_model_param" \tab Is the e model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "f_model_param" \tab Is the f model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
   "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
-  "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
+  "convInfo_iteratons" \tab Number of iterations needed to fit the 7 parameter model \tab numeric \cr
   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
   "qPCRmodelRF" \tab non-linear model determined for the analysis of the reversed amplification curve \tab factor \cr
   "minRFU" \tab minimum of fluorescence amplitude \tab numeric \cr
@@ -81,7 +81,7 @@ Output Description
   "res_coef_pcrfit.d" \tab  \tab numeric \cr
   "res_coef_pcrfit.e" \tab  \tab numeric \cr
   "fitAIC" \tab  \tab numeric \cr
-  "fitIter" \tab  \tab numeric \cr
+  "fitIter" \tab Number of iterations needed to fit the 4 parameter model \tab numeric \cr
   "segment_x" \tab  \tab numeric \cr
   "segment_U1.x" \tab  \tab numeric \cr
   "segment_U2.x" \tab  \tab numeric \cr
