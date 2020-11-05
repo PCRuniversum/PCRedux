@@ -15,7 +15,8 @@ Quantitative PCR Machine Learning Toolkit
 can install the latest development version of the code using the following code:
 
 ```R
-source("https://install-github.me/PCRuniversum/PCRedux")
+library("devtools")
+install_github("PCRuniversum/PCRedux")
 ```
 
 ## Manual
