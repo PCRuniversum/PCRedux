@@ -17,6 +17,7 @@
 #'  \code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}},
 #'  \code{\link[stats]{cor.test}}
 #' @examples
+#' default.par <- par(no.readonly = TRUE)
 #' # Test for autocorrelation in amplification curve data
 #' # Load qpcR for the data
 #' library(qpcR)
@@ -62,6 +63,7 @@
 #' barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n",
 #'         ylab="", main="Performance of autocorrelation_test")
 #' axis(2, at=c(0,1), labels=c("0", "1"), las=2)
+#' par(default.par)
 
 
 autocorrelation_test <- function(y, n = 8, sig.level = 0.01) {

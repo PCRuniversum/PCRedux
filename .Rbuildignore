@@ -6,3 +6,4 @@
 ^install_rdevel.sh
 paper
 docs
+^cran-comments\.md$

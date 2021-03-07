@@ -23,7 +23,7 @@ which includes utilities for functional data analysis (e.g., Hausdorff
 distance).
 }
 \examples{
-
+default.par <- par(no.readonly = TRUE)
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the last eight cycles.
 library(qpcR)
@@ -49,7 +49,7 @@ legend("topleft", as.character(res_fdata_colnames), pch=19,
 res_fdata_hclust <- metric.hausdorff(res_fdata)
 plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
    curves as calculated by the Hausdorff distance")
-
+par(default.par)
 }
 \references{
 M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical

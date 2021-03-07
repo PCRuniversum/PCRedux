@@ -48,15 +48,15 @@ Output Description
   "sigma_bg" \tab sigma of background \tab numeric \cr
   "sd_bg" \tab standard deviation of the background (ground phase) region (start to takeoff point) \tab numeric \cr
   "head2tail_ratio" \tab ratio between the signal of the background and tail region \tab numeric \cr
-  "mblrr_intercept_bg" \tab  \tab numeric \cr
-  "mblrr_slope_bg" \tab \tab numeric \cr
-  "mblrr_cor_bg" \tab \tab numeric \cr
-  "mblrr_intercept_pt" \tab \tab numeric \cr
-  "mblrr_slope_pt" \tab \tab numeric \cr
-  "mblrr_cor_pt" \tab \tab numeric \cr
+  "mblrr_intercept_bg" \tab the value of the intercept in the estimated background region of the amplification curve \tab numeric \cr
+  "mblrr_slope_bg" \tab the value of the slope in the estimated background region of the amplification curve \tab numeric \cr
+  "mblrr_cor_bg" \tab the value of the linear correlation coefficient in the estimated background region of the amplification curve \tab numeric \cr
+  "mblrr_intercept_pt" \tab the value of the intercept in the estimated plateau phase of the amplification curve \tab numeric \cr
+  "mblrr_slope_pt" \tab the value of the slope in the estimated plateau phase of the amplification curve \tab numeric \cr
+  "mblrr_cor_pt" \tab the value of the linear correlation coefficient in the estimated plateau phase of the amplification curve \tab numeric \cr
   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
-  "autocorrelation" \tab  \tab numeric \cr
+  "autocorrelation" \tab is a value of autocorrelation of a gain curve from a quantitative PCR experiment \tab numeric \cr
   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
   "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
@@ -68,7 +68,7 @@ Output Description
   "amptester_slope.ratio" \tab SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. \tab numeric \cr
   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
-  "hookreg_hook_delta" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
+  "hookreg_hook_delta" \tab Estimated value for the number of cycles from the qPCR cycle where the hook effect was determined up to the last qPCR cycle \tab numeric \cr
   "central_angle" \tab shows the central angle calculated from the maximum and minimum of the second derivatives, with the first derivative maximum being the center \tab numeric \cr
   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
   "number_of_cycles" \tab Number of cylces \tab numeric \cr

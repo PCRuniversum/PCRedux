@@ -37,7 +37,7 @@ a strong negative slope at the end of an amplification curve is indicative for
 a hook effect (see Barratt and Mackay 2002).
 }
 \examples{
-
+default.par <- par(no.readonly = TRUE)
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the last eight cycles.
 
@@ -64,6 +64,7 @@ plot(res_hook$intercept, res_hook$slope, pch=19, cex=2, col=data_colors,
  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
  text(res_hook$intercept, res_hook$slope, res_hook$sample)
 
+par(default.par)
 }
 \references{
 K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping

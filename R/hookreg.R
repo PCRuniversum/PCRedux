@@ -21,7 +21,7 @@
 #' doi:10.1128/JCM.40.4.1571-1572.2002.
 #' @keywords slope intercept hook
 #' @examples
-#'
+#' default.par <- par(no.readonly = TRUE)
 #' # Calculate slope and intercept on noise (negative) amplification curve data
 #' # for the last eight cycles.
 #'
@@ -48,6 +48,7 @@
 #'  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
 #'  text(res_hook$intercept, res_hook$slope, res_hook$sample)
 #'
+#' par(default.par)
 #' @export hookreg
 
 hookreg <- function(x, y, normalize=TRUE, sig.level=0.0025, CI.level=0.9975, robust=FALSE) {

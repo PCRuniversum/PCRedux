@@ -1,3 +1,7 @@
+Version 1.1 [March 2021]
+* cran-comments.md added
+* make sure in examples that we do not change the user's options, par or working directory
+
 Version 1.0-7 [September 2020]
 * Various bug fixes in data
 * Various bug fixes in pcrfit_single() and mblrr()

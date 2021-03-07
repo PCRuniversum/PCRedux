@@ -1,1 +1,25 @@
+# March 2021
+
+PCRedux has been developed publicly by a group of qPCR entusiasts since 2017. 
+But the foundations were created much earlier. These are the qpcR package [1], 
+the MBmca package [2] and the chipPCR package [3]. PCRedux has been available on 
+CRAN since 2017-11-2. However, it was archived on 2020-12-16 due to a dependency 
+on the chipPCR package. The chipPCR package was removed as the developer email 
+address no longer existed. The chipPCR package is now available on CRAN again. 
+Since 2017, the PCRedux package has been constantly evolving and few features 
+have been introduced in 2020. Since then the package has been considered stable. 
+This publication has been used to make corrections and to improve the technical 
+basis of the package.
+
+[1] S. Rödiger, A. Böhm, I. Schimke, Surface Melting Curve Analysis with R, The 
+R Journal. 5 (2013) 37–53. 
+https://journal.r-project.org/archive/2013-2/roediger-bohm-schimke.pdf.
+[2] S. Rödiger, M. Burdukiewicz, P. Schierack, chipPCR: an R package to 
+pre-process raw data of amplification curves, Bioinformatics. 31 (2015) 
+2900–2902. https://doi.org/10.1093/bioinformatics/btv205.
+[3] S. Rödiger, M. Burdukiewicz, P. Schierack, chipPCR: an R package to 
+pre-process raw data of amplification curves, Bioinformatics. 31 (2015) 
+2900–2902. https://doi.org/10.1093/bioinformatics/btv205.
+
+
 The 0.2.6 release adds more data sets and features
