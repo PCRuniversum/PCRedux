@@ -73,36 +73,36 @@ Output Description
   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
   "number_of_cycles" \tab Number of cylces \tab numeric \cr
   "direction" \tab test if the maximum of the first derivative is positive or negative \tab numeric \cr
-  "range" \tab  \tab numeric \cr
-  "polyarea_trapz" \tab  \tab numeric \cr
-  "cor" \tab  \tab numeric \cr
-  "res_coef_pcrfit.b" \tab  \tab numeric \cr
-  "res_coef_pcrfit.c" \tab  \tab numeric \cr
-  "res_coef_pcrfit.d" \tab  \tab numeric \cr
-  "res_coef_pcrfit.e" \tab  \tab numeric \cr
-  "fitAIC" \tab  \tab numeric \cr
+  "range" \tab outputs the difference of fluorescence between 0.99 and 0.01 percentile. The value thus corresponds approximately to the maximum achievable signal difference of an amplification curve. \tab numeric \cr
+  "polyarea_trapz" \tab calculates trapezoidal integration. The calculation stops when the difference from one step to the next is smaller than a tolerance value, or the iterations become too large. The value corresponds to the sum signal via the total amplification curve. \tab numeric \cr
+  "cor" \tab is the value of the correlation coefficient from a linear correlation analysis according to Pearson between all PCR cycles and the fluorescence signals. \tab numeric \cr
+  "res_coef_pcrfit.b" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model which describes the Hill’s slope of the curve (i.e. this is related to the steepness of the curve point e) \tab numeric \cr
+  "res_coef_pcrfit.c" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model which describes the maximum value that can be obtained (i.e. what happens at infinite number of cycles) \tab numeric \cr
+  "res_coef_pcrfit.d" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model which describes the minimum value that can be obtained (i.e. what happens at 0 cycles) \tab numeric \cr
+  "res_coef_pcrfit.e" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model, which describes the point of inflection (i.e. the point on the sigmoid curve halfway between d and c) \tab numeric \cr
+  "fitAIC" \tab is the value of the Akaike's second-order corrects Information Criterion, which was determined on a non-linear (sigmoid) four-parameter model \tab numeric \cr
   "fitIter" \tab Number of iterations needed to fit the 4 parameter model \tab numeric \cr
-  "segment_x" \tab  \tab numeric \cr
-  "segment_U1.x" \tab  \tab numeric \cr
-  "segment_U2.x" \tab  \tab numeric \cr
-  "segment_psi1.x" \tab  \tab numeric \cr
-  "segment_psi2.x" \tab  \tab numeric \cr
-  "sumdiff" \tab  \tab numeric \cr
-  "poly_1" \tab  \tab numeric \cr
-  "poly_2" \tab  \tab numeric \cr
-  "poly_3" \tab  \tab numeric \cr
-  "poly_4" \tab  \tab numeric \cr
-  "window_Win_1" \tab  \tab numeric \cr
-  "window_Win_2" \tab  \tab numeric \cr
-  "window_Win_3" \tab  \tab numeric \cr
-  "window_Win_4" \tab  \tab numeric \cr
-  "window_Win_5" \tab  \tab numeric \cr
-  "window_Win_6" \tab  \tab numeric \cr
-  "window_Win_7" \tab  \tab numeric \cr
-  "window_Win_8" \tab  \tab numeric \cr
-  "window_Win_9" \tab  \tab numeric \cr
-  "window_Win_10" \tab  \tab numeric \cr
-  "sd_plateau" \tab  \tab numeric \cr
+  "segment_x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. This segment describes the baseline in an amplification curve. \tab numeric \cr
+  "segment_U1.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. This segment describes the slope in an amplification curve. \tab numeric \cr
+  "segment_U2.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. This segment describes the plateau in an amplification curve. \tab numeric \cr
+  "segment_psi1.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. The value is based on the break-point(s) fixed at the values and describes the transition from the baseline phase to the exponential phase. \tab numeric \cr
+  "segment_psi2.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. The value is based on the break-point(s) fixed at the values and describes the transition from the exponential phase to the plateau phase. \tab numeric \cr
+  "sumdiff" \tab describes proportion of cycles x in which the fluorescence signal of x is smaller than in x+1 \tab numeric \cr
+  "poly_1" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the intercept "a" (cutting point of the amplification curve model with the ordinate). \tab numeric \cr
+  "poly_2" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the linear part "b*x". \tab numeric \cr
+  "poly_3" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the quadratic part "c*x^2". \tab numeric \cr
+  "poly_4" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the cubic part "d*x^3". \tab numeric \cr
+  "window_Win_1" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 1st window for cycles (0.961,4.9]. \tab numeric \cr
+  "window_Win_2" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 2nd window for cycles (4.9,8.8]. \tab numeric \cr
+  "window_Win_3" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 3rd window for cycles (8.8,12.7]. \tab numeric \cr
+  "window_Win_4" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 4th window for cycles (12.7,16.6]. \tab numeric \cr
+  "window_Win_5" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 5th window for cycles (16.6,20.5]. \tab numeric \cr
+  "window_Win_6" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 6th window for cycles (20.5,24.4]. \tab numeric \cr
+  "window_Win_7" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 7th window for cycles (24.4,28.3]. \tab numeric \cr
+  "window_Win_8" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 8th window for cycles (28.3,32.2]. \tab numeric \cr
+  "window_Win_9" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 9th window for cycles (32.2,36.1]. \tab numeric \cr
+  "window_Win_10" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 10th window for cycles (36.1,40]. \tab numeric \cr
+  "sd_plateau" \tab describes the standard deviation in the late phase of an amplification curve (last five cycles). With ideal PCRs, this corresponds to the plateau phase. \tab numeric \cr
 }
 }
 \description{

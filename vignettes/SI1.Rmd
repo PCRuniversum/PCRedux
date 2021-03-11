@@ -27,7 +27,7 @@ vignette: >
   
 # Abstract
   This is a supplemental document for the study *Algorithms for Automatized Detection of Hook Effect-bearing Amplification Curves*.
-  Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics [@dvinge_htqpcr:_2009; @martins_dna_2015; @sauer_differentiation_2016].
+  Quantitative real-time PCR (qPCR) is a widely used method for gene expression analysis, forensics and medical diagnostics [@dvinge_htqpcr:_2009; @martins_dna_2015].
   
   Numerous algorithms have been developed to extract features from amplification curves such as the cycle of quantification and the amplification efficiency [@ruijter_evaluation_2013]. There is an agreement, that these algorithms need to be evaluated and benchmarked for their performance [@kemperman_mircomp-shiny:_2017]. But at an earlier level it is important to have a solid foundation for the data preprocessing [@spiess_impact_2015; @spiess_system-specific_2016; @ronde_practical_2017].
   Digitalization of processes holds the promise that potential human mistakes can be spotted and that diagnostic processes can be automatized.
@@ -240,6 +240,7 @@ print(xtable(res_hookreg_table,
       table.placement = "!ht", scalebox='0.65'
 )
 ```
+
 The results of the **hookreg()** function are fairly comprehensive. The meaning of the columns is as followed:
 
 \begin{itemize}
