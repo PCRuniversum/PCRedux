@@ -5,6 +5,8 @@
 #' function prepares the data for further analysis with the \code{\link{fda.usc}} package,
 #' which includes utilities for functional data analysis (e.g., Hausdorff
 #' distance).
+#' @return gives an \code{fdata} object (S3 class, type of \code{list}) as output 
+#' for a converted amplification curve.
 #' @param data is a data set containing the amplification cycles (1. column)
 #' and the fluorescence (subsequent columns).
 #' @param preprocess is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}}

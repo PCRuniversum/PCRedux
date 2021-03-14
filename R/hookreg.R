@@ -5,6 +5,8 @@
 #' amplification curve data from a quantitative PCR experiment. The idea is that
 #' a strong negative slope at the end of an amplification curve is indicative for
 #' a hook effect (see Barratt and Mackay 2002).
+#' @return gives a \code{numeric} (S3 class, type of \code{double}) as output 
+#' for the detection of a hook
 #'
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).

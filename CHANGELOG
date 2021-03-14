@@ -1,6 +1,8 @@
 Version 1.1 [March 2021]
 * cran-comments.md added
 * make sure in examples that we do not change the user's options, par or working directory
+* grammar & spelling improved
+* added \value to .Rd files regarding exported methods and explain the functions results in the documentation
 
 Version 1.0-7 [September 2020]
 * Various bug fixes in data
@@ -15,10 +17,10 @@ Version 1.0-6 [March 2020]
 * Fix Date field
 
 Version 1.0-5 [March 2020]
-* Fixes for 4.0.0
+* Fixes for 1.0.0
 
 Version 1.0-4 [December 2019]
-* Fixes for 4.0.0
+* Fixes for 1.0.0
 * autocorrelation_test reworked to provide more standard output
 
 Version 1.0-3 [October 2019]

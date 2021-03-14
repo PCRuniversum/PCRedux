@@ -11,6 +11,9 @@ armor(f, n = 1)
 
 \item{n}{is the number of Zero repeats if a function fails.}
 }
+\value{
+gives a \code{numeric} value (S3 class) as output for errors
+}
 \description{
 \code{armor} is a helper function that catches errors and creates an output 
 that can be used for further processing.

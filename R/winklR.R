@@ -9,6 +9,9 @@
 #' determined. This means that systematic off-sets, such as those
 #' caused by background, are taken into account.
 #' The output contains the angle.
+#' 
+#' @return gives a \code{list} (S3 class, type of \code{list}) as output for the 
+#' angles from an amplification curve.
 #'
 #' @param x is the cycle numbers (x-axis). By default the first ten cycles are removed.
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).

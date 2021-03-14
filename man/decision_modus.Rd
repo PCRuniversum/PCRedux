@@ -14,6 +14,10 @@ decision_modus(data, variables = c("a", "n", "y"), max_freq = TRUE)
 \item{max_freq}{is a logical parameter (default == TRUE) delivers either the
 most occurring class or a summary.}
 }
+\value{
+gives a \code{factor} (S3 class, type of \code{integer}) as output 
+for a decision
+}
 \description{
 \code{decision_modus} is a function that can be used to find the most frequent
 (modus) decision. The classes can be defined by the user (e.g., a", "n", "y"

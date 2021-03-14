@@ -18,6 +18,9 @@ head2tailratio should be normalized to the slope of the ROI.}
 \item{verbose}{is a logical parameter, which indicates if all the values,
 parameters and coefficients of the analysis should be shown.}
 }
+\value{
+
+}
 \description{
 \code{head2tailratio} is a function to calculate the ratio of the head and the
 tail of a quantitative PCR amplification curve. In this test, only the head

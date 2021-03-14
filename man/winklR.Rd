@@ -18,6 +18,10 @@ data should be normalized to the 99 percent percentile of the amplification curv
 \item{preprocess}{is a logical parameter, which indicates if the amplification curve
 data should be smoothed (moving average filter, useful for noisy, jagged data).}
 }
+\value{
+gives a \code{list} (S3 class, type of \code{list}) as output for the 
+angles from an amplification curve.
+}
 \description{
 \code{winklR} is a function to calculate the in the trajectory of the first
 and the second derivatives maxima and minima  of an amplification curve data

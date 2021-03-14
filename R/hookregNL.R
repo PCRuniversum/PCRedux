@@ -5,6 +5,8 @@
 #' hook effect (see Barratt and Mackay 2002). In contrast to
 #' \code{\link[PCRedux]{hookreg}} fits this function a sex-parameter model to the
 #' amplification curve and extracts the coefficient, which describes the slope.
+#' @return gives a \code{numeric} (S3 class, type of \code{double}) as output 
+#' for the detection of a hook
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param plot is a logical parameter indicating if the data should be plotted, Default: FALSE.

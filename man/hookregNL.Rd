@@ -23,6 +23,10 @@ background.
 (\code{\link[base]{data.frame}}). If FALSE, a \code{\link[base]{list}}
 including the 6-parameter model is the output.}
 }
+\value{
+gives a \code{numeric} (S3 class, type of \code{double}) as output 
+for the detection of a hook
+}
 \description{
 \code{hookregNL} is a function to calculate the slope and intercept of an
 amplification curve from a quantitative PCR experiment. The idea is that a

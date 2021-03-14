@@ -2,6 +2,8 @@
 #'
 #' \code{armor} is a helper function that catches errors and creates an output 
 #' that can be used for further processing.
+#' 
+#' @return gives a \code{numeric} value (S3 class) as output for errors
 #'
 #' @param f is the function that needs armor.
 #' @param n is the number of Zero repeats if a function fails.

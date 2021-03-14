@@ -4,7 +4,9 @@
 #' \code{autocorrelation_test} is a function for an autocorrelation analysis
 #' from a quantitative PCR experiment. The result of the function is 
 #' a correlation coefficient.
-#'
+#' 
+#' @return gives a \code{numeric} value (S3 class) as output for an autocorrelation
+#' 
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param n is the number of lagged cycles (default 12).
 #' @param sig.level is the significance level for the correlation test.,

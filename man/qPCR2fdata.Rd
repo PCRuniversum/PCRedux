@@ -15,6 +15,10 @@ function from the chipPCR package (Roediger et al. 2015) is used to pre-process
 the data (e.g., imputation of missing values).
 and the fluorescence (subsequent columns).}
 }
+\value{
+gives an \code{fdata} object (S3 class, type of \code{list}) as output 
+for a converted amplification curve.
+}
 \description{
 \code{qPCR2fdata} is a helper function to convert qPCR data to the functional
 \code{\link{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This

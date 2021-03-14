@@ -125,6 +125,10 @@
 #'   "window_Win_10" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 10th window for cycles (36.1,40]. \tab numeric \cr
 #'   "sd_plateau" \tab describes the standard deviation in the late phase of an amplification curve (last five cycles). With ideal PCRs, this corresponds to the plateau phase. \tab numeric \cr
 #' }
+#'
+#' @return gives a \code{data.frame} (S3 class, type of \code{list}) as output 
+#' for the curve features
+#' 
 #' @details Details can be found in the vignette.
 #' @importFrom qpcR pcrfit
 #' @examples

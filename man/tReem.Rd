@@ -15,6 +15,9 @@ Hausdorff distance will be used.}
 
 \item{k}{an integer scalar or vector with the desired number of groups.}
 }
+\value{
+
+}
 \description{
 \code{tReem} is a function to group amplification curves
 from a quantitative PCR experiment according to their shape.
@@ -26,7 +29,7 @@ for large data sets.
 }
 \examples{
 # Classify amplification curve data by Hausdorff distance
-\dontrun{
+\donttest{
 library(qpcR)
 tReem(testdat[, 1:5])
 }

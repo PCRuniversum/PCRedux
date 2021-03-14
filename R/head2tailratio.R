@@ -5,6 +5,7 @@
 #' tail of a quantitative PCR amplification curve. In this test, only the head
 #' (first six cycles) and the tail (last six cycles) form the region of interest
 #' (ROI).
+#' @return gives a \code{numeric} (S3 class, type of \code{double}) as output for the head to tail ratio
 #'
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
 #' @param normalize is a logical parameter, which indicates if the amplification curve.

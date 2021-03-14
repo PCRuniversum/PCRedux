@@ -49,14 +49,12 @@ Ritz, C. & Spiess, A.-N. qpcR: an R package for sigmoidal model selection in qua
 
 
 \examples{
-\dontrun{
 ## 'data_sample' dataset.
 head(data_sample)
 
 ## 'RAS002.rdml' dataset as rda file.
 head(RAS002)
 head(RAS002_decisions)
-}
 }
 
 \keyword{models}

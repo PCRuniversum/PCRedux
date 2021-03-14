@@ -6,6 +6,9 @@
 \usage{
 PCRedux_gui()
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Launches graphical user interface that generates numerous
 features of a large amplification curve data set, similarly to

@@ -5,6 +5,9 @@
 #' -> "ambiguous", "negative", "positive"). This function is useful if large
 #' collections of varying decision (e.g., "a", "a", "a", "n", "n") need to be
 #' condensed to a single decision (3 x "a", 2 x "n" -> "a").
+#' 
+#' @return gives a \code{factor} (S3 class, type of \code{integer}) as output 
+#' for a decision
 #'
 #' @param data is a table containing the classes.
 #' @param variables is the class to look for.

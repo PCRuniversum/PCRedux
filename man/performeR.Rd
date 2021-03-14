@@ -12,6 +12,10 @@ performeR(sample, reference)
 \item{reference}{is a vector with logical decisions (0, 1) of the reference
 system.}
 }
+\value{
+gives a \code{data.frame} (S3 class, type of \code{list}) as output 
+for the performance
+}
 \description{
 This function performs an analysis sensitivity and specificity
 to asses the performance of a binary classification test. For further reading

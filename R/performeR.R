@@ -4,6 +4,9 @@
 #' the studies by Brenner and Gefeller 1997, James 2013 by Kuhn 2008 are a good
 #' starting point.
 #'
+#' @return gives a \code{data.frame} (S3 class, type of \code{list}) as output 
+#' for the performance
+#'
 #' @param sample is a vector with logical decisions (0, 1) of the test system.
 #' @param reference is a vector with logical decisions (0, 1) of the reference
 #' system.

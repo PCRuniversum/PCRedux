@@ -1,6 +1,6 @@
 # Add this code example code to 'shiny' user .Rprofile on Shiny server
 # to activate source of this file and use remote 'pcrfit_single'.
-# Also set ssh access to remote servr by key without passphrase.
+# Also set ssh access to remote server by key without passphrase.
 # library(future)
 # initRemote <- function() {
 #   login <- tweak(remote, workers = "user@server")

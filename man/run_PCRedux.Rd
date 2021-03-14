@@ -8,6 +8,8 @@ run_PCRedux()
 }
 \value{
 null.
+
+No return value, called for side effects
 }
 \description{
 A graphical user interface for computing the properties of amplification curves. Take a look at the vignette to learn more about the different ways to start the app.

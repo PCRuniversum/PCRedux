@@ -6,6 +6,9 @@
 \usage{
 humanrater2()
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Launches graphical user interface for the manual annotation of
 large amplification curve data sets, similarly to

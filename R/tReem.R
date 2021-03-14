@@ -8,6 +8,9 @@
 #' grouping based on the Hausdorff distance can be very slow
 #' for large data sets.
 #'
+#' @return gives a \code{data.frame} (S3 class, type of \code{list}) as output 
+#' for the manual analyzed data}
+#'
 #' @param data is the cycle dependent fluorescence amplitude (y-axis).
 #' @param cor is a logical parameter. If set true, the Pearson
 #' correlation is used as distance measure. If set FALSE the
@@ -23,7 +26,7 @@
 #'  \code{\link[stats]{cor}}
 #' @examples
 #' # Classify amplification curve data by Hausdorff distance
-#' \dontrun{
+#' \donttest{
 #' library(qpcR)
 #' tReem(testdat[, 1:5])
 #' }

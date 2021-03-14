@@ -15,6 +15,9 @@ autocorrelation_test(y, n = 8, sig.level = 0.01)
 \item{sig.level}{is the significance level for the correlation test.,
 Default: 0.01}
 }
+\value{
+gives a \code{numeric} value (S3 class) as output for an autocorrelation
+}
 \description{
 \code{autocorrelation_test} is a function for an autocorrelation analysis
 from a quantitative PCR experiment. The result of the function is 

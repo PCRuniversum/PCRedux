@@ -17,6 +17,9 @@ detection chemistry (e.g., probes, intercalating dye) that was used.}
 was used.}
 }
 \value{
+gives a \code{data.frame} vector (S3 class, type of \code{list}) as 
+output for features
+
 The output of the encu function is
 identical to the \code{\link[PCRedux]{pcrfit_single}} function.
 }

@@ -5,7 +5,9 @@
 #' features of a large amplification curve data set.
 #' The \code{\link[PCRedux]{pcrfit_single}} is
 #' performing the analysis for a single process.
-#'
+#' 
+#' @return gives a \code{data.frame} vector (S3 class, type of \code{list}) as 
+#' output for features
 #'
 #' @param data is the data set containing the cycles and fluorescence amplitudes.
 #' @param detection_chemistry contains additional meta information about the
