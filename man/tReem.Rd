@@ -16,7 +16,7 @@ Hausdorff distance will be used.}
 \item{k}{an integer scalar or vector with the desired number of groups.}
 }
 \value{
-
+gives a \code{data.frame} (S3 class, type of \code{list}) as output for the manual analyzed data
 }
 \description{
 \code{tReem} is a function to group amplification curves

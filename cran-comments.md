@@ -1,8 +1,11 @@
 # Note
 
 - The previous version of the package was taken from CRAN because an e-mail address in the chiPPCR package had reached EOL. This caused the arching of the MBmca, the chipPCR and the PCRedux package. Both the MBmca and the chipPCR package are back on CRAN.
+    - The package was Submitted some days ago. However, this submission needed the addition of \value{} and fixes to \dontrun{}.
 - The package is feature complete, parts of it were published (peer-reviewed) and used by peers use it. Therefore we change to version 1.0+
-- Fixes of this submission include 
+- Fixes of this submission include in total
+    - addition of the \value{} tag
+    - Fixes to \dontrun{}
     - Grammar and spelling corrections
     - The PCRedux package now has a cran-comments.md file
     - The PCRedux package has been tested with rhub
@@ -25,11 +28,11 @@
 * This is a new release.
 
 # check_rhub(env_vars=c(R_COMPILE_AND_INSTALL_PACKAGES = "always"))
-✔  checking for file ‘/home/tux/Work/paper/PCRedux_all/PCRedux/DESCRIPTION’
-─  preparing ‘PCRedux’: (678ms)
+✔  checking for file ‘/home/tux/Work/paper/PCRedux_all/PCRedux/DESCRIPTION’ (394ms)
+─  preparing ‘PCRedux’: (652ms)
 ✔  checking DESCRIPTION meta-information
 ─  installing the package to build vignettes
-✔  creating vignettes (9s)
+✔  creating vignettes (18.5s)
 ─  checking for LF line-endings in source and make files and shell scripts
 ─  checking for empty or unneeded directories
    Removed empty directory ‘PCRedux/inst/PCRedux-app’
@@ -37,9 +40,9 @@
    
 ─  Uploading package
 ─  Preparing build, see status at
-   https://builder.r-hub.io/status/PCRedux_1.1.tar.gz-c435c6b161e74ed99b89a493aa3a9fdd
-   https://builder.r-hub.io/status/PCRedux_1.1.tar.gz-4783440ec72c4c21a6e33783a6bfc542
-   https://builder.r-hub.io/status/PCRedux_1.1.tar.gz-4eb0289c199e4ccc8f45a8986d888e5a
+   https://builder.r-hub.io/status/PCRedux_1.1.tar.gz-6a71115909ea448badfdaf9822a657cc
+   https://builder.r-hub.io/status/PCRedux_1.1.tar.gz-1550daa457e44f58aa6ef3c8f64a55af
+   https://builder.r-hub.io/status/PCRedux_1.1.tar.gz-d9da8c4f46a94d73b8434eb601412329
 ─  Build started
 ─  Creating new user
 ─  Downloading and unpacking package file
@@ -52,7 +55,7 @@
    setting R_REMOTES_STANDALONE to true
    setting R_REMOTES_NO_ERRORS_FROM_WARNINGS to true
    setting R_COMPILE_AND_INSTALL_PACKAGES to always
-─  using log directory 'C:/Users/USEREbGBlhkWMf/PCRedux.Rcheck'
+─  using log directory 'C:/Users/USERChvwNfyzxk/PCRedux.Rcheck'
 ─  using R Under development (unstable) (2021-02-15 r80013)
 ─  using platform: x86_64-w64-mingw32 (64-bit)
 ─  using session charset: ISO8859-1
@@ -65,8 +68,8 @@ N  checking CRAN incoming feasibility
    Maintainer: 'Stefan Roediger <stefan.roediger@b-tu.de>'
    
    New submission
-   
    Package was archived on CRAN
+   
    
    CRAN repository db overrides:
      X-CRAN-Comment: Archived on 2020-12-16 as requires archived package
@@ -119,6 +122,7 @@ N  checking sizes of PDF files under 'inst/doc'
 ✔  checking installed files from 'inst/doc'
 ✔  checking files in 'vignettes'
 ✔  checking examples
+✔  checking examples with --run-donttest
 ✔  checking for unstated dependencies in 'tests'
 ─  checking tests
 ✔  Running 'spelling.R'
@@ -136,17 +140,17 @@ N  checking sizes of PDF files under 'inst/doc'
 
 ── PCRedux 1.1: NOTE
 
-  Build ID:   PCRedux_1.1.tar.gz-c435c6b161e74ed99b89a493aa3a9fdd
+  Build ID:   PCRedux_1.1.tar.gz-6a71115909ea448badfdaf9822a657cc
   Platform:   Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-  Submitted:  6m 37.6s ago
-  Build time: 6m 22.5s
+  Submitted:  6m 50s ago
+  Build time: 6m 31.1s
 
 ❯ checking CRAN incoming feasibility ... NOTE
   Maintainer: 'Stefan Roediger <stefan.roediger@b-tu.de>'
   
   New submission
-  
   Package was archived on CRAN
+  
   
   CRAN repository db overrides:
     X-CRAN-Comment: Archived on 2020-12-16 as requires archived package
@@ -159,13 +163,13 @@ N  checking sizes of PDF files under 'inst/doc'
 
 ── PCRedux 1.1: CREATED
 
-  Build ID:   PCRedux_1.1.tar.gz-4783440ec72c4c21a6e33783a6bfc542
+  Build ID:   PCRedux_1.1.tar.gz-1550daa457e44f58aa6ef3c8f64a55af
   Platform:   Ubuntu Linux 20.04.1 LTS, R-release, GCC
-  Submitted:  6m 37.6s ago
+  Submitted:  6m 50s ago
 
 
 ── PCRedux 1.1: CREATED
 
-  Build ID:   PCRedux_1.1.tar.gz-4eb0289c199e4ccc8f45a8986d888e5a
+  Build ID:   PCRedux_1.1.tar.gz-d9da8c4f46a94d73b8434eb601412329
   Platform:   Fedora Linux, R-devel, clang, gfortran
-  Submitted:  6m 37.6s ago
+  Submitted:  6m 50s ago

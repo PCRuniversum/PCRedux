@@ -2,7 +2,7 @@ Package: PCRedux
 Type: Package
 Title: Quantitative Polymerase Chain Reaction (qPCR) Data Mining and Machine Learning Toolkit
 Version: 1.1
-Date: 2021-03-11
+Date: 2021-03-14
 Authors@R: c(person("Stefan", "Roediger", 
              email = "stefan.roediger@b-tu.de", 
              comment = c(ORCID = "0000-0002-1441-6512"),
