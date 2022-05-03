@@ -1,6 +1,7 @@
 #' PCRedux app
 #'
-#' A graphical user interface for computing the properties of amplification curves. Take a look at the vignette to learn more about the different ways to start the app.
+#' A graphical user interface for computing the properties of amplification curves. 
+#' Take a look at the vignette to learn more about the different ways to start the app.
 #' @return null.
 #' @export
 #' @return No return value, called for side effects
@@ -10,5 +11,5 @@
 #' Any ad-blocking software may cause malfunctions.
 
 run_PCRedux <- function() {
-  runApp(system.file("PCRedux-app", package = "PCRedux"))
+  runApp(system.file("PCRedux_gui", package = "PCRedux"))
 }
