@@ -1,0 +1,606 @@
+@comment{x-kbibtex-encoding=utf-8}
+
+@article{rodiger_r_2015,
+	author = {Rödiger, Stefan and Burdukiewicz, Michał and Blagodatskikh, Konstantin A. and Schierack, Peter},
+	journal = {The R Journal},
+	language = {Eng},
+	number = {2},
+	pages = {127–150},
+	title = {R as an {Environment} for the {Reproducible} {Analysis} of {DNA} {Amplification} {Experiments}},
+	url = {https://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf},
+	volume = {7},
+	year = {2015}
+}
+
+@article{rodiger_surface_2013,
+	author = {Rödiger, Stefan and Böhm, Alexander and Schimke, Ingolf},
+	journal = {The R Journal},
+	language = {Eng},
+	number = {2},
+	pages = {37–53},
+	title = {Surface {Melting} {Curve} {Analysis} with {R}},
+	url = {https://journal.r-project.org/archive/2013-2/roediger-bohm-schimke.pdf},
+	volume = {5},
+	year = {2013}
+}
+
+@article{george_development_2016,
+	abstract = {Severe heart diseases such as myocarditis and cardiomyopathy are often characterized by progressive damages of contractile heart tissue which ultimately can lead to terminal heart failure. There is a need for relevant in vitro cultures of human cardiomyocytes to study pathogenic processes and to perform pharmacological testing of new heart drugs. By using the upcyte/EPCC (enhanced primary cell culture) approach for direct multiplication of organ-specific cells, we established proliferating human cardiomyocyte cultures derived from atrial appendages. For qualitative cardiac expression profiling we established a comprehensive set of multiplex PCR assays, selected from a panel of 32 genes, to rapidly screen changes at the transcriptional level in human ventricular and atrial cardiomyocytes. Our multiplex PCR approach revealed some donor variability of native atrial heart tissue that need to be confirmed by further studies with more samples. Our initial studies further indicated that characteristic heart muscle cell markers such as MLC-2 a , MLC-2v , CHRM2 , ADRB1 , DES , EDRNB , C x40 and KCNA5 were down-regulated when isolated cardiomyocytes were taken into primary cell culture. Compared to native heart tissue, proliferating atrial cardiomyocytes lacked expression of those cardiac markers but still expressed MYCD , GATA-4 , Cx43 , SERCA2 , BNP , Tbx5 , EDNRA and ACTB . Surprisingly, atrium-derived cardiomyocytes started to express NFAc4 in passage three, and cardiomyocyte marker expressions of Cx43 and BNP were even increased over cultivation time. In conclusion, our novel multiplex PCR assays should be useful for expression profiling of native heart tissues from patients with different disease conditions and for characterization of in vitro cardiomyocyte cultures.},
+	author = {George, Sandra and Rödiger, Stefan and Schröder, Christian and Knaut, Michael and Küpper, Jan-Heiner},
+	doi = {10.3233/JCB-15025},
+	issn = {2352-3689},
+	journal = {Journal of Cellular Biotechnology},
+	language = {eng},
+	month = jan,
+	number = {1},
+	pages = {35–55},
+	title = {Development of multiplex {PCR} systems for expression profiling of human cardiomyocytes induced to proliferate by lentivirus transduction of upcyte genes},
+	url = {http://content.iospress.com/articles/journal-of-cellular-biotechnology/jcb15025},
+	urldate = {2016-09-16},
+	volume = {2},
+	year = {2016}
+}
+
+@article{spiess_impact_2015,
+	abstract = {BACKGROUND: Quantification cycle (Cq) and amplification efficiency (AE) are parameters mathematically extracted from raw data to characterize quantitative PCR (qPCR) reactions and quantify the copy number in a sample. Little attention has been paid to the effects of preprocessing and the use of smoothing or filtering approaches to compensate for noisy data. Existing algorithms largely are taken for granted, and it is unclear which of the various methods is most informative. We investigated the effect of smoothing and filtering algorithms on amplification curve data. METHODS: We obtained published high-replicate qPCR data sets from standard block thermocyclers and other cycler platforms and statistically evaluated the impact of smoothing on Cq and AE. RESULTS: Our results indicate that selected smoothing algorithms affect estimates of Cq and AE considerably. The commonly used moving average filter performed worst in all qPCR scenarios. The Savitzky-Golay smoother, cubic splines, and Whittaker smoother resulted overall in the least bias in our setting and exhibited low sensitivity to differences in qPCR AE, whereas other smoothers, such as running mean, introduced an AE-dependent bias. CONCLUSIONS: The selection of a smoothing algorithm is an important step in developing data analysis pipelines for real-time PCR experiments. We offer guidelines for selection of an appropriate smoothing algorithm in diagnostic qPCR applications. The findings of our study were implemented in the R packages chipPCR and qpcR as a basis for the implementation of an analytical strategy.},
+	author = {Spiess, Andrej-Nikolai and Deutschmann, Claudia and Burdukiewicz, Michał and Himmelreich, Ralf and Klat, Katharina and Schierack, Peter and Rödiger, Stefan},
+	doi = {10.1373/clinchem.2014.230656},
+	issn = {1530-8561 (Electronic) 0009-9147 (Linking)},
+	journal = {Clinical Chemistry},
+	keywords = {Algorithms, Regression Analysis, Monte Carlo Method, Real-Time Polymerase Chain Reaction/*methods, DNA/*genetics},
+	language = {en},
+	month = feb,
+	number = {2},
+	pages = {379–388},
+	title = {Impact of {Smoothing} on {Parameter} {Estimation} in {Quantitative} {DNA} {Amplification} {Experiments}},
+	urldate = {2016-12-03},
+	volume = {61},
+	year = {2015}
+}
+
+@article{rodiger_enabling_2017,
+	abstract = {Motivation: Reproducibility, a cornerstone of research, requires defined data formats, which include the setup and output of experiments. The real-time PCR data markup language (RDML) is a recommended standard of the minimum information for publication of quantitative real-time PCR experiments guidelines. Despite the popularity of the RDML format for analysis of quantitative PCR data, handling of RDML files is not yet widely supported in all PCR curve analysis softwares.Results: This study describes the open-source RDML package for the statistical computing language R. RDML is compatible with RDML versions \ensuremath{\leq} 1.2 and provides functionality to (i) import RDML data; (ii) extract sample information (e.g. targets and concentration); (iii) transform data to various formats of the R environment; (iv) generate human-readable run summaries; and (v) to create RDML files from user data. In addition, RDML offers a graphical user interface to read, edit and create RDML files.Availability and implementation:https://cran.r-project.org/package=RDML. rdmlEdit server http://shtest.evrogen.net/rdmlEdit/. Documentation: http://kablag.github.io/RDML/.Contact:k.blag@yandex.ruSupplementary information:Supplementary data are available at Bioinformatics online.},
+	author = {Rödiger, Stefan and Burdukiewicz, Michał and Spiess, Andrej-Nikolai and Blagodatskikh, Konstantin},
+	doi = {10.1093/bioinformatics/btx528},
+	journal = {Bioinformatics},
+	month = aug,
+	number = {24},
+	pages = {4012–4014},
+	shorttitle = {Enabling reproducible real-time quantitative {PCR} research},
+	title = {Enabling reproducible real-time quantitative {PCR} research: the {RDML} package},
+	urldate = {2017-09-09},
+	volume = {33},
+	year = {2017}
+}
+
+@article{rodiger_chippcr:_2015,
+	abstract = {MOTIVATION: Both the quantitative real-time polymerase chain reaction (qPCR) and quantitative isothermal amplification (qIA) are standard methods for nucleic acid quantification. Numerous real-time read-out technologies have been developed. Despite the continuous interest in amplification-based techniques, there are only few tools for pre-processing of amplification data. However, a transparent tool for precise control of raw data is indispensable in several scenarios, for example, during the development of new instruments. RESULTS: chipPCR is an R: package for the pre-processing and quality analysis of raw data of amplification curves. The package takes advantage of R: 's S4 object model and offers an extensible environment. chipPCR contains tools for raw data exploration: normalization, baselining, imputation of missing values, a powerful wrapper for amplification curve smoothing and a function to detect the start and end of an amplification curve. The capabilities of the software are enhanced by the implementation of algorithms unavailable in R: , such as a 5-point stencil for derivative interpolation. Simulation tools, statistical tests, plots for data quality management, amplification efficiency/quantification cycle calculation, and datasets from qPCR and qIA experiments are part of the package. Core functionalities are integrated in GUIs (web-based and standalone shiny applications), thus streamlining analysis and report generation. AVAILABILITY AND IMPLEMENTATION: http://cran.r-project.org/web/packages/chipPCR. Source code: https://github.com/michbur/chipPCR. CONTACT: stefan.roediger@b-tu.de SUPPLEMENTARY INFORMATION: Supplementary data are available at Bioinformatics online.},
+	author = {Rödiger, Stefan and Burdukiewicz, Michał and Schierack, Peter},
+	doi = {10.1093/bioinformatics/btv205},
+	issn = {1367-4811 (Electronic) 1367-4803 (Linking)},
+	journal = {Bioinformatics},
+	keywords = {Humans, Gene Expression Profiling, Models, Theoretical, *Algorithms, *Software, Programming Languages, Real-Time Polymerase Chain Reaction/*methods, RNA/*analysis/genetics},
+	language = {en},
+	month = sep,
+	number = {17},
+	pages = {2900–2902},
+	shorttitle = {{chipPCR}},
+	title = {{chipPCR}: an {R} package to pre-process raw data of amplification curves},
+	url = {https://academic.oup.com/bioinformatics/article/31/17/2900/182797},
+	urldate = {2018-05-15},
+	volume = {31},
+	year = {2015}
+}
+
+@article{burdukiewicz_algorithms_2018,
+	abstract = {Amplification curves from quantitative Real-Time PCR experiments typically exhibit a sigmoidal shape. They can roughly be divided into a ground or baseline phase, an exponential amplification phase, a linear phase and finally a plateau phase, where in the latter, the PCR product concentration no longer increases. Nevertheless, in some cases the plateau phase displays a negative trend, e.g. in hydrolysis probe assays. This cycle-to-cycle fluorescence decrease is commonly referred to in the literature as the hook effect. Other detection chemistries also exhibit this negative trend, however the underlying molecular mechanisms are different. In this study we present two approaches to automatically detect hook effect-like curvatures based on linear (hookreg) and nonlinear regression (hookregNL). As the hook effect is typical for qPCR data, both algorithms can be employed for the automated identification of regular structured qPCR curves. Therefore, our algorithms streamline quality control, but can also be used for assay optimization or machine learning.},
+	author = {Burdukiewicz, Michał and Spiess, Andrej-Nikolai and Blagodatskikh, Konstantin A. and Lehmann, Werner and Schierack, Peter and Rödiger, Stefan},
+	doi = {10.1016/j.bdq.2018.08.001},
+	issn = {2214-7535},
+	journal = {Biomolecular Detection and Quantification},
+	keywords = {RDML, Automation, EvaGreen, Hook effect, Linear, Nonlinear, QPCR, SybrGreen, TaqMan},
+	month = oct,
+	pages = {1–4},
+	title = {Algorithms for automated detection of hook effect-bearing amplification curves},
+	url = {http://www.sciencedirect.com/science/article/pii/S221475351730219X},
+	urldate = {2018-10-17},
+	volume = {16},
+	year = {2018}
+}
+
+@article{spiess_system-specific_2016,
+	abstract = {Real-time quantitative polymerase chain reaction (qPCR) data are found to display periodic patterns in the fluorescence intensity as a function of sample number for fixed cycle number. This behavior is seen for technical replicate datasets recorded on several different commercial instruments; it occurs in the baseline region and typically increases with increasing cycle number in the growth and plateau regions. Autocorrelation analysis reveals periodicities of 12 for 96-well systems and 24 for a 384-well system, indicating a correlation with block architecture. Passive dye experiments show that the effect may be from optical detector bias. Importantly, the signal periodicity manifests as periodicity in quantification cycle (Cq) values when these are estimated by the widely applied fixed threshold approach, but not when scale-insensitive markers like first- and second-derivative maxima are used. Accordingly, any scale variability in the growth curves will lead to bias in constant-threshold-based Cqs, making it mandatory that workers should either use scale-insensitive Cqs or normalize their growth curves to constant amplitude before applying the constant threshold method.},
+	author = {Spiess, Andrej-Nikolai and Rödiger, Stefan and Burdukiewicz, Michał and Volksdorf, Thomas and Tellinghuisen, Joel},
+	doi = {10.1038/srep38951},
+	issn = {2045-2322 (Electronic) 2045-2322 (Linking)},
+	journal = {Scientific Reports},
+	language = {en},
+	month = dec,
+	number = {1},
+	pages = {38951},
+	title = {System-specific periodicity in quantitative real-time polymerase chain reaction data questions threshold-based quantitation},
+	url = {http://www.nature.com/articles/srep38951},
+	volume = {6},
+	year = {2016}
+}
+
+@article{schmidt_semi-automated_2021,
+	abstract = {Shortages of reverse transcriptase (RT)-polymerase chain reaction (PCR) reagents and related equipment during the COVID-19 pandemic have demonstrated the need for alternative, high-throughput methods for severe acute respiratory syndrome coronavirus-2 (SARS-CoV-2)-mass screening in clinical diagnostic laboratories. A robust, SARS-CoV-2 RT-loop-mediated isothermal amplification (RT-LAMP) assay with high-throughput and short turnaround times in a clinical laboratory setting was established and compared to two conventional RT-PCR protocols using 323 samples of individuals with suspected SARS-CoV-2 infection. Limit of detection (LoD) and reproducibility of the isolation-free SARS-CoV-2 RT-LAMP test were determined. An almost perfect agreement (Cohen’s kappa {\textgreater} 0.8) between the novel test and two classical RT-PCR protocols with no systematic difference (McNemar’s test, P {\textgreater} 0.05) was observed. Sensitivity and specificity were in the range of 89.5 to 100\% and 96.2 to 100\% dependent on the reaction condition and the RT-PCR method used as reference. The isolation-free RT-LAMP assay showed high reproducibility (Tt intra-run coefficient of variation [CV] = 0.4\%, Tt inter-run CV = 2.1\%) with a LoD of 95 SARS-CoV-2 genome copies per reaction. The established SARS-CoV-2 RT-LAMP assay is a flexible and efficient alternative to conventional RT-PCR protocols, suitable for SARS-CoV-2 mass screening using existing laboratory infrastructure in clinical diagnostic laboratories.},
+	author = {Schmidt, Jonas and Berghaus, Sandro and Blessing, Frithjof and Wenzel, Folker and Herbeck, Holger and Blessing, Josef and Schierack, Peter and Rödiger, Stefan and Roggenbuck, Dirk},
+	copyright = {2021 The Author(s)},
+	doi = {10.1038/s41598-021-00827-0},
+	issn = {2045-2322},
+	journal = {Scientific Reports},
+	keywords = {Molecular biology, Viral infection},
+	language = {en},
+	month = nov,
+	number = {1},
+	pages = {21385},
+	title = {A semi-automated, isolation-free, high-throughput {SARS}-{CoV}-2 reverse transcriptase ({RT}) loop-mediated isothermal amplification ({LAMP}) test},
+	url = {https://www.nature.com/articles/s41598-021-00827-0},
+	urldate = {2021-11-01},
+	volume = {11},
+	year = {2021}
+}
+
+@article{hanschmann_looptag_2021,
+	abstract = {Background: Laboratory diagnosis of Lyme borreliosis refers to some methods with known limitations. Molecular diagnostics using specific nucleic acid probes may overcome some of these limitations. Methods: We describe the novel reporter fluorescence real-time polymerase chain reaction (PCR) probe system LoopTag for detection of Borrelia species. Advantages of the LoopTag system include having cheap conventional fluorescence dyes, easy primer design, no restrictions for PCR product lengths, robustness, high sequence specificity, applicability for multiplex real-time PCRs, melting curve analysis (single nucleotide polymorphism analysis) over a large temperature range, high sensitivity, and easy adaptation of conventional PCRs. Results: Using the LoopTag probe system we were able to detect all nine tested European species belonging to the Borrelia burgdorferi (sensu lato) complex and differentiated them from relapsing fever Borrelia species. As few as 10 copies of Borrelia in one PCR reaction were detectable. Conclusion: We established a novel multiplex probe real-time PCR system, designated LoopTag, that is simple, robust, and incorporates melting curve analysis for the detection and in the differentiation of European species belonging to the Borrelia burgdorferi s.l. complex.},
+	author = {Hanschmann, Henning and Rödiger, Stefan and Kramer, Toni and Hanschmann, Katrin and Steidle, Michael and Fingerle, Volker and Schmidt, Carsten and Lehmann, Werner and Schierack, Peter},
+	copyright = {http://creativecommons.org/licenses/by/3.0/},
+	doi = {10.3390/life11111163},
+	journal = {Life},
+	keywords = {diagnostic, Lyme borreliosis, \textit{Borrelia}, \textit{B. Burgdorferi} (sensu lato) complex, real-time PCR},
+	language = {en},
+	month = nov,
+	number = {11},
+	pages = {1163},
+	title = {{LoopTag} {FRET} {Probe} {System} for {Multiplex} {qPCR} {Detection} of {Borrelia} {Species}},
+	url = {https://www.mdpi.com/2075-1729/11/11/1163},
+	urldate = {2021-11-02},
+	volume = {11},
+	year = {2021}
+}
+
+@article{gentleman_statistical_2007,
+	author = {Gentleman, Robert and {Temple Lang}, Duncan},
+	doi = {10.1198/106186007X178663},
+	issn = {1061-8600, 1537-2715},
+	journal = {Journal of Computational and Graphical Statistics},
+	language = {en},
+	month = mar,
+	number = {1},
+	pages = {1–23},
+	title = {Statistical {Analyses} and {Reproducible} {Research}},
+	url = {http://www.tandfonline.com/doi/abs/10.1198/106186007X178663},
+	urldate = {2018-06-18},
+	volume = {16},
+	year = {2007}
+}
+
+@article{gentleman_bioconductor:_2004,
+	abstract = {PMID: 15461798},
+	author = {Gentleman, Robert C. and Carey, Vincent J. and Bates, Douglas M. and Bolstad, Ben and Dettling, Marcel and Dudoit, Sandrine and Ellis, Byron and Gautier, Laurent and Ge, Yongchao and Gentry, Jeff and Hornik, Kurt and Hothorn, Torsten and Huber, Wolfgang and Iacus, Stefano and Irizarry, Rafael and Leisch, Friedrich and Li, Cheng and Maechler, Martin and Rossini, Anthony J. and Sawitzki, Gunther and Smith, Colin and Smyth, Gordon and Tierney, Luke and Yang, Jean YH and Zhang, Jianhua},
+	copyright = {2004 Gentleman et al.; licensee BioMed Central Ltd.},
+	doi = {10.1186/gb-2004-5-10-r80},
+	issn = {1465-6906},
+	journal = {Genome Biology},
+	language = {en},
+	month = sep,
+	number = {10},
+	pages = {R80},
+	pmid = {15461798},
+	shorttitle = {Bioconductor},
+	title = {Bioconductor: open software development for computational biology and bioinformatics},
+	url = {http://genomebiology.com/2004/5/10/R80/abstract},
+	urldate = {2015-04-01},
+	volume = {5},
+	year = {2004}
+}
+
+@article{spiess_highly_2008,
+	abstract = {Background: Fitting four-parameter sigmoidal models is one of the methods established in the analysis of quantitative real-time PCR (qPCR) data. We had observed that these models are not optimal in the fitting outcome due to the inherent constraint of symmetry around the point of inflection. Thus, we found it necessary to employ a mathematical algorithm that circumvents this problem and which utilizes an additional parameter for accommodating asymmetrical structures in sigmoidal qPCR data.
+Results: The four-parameter models were compared to their five-parameter counterparts by means of nested F-tests based on the residual variance, thus acquiring a statistical measure for higher performance. For nearly all qPCR data we examined, five-parameter models resulted in a significantly better fit. Furthermore, accuracy and precision for the estimation of efficiencies and calculation of quantitative ratios were assessed with four independent dilution datasets and compared to the most commonly used quantification methods. It could be shown that the fiveparameter model exhibits an accuracy and precision more similar to the non-sigmoidal quantification methods.
+Conclusion: The five-parameter sigmoidal models outperform the established four-parameter model with high statistical significance. The estimation of essential PCR parameters such as PCR efficiency, threshold cycles and initial template fluorescence is more robust and has smaller variance. The model is implemented in the qpcR package for the freely available statistical R environment. The package can be downloaded from the author's homepage.},
+	author = {Spiess, Andrej-Nikolai and Feig, Caroline and Ritz, Christian},
+	doi = {10.1186/1471-2105-9-221},
+	issn = {1471-2105},
+	journal = {BMC Bioinformatics},
+	language = {en},
+	month = dec,
+	number = {1},
+	title = {Highly accurate sigmoidal fitting of real-time {PCR} data by introducing a parameter for asymmetry},
+	url = {https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-9-221},
+	urldate = {2019-09-28},
+	volume = {9},
+	year = {2008}
+}
+
+@article{ritz_qpcr:_2008,
+	abstract = {Summary: The qpcR library is an add-on to the free R statistical environment performing sigmoidal model selection in real-time quantitative polymerase chain reaction (PCR) data analysis. Additionally, the package implements the most commonly used algorithms for real-time PCR data analysis and is capable of extensive statistical comparison for the selection and evaluation of the different models based on several measures of goodness of fit.
+Availability: www.dr-spiess.de/qpcR.html.
+Contact: a.spiess@uke.uni-hamburg.de
+Supplementary Information: Statistical evaluations of the implemented methods can be found at www.dr-spiess.de under ‘Supplemental Data’.},
+	author = {Ritz, Christian and Spiess, Andrej-Nikolai},
+	doi = {10.1093/bioinformatics/btn227},
+	issn = {1367-4811 (Electronic) 1367-4803 (Linking)},
+	journal = {Bioinformatics},
+	keywords = {Computer Simulation, Models, Statistical, Data Interpretation, *Algorithms, *Software, *Models, Genetic, *Programming Languages, Gene Expression Profiling/*methods, Reverse Transcriptase Polymerase Chain Reaction/*methods},
+	language = {en},
+	month = jul,
+	number = {13},
+	pages = {1549–1551},
+	pmid = {18482995},
+	shorttitle = {{qpcR}},
+	title = {{qpcR}: an {R} package for sigmoidal model selection in quantitative real-time polymerase chain reaction analysis},
+	url = {http://bioinformatics.oxfordjournals.org/content/24/13/1549},
+	urldate = {2014-04-07},
+	volume = {24},
+	year = {2008}
+}
+
+@article{pabinger_survey_2014,
+	abstract = {Real-time quantitative polymerase-chain-reaction (qPCR) is a standard technique in most laboratories used for various applications in basic research. Analysis of qPCR data is a crucial part of the entire experiment, which has led to the development of a plethora of methods. The released tools either cover specific parts of the workflow or provide complete analysis solutions. Here, we surveyed 27 open-access software packages and tools for the analysis of qPCR data. The survey includes 8 Microsoft Windows, 5 web-based, 9 R-based and 5 tools from other platforms. Reviewed packages and tools support the analysis of different qPCR applications, such as RNA quantification, DNA methylation, genotyping, identification of copy number variations, and digital PCR. We report an overview of the functionality, features and specific requirements of the individual software tools, such as data exchange formats, availability of a graphical user interface, included procedures for graphical data presentation, and offered statistical methods. In addition, we provide an overview about quantification strategies, and report various applications of qPCR. Our comprehensive survey showed that most tools use their own file format and only a fraction of the currently existing tools support the standardized data exchange format RDML. To allow a more streamlined and comparable analysis of qPCR data, more vendors and tools need to adapt the standardized format to encourage the exchange of data between instrument software, analysis tools, and researchers.},
+	author = {Pabinger, Stephan and Rödiger, Stefan and Kriegner, Albert and Vierlinger, Klemens and Weinhäusel, Andreas},
+	doi = {10.1016/j.bdq.2014.08.002},
+	issn = {2214-7535},
+	journal = {Biomolecular Detection and Quantification},
+	keywords = {Software, Data analysis, qPCR, MIQE, RDML, Tools},
+	month = sep,
+	note = {00072},
+	number = {1},
+	pages = {23–33},
+	title = {A survey of tools for the analysis of quantitative {PCR} ({qPCR}) data},
+	url = {http://www.sciencedirect.com/science/article/pii/S2214753514000059},
+	urldate = {2015-04-02},
+	volume = {1},
+	year = {2014}
+}
+
+@article{bustin_why_2010,
+	abstract = {The polymerase chain reaction (PCR) has matured from a labour- and time-intensive, low throughput qualitative gel-based technique to an easily automated, rapid, high throughput quantitative technology. Real-time quantitative PCR (qPCR) has become the benchmark technology for the detection and quantification of nucleic acids in a research, diagnostic, forensic and biotechnology setting. However, illassorted pre-assay conditions, poor assay design and inappropriate data analysis methodologies have resulted in the recurrent publication of data that are at best inconsistent and at worst irrelevant and even misleading. Furthermore, there is a lamentable lack of transparency of reporting, with the ‘‘Materials and Methods” sections of many publications, especially those with high impact factors, not fit for the purpose of evaluating the quality of any reported qPCR data. This poses a challenge to the integrity of the scientific literature, with serious consequences not just for basic research, but potentially calamitous implications for drug development and disease monitoring. These issues are being addressed by a set of guidelines that propose a minimum standard for the provision of information for qPCR experiments (‘‘MIQE”). MIQE aims to restructure to-day’s free-for-all qPCR methods into a more consistent format that will encourage detailed auditing of experimental detail, data analysis and reporting principles. General implementation of these guidelines is an important requisite for the maturing of qPCR into a robust, accurate and reliable nucleic acid quantification technology.},
+	author = {Bustin, Stephen A.},
+	doi = {10.1016/j.ymeth.2009.12.006},
+	issn = {10462023},
+	journal = {Methods},
+	language = {en},
+	month = apr,
+	note = {00000},
+	number = {4},
+	pages = {217–226},
+	shorttitle = {Why the need for {qPCR} publication guidelines?},
+	title = {Why the need for {qPCR} publication guidelines?—{The} case for {MIQE}},
+	url = {http://linkinghub.elsevier.com/retrieve/pii/S1046202309002618},
+	urldate = {2018-04-07},
+	volume = {50},
+	year = {2010}
+}
+
+@article{testthat,
+	author = {Wickham, Hadley},
+	journal = {The R Journal},
+	pages = {5–10},
+	title = {testthat: Get Started with Testing},
+	url = {https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf},
+	volume = {3},
+	year = {2011}
+}
+
+@article{PCRedux,
+	author = {Rödiger, Stefan and Burdukiewicz, Michał and Spiess, Andrej-Nikolai and Blagodatskikh, Konstantin A.},
+	journal = {Comprehensive R Archive Network},
+	note = {R package version 1.1-1},
+	pages = {1–86},
+	title = {PCRedux package - an overview},
+	url = {https://cran.r-project.org/web/packages/PCRedux/vignettes/PCRedux.pdf},
+	year = {2019}
+}
+
+@article{erdman_bcp:_2007,
+	author = {Erdman, Chandra and Emerson, John W. and {others}},
+	doi = {10.18637/jss.v023.i03},
+	journal = {Journal of Statistical Software},
+	number = {3},
+	pages = {1–13},
+	shorttitle = {bcp},
+	title = {bcp: an {R} package for performing a {Bayesian} analysis of change point problems},
+	url = {https://www.jstatsoft.org/article/view/v023i03/v23i03.pdf},
+	urldate = {2017-08-13},
+	volume = {23},
+	year = {2007}
+}
+
+@article{james_ecp_2015,
+	author = {James, Nicholas A. and Matteson, David S.},
+	copyright = {Copyright (c) 2013 Nicholas A. James, David S. Matteson},
+	doi = {10.18637/jss.v062.i07},
+	issn = {1548-7660},
+	journal = {Journal of Statistical Software},
+	language = {en},
+	month = jan,
+	note = {Number: 1},
+	number = {1},
+	pages = {1–25},
+	shorttitle = {ecp},
+	title = {ecp: {An} {R} {Package} for {Nonparametric} {Multiple} {Change} {Point} {Analysis} of {Multivariate} {Data}},
+	url = {https://www.jstatsoft.org/index.php/jss/article/view/v062i07},
+	urldate = {2021-06-15},
+	volume = {62},
+	year = {2015}
+}
+
+@manual{pracma,
+	author = {Borchers, Hans W.},
+	note = {R package version 2.3.8},
+	title = {pracma: Practical Numerical Math Functions},
+	url = {https://CRAN.R-project.org/package=pracma},
+	year = {2022}
+}
+
+@manual{stats,
+	address = {Vienna, Austria},
+	author = {{R Core Team}},
+	organization = {R Foundation for Statistical Computing},
+	title = {R: A Language and Environment for Statistical Computing},
+	url = {https://www.R-project.org/},
+	year = {2021}
+}
+
+@article{todorov_object-oriented_2009,
+	author = {Todorov, Valentin and Filzmoser, Peter},
+	doi = {10.18637/jss.v032.i03},
+	issn = {1548-7660},
+	journal = {Journal of Statistical Software},
+	language = {en},
+	number = {3},
+	title = {An {Object}-{Oriented} {Framework} for {Robust} {Multivariate} {Analysis}},
+	url = {http://www.jstatsoft.org/v32/i03},
+	urldate = {2017-09-21},
+	volume = {32},
+	year = {2009}
+}
+
+@article{fda.usc,
+	author = {Febrero-Bande, Manuel and {Oviedo de la Fuente}, Manuel},
+	journal = {Journal of Statistical Software},
+	number = {4},
+	pages = {1–28},
+	title = {Statistical Computing in Functional Data Analysis: The {R} Package {fda.usc}},
+	url = {http://www.jstatsoft.org/v51/i04/},
+	volume = {51},
+	year = {2012}
+}
+
+@manual{shiny,
+	author = {Chang, Winston and Cheng, Joe and Allaire, JJ and Sievert, Carson and Schloerke, Barret and Xie, Yihui and Allen, Jeff and McPherson, Jonathan and Dipert, Alan and Borges, Barbara},
+	note = {R package version 1.7.1},
+	title = {shiny: Web Application Framework for R},
+	url = {https://CRAN.R-project.org/package=shiny},
+	year = {2021}
+}
+
+@article{ruijter_evaluation_2013,
+	author = {Ruijter, Jan M. and Pfaffl, Michael W. and Zhao, Sheng and Spiess, Andrej N. and Boggy, Gregory and Blom, Jochen and Rutledge, Robert G. and Sisti, Davide and Lievens, Antoon and {De Preter}, Katleen and Derveaux, Stefaan and Hellemans, Jan and Vandesompele, Jo},
+	doi = {10.1016/j.ymeth.2012.08.011},
+	issn = {10462023},
+	journal = {Methods},
+	keywords = {qPCR curve analysis, Transcriptional biomarker, Bias, Precision, Resolution, Benchmark},
+	language = {en},
+	month = jan,
+	number = {1},
+	pages = {32–46},
+	shorttitle = {Evaluation of {qPCR} curve analysis methods for reliable biomarker discovery},
+	title = {Evaluation of {qPCR} curve analysis methods for reliable biomarker discovery: {Bias}, resolution, precision, and implications},
+	url = {http://linkinghub.elsevier.com/retrieve/pii/S1046202312002290},
+	urldate = {2016-10-05},
+	volume = {59},
+	year = {2013}
+}
+
+@article{ruijter_removal_2015,
+	abstract = {Quantitative PCR (qPCR) is the method of choice in gene expression analysis. However, the number of groups or treatments, target genes and technical replicates quickly exceeds the capacity of a single run on a qPCR machine and the measurements have to be spread over more than 1 plate. Such multi-plate measurements often show similar proportional differences between experimental conditions, but different absolute values, even though the measurements were technically carried out with identical procedures. Removal of this between-plate variation will enhance the power of the statistical analysis on the resulting data. Inclusion and application of calibrator samples, with replicate measurements distributed over the plates, assumes a multiplicative difference between plates. However, random and technical errors in these calibrators will propagate to all samples on the plate. To avoid this effect, the systematic bias between plates can be removed with a correction factor based on all overlapping technical and biological replicates between plates. This approach removes the requirement for all calibrator samples to be measured successfully on every plate. This paper extends an already published factor correction method to the use in multi-plate qPCR experiments. The between-run correction factor is derived from the target quantities which are calculated from the quantification threshold, PCR efficiency and observed Cq value. To enable further statistical analysis in existing qPCR software packages, an efficiency-corrected Cq value is reported, based on the corrected target quantity and a PCR efficiency per target. The latter is calculated as the mean of the PCR efficiencies taking the number of reactions per amplicon per plate into account. Export to the RDML format completes an RDML-supported analysis pipeline of qPCR data ranging from raw fluorescence data, amplification curve analysis and application of reference genes to statistical analysis.},
+	author = {Ruijter, Jan M. and {Ruiz Villalba}, Adrián and Hellemans, Jan and Untergasser, Andreas and van den Hoff, Maurice J. B.},
+	doi = {10.1016/j.bdq.2015.07.001},
+	issn = {2214-7535},
+	journal = {Biomolecular Detection and Quantification},
+	keywords = {Software, qPCR, RDML, Between-run variation, Between-plate correction, Multi-plate experiment},
+	month = sep,
+	pages = {10–14},
+	series = {Special {Issue}: {Advanced} {Molecular} {Diagnostics} for {Biomarker} {Discovery} – {Part} {I}},
+	title = {Removal of between-run variation in a multi-plate {qPCR} experiment},
+	url = {http://www.sciencedirect.com/science/article/pii/S2214753515300012},
+	urldate = {2016-11-08},
+	volume = {5},
+	year = {2015}
+}
+
+@article{ronde_practical_2017,
+	abstract = {Since numerous miRNAs have been shown to be present in circulation, these so-called circulating miRNAs have emerged as potential biomarkers for disease. However, results of qPCR studies on circulating miRNA biomarkers vary greatly and many experiments cannot be reproduced. Missing data in qPCR experiments often occur due to off-target amplification, nonanalyzable qPCR curves and discordance between replicates. The low concentration of most miRNAs leads to most, but not all missing data. Therefore, failure to distinguish between missing data due to a low concentration and missing data due to randomly occurring technical errors partly explains the variation within and between otherwise similar studies. Based on qPCR kinetics, an analysis pipeline was developed to distinguish missing data due to technical errors from missing data due to a low concentration of the miRNA-equivalent cDNA in the PCR reaction. Furthermore, this pipeline incorporates a method to statistically decide whether concentrations from replicates are sufficiently concordant, which improves stability of results and avoids unnecessary data loss. By going through the pipeline's steps, the result of each measurement is categorized as “valid, invalid, or undetectable.” Together with a set of imputation rules, the pipeline leads to more robust and reproducible data as was confirmed experimentally. Using two validation approaches, in two cohorts totaling 2214 heart failure patients, we showed that this pipeline increases both the accuracy and precision of qPCR measurements. In conclusion, this statistical data handling pipeline improves the performance of qPCR studies on low-expressed targets such as circulating miRNAs.},
+	author = {Ronde, Maurice W. J. de and Ruijter, Jan M. and Lanfear, David and Bayes-Genis, Antoni and Kok, Maayke G. M. and Creemers, Esther E. and Pinto, Yigal M. and Pinto-Sietsma, Sara-Joan},
+	doi = {10.1261/rna.059063.116},
+	issn = {1355-8382, 1469-9001},
+	journal = {RNA},
+	keywords = {MicroRNA, Data analysis, qPCR},
+	language = {en},
+	month = may,
+	number = {5},
+	pages = {811–821},
+	pmid = {28202710},
+	title = {Practical data handling pipeline improves performance of {qPCR}-based circulating {miRNA} measurements},
+	url = {http://rnajournal.cshlp.org/content/23/5/811},
+	urldate = {2017-06-14},
+	volume = {23},
+	year = {2017}
+}
+
+@article{kok_small_2018,
+	abstract = {Since the discovery of microRNAs (miRNAs), circulating miRNAs have been proposed as biomarkers for disease. Consequently, many groups have tried to identify circulating miRNA biomarkers for various types of diseases including cardiovascular disease and cancer. However, the replicability of these experiments has been disappointingly low. In order to identify circulating miRNA candidate biomarkers, in general, first an unbiased high-throughput screen is performed in which a large number of miRNAs is detected and quantified in the circulation. Because these are costly experiments, many of such studies have been performed using a low number of study subjects (small sample size). Due to lack of power in small sample size experiments, true effects are often missed and many of the detected effects are wrong. Therefore, it is important to have a good estimate of the appropriate sample size for a miRNA high-throughput screen. In this review, we discuss the effects of small sample sizes in high-throughput screens for circulating miRNAs. Using data from a miRNA high-throughput experiment on isolated monocytes, we illustrate that the implementation of power calculations in a highthroughput miRNA discovery experiment will avoid unnecessarily large and expensive experiments, while still having enough power to be able to detect clinically important differences.},
+	author = {Kok, M.G.M. and de Ronde, M.W.J. and Moerland, P.D. and Ruijter, J.M. and Creemers, E.E. and Pinto-Sietsma, S.J.},
+	doi = {10.1016/j.bdq.2017.11.002},
+	issn = {22147535},
+	journal = {Biomolecular Detection and Quantification},
+	language = {en},
+	month = may,
+	note = {00000},
+	pages = {1–5},
+	shorttitle = {Small sample sizes in high-throughput {miRNA} screens},
+	title = {Small sample sizes in high-throughput {miRNA} screens: {A} common pitfall for the identification of {miRNA} biomarkers},
+	url = {http://linkinghub.elsevier.com/retrieve/pii/S2214753517302103},
+	urldate = {2018-06-16},
+	volume = {15},
+	year = {2018}
+}
+
+@article{ramakers_assumption-free_2003,
+	abstract = {Quantification of mRNAs using real-time polymerase chain reaction (PCR) by monitoring the product formation with the fluorescent dye SYBR Green I is being extensively used in neurosciences, developmental biology, and medical diagnostics. Most PCR data analysis procedures assume that the PCR efficiency for the amplicon of interest is constant or even, in the case of the comparative Ct method, equal to 2. The latter method already leads to a 4-fold error when the PCR efficiencies vary over just a 0.04 range. PCR efficiencies of amplicons are usually calculated from standard curves based on either known RNA inputs or on dilution series of a reference cDNA sample. In this paper we show that the first approach can lead to PCR efficiencies that vary over a 0.2 range, whereas the second approach may be off by 0.26. Therefore, we propose linear regression on the Log(fluorescence) per cycle number data as an assumption-free method to calculate starting concentrations of mRNAs and PCR efficiencies for each sample. A computer program to perform this calculation is available on request (email: bioinfo@amc.uva.nl; subject: LinRegPCR).},
+	author = {Ramakers, Christian and Ruijter, Jan M and Deprez, Ronald H.Lekanne and Moorman, Antoon F.M},
+	doi = {10.1016/S0304-3940(02)01423-4},
+	issn = {03043940},
+	journal = {Neuroscience Letters},
+	language = {en},
+	month = mar,
+	number = {1},
+	pages = {62–66},
+	title = {Assumption-free analysis of quantitative real-time polymerase chain reaction ({PCR}) data},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0304394002014234},
+	urldate = {2019-09-28},
+	volume = {339},
+	year = {2003}
+}
+
+@article{ruijter_efficiency_2021,
+	abstract = {Quantitative PCR (qPCR) aims to measure the DNA or RNA concentration in diagnostic and biological samples based on the quantification cycle (Cq) value observed in the amplification curves. Results of qPCR experiments are regularly calculated as if all assays are 100\% efficient or reported as just Cq, \ensuremath{\Delta}Cq, or \ensuremath{\Delta}\ensuremath{\Delta}Cq values.When the reaction shows specific amplification, it should be deemed to be positive, regardless of the observed Cq. Because the Cq is highly dependent on amplification efficiency that can vary among targets and samples, accurate calculation of the target quantity and relative gene expression requires that the actual amplification efficiency be taken into account in the analysis and reports. PCR efficiency is frequently derived from standard curves, but this approach is affected by dilution errors and hampered by properties of the standard and the diluent. These factors affect accurate quantification of clinical and biological samples used in diagnostic applications and collected in challenging conditions. PCR efficiencies determined from individual amplification curves avoid these confounders. To obtain unbiased efficiency-corrected results, we recommend absolute quantification with a single undiluted calibrator with a known target concentration and efficiency values derived from the amplification curves of the calibrator and the unknown samples.For meaningful diagnostics or biological interpretation, the reported results of qPCR experiments should be efficiency corrected. To avoid ambiguity, the Minimal Information for Publications on Quantitative Real-Time PCR Experiments (MIQE) guidelines checklist should be extended to require the methods that were used (1) to determine the PCR efficiency and (2) to calculate the reported target quantity and relative gene expression value.},
+	author = {Ruijter, Jan M and Barnewall, Rebecca J and Marsh, Ian B and Szentirmay, Andrew N and Quinn, Jane C and van Houdt, Robin and Gunst, Quinn D and van den Hoff, Maurice J B},
+	doi = {10.1093/clinchem/hvab052},
+	issn = {0009-9147},
+	journal = {Clinical Chemistry},
+	month = jun,
+	number = {6},
+	pages = {829–842},
+	title = {Efficiency {Correction} {Is} {Required} for {Accurate} {Quantitative} {PCR} {Analysis} and {Reporting}},
+	url = {https://doi.org/10.1093/clinchem/hvab052},
+	urldate = {2021-09-02},
+	volume = {67},
+	year = {2021}
+}
+
+@article{taylor_ultimate_2019,
+	abstract = {{\textless}p{\textgreater}Quantitative PCR (qPCR) is one of the most common techniques for quantification of nucleic acid molecules in biological and environmental samples. Although the methodology is perceived to be relatively simple, there are a number of steps and reagents that require optimization and validation to ensure reproducible data that accurately reflect the biological question(s) being posed. This review article describes and illustrates the critical pitfalls and sources of error in qPCR experiments, along with a rigorous, stepwise process to minimize variability, time, and cost in generating reproducible, publication quality data every time. Finally, an approach to make an informed choice between qPCR and digital PCR technologies is described.{\textless}/p{\textgreater}},
+	author = {Taylor, Sean C. and Nadeau, Katia and Abbasi, Meysam and Lachance, Claude and Nguyen, Marie and Fenrich, Joshua},
+	doi = {10.1016/j.tibtech.2018.12.002},
+	issn = {0167-7799, 1879-3096},
+	journal = {Trends in Biotechnology},
+	language = {English},
+	month = jul,
+	number = {7},
+	pages = {761–774},
+	pmid = {30654913},
+	shorttitle = {The {Ultimate} {qPCR} {Experiment}},
+	title = {The {Ultimate} {qPCR} {Experiment}: {Producing} {Publication} {Quality}, {Reproducible} {Data} the {First} {Time}},
+	url = {https://www.cell.com/trends/biotechnology/abstract/S0167-7799(18)30342-1},
+	urldate = {2019-09-30},
+	volume = {37},
+	year = {2019}
+}
+
+@article{liu_r_2014,
+	abstract = {It is scientifically and ethically imperative that the results of statistical analysis of biomedical research data be computationally reproducible in the sense that the reported results can be easily recapitulated from the study data. Some statistical analyses are computationally a function of many data files, program files, and other details that are updated or corrected over time. In many applications, it is infeasible to manually maintain an accurate and complete record of all these details about a particular analysis.
+PMID: 24886202},
+	author = {Liu, Zhifa and Pounds, Stan},
+	copyright = {2014 Liu and Pounds; licensee BioMed Central Ltd.},
+	doi = {10.1186/1471-2105-15-138},
+	issn = {1471-2105},
+	journal = {BMC Bioinformatics},
+	language = {en},
+	month = may,
+	number = {1},
+	pages = {138},
+	pmid = {24886202},
+	title = {An {R} package that automatically collects and archives details for reproducible computing},
+	url = {http://www.biomedcentral.com/1471-2105/15/138/abstract},
+	urldate = {2014-07-01},
+	volume = {15},
+	year = {2014}
+}
+
+@article{leeper_archiving_2014,
+	author = {Leeper, Thomas J.},
+	journal = {The R Journal},
+	keywords = {⛔ No DOI found},
+	month = jun,
+	number = {1},
+	pages = {151–158},
+	title = {Archiving {Reproducible} {Research} with {R} and {Dataverse}},
+	url = {http://journal.r-project.org/archive/2014-1/leeper.pdf},
+	volume = {6},
+	year = {2014}
+}
+
+@article{kim_experimenting_2018,
+	abstract = {Abstract.  Reproducibility has been shown to be limited in many scientific fields. This question is a fundamental tenet of scientific activity, but the related},
+	author = {Kim, Yang-Min and Poline, Jean-Baptiste and Dumas, Guillaume},
+	doi = {10.1093/gigascience/giy077},
+	journal = {GigaScience},
+	language = {en},
+	month = jul,
+	number = {7},
+	shorttitle = {Experimenting with reproducibility},
+	title = {Experimenting with reproducibility: a case study of robustness in bioinformatics},
+	url = {https://academic.oup.com/gigascience/article/7/7/giy077/5046609},
+	urldate = {2019-05-27},
+	volume = {7},
+	year = {2018}
+}
+
+@article{muggeo_interval_2017,
+	abstract = {This paper is concerned with interval estimation for the breakpoint parameter in segmented regression. We present score-type confidence intervals derived from the score statistic itself and from the recently proposed gradient statistic. Due to lack of regularity conditions of the score, non-smoothness and non-monotonicity, naive application of the score-based statistics is unfeasible and we propose to exploit the smoothed score obtained via induced smoothing. We compare our proposals with the traditional methods based on the Wald and the likelihood ratio statistics via simulations and an analysis of a real dataset: results show that the smoothed score-like statistics perform in practice somewhat better than competitors, even when the model is not correctly specified.},
+	author = {Muggeo, Vito M.R.},
+	doi = {10.1111/anzs.12200},
+	issn = {1467-842X},
+	journal = {Australian \& New Zealand Journal of Statistics},
+	keywords = {changepoint, confidence interval, induced smoothing, piecewise linear relationship, score inference},
+	language = {en},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/anzs.12200},
+	number = {3},
+	pages = {311–322},
+	shorttitle = {Interval estimation for the breakpoint in segmented regression},
+	title = {Interval estimation for the breakpoint in segmented regression: a smoothed score-based approach},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/anzs.12200},
+	urldate = {2022-05-09},
+	volume = {59},
+	year = {2017}
+}
+
+@article{hanschmann_looptag_2021_2,
+	abstract = {Background: Laboratory diagnosis of Lyme borreliosis refers to some methods with known limitations. Molecular diagnostics using specific nucleic acid probes may overcome some of these limitations. Methods: We describe the novel reporter fluorescence real-time polymerase chain reaction (PCR) probe system LoopTag for detection of Borrelia species. Advantages of the LoopTag system include having cheap conventional fluorescence dyes, easy primer design, no restrictions for PCR product lengths, robustness, high sequence specificity, applicability for multiplex real-time PCRs, melting curve analysis (single nucleotide polymorphism analysis) over a large temperature range, high sensitivity, and easy adaptation of conventional PCRs. Results: Using the LoopTag probe system we were able to detect all nine tested European species belonging to the Borrelia burgdorferi (sensu lato) complex and differentiated them from relapsing fever Borrelia species. As few as 10 copies of Borrelia in one PCR reaction were detectable. Conclusion: We established a novel multiplex probe real-time PCR system, designated LoopTag, that is simple, robust, and incorporates melting curve analysis for the detection and in the differentiation of European species belonging to the Borrelia burgdorferi s.l. complex.},
+	author = {Hanschmann, Henning and Rödiger, Stefan and Kramer, Toni and Hanschmann, Katrin and Steidle, Michael and Fingerle, Volker and Schmidt, Carsten and Lehmann, Werner and Schierack, Peter},
+	copyright = {http://creativecommons.org/licenses/by/3.0/},
+	doi = {10.3390/life11111163},
+	journal = {Life},
+	keywords = {diagnostic, Lyme borreliosis, \textit{Borrelia}, \textit{B. Burgdorferi} (sensu lato) complex, real-time PCR},
+	language = {en},
+	month = nov,
+	note = {Number: 11 Publisher: Multidisciplinary Digital Publishing Institute},
+	number = {11},
+	pages = {1163},
+	title = {{LoopTag} {FRET} {Probe} {System} for {Multiplex} {qPCR} {Detection} of {Borrelia} {Species}},
+	url = {https://www.mdpi.com/2075-1729/11/11/1163},
+	urldate = {2021-11-02},
+	volume = {11},
+	year = {2021}
+}
+
+@article{rodiger_rkward:_2012,
+	abstract = {R is a free open-source implementation of the S statistical computing language and programming environment. The current status of R is a command line driven interface with no advanced cross-platform graphical user interface (GUI), but it includes tools for building such. Over the past years, proprietary and non-proprietary GUI solutions have emerged, based on internal or external tool kits, with different scopes and technological concepts. For example, Rgui.exe and Rgui.app have become the de facto GUI on the Microsoft Windows and Mac OS X platforms, respectively, for most users. In this paper we discuss RKWard which aims to be both a comprehensive GUI and an integrated development environment for R. RKWard is based on the KDE software libraries. Statistical procedures and plots are implemented using an extendable plugin architecture based on ECMAScript (JavaScript), R, and XML. RKWard provides an excellent tool to manage different types of data objects; even allowing for seamless editing of certain types. The objective of RKWard is to provide a portable and extensible R interface for both basic and advanced statistical and graphical analysis, while not compromising on flexibility and modularity of the R programming environment itself.},
+	author = {Rödiger, Stefan and Friedrichsmeier, Thomas and Kapat, Prasenjit and Michalke, Meik},
+	doi = {10.18637/jss.v049.i09},
+	journal = {Journal of Statistical Software},
+	note = {00058},
+	number = {9},
+	pages = {1–34},
+	shorttitle = {{RKWard}},
+	title = {{RKWard}: a comprehensive graphical user interface and integrated development environment for statistical analysis with {R}},
+	url = {https://www.jstatsoft.org/article/view/v049i09/v49i09.pdf},
+	volume = {49},
+	year = {2012}
+}
+
