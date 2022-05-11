@@ -288,7 +288,7 @@ pcrfit_single <- function(x) {
 
   # Calculate amptester results
   res_amptester <- armor(chipPCR::amptester(y), 7)
-  if (length(res_amptester) != 1 && class(res_amptester) == "amptest") {
+  if ((length(res_amptester) != 1) && as.character(class(res_amptester)) == "amptest") {
     amptester_shapiro <- res_amptester@decisions["shap.noisy"][[1]]
     amptester_lrt <- res_amptester@decisions["lrt.test"][[1]]
     amptester_rgt <- res_amptester@decisions["rgt.dec"][[1]]

@@ -1,3 +1,9 @@
+# May 2022
+
+In the background we have worked on some new functions to classify amplification
+curves. They are not part of this maintenance release. This release contains bug
+fixes only.
+
 # March 2021
 
 PCRedux has been developed publicly by a group of qPCR entusiasts since 2017. 
