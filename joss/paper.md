@@ -1,42 +1,41 @@
 ---
 title: 'PCRedux: A Quantitative PCR Machine Learning Toolkit'
 tags:
-- R
-- qPCR
-- bioinformatics
-- machine learning
-- reproducible research
+  - R
+  - qPCR
+  - bioinformatics
+  - machine learning
+  - reproducible research
 date: "12 May 2022"
 affiliations:
-- name: Medical University of Białystok, Białystok, Poland
-  index: 1
-- name: Soilytix GmbH, Hamburg, Germany
-  index: 2
-- name: Warsaw University of Technology, Warsaw, Poland
-  index: 3
-- name: Pirogov Russian National Research Medical University, Moscow, Russia
-  index: 4
-- name: BTU Cottbus–Senftenberg, Faculty of Health Brandenburg, Senftenberg, Germany
-  index: 5
-- name: BTU Cottbus–Senftenberg, Faculty Environment and Natural Sciences, Senftenberg,
-    Germany
-  index: 6
+  - name: Medical University of Białystok, Białystok, Poland
+    index: 1
+  - name: Soilytix GmbH, Hamburg, Germany
+    index: 2
+  - name: Warsaw University of Technology, Warsaw, Poland
+    index: 3
+  - name: Pirogov Russian National Research Medical University, Moscow, Russia
+    index: 4
+  - name: BTU Cottbus–Senftenberg, Faculty of Health Brandenburg, Senftenberg, Germany
+    index: 5
+  - name: BTU Cottbus–Senftenberg, Faculty Environment and Natural Sciences, Senftenberg, Germany
+    index: 6
 authors:
-- name: Michał Burdukiewicz^[Co-first author]
-  orcid: 0000-0001-8926-582X
-  affiliation: 1
-- name: Andrej-Nikolai Spiess^[Co-first author]
-  orcid: 0000-0002-9630-4724
-  affiliation: 2
-- name: Dominik Rafacz
-  orcid: 0000-0003-0925-1909
-  affiliation: 3
-- name: Konstantin Blagodatskikh
-  orcid: 0000-0002-8732-0300
-  affiliation: 4
-- name: Stefan Rödiger^[Corresponding author]
-  orcid: 0000-0002-1441-6512
-  affiliation: 5, 6
+  - name: Michał Burdukiewicz^[Co-first author]
+    orcid: 0000-0001-8926-582X
+    affiliation: 1
+  - name: Andrej-Nikolai Spiess^[Co-first author]
+    orcid: 0000-0002-9630-4724
+    affiliation: 2
+  - name: Dominik Rafacz
+    orcid: 0000-0003-0925-1909
+    affiliation: 3
+  - name: Konstantin Blagodatskikh
+    orcid: 0000-0002-8732-0300
+    affiliation: 4
+  - name: Stefan Rödiger^[Corresponding author]
+    orcid: 0000-0002-1441-6512
+    affiliation: 5, 6
 bibliography: paper.bib
 ---
 
