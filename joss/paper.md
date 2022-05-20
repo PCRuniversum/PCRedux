@@ -66,7 +66,7 @@ context.
 
 The `PCRedux` package is an add-on package ([MIT
 license](https://mit-license.org/)) for the open-source statistical programming
-language and environment `R` [@R_Core_Team]. This package contains functions
+language and environment `R` [@stats]. This package contains functions
 that determine features from amplification curves using classical statistical
 and analytical procedures used in the classification of amplification curves.
 These 90 procedures are Boolean and numeric descriptors that can be employed for
