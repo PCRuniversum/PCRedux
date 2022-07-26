@@ -42,19 +42,15 @@ bibliography: paper.bib
 # Summary
 
 qPCR (quantitative Polymerase Chain Reaction) is indispensable in research,
-human diagnostics and forensics, because it provides quantitative information
+diagnostics and forensics, because it provides quantitative information
 about the amount of DNA in a sample [@pabinger_survey_2014]. The interpretation
-of amplification curves can often be challenging if the curve trajectory does
-not follow a typical amplification curve \autoref{fig:fig_1}, for instance how
-to objectively assess the quality of an amplification curve or how to
-automatically interpret amplification curves as positive, negative, or
-ambiguous.
+of amplification curves is often challenging if the curve trajectory does
+not follow a typical amplification curve \autoref{fig:fig_1}.
 
-The `PCRedux` package is an add-on package ([MIT
-license](https://mit-license.org/)) for `R` [@stats]. `PCRedux` contains functions
-that determine features from amplification curves using classical statistical
-and analytical procedures. Ninety Boolean and numeric descriptors can be employed for
-downstream machine learning and classification.
+`PCRedux` is an `R` package [@stats] that contains functions to determine
+ninety Boolean and numeric descriptors from amplification curves using classical statistical and analytical
+procedures for feature extraction and classification of amplification curves
+based on explainable machine learning.
 
 `PCRedux` can be used for determination of *Cq*-values and amplification
 efficiencies (*E*) in high-throughput analysis.
@@ -63,24 +59,21 @@ efficiencies (*E*) in high-throughput analysis.
 (trichotomously classified by several qPCR users into _negative_, _positive_ and
 _ambiguous_) from various qPCR instruments and detection methods.
 
-In summary, the `PCRedux` package is a versatile tool for feature extraction and
-classification of amplification curves based on explainable machine learning.
-
 # Statement of need
 
 Numerous data with sigmoidal ('S'-shaped) curves exist. An important use case
 being amplification curve data from quantitative polymerase chain reactions
 (qPCR). qPCR is a widely used laboratory method for precise detection and quantification of
 pathogens and gene expression analysis. The latter contributed significantly
-to our understanding of physiological and pathological processes in
+to the understanding of physiological and pathological processes in
 pharmacology, medicine and forensics. [@pabinger_survey_2014; @kok_small_2018]
 
 Available software packages provide workflows and criteria for processing qPCR
 data, including preprocessing of raw data, fitting of non-linear models to raw
 amplification curve data, calculation of threshold or second-derivative based
-*Cq* values, amplification efficiency (*E*), relative gene expression analysis,
-normalization procedures and data management [@pabinger_survey_2014;
-@ruijter_evaluation_2013; @ruijter_efficiency_2021;
+'cycle of quantification' (*Cq*) values, amplification efficiency (*E*), relative
+gene expression analysis, normalization procedures and data management
+[@pabinger_survey_2014; @ruijter_evaluation_2013; @ruijter_efficiency_2021;
 @ramakers_assumption-free_2003].
 
 qPCR curves must fulfill quality criteria for analysis. Curves
@@ -89,8 +82,7 @@ such as sigmoidal shape, steepness, noisiness, "hook effect" presence and overal
 "quality" [@burdukiewicz_algorithms_2018; @spiess_system-specific_2016;
 @spiess_impact_2015; @hanschmann_looptag_2021_2]. Positive qPCR reactions
 usually exhibit a sigmoidal shape, while negative amplification curves will have
-a more flat and linear appearance [@ritz_qpcr:_2008]. Figure \autoref{fig:fig_1}
-A shows an experiment with several amplification curves that exhibit different
+a more flat and linear appearance (Figure \autoref{fig:fig_1}).
 curvatures.
 
 ![Analysis of amplification curves using the `PCRedux` package. A) Amplification
@@ -104,7 +96,7 @@ amplification curves (signal amplitude between - 700 and 300) with noise (cycle
 not have typical nonlinear slopes (non-sigmoid). They cannot be clearly
 classified as positive or negative. B) From the data from A, the values (Value,
 [A.U.] (arbitrary unit)) of three descriptors cpD2 (maximum of the second
-derivative), amptester_polygon (area under the curve) and cpDdiff (absolute
+derivative, equals *Cq*), amptester_polygon (area under the curve) and cpDdiff (absolute
 cycle distance between the maximum of the second and first derivative) were
 calculated and plotted for the classes positive negative and ambiguous. Data
 from htPCR dataset [@ritz_qpcr:_2008].\label{fig:fig_1}](fig_1.png)
@@ -120,10 +112,6 @@ different manual thresholds or incorporate a subjective evaluation of the
 amplification curve quality. In-house laboratory guidelines appear to facilitate
 the evaluation of amplification curves, but these do not transfer to other
 laboratories [@bustin_why_2010; @taylor_ultimate_2019; @kim_experimenting_2018].
-To date, there is no open-source software package that provides classical
-biostatistical methods-based ("explainable") machine learning on amplification
-curves. Furthermore, no class-labeled datasets exists that can be used in this
-context.
 
 Automatically extracted features from amplification
 curves could provide a solid ground for the classification of amplification
@@ -131,27 +119,18 @@ curves by machine learning. Features are numerical descriptors such as *Cq* and
 *E* values, slopes, change points, features of local curve segments and others
 that differ between amplification curves.
 
-`PCRedux` is the first open-source software to automatically determine 90
+To date, there is no open-source software package that provides classical
+biostatistical methods-based ("explainable") machine learning on amplification
+curves. Furthermore, no class-labeled datasets exists that can be used in this
+context. `PCRedux` is the first open-source software to automatically determine 90
 mathematical descriptors (features) extracted from raw amplification curves that
 can be subjected to downstream machine learning algorithms, where a feature is a
 numerically or analytically derived quantifiable informative property of an
-amplification curve in a scalar unit. Consequently, the software can be used as
-a feature-delivering step before an already existing machine learning-based
-classifications pipeline.
-
-Scientific work always delivers and depends on data. In particular, open data
-are the cornerstones of science. Given the lack of datasets with classified
-amplification curves, the development of the `PCRedux` package also addressed
-the aggregation, management and distribution of classified qPCR datasets. This
-involved the aggregation of more than 14,000 amplification curves obtained from
-various thermocyclers and detection systems. In addition, it includes a function
-for blinded random classification of amplification curves.
-
-
+amplification curve in a scalar unit.
 
 # Software engineering
 
-`PCRedux` (v.\~1.1-2) is an `R` package (S3 class system) that calculates
+`PCRedux` (v.\~1.1-2, [MIT license](https://mit-license.org/)) is an `R` package (S3 class system) that calculates
 features from amplification curve data of quantitative polymerase chain
 reactions (qPCR) for machine learning purposes. `R` was chosen because it
 provides comprehensive tools for reproducible statistical and bioinformatics
@@ -205,6 +184,10 @@ Auxiliary preprocessing and analysis functions of the package are:
 * `qPCR2fdata()`, which is helper function to convert amplification curve data to the *fdata* format for Hausdorff distance analysis [@fda.usc] and
 * `performeR()`, which performs power analyses (e.g., sensitivity, specificity, Cohen's $\kappa$) for binary classification.
 
+Examples of application in the context of machine
+learning (classification positive vs. negative) can be found in @PCRedux
+vignette.
+
 ## Graphical User Interface:
 
 `run_PCRedux()` is a graphical user interface (Figure \autoref{fig:fig_2})
@@ -221,10 +204,13 @@ output via the R console.\label{fig:fig_2}](fig_2.png)
 
 ## Datasets and Data Labeling
 
-The function `tReem()`
-was developed for the manual classification of unlabeled amplification curves
-(multicategory labeling). The first column must contain the qPCR cycles and all
-subsequent columns must contain the amplification curves. Measures of similarity
+Scientific work always delivers and depends on data. In particular, open data
+are the cornerstones of science. Given the lack of datasets with classified
+amplification curves, `PCRedux` addresses the aggregation, management and
+distribution of classified qPCR datasets.
+
+The function `tReem()` facilitates the manual blinded random classification of
+unlabeled amplification curves (multicategory labeling). Measures of similarity
 between amplification curve shapes are the Pearson correlation coefficient or
 the Hausdorff distance [@fda.usc].
 
@@ -244,20 +230,17 @@ manual classification (e.g., negative, positive) the result is usually
 influenced by the subjective perception of the experimenter. An automatic system
 for analyzing qPCR curves may objectify and generalize the decision process.
 
-To address these problems, we developed `PCRedux`. The `PCRedux`
-package allows an automatic computer-aided classification of amplification
-curves based on 90 descriptors derived from statistically and analytically
-comprehensible algorithms. `PCRedux` is designed to improve the quality and reproducibility of qPCR data
-analysis by systematically validating input data.
+To address these problems, we developed `PCRedux`. The `PCRedux` package allows
+a faster (omission of manual inspection) automatic computer-aided classification
+of amplification curves based on 90 descriptors derived from statistically and
+analytically comprehensible algorithms. `PCRedux` is designed to improve the
+quality and reproducibility of qPCR data analysis by systematically validating
+input data.
 
-Training^ of neural networks would pose an option. But here the question of what the model
-considers as relevant would arise, especially in diagnostic applications. In
-order to avoid these "black box" situations, methods are available in which each descriptor
-can be mathematically explained. We see advantages compared to neural networks for diagnostic applications. The
-analysis process is made faster (omission of manual inspection), more objective
-and more reproducible. Examples of application in the context of machine
-learning (classification positive vs. negative) can be found in @PCRedux
-vignette.
+Training of neural networks would pose an option. But here the question of what
+the model considers as relevant would arise, especially in diagnostic
+applications. In order to avoid these "black box" situations, methods are
+available in which each descriptor can be mathematically explained.
 
 # Acknowledgments
 
