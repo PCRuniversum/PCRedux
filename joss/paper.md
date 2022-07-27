@@ -166,7 +166,7 @@ descriptor-generating functions:
 * `hookregNL()` and `hookreg()`, which try to detect a hook effect [@burdukiewicz_algorithms_2018] in the amplification curve,
 * `mblrr()` which performs a local robust regression analysis,
 * `winklR()`, a function to calculate the angle based on the first, and the second derivative of an amplification curve data from a quantitative PCR experiment and
-* `autocorrelation_test()`, a function to test for autocorrelation of amplification curve data from a quantitative PCR experiment.
+* `autocorrelation_test()`, a function to test for an autocorrelation of amplification curve data from a quantitative PCR experiment.
 
 Auxiliary preprocessing and analysis functions of the package are:
 
@@ -195,7 +195,7 @@ output via the R console.\label{fig:fig_2}](fig_2.png)
 
 The function `tReem()` facilitates the manual blinded random classification of
 unlabeled amplification curves (multicategory labeling). Measures of similarity
-between amplification curve shapes are the Pearson correlation coefficient or
+between amplification curve shapes are the Pearson correlation coefficient, or
 the Hausdorff distance [@fda.usc].
 
 `PCRedux` contains labeled amplification curves (n = 14360; label: negative,
