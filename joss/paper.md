@@ -77,12 +77,12 @@ amplification curve data, calculation of thresholds or the second derivation
 quantification cycle (*Cq*), amplification efficiency (*E*), relative gene expression
 gene expression analysis, normalisation procedures and data management), but not for machine learning.
 [@pabinger_survey_2014; @ruijter_evaluation_2013; @ruijter_efficiency_2021;
-@ramakers_acceptance_2003].
+@ramakers_assumption-free_2003].
 
 qPCR curves must meet quality criteria for analysis. Curves can
 Curves can be categorised by the user according to rather subjective criteria (e.g.,
 sigmoidal shape, slope, noise, presence of a "hook effect")
-[@burdukiewicz_algorithms_2018; @spiess_system_specific_2016;
+[@burdukiewicz_algorithms_2018; @spiess_system-specific_2016;
 @spiess_impact_2015; @hanschmann_looptag_2021_2]. Positive qPCR reactions
 reactions usually have a sigmoidal shape, while negative amplification curves have a
 show a rather flat and linear curve (Figure \autoref{fig:fig_1}).
