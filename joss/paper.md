@@ -87,8 +87,8 @@ usually have a sigmoidal shape, while negative amplification curves have a
 show a rather flat and linear curve (Figure \autoref{fig:fig_1}).
 
 ![Analysis of amplification curves using the `PCRedux` package. A) Amplification
-curves can have a high diversity in their appearance. The left plot (positive)
-shows several amplification curves, almost all of which are sigmoidal. The
+curves have a high diversity in their appearance. The left plot (positive)
+shows amplification curves, almost all of which are sigmoidal. The
 signal amplitude ranges from - 70 to 4000 relative fluorescence units (RFU).
 Noticeable are the amplification curves, which go slightly into the negative
 range of 10 - 20 cycles. Top right (negative) are negative
@@ -105,21 +105,25 @@ from htPCR dataset [@ritz_qpcr:_2008].\label{fig:fig_1}](fig_1.png)
 The question arises as to how the amplification curves can be objectively and
 reproducible assessed and automatically interpreted (e.g. as
 positive/negative/ambiguous or low/high quality). For high-throughput
-experiments, manual evaluation is not readily possible because of errors due to the
-exhaustion of the concentration capacity. Manual analyses are often not
-reproducible, since scientists in different laboratories use arbitrary thresholds or make a subjective assessment of quality. Internal laboratory
-guidelines seem to facilitate amplification curves, but they are not
-be extrapolated to other labs. [@bustin_why_2010; @taylor_ultimate_2019;
+experiments, manual evaluation is not readily possible because of errors due to
+the exhaustion of the concentration capacity. Manual analyses are often not
+reproducible, since scientists in different laboratories use arbitrary
+thresholds or make a subjective assessments. Internal laboratory
+guidelines seem to facilitate amplification curves, but they are not be
+extrapolated to other labs. [@bustin_why_2010; @taylor_ultimate_2019;
 @kim_experimenting_2018].
 
 Automatically extracted features from amplification curves (e.g. *Cq* and *E*.
-values, slopes, change points, features of local curve segments) could provide a solid basis for classification by machine learning. So far, no
-open-source software applies classical biostatistical methods for explainable machine learning to amplification curves. Furthermore, there are no
-class-labelled datasets that can be used in this context.
+values, slopes, change points, features of local curve segments) could provide a
+solid basis for classification by machine learning. So far, no open-source
+software applies classical biostatistical methods for explainable machine
+learning to amplification curves. Furthermore, there are no class-labelled
+datasets that can be used in this context.
 
 `PCRedux` is the first open-source software that can extract 90 mathematical
-descriptors (features) from raw amplification curves. The features are numerically
-or analytically derived, quantifiable, informative properties of an amplification curve in a scaled amplification curve in a scalar unit.
+descriptors (features) from raw amplification curves. The features are
+numerically or analytically derived, quantifiable, informative properties of an
+amplification curve in a scaled amplification curve in a scalar unit.
 
 # Software engineering
 
