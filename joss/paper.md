@@ -44,8 +44,7 @@ bibliography: paper.bib
 qPCR (quantitative polymerase chain reaction) is indispensable in research,
 diagnostics and forensics, because it provides quantitative information
 about the amount of DNA in a sample [@pabinger_survey_2014]. The interpretation
-of amplification curves is often difficult if the curve does not
-does not follow a typical amplification curve {fig:fig_1}.
+of amplification curves is often difficult if the curve does not follow a typical amplification curve {fig:fig_1}.
 
 `PCRedux` is an `R` package [@stats] for feature extraction and classification
 in the sense of explainable machine learning. It uses functions to compute
@@ -59,7 +58,7 @@ In particular, open data are the cornerstones of science. Given the lack of data
 sets with classified amplification curves, `PCRedux` includes functions for
 aggregation, management and aggregate, manage and disseminate classified qPCR
 datasets. (trichotomously classified by multiple qPCR users into _negative_,
-_positive_ and and _unique_) from different qPCR instruments and detection
+_positive_ and _ambiguous_) from different qPCR instruments and detection
 methods.
 
 # Statement of need
@@ -74,17 +73,17 @@ The latter has contributed significantly to the understanding of physiological a
 Available software packages provide workflows and criteria for processing qPCR
 data (including pre-processing of raw data, fitting of non-linear models to raw data, computation of
 amplification curve data, calculation of thresholds or the second derivation
-quantification cycle (*Cq*), amplification efficiency (*E*), relative gene expression
-gene expression analysis, normalisation procedures and data management), but not for machine learning.
+quantification cycle (*Cq*), amplification efficiency (*E*), relative gene expression 
+analysis, normalization procedures and data management), but not for machine learning.
 [@pabinger_survey_2014; @ruijter_evaluation_2013; @ruijter_efficiency_2021;
 @ramakers_assumption-free_2003].
 
-qPCR curves must meet quality criteria for analysis. Curves can
-Curves can be categorised by the user according to rather subjective criteria (e.g.,
+qPCR curves must meet quality criteria for analysis. Curves can be categorized 
+by the user according to rather subjective criteria (e.g.,
 sigmoidal shape, slope, noise, presence of a "hook effect")
 [@burdukiewicz_algorithms_2018; @spiess_system-specific_2016;
-@spiess_impact_2015; @hanschmann_looptag_2021_2]. Positive qPCR reactions
-reactions usually have a sigmoidal shape, while negative amplification curves have a
+@spiess_impact_2015; @hanschmann_looptag_2021_2]. Positive qPCR reactions 
+usually have a sigmoidal shape, while negative amplification curves have a
 show a rather flat and linear curve (Figure \autoref{fig:fig_1}).
 
 ![Analysis of amplification curves using the `PCRedux` package. A) Amplification
@@ -92,7 +91,7 @@ curves can have a high diversity in their appearance. The left plot (positive)
 shows several amplification curves, almost all of which are sigmoidal. The
 signal amplitude ranges from - 70 to 4000 relative fluorescence units (RFU).
 Noticeable are the amplification curves, which go slightly into the negative
-range in the range of 10 - 20 cycles. Top right (negative) are negative
+range of 10 - 20 cycles. Top right (negative) are negative
 amplification curves (signal amplitude between - 700 and 300) with noise (cycle
 20 - 40). The bottom right plot (ambiguous) shows amplification curves that do
 not have typical nonlinear slopes (non-sigmoid). They cannot be clearly
@@ -104,7 +103,7 @@ calculated and plotted for the classes positive negative and ambiguous. Data
 from htPCR dataset [@ritz_qpcr:_2008].\label{fig:fig_1}](fig_1.png)
 
 The question arises as to how the amplification curves can be objectively and
-reproducibly assessed and automatically interpreted (e.g. as
+reproducible assessed and automatically interpreted (e.g. as
 positive/negative/ambiguous or low/high quality). For high-throughput
 experiments, manual evaluation is not readily possible because of errors due to the
 exhaustion of the concentration capacity. Manual analyses are often not
@@ -114,8 +113,8 @@ be extrapolated to other labs. [@bustin_why_2010; @taylor_ultimate_2019;
 @kim_experimenting_2018].
 
 Automatically extracted features from amplification curves (e.g. *Cq* and *E*.
-values, slopes, change points, features of local curve segments) could provide a solid basis for classification by machine learning. So far, there is no
-open-source software that applies classical biostatistical methods for explainable machine learning to amplification curves. Furthermore, there are no
+values, slopes, change points, features of local curve segments) could provide a solid basis for classification by machine learning. So far, no
+open-source software applies classical biostatistical methods for explainable machine learning to amplification curves. Furthermore, there are no
 class-labelled datasets that can be used in this context.
 
 `PCRedux` is the first open-source software that can extract 90 mathematical
@@ -141,7 +140,7 @@ tail region. The exponential and linear phase is located between these two ROIs
 
 `PCRedux`'s algorithms, published by others and ourselves (`qpcR`
 [@ritz_qpcr:_2008], `MBmca` [@rodiger_surface_2013], `chipPCR`
-[@rodiger_chippcr:_2015]), were are adapted for qPCR analysis. The `PCRedux`
+[@rodiger_chippcr:_2015]), were adapted for qPCR analysis. The `PCRedux`
 dependencies include packages for preprocessing of raw data (`chipPCR`,
 `MBmca`), fitting of non-linear models to raw data, calculation of
 quantification cycles and amplification efficiencies (`qpcR`). `pcrfit_single()`
@@ -166,8 +165,8 @@ descriptor-generating functions:
 * `head2tailratio()`, which compares the ratio of head and tail,
 * `hookregNL()` and `hookreg()`, which try to detect a hook effect [@burdukiewicz_algorithms_2018] in the amplification curve,
 * `mblrr()` which performs a local robust regression analysis,
-* `winklR()`, which is a function to calculate the angle based on the first and the second derivative of an amplification curve data from a quantitative PCR experiment and
-* `autocorrelation_test()`, which is a function to test for autocorrelation of amplification curve data from a quantitative PCR experiment.
+* `winklR()`, a function to calculate the angle based on the first, and the second derivative of an amplification curve data from a quantitative PCR experiment and
+* `autocorrelation_test()`, a function to test for autocorrelation of amplification curve data from a quantitative PCR experiment.
 
 Auxiliary preprocessing and analysis functions of the package are:
 
@@ -208,10 +207,10 @@ experienced researchers (@PCRedux).
 
 Manual classification of amplification curves is time-consuming and error-prone,
 especially with large data sets. It is difficult to work amplification curves if
-they deviate from the sigmoidal shape or their number is impractical for manual
+they deviate from the sigmoidal shape, or their number is impractical for manual
 analysis. With a manual classification, the result is influenced by subjective
-perception. An automated system for analysing qPCR curves can objectify and
-generalise the decision-making process.
+perception. An automated system for analyzing qPCR curves can objectify and
+generalize the decision-making process.
 
 Training neural networks is an option. However, the question here is what the
 model considers relevant. Especially in diagnostic This is particularly
@@ -220,7 +219,7 @@ there are methods where each descriptor can be explained mathematically.
 
 The `PCRedux` package enables a faster (elimination of manual inspection)
 automatic computer-aided classification of amplification curves based on 90
-descriptors using statistically and analytically traceable algorithms. PCRedux'
+descriptors using statistically and analytically traceable algorithms. `PCRedux`
 serves to improve the quality and reproducibility of the quality and
 reproducibility of qPCR data analysis by systematic validation of input data.
 
