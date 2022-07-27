@@ -64,29 +64,28 @@ methods.
 
 # Statement of need
 
-Numerous data with sigmoidal ('S'-shaped) curves exist. An important use case
-being amplification curve data from quantitative polymerase chain reactions
+There are numerous data with sigmoidal ('S'-shaped) curves. An important application
+is amplification curve data from quantitative polymerase chain reactions (qPCR).
 (qPCR). Among other use cases, qPCR is a widely used laboratory method for
-precise detection and quantification of pathogens and gene expression analysis.
-The latter contributed significantly to the understanding of physiological and
-pathological processes in pharmacology, medicine and forensics.
+precise detection and quantification of pathogens and in gene expression analysis.
+The latter has contributed significantly to the understanding of physiological and pathological processes in pharmacology, medicine and forensics.
 [@pabinger_survey_2014; @kok_small_2018]
 
 Available software packages provide workflows and criteria for processing qPCR
-data (incl. preprocessing of raw data, fitting of non-linear models to raw
-amplification curve data, calculation of threshold or second-derivative based
-'cycle of quantification' (*Cq*) values, amplification efficiency (*E*), relative
-gene expression analysis, normalization procedures and data management)
+data (including pre-processing of raw data, fitting of non-linear models to raw data, computation of
+amplification curve data, calculation of thresholds or the second derivation
+quantification cycle (*Cq*), amplification efficiency (*E*), relative gene expression
+gene expression analysis, normalisation procedures and data management), but not for machine learning.
 [@pabinger_survey_2014; @ruijter_evaluation_2013; @ruijter_efficiency_2021;
-@ramakers_assumption-free_2003].
+@ramakers_acceptance_2003].
 
-qPCR curves must fulfill quality criteria for analysis. Curves can be
-categorized by the user on the basis of somewhat subjective criteria (e.g.,
-sigmoidal shape, steepness, noisiness, "hook effect" presence)
-[@burdukiewicz_algorithms_2018; @spiess_system-specific_2016;
+qPCR curves must meet quality criteria for analysis. Curves can
+Curves can be categorised by the user according to rather subjective criteria (e.g.,
+sigmoidal shape, slope, noise, presence of a "hook effect")
+[@burdukiewicz_algorithms_2018; @spiess_system_specific_2016;
 @spiess_impact_2015; @hanschmann_looptag_2021_2]. Positive qPCR reactions
-usually exhibit a sigmoidal shape, while negative amplification curves will have
-a more flat and linear appearance curvatures (Figure \autoref{fig:fig_1}).
+reactions usually have a sigmoidal shape, while negative amplification curves have a
+show a rather flat and linear curve (Figure \autoref{fig:fig_1}).
 
 ![Analysis of amplification curves using the `PCRedux` package. A) Amplification
 curves can have a high diversity in their appearance. The left plot (positive)
@@ -104,28 +103,24 @@ cycle distance between the maximum of the second and first derivative) were
 calculated and plotted for the classes positive negative and ambiguous. Data
 from htPCR dataset [@ritz_qpcr:_2008].\label{fig:fig_1}](fig_1.png)
 
-The question arises as to how amplification curves can be objectively and
+The question arises as to how the amplification curves can be objectively and
 reproducibly assessed and automatically interpreted (e.g. as
-positive/negative/unambiguous or low/high quality). In high-throughput
-experiments, manual analysis is not readily feasible as errors are likely due to
+positive/negative/ambiguous or low/high quality). For high-throughput
+experiments, manual evaluation is not readily possible because of errors due to the
 exhaustion of the concentration capacity. Manual analyses are often not
-reproducible because scientists in different laboratories use arbitrary
-thresholds or make a subjective assessment of quality. Internal laboratory
-guidelines seem to facilitate the amplification curves, but these cannot be
-transferred to other laboratories. [@bustin_why_2010; @taylor_ultimate_2019;
+reproducible, since scientists in different laboratories use arbitrary thresholds or make a subjective assessment of quality. Internal laboratory
+guidelines seem to facilitate amplification curves, but they are not
+be extrapolated to other labs. [@bustin_why_2010; @taylor_ultimate_2019;
 @kim_experimenting_2018].
 
-Automatically extracted features from amplification curves (e.g., *Cq*- and *E*
-values, slopes, change points, features of local curve segments) could provide a
-solid basis for machine learning classification. To date, there is no
-open-source software that applies classical biostatistical methods for
-explainable machine learning to amplification curves. Furthermore, there are no
+Automatically extracted features from amplification curves (e.g. *Cq* and *E*.
+values, slopes, change points, features of local curve segments) could provide a solid basis for classification by machine learning. So far, there is no
+open-source software that applies classical biostatistical methods for explainable machine learning to amplification curves. Furthermore, there are no
 class-labelled datasets that can be used in this context.
 
-PCRedux" is the first open-source software that extracts 90 mathematical
-descriptors (features) from raw amplification curves. Features are numerically
-or analytically derived, quantifiable, informative properties of an
-amplification curve in a scalar unit.
+`PCRedux` is the first open-source software that can extract 90 mathematical
+descriptors (features) from raw amplification curves. The features are numerically
+or analytically derived, quantifiable, informative properties of an amplification curve in a scaled amplification curve in a scalar unit.
 
 # Software engineering
 
