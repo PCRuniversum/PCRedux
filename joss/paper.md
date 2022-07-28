@@ -8,8 +8,10 @@ tags:
   - reproducible research
 date: "12 May 2022"
 affiliations:
-  - name: Medical University of Białystok, Białystok, Poland
+  - name: Autonomous University of Barcelona, Bellaterra, Spain
     index: 1
+  - name: Medical University of Białystok, Białystok, Poland
+    index: 2
   - name: Soilytix GmbH, Hamburg, Germany
     index: 2
   - name: Warsaw University of Technology, Warsaw, Poland
@@ -23,19 +25,19 @@ affiliations:
 authors:
   - name: Michał Burdukiewicz^[Co-first author]
     orcid: 0000-0001-8926-582X
-    affiliation: 1
+    affiliation: 1, 2
   - name: Andrej-Nikolai Spiess^[Co-first author]
     orcid: 0000-0002-9630-4724
-    affiliation: 2
+    affiliation: 3
   - name: Dominik Rafacz
     orcid: 0000-0003-0925-1909
-    affiliation: 3
+    affiliation: 4
   - name: Konstantin Blagodatskikh
     orcid: 0000-0002-8732-0300
-    affiliation: 4
+    affiliation: 5
   - name: Stefan Rödiger^[Corresponding author]
     orcid: 0000-0002-1441-6512
-    affiliation: 5, 6
+    affiliation: 6, 7
 bibliography: paper.bib
 ---
 
