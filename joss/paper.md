@@ -13,15 +13,15 @@ affiliations:
   - name: Medical University of Białystok, Białystok, Poland
     index: 2
   - name: Soilytix GmbH, Hamburg, Germany
-    index: 2
-  - name: Warsaw University of Technology, Warsaw, Poland
     index: 3
-  - name: Pirogov Russian National Research Medical University, Moscow, Russia
+  - name: Warsaw University of Technology, Warsaw, Poland
     index: 4
-  - name: BTU Cottbus–Senftenberg, Faculty of Health Brandenburg, Senftenberg, Germany
+  - name: Pirogov Russian National Research Medical University, Moscow, Russia
     index: 5
-  - name: BTU Cottbus–Senftenberg, Faculty Environment and Natural Sciences, Senftenberg, Germany
+  - name: BTU Cottbus–Senftenberg, Faculty of Health Brandenburg, Senftenberg, Germany
     index: 6
+  - name: BTU Cottbus–Senftenberg, Faculty Environment and Natural Sciences, Senftenberg, Germany
+    index: 7
 authors:
   - name: Michał Burdukiewicz^[Co-first author]
     orcid: 0000-0001-8926-582X
