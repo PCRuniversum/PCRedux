@@ -171,7 +171,7 @@ support `ECMA Script` and `HTML`. In this example, the GUI was used in `RKWard`
 `PCRedux` contains class-labeled ACs (n = 14360; label: negative,
 positive, ambiguous) from various qPCR instruments and detection methods, as
 determined by the majority vote of four experienced researchers (@PCRedux). 
-Class labels were derived from the `humanrater2()`function, which uses `tReem()` for shape similarity calculation [@fda.usc].
+Class labels were derived from the `humanrater2()` function, which uses `tReem()` for shape similarity calculation [@fda.usc].
 
 # Conclusion
 
