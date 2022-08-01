@@ -46,7 +46,7 @@ bibliography: paper.bib
 qPCR (quantitative polymerase chain reaction) is indispensable in research,
 diagnostics and forensics, because it provides quantitative information
 about the amount of DNA in a sample [@pabinger_survey_2014]. The interpretation
-of amplification curves (ACs) is often difficult if the curve does not follow a typical sigmoidal trajectory {fig:fig_1}.
+of amplification curves (ACs) is often difficult if the curve does not follow a typical sigmoidal trajectory.
 
 `PCRedux` is an `R` package [@stats] for feature extraction and classification
 in the realm of explainable machine learning, which uses statistical functions to compute
