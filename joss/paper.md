@@ -73,7 +73,7 @@ by the user according to rather subjective criteria (_e.g._,
 sigmoidal shape, slope, noise, presence of a "hook effect")
 [@burdukiewicz_algorithms_2018; @spiess_system-specific_2016;
 @spiess_impact_2015; @hanschmann_looptag_2021_2]. While positive qPCR reactions 
-usually exhibit a sigmoidal shape, negative ACs display a rather flat and linear trajectory (Figure \autoref{fig:fig_1}).
+usually exhibit a sigmoidal shape, negative ACs display a rather flat and linear trajectory (\autoref{fig:fig_1}).
 
 ![Analysis of ACs using the `PCRedux` package. A) ACs exhibit a high diversity in their appearance. The left plot (positive)
 shows ACs of which almost all are sigmoidal. The
@@ -90,7 +90,7 @@ calculated and plotted for the three classes. Data
 from htPCR dataset [@ritz_qpcr:_2008].\label{fig:fig_1}](fig_1.png)
 
 So how can ACs be objectively and
-reproducible assessed and automatically interpreted (_e.g._, as
+reproducibly assessed and automatically interpreted (_e.g._, as
 positive/negative/ambiguous or low/high quality)? For high-throughput
 experiments, manual evaluation is not feasible because of mental exhaustion errors or non-reproducibility from arbitrary thresholds or subjective assessments. 
 While internal laboratory guidelines seem to partially remedy this, they are usually not standardized with other labs.
@@ -108,7 +108,7 @@ numerically or analytically derived, quantifiable, informative properties of sca
 
 # Software engineering
 
-`PCRedux` (v.\~1.1-2, [MIT license](https://mit-license.org/)) is an `R` package
+`PCRedux` (v.1.1-2, [MIT license](https://mit-license.org/)) is an `R` package
 (S3 class system). `R` was chosen because it provides comprehensive tools for reproducible
 statistical and bioinformatics analyses [@gentleman_bioconductor:_2004;
 @gentleman_statistical_2007; @rodiger_r_2015; @liu_r_2014;
@@ -158,13 +158,13 @@ Application examples in the context of machine learning can be found in the @PCR
 
 ## Graphical User Interface:
 
-`run_PCRedux()` invokes a graphical user interface (figure \autoref{fig:fig_2}) based
+`run_PCRedux()` invokes a graphical user interface (\autoref{fig:fig_2}) based
 on the `Shiny` technology [@shiny], providing features as a downstream accessible table.
 
 ![Graphical user interface for the analyses of qPCR data. A) The `run_PCRedux()`
 GUI for analysis and tabular display can use browsers or R environments that
 support `ECMA Script` and `HTML`. In this example, the GUI was used in `RKWard`
-(v.~0.7.2, Linux, Kubuntu 21.10, [@rodiger_rkward:_2012]). B) Optionally, information about the current state of errors can be obtained via the R console.\label{fig:fig_2}](fig_2.png)
+(v.0.7.2, Linux, Kubuntu 21.10, [@rodiger_rkward:_2012]). B) Optionally, information about the current state of errors can be obtained via the R console.\label{fig:fig_2}](fig_2.png)
 
 ## Datasets and Data Labeling
 
