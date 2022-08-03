@@ -118,8 +118,8 @@ were used for software quality control of `PCRedux`.
 ## Functions
 
 Conceptually, we divide ACs into regions of interest (ROI) for feature
-calculation (vignette @PCRedux Figure 5). Typical for qPCR, baseline, exponential/linear and plateau phases are
-located at the left, middle and right tail region of the curve, respectively (vignette @PCRedux Figure 5).
+calculation (@rodiger_pcredux_2022 Figure 5). Typical for qPCR, baseline, exponential/linear and plateau phases are
+located at the left, middle and right tail region of the curve, respectively (@rodiger_pcredux_2022 Figure 5).
 
 `PCRedux`'s algorithms, published by others and ourselves (`qpcR`
 [@ritz_qpcr:_2008], `MBmca` [@rodiger_surface_2013], `chipPCR`
@@ -170,7 +170,7 @@ support `ECMA Script` and `HTML`. In this example, the GUI was used in `RKWard`
 
 `PCRedux` contains class-labeled ACs (n = 14360; label: negative,
 positive, ambiguous) from various qPCR instruments and detection methods, as
-determined by the majority vote of four experienced researchers (@PCRedux). 
+determined by the majority vote of four experienced researchers (@rodiger_pcredux_2022).
 Class labels were derived from the `humanrater2()` function, which uses `tReem()` for shape similarity calculation [@fda.usc].
 
 # Conclusion
