@@ -154,11 +154,11 @@ Auxiliary preprocessing and analysis functions of the package are:
 * `qPCR2fdata()`, converts AC data to the *fdata* format for Hausdorff distance analysis [@fda.usc] and
 * `performeR()`, performs power analyses (e.g., sensitivity, specificity, Cohen's $\kappa$) for binary classification.
 
-Application examples in the context of machine learning can be found in the @PCRedux vignette.
+Application examples in the context of machine learning can be found in @rodiger_pcredux_2022 or the current @PCRedux vignette.
 
 ## Graphical User Interface:
 
-`run_PCRedux()` invokes a graphical user interface (figure \autoref{fig:fig_2}) based
+`run_PCRedux()` invokes a graphical user interface (\autoref{fig:fig_2}) based
 on the `Shiny` technology [@shiny], providing features as a downstream accessible table.
 
 ![Graphical user interface for the analyses of qPCR data. A) The `run_PCRedux()`
