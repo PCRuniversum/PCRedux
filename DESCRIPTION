@@ -42,7 +42,6 @@ BugReports: https://github.com/PCRuniversum/PCRedux/issues
 Depends:
     R (>= 3.5.0)
 Imports:
-    bcp,
     changepoint,
     chipPCR,
     ecp,

@@ -79,7 +79,6 @@
 #'   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "autocorrelation" \tab is a value of autocorrelation of a gain curve from a quantitative PCR experiment \tab numeric \cr
 #'   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-#'   "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
 #'   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
 #'   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
 #'   "amptester_rgt" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
@@ -137,7 +136,6 @@
 #' library(chipPCR)
 #' res <- pcrfit_single(C126EG685[, 2])
 #' @seealso
-#'  \code{\link[bcp]{bcp}}
 #'  \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
 #'  \code{\link[ecp]{e.agglo}}
 #'  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
@@ -274,14 +272,6 @@ pcrfit_single <- function(x) {
 
   # Agglomerative hierarchical estimation algorithm for multiple change point analysis
   res_cp_e.agglo <- armor(length(ecp::e.agglo(as.matrix(res_diffQ_double[["d(F) / dT"]]))$estimates))
-
-  # Bayesian analysis of change points
-  res_bcp_tmp <- armor(bcp::bcp(res_diffQ_double[["d(F) / dT"]])$posterior.prob)
-  if (length(res_bcp_tmp) != 1) {
-    res_bcp <- armor(length(which(as.factor(res_bcp_tmp >= 0.95) == TRUE)))
-  } else {
-    res_bcp <- 0
-  }
 
   # Median based local robust regression (mblrr)
   res_mblrr <- armor(PCRedux::mblrr(x, y), 6)
@@ -764,7 +754,6 @@ pcrfit_single <- function(x) {
     autocorrelation = res_autocorrelation,
     # Change points
     cp_e.agglo = res_cp_e.agglo,
-    cp_bcp = res_bcp,
     # Amptester
     amptester_shapiro = amptester["amp.shap"], # res_amptester@decisions["shap.noisy"][[1]],
     amptester_lrt = amptester["amp.lrt"], #  res_amptester@decisions["lrt.test"][[1]],

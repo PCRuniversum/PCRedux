@@ -1,3 +1,9 @@
+Version 1.1-3 [May 2024]
+* bcp had to be removed, because it is no longer available on CRAN
+* error fixes for complains in classes
+* smaller Fixes
+* JOSS paper added as reference https://joss.theoj.org/papers/10.21105/joss.04407
+
 Version 1.1-2 [May 2021]
 * removed the reduntant run_pcredux function
 * exchanged deprecated unittest functions
