@@ -2,6 +2,7 @@
 % Please edit documentation in R/PCRedux.R
 \docType{package}
 \name{PCRedux-package}
+\alias{-package}
 \alias{PCRedux-package}
 \alias{l4}
 \alias{PCRedux}

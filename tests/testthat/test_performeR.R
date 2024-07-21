@@ -8,5 +8,5 @@ test_that("performeR gives the correct dimensions and properties", {
   res_performeR <- performeR(sample = test_data, reference = reference_data)
 
   expect_that(res_performeR, is_a("data.frame"))
-  expect_that(res_performeR$TP == 10 && res_performeR$TP == 10 && res_performeR$SPC == 1, is_true())
+  expect_that(res_performeR$TP == 10 && res_performeR$TP == 10 && res_performeR$SPC == 1, expect_true())
 })
