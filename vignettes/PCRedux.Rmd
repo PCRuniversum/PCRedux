@@ -16,4 +16,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+The `PCRedux` was published in the Journal of Open Source Software under the title [PCRedux: A Quantitative PCR Machine Learning Toolkit](https://joss.theoj.org/papers/10.21105/joss.04407). This leads to the most complete documentation about the package.
+
+Note that we had to remove one function from the package, because the `bcp` package was [archived](https://cran.r-project.org/package=bcp). This means one feature less in the `pcrfit_single()` function and the related functions.
+
 As the size of PCRedux vignette greatly exceeds the CRAN limits, but we do not see any way to shorten it, the vignette was moved here: https://github.com/PCRuniversum/PCRedux-supplements/blob/master/PCRedux.pdf.
