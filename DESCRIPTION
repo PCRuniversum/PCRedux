@@ -32,7 +32,8 @@ Description: Extracts features from amplification curve data of quantitative
     functions (Burdukiewicz M. et al. (2018) <doi:10.1016/j.bdq.2018.08.001>) 
     can be used to predict amplification curves with an hook effect-like 
     curvature. The pcrfit_single() function can be used to extract features 
-    from an amplification curve.
+    from an amplification curve. PCRedux was published in the Journal of Open
+    Source Software (<10.21105/joss.04407>)
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
@@ -72,4 +73,4 @@ NeedsCompilation: no
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
