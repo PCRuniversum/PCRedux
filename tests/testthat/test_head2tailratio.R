@@ -9,6 +9,6 @@ test_that("head2tailratio gives the correct dimensions and properties", {
 
   expect_that(res, is_a("numeric"))
   expect_that(res_normalized, is_a("numeric"))
-  expect_that(res <= 3.589284, expect_true())
-  expect_that(res_normalized >= 23, expect_true())
+  expect_true(res <= 3.589284)
+  expect_true(res_normalized >= 23)
 })

@@ -9,3 +9,6 @@ docs
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+CONTRIBUTING
+joss
+.github
