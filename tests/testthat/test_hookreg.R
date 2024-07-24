@@ -9,6 +9,6 @@ test_that("hookreg gives the correct dimensions and properties", {
 
   expect_that(res_hookreg_positve, is_a("numeric"))
   expect_that(res_hookreg_negative, is_a("numeric"))
-  expect_that(res_hookreg_positve[["hook"]] == 1, expect_true())
-  expect_that(res_hookreg_negative[["hook"]] == 1, expect_false())
+  expect_true(res_hookreg_positve[["hook"]] == 1)
+  expect_false(res_hookreg_negative[["hook"]] == 1)
 })
