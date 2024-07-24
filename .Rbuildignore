@@ -12,3 +12,4 @@ docs
 CONTRIBUTING
 joss
 .github
+^\.github$
