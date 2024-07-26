@@ -21,8 +21,7 @@
 #' @importFrom segmented seg.control
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 #' @docType package
-#' @name PCRedux-package
-#' @aliases PCRedux
+#' @name PCRedux
 #' @examples
 #' # Use the mblrr function to analyse amplification curves
 #' library(qpcR)
