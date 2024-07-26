@@ -3,13 +3,7 @@ title: "PCRedux package - an overview"
 author: "The PCRedux package authors"
 date: "`r Sys.Date()`"
 output: 
-  rmarkdown::pdf_document:
-    number_sections: true
-    toc: true
-    toc_depth: 5
-header-includes:
-    - \usepackage[font={small}]{caption}
-bibliography: "literature.bib"
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PCRedux package - an overview}
   %\VignetteEngine{knitr::rmarkdown}
