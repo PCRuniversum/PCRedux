@@ -13,3 +13,4 @@ CONTRIBUTING
 joss
 .github
 ^\.github$
+^LICENSE\.md$
