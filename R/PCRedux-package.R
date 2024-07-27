@@ -20,13 +20,12 @@
 #' @importFrom zoo as.zoo
 #' @importFrom segmented seg.control
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
-#' @docType package
 #' @name PCRedux
 #' @examples
 #' # Use the mblrr function to analyse amplification curves
 #' library(qpcR)
 #' mblrr(x=boggy[, 1], y=boggy[, 2])
-
+"_PACKAGE"
 
 l4 <- list(expr = "Fluo ~ c + (d - c)/(1 + exp(b * (log(Cycles) - log(e))))", 
     fct = function (x, parm) 

@@ -10,7 +10,7 @@ qPCR2fdata(data, preprocess = FALSE)
 \item{data}{is a data set containing the amplification cycles (1. column)
 and the fluorescence (subsequent columns).}
 
-\item{preprocess}{is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}}
+\item{preprocess}{is a logical parameter (default FALSE). If TRUE, the \code{\link[chipPCR]{CPP}}
 function from the chipPCR package (Roediger et al. 2015) is used to pre-process
 the data (e.g., imputation of missing values).
 and the fluorescence (subsequent columns).}
@@ -21,8 +21,8 @@ for a converted amplification curve.
 }
 \description{
 \code{qPCR2fdata} is a helper function to convert qPCR data to the functional
-\code{\link{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This
-function prepares the data for further analysis with the \code{\link{fda.usc}} package,
+\code{\link[fda.usc]{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This
+function prepares the data for further analysis with the \code{\link[fda.usc]{fda.usc}} package,
 which includes utilities for functional data analysis (e.g., Hausdorff
 distance).
 }
