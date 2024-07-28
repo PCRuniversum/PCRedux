@@ -51,6 +51,7 @@ jobs:
       image: ${{ matrix.config.container }}
 
     steps:
+      - run: echo "RGL_USE_NULL=TRUE" >> $GITHUB_ENV
       - uses: r-hub/actions/checkout@v1
       - uses: r-hub/actions/platform-info@v1
         with:
