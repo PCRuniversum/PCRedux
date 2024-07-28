@@ -49,9 +49,10 @@ jobs:
         config: ${{ fromJson(needs.setup.outputs.containers) }}
     container:
       image: ${{ matrix.config.container }}
+    env:
+      RGL_USE_NULL: true
 
     steps:
-      - run: echo "RGL_USE_NULL=TRUE" >> $GITHUB_ENV
       - uses: r-hub/actions/checkout@v1
       - uses: r-hub/actions/platform-info@v1
         with:
